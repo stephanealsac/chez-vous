@@ -21,4 +21,4 @@ def weave(N, threads, amp, seed, out):
     print(out, N, 'px,', threads, 'fils/cm, amplitude', amp)
 
 weave(256, 18, 0.10, 7, 'weave_normal.png')   # toile (face peinte)
-weave(256, 30, 0.12, 11, 'tape_normal.png')   # galon des chants du châssis
+weave(256, 24, 0.35, 11, 'tape_normal.png')   # galon des chants du châssis

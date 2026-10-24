@@ -12,7 +12,7 @@ export const FRAME = {
   depth_cm: 4.0,      // profondeur totale (mur → arête)
   floor_cm: 1.3,      // hauteur du fond du caisson : 4 − 2,7 de profondeur intérieure
   canvas_depth_cm: 2.3, // châssis 2 cm + toile ; face à 0,4 cm en retrait de l'arête
-  canvas_round_cm: 0.4, // arête avant du châssis arrondie : l'image tourne sur l'arrondi
+  canvas_round_cm: 0.25, // arête avant du châssis arrondie : l'image tourne sur l'arrondi
   fillet_outer_cm: 0.15,
   fillet_inner_cm: 0.10,
 };

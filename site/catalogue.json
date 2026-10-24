@@ -9,7 +9,7 @@
   "canvas_depth_cm": 2.3,
   "fillet_outer_cm": 0.15,
   "fillet_inner_cm": 0.1,
-  "canvas_round_cm": 0.4
+  "canvas_round_cm": 0.25
  },
  "artist": "Stéphane Alsac",
  "site": "https://www.stephane-alsac.com",
