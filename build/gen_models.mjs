@@ -234,7 +234,10 @@ function usdShadowMaterial() {
                 float inputs:opacity.connect = </Root/Materials/ShadowMat/Texture.outputs:a>
                 float inputs:metallic = 0
                 float inputs:roughness = 1
-                float inputs:specular = 0
+                int inputs:useSpecularWorkflow = 1
+                color3f inputs:specularColor = (0, 0, 0)
+                float inputs:ior = 1
+                float inputs:clearcoat = 0
                 token outputs:surface
             }
             def Shader "uvReader_st"
@@ -339,7 +342,8 @@ function buildGLB(p, jpg, aoPng, cloth, tape, shadowPng) {
     { name: 'Floor', pbrMetallicRoughness: { baseColorFactor: [...MAT.floor.color, 1], metallicFactor: 0, roughnessFactor: MAT.floor.roughness }, occlusionTexture: { index: 1, strength: 1 } },
     { name: 'CanvasSide', pbrMetallicRoughness: { baseColorTexture: { index: 2, texCoord: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvasSide.roughness }, normalTexture: { index: 3, texCoord: 0, scale: 1 } },
     { name: 'Canvas', pbrMetallicRoughness: { baseColorTexture: { index: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvas.roughness } },
-    { name: 'Shadow', pbrMetallicRoughness: { baseColorTexture: { index: 4 }, baseColorFactor: [0, 0, 0, 1], metallicFactor: 0, roughnessFactor: 1 }, alphaMode: 'BLEND' },
+    { name: 'Shadow', pbrMetallicRoughness: { baseColorTexture: { index: 4 }, baseColorFactor: [0, 0, 0, 1], metallicFactor: 0, roughnessFactor: 1 }, alphaMode: 'BLEND', doubleSided: false,
+      extensions: { KHR_materials_specular: { specularFactor: 0, specularColorFactor: [0, 0, 0] }, KHR_materials_ior: { ior: 1.0 } } },
   ];
   [[p.frame, 0, false], [p.floor, 1, true], [p.sides, 2, false], [p.front, 3, true], [p.shadow, 4, true]].forEach(([m, mat, uv]) => {
     if (!m.I.length) return;
@@ -356,6 +360,7 @@ function buildGLB(p, jpg, aoPng, cloth, tape, shadowPng) {
   const imgView = addView(jpg), aoView = addView(aoPng), clothView = addView(cloth), tapeView = addView(tape), shadowView = addView(shadowPng);
   const json = {
     asset: { version: '2.0', generator: 'AR Tableaux - Stephane Alsac' },
+    extensionsUsed: ['KHR_materials_specular', 'KHR_materials_ior'],
     scene: 0, scenes: [{ nodes: [0] }], nodes: [{ mesh: 0, name: 'Painting' }],
     meshes: [{ primitives: prims }], materials: mats,
     textures: [{ source: 0, sampler: 0 }, { source: 1, sampler: 0 }, { source: 2, sampler: 1 }, { source: 3, sampler: 1 }, { source: 4, sampler: 0 }],

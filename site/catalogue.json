@@ -30,8 +30,8 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
-     "usdz": "models/tableau-peinture-tigre-classique-fbc314ca.usdz",
-     "glb": "models/tableau-peinture-tigre-classique-fbc314ca.glb",
+     "usdz": "models/tableau-peinture-tigre-classique-c2569929.usdz",
+     "glb": "models/tableau-peinture-tigre-classique-c2569929.glb",
      "outer_cm": {
       "w": 53.6,
       "h": 62.6,
@@ -40,8 +40,10 @@
      "ao_img": "ao/tableau-peinture-tigre-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-tigre-classique.png",
      "shadow_cm": {
-      "w": 67.6,
-      "h": 76.6
+      "x0": -25.8,
+      "x1": 33.8,
+      "y0": -38.3,
+      "y1": 30.3
      }
     }
    ],
@@ -63,8 +65,8 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
-     "usdz": "models/tableau-peinture-leopard-branche-classique-847565de.usdz",
-     "glb": "models/tableau-peinture-leopard-branche-classique-847565de.glb",
+     "usdz": "models/tableau-peinture-leopard-branche-classique-9d2b559e.usdz",
+     "glb": "models/tableau-peinture-leopard-branche-classique-9d2b559e.glb",
      "outer_cm": {
       "w": 53.6,
       "h": 88.6,
@@ -73,8 +75,10 @@
      "ao_img": "ao/tableau-peinture-leopard-branche-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-leopard-branche-classique.png",
      "shadow_cm": {
-      "w": 67.6,
-      "h": 102.6
+      "x0": -25.8,
+      "x1": 33.8,
+      "y0": -51.3,
+      "y1": 43.3
      }
     }
    ],
@@ -96,8 +100,8 @@
      "slug": "classique",
      "price_framed": 1960,
      "price_unframed": 1400,
-     "usdz": "models/tableau-peinture-ibex-classique-1b157034.usdz",
-     "glb": "models/tableau-peinture-ibex-classique-1b157034.glb",
+     "usdz": "models/tableau-peinture-ibex-classique-3f3c16ec.usdz",
+     "glb": "models/tableau-peinture-ibex-classique-3f3c16ec.glb",
      "outer_cm": {
       "w": 68.6,
       "h": 98.6,
@@ -106,8 +110,10 @@
      "ao_img": "ao/tableau-peinture-ibex-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-ibex-classique.png",
      "shadow_cm": {
-      "w": 82.6,
-      "h": 112.6
+      "x0": -33.3,
+      "x1": 41.3,
+      "y0": -56.3,
+      "y1": 48.3
      }
     },
     {
@@ -117,8 +123,8 @@
      "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
-     "usdz": "models/tableau-peinture-ibex-grand-993a6ea5.usdz",
-     "glb": "models/tableau-peinture-ibex-grand-993a6ea5.glb",
+     "usdz": "models/tableau-peinture-ibex-grand-923a4b72.usdz",
+     "glb": "models/tableau-peinture-ibex-grand-923a4b72.glb",
      "outer_cm": {
       "w": 98.6,
       "h": 138.6,
@@ -127,8 +133,10 @@
      "ao_img": "ao/tableau-peinture-ibex-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-ibex-grand.png",
      "shadow_cm": {
-      "w": 112.6,
-      "h": 152.6
+      "x0": -48.3,
+      "x1": 56.3,
+      "y0": -76.3,
+      "y1": 68.3
      }
     }
    ],
@@ -150,8 +158,8 @@
      "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
-     "usdz": "models/tableau-gorille-jungle-grand-877fc30e.usdz",
-     "glb": "models/tableau-gorille-jungle-grand-877fc30e.glb",
+     "usdz": "models/tableau-gorille-jungle-grand-88b377eb.usdz",
+     "glb": "models/tableau-gorille-jungle-grand-88b377eb.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -160,8 +168,10 @@
      "ao_img": "ao/tableau-gorille-jungle-grand.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-grand.png",
      "shadow_cm": {
-      "w": 162.6,
-      "h": 87.6
+      "x0": -73.3,
+      "x1": 81.3,
+      "y0": -43.8,
+      "y1": 35.8
      }
     },
     {
@@ -171,8 +181,8 @@
      "slug": "geant",
      "price_framed": 2980,
      "price_unframed": 1900,
-     "usdz": "models/tableau-gorille-jungle-geant-fbf6a761.usdz",
-     "glb": "models/tableau-gorille-jungle-geant-fbf6a761.glb",
+     "usdz": "models/tableau-gorille-jungle-geant-54c8fcf5.usdz",
+     "glb": "models/tableau-gorille-jungle-geant-54c8fcf5.glb",
      "outer_cm": {
       "w": 198.6,
       "h": 98.6,
@@ -181,8 +191,10 @@
      "ao_img": "ao/tableau-gorille-jungle-geant.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-geant.png",
      "shadow_cm": {
-      "w": 212.6,
-      "h": 112.6
+      "x0": -98.3,
+      "x1": 106.3,
+      "y0": -56.3,
+      "y1": 48.3
      }
     },
     {
@@ -192,8 +204,8 @@
      "slug": "monumental",
      "price_framed": 4850,
      "price_unframed": 3250,
-     "usdz": "models/tableau-gorille-jungle-monumental-b82e3919.usdz",
-     "glb": "models/tableau-gorille-jungle-monumental-b82e3919.glb",
+     "usdz": "models/tableau-gorille-jungle-monumental-60a66d28.usdz",
+     "glb": "models/tableau-gorille-jungle-monumental-60a66d28.glb",
      "outer_cm": {
       "w": 248.6,
       "h": 122.6,
@@ -202,8 +214,10 @@
      "ao_img": "ao/tableau-gorille-jungle-monumental.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-monumental.png",
      "shadow_cm": {
-      "w": 262.6,
-      "h": 136.6
+      "x0": -123.3,
+      "x1": 131.3,
+      "y0": -68.3,
+      "y1": 60.3
      }
     }
    ],
@@ -225,8 +239,8 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
-     "usdz": "models/tableau-leopard-classique-f848a34a.usdz",
-     "glb": "models/tableau-leopard-classique-f848a34a.glb",
+     "usdz": "models/tableau-leopard-classique-eeaea281.usdz",
+     "glb": "models/tableau-leopard-classique-eeaea281.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -235,8 +249,10 @@
      "ao_img": "ao/tableau-leopard-classique.png",
      "shadow_img": "ao/shadow-tableau-leopard-classique.png",
      "shadow_cm": {
-      "w": 107.6,
-      "h": 62.6
+      "x0": -45.8,
+      "x1": 53.8,
+      "y0": -31.3,
+      "y1": 23.3
      }
     },
     {
@@ -246,8 +262,8 @@
      "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
-     "usdz": "models/tableau-leopard-grand-52db621e.usdz",
-     "glb": "models/tableau-leopard-grand-52db621e.glb",
+     "usdz": "models/tableau-leopard-grand-95e2e5ee.usdz",
+     "glb": "models/tableau-leopard-grand-95e2e5ee.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -256,8 +272,10 @@
      "ao_img": "ao/tableau-leopard-grand.png",
      "shadow_img": "ao/shadow-tableau-leopard-grand.png",
      "shadow_cm": {
-      "w": 162.6,
-      "h": 87.6
+      "x0": -73.3,
+      "x1": 81.3,
+      "y0": -43.8,
+      "y1": 35.8
      }
     },
     {
@@ -267,8 +285,8 @@
      "slug": "geant",
      "price_framed": 2980,
      "price_unframed": 1900,
-     "usdz": "models/tableau-leopard-geant-a9deef00.usdz",
-     "glb": "models/tableau-leopard-geant-a9deef00.glb",
+     "usdz": "models/tableau-leopard-geant-75bcfb7e.usdz",
+     "glb": "models/tableau-leopard-geant-75bcfb7e.glb",
      "outer_cm": {
       "w": 198.6,
       "h": 98.6,
@@ -277,8 +295,10 @@
      "ao_img": "ao/tableau-leopard-geant.png",
      "shadow_img": "ao/shadow-tableau-leopard-geant.png",
      "shadow_cm": {
-      "w": 212.6,
-      "h": 112.6
+      "x0": -98.3,
+      "x1": 106.3,
+      "y0": -56.3,
+      "y1": 48.3
      }
     }
    ],
@@ -300,8 +320,8 @@
      "slug": "classique",
      "price_framed": 1820,
      "price_unframed": 1300,
-     "usdz": "models/tableau-eland-derby-classique-fad8f651.usdz",
-     "glb": "models/tableau-eland-derby-classique-fad8f651.glb",
+     "usdz": "models/tableau-eland-derby-classique-ba9c4f0a.usdz",
+     "glb": "models/tableau-eland-derby-classique-ba9c4f0a.glb",
      "outer_cm": {
       "w": 113.6,
       "h": 83.6,
@@ -310,8 +330,10 @@
      "ao_img": "ao/tableau-eland-derby-classique.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-classique.png",
      "shadow_cm": {
-      "w": 127.6,
-      "h": 97.6
+      "x0": -55.8,
+      "x1": 63.8,
+      "y0": -48.8,
+      "y1": 40.8
      }
     },
     {
@@ -321,8 +343,8 @@
      "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
-     "usdz": "models/tableau-eland-derby-grand-a81e986b.usdz",
-     "glb": "models/tableau-eland-derby-grand-a81e986b.glb",
+     "usdz": "models/tableau-eland-derby-grand-5cef78bf.usdz",
+     "glb": "models/tableau-eland-derby-grand-5cef78bf.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 108.6,
@@ -331,8 +353,10 @@
      "ao_img": "ao/tableau-eland-derby-grand.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-grand.png",
      "shadow_cm": {
-      "w": 162.6,
-      "h": 122.6
+      "x0": -73.3,
+      "x1": 81.3,
+      "y0": -61.3,
+      "y1": 53.3
      }
     },
     {
@@ -342,8 +366,8 @@
      "slug": "geant",
      "price_framed": 4850,
      "price_unframed": 3250,
-     "usdz": "models/tableau-eland-derby-geant-e6817fde.usdz",
-     "glb": "models/tableau-eland-derby-geant-e6817fde.glb",
+     "usdz": "models/tableau-eland-derby-geant-db307048.usdz",
+     "glb": "models/tableau-eland-derby-geant-db307048.glb",
      "outer_cm": {
       "w": 188.6,
       "h": 138.6,
@@ -352,8 +376,10 @@
      "ao_img": "ao/tableau-eland-derby-geant.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-geant.png",
      "shadow_cm": {
-      "w": 202.6,
-      "h": 152.6
+      "x0": -93.3,
+      "x1": 101.3,
+      "y0": -76.3,
+      "y1": 68.3
      }
     }
    ],
@@ -375,8 +401,8 @@
      "slug": "grand",
      "price_framed": 1960,
      "price_unframed": 1400,
-     "usdz": "models/tableau-peinture-loup-noir-grand-394e3cb1.usdz",
-     "glb": "models/tableau-peinture-loup-noir-grand-394e3cb1.glb",
+     "usdz": "models/tableau-peinture-loup-noir-grand-4f113c0f.usdz",
+     "glb": "models/tableau-peinture-loup-noir-grand-4f113c0f.glb",
      "outer_cm": {
       "w": 108.6,
       "h": 68.6,
@@ -385,8 +411,10 @@
      "ao_img": "ao/tableau-peinture-loup-noir-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-loup-noir-grand.png",
      "shadow_cm": {
-      "w": 122.6,
-      "h": 82.6
+      "x0": -53.3,
+      "x1": 61.3,
+      "y0": -41.3,
+      "y1": 33.3
      }
     },
     {
@@ -396,8 +424,8 @@
      "slug": "geant",
      "price_framed": 3600,
      "price_unframed": 2400,
-     "usdz": "models/tableau-peinture-loup-noir-geant-bc6f3a23.usdz",
-     "glb": "models/tableau-peinture-loup-noir-geant-bc6f3a23.glb",
+     "usdz": "models/tableau-peinture-loup-noir-geant-cd66d465.usdz",
+     "glb": "models/tableau-peinture-loup-noir-geant-cd66d465.glb",
      "outer_cm": {
       "w": 158.6,
       "h": 98.6,
@@ -406,8 +434,10 @@
      "ao_img": "ao/tableau-peinture-loup-noir-geant.png",
      "shadow_img": "ao/shadow-tableau-peinture-loup-noir-geant.png",
      "shadow_cm": {
-      "w": 172.6,
-      "h": 112.6
+      "x0": -78.3,
+      "x1": 86.3,
+      "y0": -56.3,
+      "y1": 48.3
      }
     }
    ],
@@ -429,8 +459,8 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
-     "usdz": "models/tableau-gorille-classique-7c90601f.usdz",
-     "glb": "models/tableau-gorille-classique-7c90601f.glb",
+     "usdz": "models/tableau-gorille-classique-baac8afa.usdz",
+     "glb": "models/tableau-gorille-classique-baac8afa.glb",
      "outer_cm": {
       "w": 57.6,
       "h": 68.6,
@@ -439,8 +469,10 @@
      "ao_img": "ao/tableau-gorille-classique.png",
      "shadow_img": "ao/shadow-tableau-gorille-classique.png",
      "shadow_cm": {
-      "w": 71.6,
-      "h": 82.6
+      "x0": -27.8,
+      "x1": 35.8,
+      "y0": -41.3,
+      "y1": 33.3
      }
     },
     {
@@ -450,8 +482,8 @@
      "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
-     "usdz": "models/tableau-gorille-grand-73b84b73.usdz",
-     "glb": "models/tableau-gorille-grand-73b84b73.glb",
+     "usdz": "models/tableau-gorille-grand-6caeb400.usdz",
+     "glb": "models/tableau-gorille-grand-6caeb400.glb",
      "outer_cm": {
       "w": 90.6,
       "h": 108.6,
@@ -460,8 +492,10 @@
      "ao_img": "ao/tableau-gorille-grand.png",
      "shadow_img": "ao/shadow-tableau-gorille-grand.png",
      "shadow_cm": {
-      "w": 104.6,
-      "h": 122.6
+      "x0": -44.3,
+      "x1": 52.3,
+      "y0": -61.3,
+      "y1": 53.3
      }
     }
    ],
@@ -483,8 +517,8 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
-     "usdz": "models/tableau-realiste-lievre-classique-6fde212e.usdz",
-     "glb": "models/tableau-realiste-lievre-classique-6fde212e.glb",
+     "usdz": "models/tableau-realiste-lievre-classique-fa31fb8a.usdz",
+     "glb": "models/tableau-realiste-lievre-classique-fa31fb8a.glb",
      "outer_cm": {
       "w": 73.6,
       "h": 45.6,
@@ -493,8 +527,10 @@
      "ao_img": "ao/tableau-realiste-lievre-classique.png",
      "shadow_img": "ao/shadow-tableau-realiste-lievre-classique.png",
      "shadow_cm": {
-      "w": 87.6,
-      "h": 59.6
+      "x0": -35.8,
+      "x1": 43.8,
+      "y0": -29.8,
+      "y1": 21.8
      }
     }
    ],

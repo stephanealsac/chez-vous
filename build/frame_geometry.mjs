@@ -147,8 +147,8 @@ export function buildPainting(wcm, hcm, F = FRAME, shadowCm = null) {
   // ombre portée (plan à 0,5 mm du mur, derrière le cadre, texture RGBA)
   const shadow = emptyMesh();
   if (shadowCm) {
-    const sw = shadowCm.w * cm / 2, sh = shadowCm.h * cm / 2;
-    addQuad(shadow, [-sw, -sh, 0.0005], [sw, -sh, 0.0005], [sw, sh, 0.0005], [-sw, sh, 0.0005], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 1, 1, 1, 1, 0, 0, 0]);
+    const x0 = shadowCm.x0 * cm, x1 = shadowCm.x1 * cm, y0 = shadowCm.y0 * cm, y1 = shadowCm.y1 * cm;
+    addQuad(shadow, [x0, y0, 0.0005], [x1, y0, 0.0005], [x1, y1, 0.0005], [x0, y1, 0.0005], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 1, 1, 1, 1, 0, 0, 0]);
   }
   return {
     frame: merge(frame, back), floor, front, sides, shadow,

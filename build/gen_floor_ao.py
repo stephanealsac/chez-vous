@@ -36,9 +36,12 @@ MARGIN, OFFX, OFFY, SOFT, AMAX = 7.0, 1.0, -1.8, 2.0, 0.38   # cm, décalage x, 
 for w in cat['works']:
     for s in w['sizes']:
         ow, oh = s['outer_cm']['w'], s['outer_cm']['h']
-        W, H = ow + 2 * MARGIN, oh + 2 * MARGIN
-        xs = (np.arange(N) + 0.5) / N * W - W / 2
-        ys = H / 2 - (np.arange(N) + 0.5) / N * H
+        # zone de la texture : x de −ow/2+1 à ow/2+MARGIN, y de −oh/2−MARGIN à oh/2−1 (le reste est vide, inutile)
+        x0, x1 = -ow / 2 + 1.0, ow / 2 + MARGIN
+        y0, y1 = -oh / 2 - MARGIN, oh / 2 - 1.0
+        W, H = x1 - x0, y1 - y0
+        xs = x0 + (np.arange(N) + 0.5) / N * W
+        ys = y1 - (np.arange(N) + 0.5) / N * H
         X, Y = np.meshgrid(xs, ys)
         dx = np.maximum(np.abs(X - OFFX) - ow / 2, 0); dy = np.maximum(np.abs(Y - OFFY) - oh / 2, 0)
         d = np.sqrt(dx**2 + dy**2)                          # distance au rectangle d'ombre (cadre décalé)
@@ -47,12 +50,12 @@ for w in cat['works']:
         m = np.maximum(np.clip((-oh / 2 - Y + 0.4) / 1.0, 0, 1), np.clip((X - ow / 2 + 0.4) / 1.0, 0, 1))
         a = a * m
         # fondu vers zéro sur le bord de la texture (jamais de bord visible)
-        edge = np.minimum(np.minimum(W / 2 - np.abs(X), H / 2 - np.abs(Y)) / 2.5, 1)
+        edge = np.minimum(np.minimum(x1 - X, Y - y0) / 2.5, 1)
         a = np.clip(a * np.clip(edge, 0, 1), 0, 1)
         rgba = np.zeros((N, N, 4), np.uint8); rgba[..., 3] = (a * 255).round().astype(np.uint8)
         name = f"shadow-{w['slug']}-{s['slug']}.png"
         Image.fromarray(rgba, 'RGBA').save(os.path.join(out, name), optimize=True)
         s['shadow_img'] = f'ao/{name}'
-        s['shadow_cm'] = {'w': round(W, 1), 'h': round(H, 1)}
+        s['shadow_cm'] = {'x0': round(x0, 2), 'x1': round(x1, 2), 'y0': round(y0, 2), 'y1': round(y1, 2)}
 json.dump(cat, open(os.path.join(SITE, 'catalogue.json'), 'w'), ensure_ascii=False, indent=1)
 print(n, 'textures d\'occlusion +', n, 'ombres')
