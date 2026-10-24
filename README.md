@@ -2,7 +2,7 @@
 
 Visualisation des Éditions sur Toile sur son mur, à taille réelle, en réalité augmentée.
 Fonctionne dans Safari (iPhone/iPad, AR Quick Look) et Chrome (Android, Scene Viewer).
-Aucune base de données, aucun serveur : un site statique, qui marche hors-ligne une fois chargé.
+Aucune base de données, aucun serveur : un site statique.
 
 ## Mise en ligne (Netlify)
 
@@ -19,7 +19,6 @@ Après le premier déploiement, relancer `SITE_URL=https://<adresse finale> buil
 - `site/` — **le site à déployer tel quel** (Netlify). Tout est dedans : page, polices, images, modèles 3D.
 - `build_catalogue.py` — lit la boutique WooCommerce (API publique), choisit les œuvres, télécharge et recadre les images, écrit `site/catalogue.json`.
 - `build/gen_models.mjs` — génère pour chaque œuvre × taille un `.usdz` (iPhone) et un `.glb` (Android) : toile + caisse américaine noire mate (baguette 4,5 × 4,5 cm, jour 0,8 cm).
-- `build/gen_sw.mjs` — génère le service worker (cache hors-ligne).
 - `build/build.sh` — enchaîne les trois.
 - `data/` — cache des réponses WooCommerce et des images brutes.
 

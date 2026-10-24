@@ -302,9 +302,12 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     const mv = $('#mv');
     mv.setAttribute('alt', work.title + ', ' + s.label);
     if (isAndroid) mv.setAttribute('src', s.glb);
+    if (isIOS) prefetch(s.usdz);   // le fichier est en cache avant le premier appui sur « Voir sur mon mur »
     setMsg('');
     if (iosNoAR) { const m = $('#ar-msg'); m.innerHTML = 'Pour la réalité augmentée, ouvrez cette page dans Safari.<br><a href="' + esc(safariLink()) + '" style="color:inherit">Ouvrir dans Safari</a>'; m.classList.add('on'); }
   }
+  const prefetched = new Set();
+  function prefetch(u){ if (prefetched.has(u)) return; prefetched.add(u); try { fetch(u, { mode: 'same-origin', credentials: 'omit' }).then(r => r.arrayBuffer()).catch(() => {}); } catch (_) {} }
   function setMsg(t){ const m = $('#ar-msg'); m.textContent = t; m.classList.toggle('on', !!t); }
 
   // ---------- échelle (silhouette 1,75 m) ----------
@@ -390,8 +393,9 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && tuto.classList.contains('open')) closeTuto(); });
   // Tutoriel : pas d'ouverture automatique (une vidéo remplacera ces écrans) ; accessible via le bouton « ? »
 
-  // ---------- hors-ligne ----------
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  // ---------- ancien cache hors-ligne : on le retire (il faisait rater le premier lancement de la RA sur Safari) ----------
+  if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {});
+  if (window.caches) caches.keys().then(ks => ks.forEach(k => caches.delete(k))).catch(() => {});
 
   function esc(s){ return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 })();

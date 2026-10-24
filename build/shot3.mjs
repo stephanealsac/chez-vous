@@ -15,7 +15,9 @@ console.log('format 2 → hash', await page.evaluate(() => location.hash), '| di
 // simule Safari iOS : relList.supports('ar') = true
 const href = await page.evaluate(() => new Promise(res => { const a = document.querySelector('#ql'); const orig = a.click.bind(a); a.click = () => res(a.getAttribute('href')); document.querySelector('#ar-btn').click(); setTimeout(() => res('PAS DE CLIC'), 2000); }));
 console.log('lien AR déclenché:', href);
-const sw = await page.evaluate(async () => (await navigator.serviceWorker.getRegistration()) ? 'enregistré' : 'absent');
+await page.waitForTimeout(1500); const sw = await page.evaluate(async () => (await navigator.serviceWorker.getRegistration()) ? 'enregistré' : 'absent');
+const pre = await page.evaluate(() => performance.getEntriesByType('resource').filter(e => e.name.endsWith('.usdz')).map(e => e.name.split('/').pop()));
+console.log('usdz préchargés:', pre);
 console.log('service worker:', sw);
 console.log('réponses en erreur:', failed.length ? failed : 'aucune');
 console.log('erreurs JS:', errs.length ? errs : 'aucune');

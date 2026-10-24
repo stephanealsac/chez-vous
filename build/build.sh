@@ -13,5 +13,4 @@ node "$HERE/gen_models.mjs" "$ROOT/site"
 if [ -n "${SITE_URL:-}" ]; then
   sed -i "s#content=\"[^\"]*og-image.jpg\"#content=\"${SITE_URL%/}/og-image.jpg\"#" "$ROOT/site/index.html"
 fi
-node "$HERE/gen_sw.mjs" "$ROOT/site"
 echo "OK — dossier à déployer : $ROOT/site"
