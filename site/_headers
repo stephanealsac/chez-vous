@@ -1,0 +1,15 @@
+# En-têtes pour Cloudflare Pages (Netlify lit netlify.toml)
+/models/*.usdz
+  Content-Type: model/vnd.usdz+zip
+  Cache-Control: public, max-age=31536000, immutable
+/models/*.glb
+  Content-Type: model/gltf-binary
+  Cache-Control: public, max-age=31536000, immutable
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+/sw.js
+  Cache-Control: no-cache
+/catalogue.json
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Content-Type: application/manifest+json
