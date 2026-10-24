@@ -6,3 +6,5 @@ data/product.html
 data/*.css
 chez-vous-site.zip
 build/render-tmp/
+siwis.onnx*
+build/tuto/audio/*.onnx*

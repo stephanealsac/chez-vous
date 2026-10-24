@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Film 4 — Motion design</title>
+<link rel="stylesheet" href="../../site/fonts/fonts.css"><link rel="stylesheet" href="common.css">
+<style>
+body{background:var(--bg)}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;perspective:2600px;perspective-origin:50% 42%;overflow:hidden}
+/* ouverture : mots cinétiques */
+#kin{position:absolute;left:90px;right:90px;top:0;height:1920px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+#kin .w{display:inline-block;font-family:var(--serif);font-style:italic;font-weight:300;font-size:118px;line-height:1.06;letter-spacing:.01em;margin:0 .14em;opacity:0;will-change:transform}
+#kin .line{display:block}
+#brandtop{position:absolute;left:0;width:1080px;top:150px;text-align:center;font:400 30px/1 var(--serif);letter-spacing:.3em;text-transform:uppercase;opacity:0}
+/* iPhone 3D */
+.iphone{position:absolute;left:260px;top:390px;width:560px;height:1140px;transform-style:preserve-3d;border-radius:92px;
+  background:linear-gradient(135deg,#4a4a4c,#141416 38%,#2a2a2d 68%,#0c0c0d);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.22),inset 0 0 0 6px #19191b,0 70px 90px rgba(20,14,8,.42),0 20px 30px rgba(20,14,8,.25);opacity:0}
+.iphone .scr{position:absolute;inset:16px;border-radius:78px;overflow:hidden;background:#000}
+.iphone .island{position:absolute;left:50%;top:34px;width:150px;height:44px;margin-left:-75px;border-radius:24px;background:#000;z-index:5}
+.iphone .glare{position:absolute;inset:0;border-radius:92px;background:linear-gradient(112deg,rgba(255,255,255,.16),rgba(255,255,255,0) 32%,rgba(255,255,255,0) 66%,rgba(255,255,255,.07));pointer-events:none;z-index:6}
+.iphone .side{position:absolute;width:6px;background:#2d2d30;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.iphone .lay{position:absolute;left:0;top:0;width:528px;height:1108px;opacity:0;overflow:hidden}
+.iphone .lay img.page{position:absolute;left:0;top:0;width:528px;height:auto;display:block}
+#dark{background:#000}
+/* monde RA (la pièce réelle) : 1320 × 2470, mis à l'échelle dans l'écran ou plein cadre */
+.world{position:absolute;left:0;top:0;width:1320px;height:2470px;transform-origin:0 0;overflow:hidden;background:#000}
+.world img.plate{position:absolute;left:0;top:0;width:1320px;height:2470px}
+.world .hang{position:absolute;opacity:0;filter:drop-shadow(10px 18px 22px rgba(20,14,8,.45)) drop-shadow(3px 6px 6px rgba(20,14,8,.3))}
+.world .hang img{width:100%;height:100%;display:block}
+.world .dots{opacity:0}
+.world .dots i{width:9px;height:9px}
+.world .pulse{position:absolute;border:5px solid #fff;opacity:0;box-shadow:0 0 30px rgba(255,255,255,.8)}
+.world .coach{position:absolute;left:660px;top:420px;opacity:0}
+.world .coach svg{position:absolute;left:-150px;top:-60px;width:300px;height:360px;overflow:visible}
+#fullwrap{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;opacity:0;background:#000}
+/* cotes dans le monde */
+.wdim{position:absolute;left:0;top:0;width:1320px;height:2470px;opacity:0}
+.wdim line{stroke:#fff;stroke-width:4;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.wdim text{font-family:var(--serif);font-size:72px;font-weight:400;fill:#fff;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+/* pastilles */
+.pill{position:absolute;padding:22px 38px;border-radius:999px;background:var(--ink);color:var(--bg);font:500 26px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;opacity:0;transform-origin:50% 50%;box-shadow:0 18px 30px rgba(20,14,8,.25)}
+.pill.light{background:rgba(238,234,225,.96);color:var(--ink)}
+.pill b{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:.04em;text-transform:none;margin-left:14px}
+/* bannière Quick Look */
+.banner{position:absolute;left:34px;right:34px;bottom:54px;padding:40px 44px;border-radius:44px;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:space-between;gap:30px;transform:translateY(140px);opacity:0}
+.banner .t{font:600 38px/1.3 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#111}
+.banner .s{font:400 30px/1.35 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#555;white-space:nowrap}
+.banner .b{font:600 34px/1 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#0a7cff;white-space:nowrap}
+/* achat : carte parchemin + coche */
+#buy{position:absolute;inset:0;background:var(--bg);opacity:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#buy svg{width:260px;height:260px}
+#buy .lab{font:500 28px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;margin-top:40px}
+#buy .big{font-size:96px;margin-top:26px}
+#white{position:absolute;inset:0;background:#fff;opacity:0}
+#fade{position:absolute;inset:0;background:var(--bg);opacity:0}
+</style></head>
+<body>
+<div id="stage">
+  <div id="brandtop">Stéphane Alsac</div>
+  <div id="kin"></div>
+
+  <div class="iphone" id="ph">
+    <div class="side" style="left:-6px;top:250px;height:70px"></div><div class="side" style="left:-6px;top:360px;height:120px"></div><div class="side" style="left:-6px;top:500px;height:120px"></div><div class="side" style="right:-6px;top:380px;height:180px"></div>
+    <div class="scr">
+      <div class="lay" id="l-cat"><img class="page" src="full-catalogue.png" alt=""></div>
+      <div class="lay" id="l-fiche"><img class="page" src="full-fiche.png" alt=""></div>
+      <div class="lay" id="dark"></div>
+      <div class="lay" id="l-cam"><div class="world" id="w1"></div></div>
+    </div>
+    <div class="island"></div><div class="glare"></div>
+  </div>
+  <div class="pill" id="p1">Éditions sur Toile</div>
+  <div class="pill" id="p2">Format <b>60 × 80 cm</b></div>
+  <div class="pill" id="p3">Réalité augmentée</div>
+  <div class="ripple" id="rip1" style="border-color:rgba(26,26,26,.9)"></div>
+
+  <div id="fullwrap"><div class="world" id="w2"></div>
+    <div class="pill light" id="p4">À taille réelle</div>
+    <div class="banner" id="banner"><div><div class="t">Coeur de Chêne</div><div class="s">Classique · 60 × 80 cm, 1 150 €</div></div><div class="b">Acquérir ce tirage</div></div>
+    <div class="ripple" id="rip2" style="border-color:rgba(255,255,255,.95)"></div>
+    <div id="fingerhost"></div>
+  </div>
+  <div id="white"></div>
+  <div id="buy"><svg viewBox="0 0 260 260"><circle cx="130" cy="130" r="118" fill="none" stroke="#1a1a1a" stroke-width="4" id="ck-c"/><path d="M78 134 L116 172 L186 94" fill="none" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" id="ck"/></svg><div class="lab">Acquérir ce tirage</div><div class="big" style="font-family:var(--serif);font-style:italic;font-weight:300;line-height:1">en un geste</div></div>
+  <div class="abs card" id="c-end" style="background:var(--bg)"><div class="brand">Stéphane Alsac</div><div class="big">Chez vous</div><div class="rule"></div><div class="site">chez-vous.stephane-alsac.com</div></div>
+  <div id="fade"></div>
+</div>
+<script src="common.js"></script>
+<script>
+// ---------- mots cinétiques ----------
+const LINES = [['Et', 'si', 'vous', 'pouviez'], ['le', 'voir'], ['chez', 'vous', '?']];
+const kin = $('kin'); const words = [];
+LINES.forEach(l => { const d = document.createElement('div'); d.className = 'line'; l.forEach(w => { const s = document.createElement('span'); s.className = 'w'; s.textContent = w; d.appendChild(s); words.push(s); }); kin.appendChild(d); });
+// ---------- monde RA : pièce réelle + tableau ----------
+const PK = 11, PCX = 555, PCY = 1180, WCM = 68.6, HCM = 88.6;   // px/cm dans la pièce, centre du tableau
+function worldHTML() {
+  return `<img class="plate" src="room-plate.jpg" alt="">
+    <div class="dots"></div>
+    <div class="hang"><img src="frame-alpha.png" alt=""></div>
+    <div class="pulse"></div>
+    <div class="coach"><svg viewBox="0 0 300 360" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"><g class="glyph" style="transform-origin:150px 230px"><rect x="90" y="30" width="120" height="210" rx="26"/><circle cx="150" cy="206" r="6" fill="#fff" stroke="none"/></g><path d="M34 290 q116 84 232 0" stroke-dasharray="4 18" stroke-width="7" opacity=".9"/></svg></div>
+    <svg class="wdim" viewBox="0 0 1320 2470">
+      <line class="dh" x1="${PCX - WCM * PK / 2}" y1="${PCY - HCM * PK / 2 - 70}" x2="${PCX + WCM * PK / 2}" y2="${PCY - HCM * PK / 2 - 70}"/>
+      <line x1="${PCX - WCM * PK / 2}" y1="${PCY - HCM * PK / 2 - 92}" x2="${PCX - WCM * PK / 2}" y2="${PCY - HCM * PK / 2 - 48}"/><line x1="${PCX + WCM * PK / 2}" y1="${PCY - HCM * PK / 2 - 92}" x2="${PCX + WCM * PK / 2}" y2="${PCY - HCM * PK / 2 - 48}"/>
+      <text class="th" x="${PCX}" y="${PCY - HCM * PK / 2 - 110}" text-anchor="middle">60 cm</text>
+      <line class="dv" x1="${PCX + WCM * PK / 2 + 70}" y1="${PCY - HCM * PK / 2}" x2="${PCX + WCM * PK / 2 + 70}" y2="${PCY + HCM * PK / 2}"/>
+      <line x1="${PCX + WCM * PK / 2 + 48}" y1="${PCY - HCM * PK / 2}" x2="${PCX + WCM * PK / 2 + 92}" y2="${PCY - HCM * PK / 2}"/><line x1="${PCX + WCM * PK / 2 + 48}" y1="${PCY + HCM * PK / 2}" x2="${PCX + WCM * PK / 2 + 92}" y2="${PCY + HCM * PK / 2}"/>
+      <text class="tv" x="${PCX + WCM * PK / 2 + 100}" y="${PCY + 24}" text-anchor="start">80 cm</text>
+    </svg>`;
+}
+const worlds = ['w1', 'w2'].map(id => { const w = $(id); w.innerHTML = worldHTML(); const h = w.querySelector('.hang'); placeHang(h, PCX, PCY, WCM, HCM, PK); makeDots(w.querySelector('.dots'), 90, 150, 300, 1000, 1500, 9);
+  for (const l of w.querySelectorAll('.dh,.dv')) { const L = Math.hypot(l.x2.baseVal.value - l.x1.baseVal.value, l.y2.baseVal.value - l.y1.baseVal.value); l.style.strokeDasharray = L; l.dataset.len = L; }
+  return w; });
+function worldState(w, t, dragX) {
+  const h = w.querySelector('.hang'), ap = seg(t, 16.3, 17.3);
+  show(h, ap, `translate(${dragX}px,0) scale(${0.94 + 0.06 * ap})`);
+  animDots(w.querySelector('.dots'), t, win(t, 13.9, 14.6, 16.0, 16.8));
+  const c = w.querySelector('.coach'); c.style.opacity = win(t, 11.2, 11.8, 15.6, 16.2); c.querySelector('.glyph').style.transform = `rotate(${Math.sin((t - 11) * 2.6) * 16}deg)`;
+  const pu = win(t, 16.3, 16.5, 16.8, 17.8), g = 1 + 0.3 * seg(t, 16.3, 17.8), pw = WCM * PK * g, phh = HCM * PK * g;
+  Object.assign(w.querySelector('.pulse').style, { left: PCX + dragX - pw / 2 + 'px', top: PCY - phh / 2 + 'px', width: pw + 'px', height: phh + 'px', opacity: pu * .9 });
+  const d = w.querySelector('.wdim'); d.style.opacity = win(t, 17.4, 17.8, 19.0, 19.4); d.style.transform = `translate(${dragX}px,0)`;
+  const u = seg(t, 17.4, 18.8); for (const l of d.querySelectorAll('.dh,.dv')) l.style.strokeDashoffset = (1 - u) * +l.dataset.len;
+  d.querySelector('.th').style.opacity = seg(t, 18.4, 19.0); d.querySelector('.tv').style.opacity = seg(t, 18.7, 19.3);
+}
+$('fingerhost').innerHTML = fingerHTML('fg');
+const ph = $('ph'), SW = 528, SH = 1108, ZS = SH / 2470;   // écran, échelle du monde dans l'écran
+const K2 = 528 / 780;   // captures (780 px) → écran
+const CARD = [97.75 * 2 * K2, 253.1 * 2 * K2], SIZE = [195 * 2 * K2, 728.5 * 2 * K2], BTN = [195 * 2 * K2, 887.6 * 2 * K2];
+const easeBack = x => { const c = 1.70158; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+function pop(el, t, a, hold, x, y) { const u = clamp((t - a) / .55); const out = hold ? 1 - seg(t, hold, hold + .4) : 1; el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.opacity = (u > 0 ? 1 : 0) * out; el.style.transform = `scale(${u > 0 ? easeBack(u) : 0})`; }
+
+window.DURATION = 33.5;
+window.render = function (t) {
+  // ---------- ouverture ----------
+  $('brandtop').style.opacity = win(t, 0.2, 0.9, 3.4, 4.0);
+  words.forEach((w, i) => { const a = 0.9 + i * 0.28; const u = seg(t, a, a + .5); const o = 1 - seg(t, 3.5, 4.0); w.style.opacity = u * o; w.style.transform = `translateY(${30 - 30 * u}px)`; });
+  // ---------- iPhone ----------
+  const enter = seg(t, 3.7, 4.7);
+  const sway = Math.sin(t * 0.9) * 5, swayX = Math.sin(t * 0.7 + 1) * 4;
+  const hand = t > 10.9 ? 1 : 0;   // tenue en main : plus de mouvement
+  const hs = hand * (1 - seg(t, 12.4, 13.6));
+  const rotY = lerp(-14, 7 + swayX, enter) * (1 - seg(t, 12.4, 13.6)) + hs * Math.sin((t - 10.9) * 1.8) * 6;
+  const rotX = lerp(6, 3 + sway * .4, enter) * (1 - seg(t, 12.4, 13.6)) + hs * Math.sin((t - 10.9) * 1.3) * 4;
+  const zoom = seg(t, 12.4, 13.7);
+  const sc = lerp(1, 2.06, easeOut(zoom));
+  const ty = lerp(1500, 0, easeOut(enter)) + Math.sin(t * 1.1) * 8 * (1 - zoom);
+  const tx = lerp(0, 0, enter) + hs * Math.sin((t - 10.9) * 1.5) * 18;
+  // centre de l'écran du téléphone vers le centre du cadre lors du zoom
+  const cx0 = 260 + 280, cy0 = 390 + 570; const dx = (540 - cx0) * zoom, dy = (960 - cy0) * zoom;
+  ph.style.opacity = enter > 0 && t < 14.2 ? 1 : 0;   // disparaît une fois le plein cadre en place
+  ph.style.transform = `translate3d(${tx + dx}px,${ty + dy}px,0) rotateY(${rotY}deg) rotateX(${rotX}deg) scale(${sc})`;
+  // écrans
+  const catScroll = lerp(0, 150, seg(t, 4.6, 6.4));
+  $('l-cat').style.opacity = win(t, 0, 0.1, 6.5, 6.9); $('l-cat').querySelector('img').style.transform = `translateY(${-catScroll}px)`;
+  const fScroll = lerp(0, 205, seg(t, 7.0, 8.6));
+  $('l-fiche').style.opacity = win(t, 6.5, 6.9, 10.3, 10.8); $('l-fiche').querySelector('img').style.transform = `translateY(${-fScroll}px)`;
+  $('dark').style.opacity = win(t, 10.3, 10.8, 10.9, 11.4);
+  $('l-cam').style.opacity = win(t, 10.9, 11.1);
+  // monde dans l'écran : drift de la main
+  const drift = hand * (Math.sin((t - 10.9) * 1.4) * 40 * (1 - zoom));
+  $('w1').style.transform = `translate(${-32 + drift * ZS}px,0) scale(${ZS})`;
+  worldState($('w1'), t, 0);
+  // touches dans l'écran (coordonnées écran → cadre, approximation : téléphone non zoomé)
+  const scrLeft = 260 + 16 + tx, scrTop = 390 + 16 + ty;
+  const taps1 = [[6.2, CARD[0], CARD[1] - catScroll], [7.7, SIZE[0], SIZE[1] - fScroll], [10.2, BTN[0], BTN[1] - fScroll]];
+  $('rip1').style.opacity = 0;
+  for (const [t0, x, y] of taps1) if (t >= t0 && t < t0 + .7) rippleAt($('rip1'), scrLeft + x, scrTop + y, t, t0);
+  // pastilles
+  pop($('p1'), t, 4.9, 6.3, 70, 330);
+  pop($('p2'), t, 7.0, 9.6, 480, 1600);
+  pop($('p3'), t, 11.1, 12.3, 520, 290);
+  // ---------- plein cadre ----------
+  const fw = $('fullwrap'); fw.style.opacity = win(t, 13.55, 13.85, 25.9, 26.7);
+  const settle = seg(t, 13.9, 15.6), back = seg(t, 21.4, 23.2);
+  const ws = lerp(lerp(2.06 * ZS, 0.9, settle), 0.818, back);
+  const drift2 = Math.sin((t - 13.6) * 1.2) * 14 * (1 - back) + Math.sin(t * 2.3) * 3;
+  const ox = 540 - 660 * ws + drift2, oy = 960 - 1235 * ws + Math.sin(t * 1.7) * 4;
+  $('w2').style.transform = `translate(${ox}px,${oy}px) scale(${ws})`;
+  const dragX = 120 * seg(t, 19.5, 21.0);
+  worldState($('w2'), t, dragX);
+  pop($('p4'), t, 17.6, 21.0, 70, 150);
+  const b = seg(t, 23.4, 24.2); show($('banner'), b, `translateY(${140 - 140 * b}px)`);
+  // doigt
+  const fx0 = ox + (PCX) * ws, fy0 = oy + (PCY + 120) * ws;
+  let fx = 1250, fy = 2200, vis = 0, press = 0;
+  if (t > 18.6 && t < 22.0) { const u = seg(t, 18.6, 19.4); fx = lerp(1250, fx0, u); fy = lerp(2200, fy0, u); fx += 120 * ws * seg(t, 19.5, 21.0); const o = seg(t, 21.2, 21.9); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1; press = t > 19.3 && t < 21.1 ? 1 : 0; }
+  if (t > 24.8 && t < 26.6) { const u = seg(t, 24.8, 25.5); fx = lerp(1250, 870, u); fy = lerp(2200, 1800, u); const o = seg(t, 25.9, 26.5); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1; press = win(t, 25.55, 25.7, 25.85, 26.0); }
+  fingerAt($('fg'), fx, fy, press, vis);
+  $('rip2').style.opacity = 0;
+  if (t >= 19.35 && t < 20.0) rippleAt($('rip2'), fx0, fy0, t, 19.35);
+  if (t >= 25.65 && t < 26.3) rippleAt($('rip2'), 870, 1800, t, 25.65);
+  // ---------- achat ----------
+  $('white').style.opacity = win(t, 25.9, 26.1, 26.15, 26.6);
+  $('buy').style.opacity = win(t, 26.3, 26.8, 29.4, 30.0);
+  const ck = seg(t, 26.8, 27.5); $('ck').style.strokeDasharray = 200; $('ck').style.strokeDashoffset = 200 * (1 - ck);
+  $('ck-c').style.strokeDasharray = 742; $('ck-c').style.strokeDashoffset = 742 * (1 - seg(t, 26.4, 27.3));
+  // ---------- fin ----------
+  $('c-end').style.opacity = win(t, 29.6, 30.5);
+  $('fade').style.opacity = seg(t, 32.6, 33.5);
+};
+render(0);
+</script>
+</body></html>
