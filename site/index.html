@@ -250,7 +250,11 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const ua = navigator.userAgent;
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const isAndroid = /Android/i.test(ua);
-  const quickLook = isIOS && (() => { const a = document.createElement('a'); return !!(a.relList && a.relList.supports && a.relList.supports('ar')); })();
+  const supportsAR = (() => { const a = document.createElement('a'); return !!(a.relList && a.relList.supports && a.relList.supports('ar')); })();
+  const quickLook = isIOS && supportsAR;
+  const iosNoAR = isIOS && !supportsAR;                 // navigateur intégré (app Claude, Instagram, etc.) : pas de RA, il faut Safari
+  const isMobile = isIOS || isAndroid || (navigator.maxTouchPoints > 0 && /Mobi|Tablet/i.test(ua));
+  const safariLink = () => 'x-safari-' + location.href;  // ouvre l'adresse dans Safari depuis un navigateur intégré
   const fmtEur = n => n == null ? '' : String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ' ') + ' €';
   const fmtCm = n => String(n).replace('.', ',');
   const MSG_IOS = 'Balayez lentement le mur : l\'œuvre s\'y accroche d\'elle-même. Glissez pour la déplacer.';
@@ -326,7 +330,8 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     mv.setAttribute('alt', work.title + ', ' + s.label);
     mv.setAttribute('src', s.glb);
     setMsg('');
-    if (!(quickLook || isAndroid)) { $('#unsupported').style.display = 'block'; drawQR(location.href); }
+    if (!isMobile) { $('#unsupported').style.display = 'block'; drawQR(location.href); }
+    if (iosNoAR) { const m = $('#ar-msg'); m.innerHTML = 'Pour la réalité augmentée, ouvrez cette page dans Safari.<br><a href="' + esc(safariLink()) + '" style="color:inherit">Ouvrir dans Safari</a>'; m.classList.add('on'); }
   }
   function setMsg(t){ const m = $('#ar-msg'); m.textContent = t; m.classList.toggle('on', !!t); }
 
@@ -381,10 +386,14 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     } else if (isAndroid){
       setMsg('Ouverture de la réalité augmentée…');
       $('#mv').activateAR();
-    } else {
+    } else if (iosNoAR){
+      location.href = safariLink();
+    } else if (!isMobile){
       $('#unsupported').style.display = 'block';
       $('#unsupported').scrollIntoView({ behavior: 'smooth', block: 'center' });
       drawQR(location.href);
+    } else {
+      setMsg('La réalité augmentée n\'est pas disponible dans ce navigateur. Ouvrez la page dans Safari ou Chrome.');
     }
   });
   $('#mv').addEventListener('ar-status', e => {
