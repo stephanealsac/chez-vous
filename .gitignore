@@ -5,3 +5,4 @@ data/home.html
 data/product.html
 data/*.css
 chez-vous-site.zip
+build/render-tmp/

@@ -6,7 +6,8 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(dirname "$HERE")"
 python3 -I "$ROOT/build_catalogue.py" "$ROOT/data" "$ROOT/site"
-python3 -I "$HERE/gen_labels.py" "$ROOT/site"
+python3 -I "$HERE/gen_floor_ao.py" "$ROOT/site"
+python3 -I "$HERE/gen_weave.py" "$ROOT/site"
 node "$HERE/gen_models.mjs" "$ROOT/site"
 # Image de partage (Open Graph) : URL absolue requise par iMessage/WhatsApp/Facebook
 if [ -n "${SITE_URL:-}" ]; then

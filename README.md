@@ -31,9 +31,12 @@ Après le premier déploiement, relancer `SITE_URL=https://<adresse finale> buil
 
 Les textes, tailles, prix et images viennent du site, tels quels. Convention lue automatiquement : le site écrit le grand côté en premier (« 54 × 45 » pour un portrait, « 140 × 65 » pour un paysage) ; l'orientation est déduite de l'image.
 
-## Réglages du cadre
+## Le cadre (caisse américaine, d'après photos et cotes de l'atelier)
 
-Dans `site/catalogue.json` (bloc `frame`) : `bar_width_cm`, `bar_depth_cm`, `gap_cm`, `canvas_depth_cm`. Après modification, relancer `node build/gen_models.mjs site`.
+Profil dans `build/frame_geometry.mjs`, cotes dans `site/catalogue.json` (bloc `frame`) : arête avant `lip_cm` 1,8 ; le cadre ajoute `add_cm` 4,3 par côté (lèvre + jour de 2,5) ; profondeur `depth_cm` 4 ; fond du caisson `floor_cm` 1,3 (2,7 de profondeur intérieure) ; châssis + toile `canvas_depth_cm` 2,3 (face de la toile 0,4 cm en retrait de l'arête) ; arêtes avant arrondies (`fillet_*_cm`).
+Matières : noir satiné légèrement chaud (cadre), fond du caisson mat avec ombre calculée (`build/gen_floor_ao.py` → `site/ao/`), toile mate avec un grain de lin très fin en relief seulement (`build/gen_weave.py` → `site/weave_normal.png`, amplitude réglable).
+Aperçu image de synthèse : `node build/render.mjs models/<fichier>.glb sortie.png [front|three-quarter|corner|corner2]`.
+Après modification, relancer `build/build.sh`.
 
 ## Changer de format pendant la réalité augmentée
 
