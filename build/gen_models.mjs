@@ -79,7 +79,11 @@ function buildPainting(wcm, hcm) {
   // on sépare la face avant (texturée) des côtés (gris toile)
   const front = { P: canvasFront.P.slice(0, 12), N: canvasFront.N.slice(0, 12), T: canvasFront.T.slice(0, 8), I: [0, 1, 2, 0, 2, 3] };
   const sides = { P: canvasFront.P.slice(12), N: canvasFront.N.slice(12), T: canvasFront.T.slice(8), I: canvasFront.I.slice(6).map(i => i - 4) };
-  return { frame, front, sides, outer: { w: 2 * ox, h: 2 * oy, d: depth } };
+  // étiquette de format : plaque plate sous le cadre (image 11:1), largeur bornée 33–44 cm
+  const lw = Math.min(Math.max(2 * ox * 0.8, 0.33), 0.44), lh = lw / 11, lgap = 0.025;
+  const label = box(-lw / 2, lw / 2, -oy - lgap - lh, -oy - lgap, 0, 0.003, 'front');
+  const labelFront = { P: label.P.slice(0, 12), N: label.N.slice(0, 12), T: label.T.slice(0, 8), I: [0, 1, 2, 0, 2, 3] };
+  return { frame, front, sides, label: labelFront, outer: { w: 2 * ox, h: 2 * oy, d: depth } };
 }
 
 // ---------- USDZ ----------
@@ -171,7 +175,54 @@ function usdMesh(name, parts, orient) {
         }`;
 }
 
-function buildUSDA(p, title, orient) {
+function labelMaterial(i) {
+  return `
+        def Material "LabelMat${i}"
+        {
+            token outputs:surface.connect = </Root/Materials/LabelMat${i}/PreviewSurface.outputs:surface>
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </Root/Materials/LabelMat${i}/Texture.outputs:rgb>
+                float inputs:metallic = 0
+                float inputs:roughness = 0.95
+                token outputs:surface
+            }
+            def Shader "uvReader_st"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "st"
+                float2 outputs:result
+            }
+            def Shader "Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @textures/label${i}.jpg@
+                float2 inputs:st.connect = </Root/Materials/LabelMat${i}/uvReader_st.outputs:result>
+                token inputs:wrapS = "clamp"
+                token inputs:wrapT = "clamp"
+                float3 outputs:rgb
+            }
+        }`;
+}
+
+/**
+ * formats : [{ p (géométrie), name }], start : index du format visible à l'ouverture,
+ * behaviors : bloc USDA des comportements (toucher → format suivant), '' si un seul format.
+ */
+function buildUSDA(formats, start, title, orient, behaviors) {
+  const scenePath = '/Root/Scenes/Scene';
+  const prims = formats.map((f, i) => `
+            def Xform "${f.name}"
+            {
+                token visibility = "${i === start ? 'inherited' : 'invisible'}"
+${usdMesh('Painting', [
+  { m: f.p.frame, mat: '</Root/Materials/FrameMat>', sub: 'frame' },
+  { m: f.p.sides, mat: '</Root/Materials/CanvasSideMat>', sub: 'canvasSides' },
+  { m: f.p.front, mat: '</Root/Materials/CanvasMat>', sub: 'canvas' },
+], orient).replace(/^/gm, '    ')}
+${usdMesh('Label', [{ m: f.p.label, mat: `</Root/Materials/LabelMat${i}>`, sub: 'label' }], orient).replace(/^/gm, '    ')}
+            }`).join('');
   return `#usda 1.0
 (
     customLayerData = {
@@ -237,7 +288,7 @@ def Xform "Root"
                 token inputs:wrapT = "clamp"
                 float3 outputs:rgb
             }
-        }
+        }${formats.map((_, i) => labelMaterial(i)).join('')}
     }
     def Scope "Scenes" (
         kind = "sceneLibrary"
@@ -254,11 +305,8 @@ def Xform "Root"
         {
             token preliminary:anchoring:type = "plane"
             token preliminary:planeAnchoring:alignment = "vertical"
-${usdMesh('Painting', [
-  { m: p.frame, mat: '</Root/Materials/FrameMat>', sub: 'frame' },
-  { m: p.sides, mat: '</Root/Materials/CanvasSideMat>', sub: 'canvasSides' },
-  { m: p.front, mat: '</Root/Materials/CanvasMat>', sub: 'canvas' },
-], orient)}
+${prims}
+${behaviors}
         }
     }
 }
@@ -315,20 +363,81 @@ function buildGLB(p, jpg) {
   return Buffer.concat([header, ch1, jb, ch2, bin]);
 }
 
+// ---------- comportements : toucher le format i → cacher i, montrer i+1 ----------
+function buildBehaviors(formats) {
+  if (formats.length < 2) return '';
+  const S = '/Root/Scenes/Scene';
+  return `
+            def Scope "Behaviors"
+            {${formats.map((f, i) => {
+    const next = formats[(i + 1) % formats.length];
+    return `
+                def Preliminary_Behavior "Tap${i}"
+                {
+                    rel triggers = [ <${S}/Behaviors/Tap${i}/Trigger> ]
+                    rel actions = [ <${S}/Behaviors/Tap${i}/Group> ]
+                    uniform bool exclusive = 0
+
+                    def Preliminary_Trigger "Trigger"
+                    {
+                        uniform token info:id = "TapGesture"
+                        rel affectedObjects = [ <${S}/${f.name}> ]
+                    }
+
+                    def Preliminary_Action "Group"
+                    {
+                        uniform token info:id = "Group"
+                        uniform token type = "parallel"
+                        uniform bool loops = 0
+                        uniform uint performCount = 1
+                        uniform token multiplePerformOperation = "ignore"
+                        rel actions = [ <${S}/Behaviors/Tap${i}/Group/Hide>, <${S}/Behaviors/Tap${i}/Group/Show> ]
+
+                        def Preliminary_Action "Hide"
+                        {
+                            uniform token info:id = "Visibility"
+                            uniform token type = "hide"
+                            rel affectedObjects = [ <${S}/${f.name}> ]
+                            double duration = 0
+                            uniform token easeType = "none"
+                            uniform token motionType = "none"
+                            uniform token style = "basic"
+                            uniform token multiplePerformOperation = "ignore"
+                        }
+                        def Preliminary_Action "Show"
+                        {
+                            uniform token info:id = "Visibility"
+                            uniform token type = "show"
+                            rel affectedObjects = [ <${S}/${next.name}> ]
+                            double duration = 0
+                            uniform token easeType = "none"
+                            uniform token motionType = "none"
+                            uniform token style = "basic"
+                            uniform token multiplePerformOperation = "ignore"
+                        }
+                    }
+                }`; }).join('')}
+            }`;
+}
+
 // ---------- boucle ----------
 let n = 0;
 for (const w of cat.works) {
   const jpg = fs.readFileSync(path.join(SITE, w.image));
-  for (const s of w.sizes) {
-    const p = buildPainting(s.w, s.h);
+  const formats = w.sizes.map((s, i) => ({ p: buildPainting(s.w, s.h), name: `Format${i}`, size: s }));
+  const labels = w.sizes.map(s => fs.readFileSync(path.join(SITE, s.label_img)));
+  const behaviors = buildBehaviors(formats);
+  w.sizes.forEach((s, i) => {
     const base = `${w.slug}-${s.slug}`;
-    const usda = Buffer.from(buildUSDA(p, w.title, USDZ_ORIENTATION), 'utf8');
-    fs.writeFileSync(path.join(OUT, base + '.usdz'), usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }]));
-    fs.writeFileSync(path.join(OUT, base + '.glb'), buildGLB(p, jpg));
+    const usda = Buffer.from(buildUSDA(formats, i, w.title, USDZ_ORIENTATION, behaviors), 'utf8');
+    const files = [{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }];
+    labels.forEach((l, k) => files.push({ name: `textures/label${k}.jpg`, data: l }));
+    fs.writeFileSync(path.join(OUT, base + '.usdz'), usdzZip(files));
+    fs.writeFileSync(path.join(OUT, base + '.glb'), buildGLB(formats[i].p, jpg));
     s.usdz = `models/${base}.usdz`; s.glb = `models/${base}.glb`;
-    s.outer_cm = { w: +(p.outer.w * 100).toFixed(1), h: +(p.outer.h * 100).toFixed(1), d: +(p.outer.d * 100).toFixed(1) };
+    s.outer_cm = { w: +(formats[i].p.outer.w * 100).toFixed(1), h: +(formats[i].p.outer.h * 100).toFixed(1), d: +(formats[i].p.outer.d * 100).toFixed(1) };
     n++;
-  }
+  });
 }
 for (const w of cat.works) { delete w.crop_note; delete w.image_px; delete w.technique; }
 fs.writeFileSync(path.join(SITE, 'catalogue.json'), JSON.stringify(cat, null, 1));

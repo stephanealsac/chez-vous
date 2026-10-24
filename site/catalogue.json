@@ -27,6 +27,7 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "label_img": "labels/tableau-peinture-tigre-classique.jpg",
      "usdz": "models/tableau-peinture-tigre-classique.usdz",
      "glb": "models/tableau-peinture-tigre-classique.glb",
      "outer_cm": {
@@ -54,6 +55,7 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "label_img": "labels/tableau-peinture-leopard-branche-classique.jpg",
      "usdz": "models/tableau-peinture-leopard-branche-classique.usdz",
      "glb": "models/tableau-peinture-leopard-branche-classique.glb",
      "outer_cm": {
@@ -81,6 +83,7 @@
      "slug": "classique",
      "price_framed": 1960,
      "price_unframed": 1400,
+     "label_img": "labels/tableau-peinture-ibex-classique.jpg",
      "usdz": "models/tableau-peinture-ibex-classique.usdz",
      "glb": "models/tableau-peinture-ibex-classique.glb",
      "outer_cm": {
@@ -96,6 +99,7 @@
      "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "label_img": "labels/tableau-peinture-ibex-grand.jpg",
      "usdz": "models/tableau-peinture-ibex-grand.usdz",
      "glb": "models/tableau-peinture-ibex-grand.glb",
      "outer_cm": {
@@ -123,6 +127,7 @@
      "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "label_img": "labels/tableau-gorille-jungle-grand.jpg",
      "usdz": "models/tableau-gorille-jungle-grand.usdz",
      "glb": "models/tableau-gorille-jungle-grand.glb",
      "outer_cm": {
@@ -138,6 +143,7 @@
      "slug": "geant",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "label_img": "labels/tableau-gorille-jungle-geant.jpg",
      "usdz": "models/tableau-gorille-jungle-geant.usdz",
      "glb": "models/tableau-gorille-jungle-geant.glb",
      "outer_cm": {
@@ -153,6 +159,7 @@
      "slug": "monumental",
      "price_framed": 4850,
      "price_unframed": 3250,
+     "label_img": "labels/tableau-gorille-jungle-monumental.jpg",
      "usdz": "models/tableau-gorille-jungle-monumental.usdz",
      "glb": "models/tableau-gorille-jungle-monumental.glb",
      "outer_cm": {
@@ -180,6 +187,7 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "label_img": "labels/tableau-leopard-classique.jpg",
      "usdz": "models/tableau-leopard-classique.usdz",
      "glb": "models/tableau-leopard-classique.glb",
      "outer_cm": {
@@ -195,6 +203,7 @@
      "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "label_img": "labels/tableau-leopard-grand.jpg",
      "usdz": "models/tableau-leopard-grand.usdz",
      "glb": "models/tableau-leopard-grand.glb",
      "outer_cm": {
@@ -210,6 +219,7 @@
      "slug": "geant",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "label_img": "labels/tableau-leopard-geant.jpg",
      "usdz": "models/tableau-leopard-geant.usdz",
      "glb": "models/tableau-leopard-geant.glb",
      "outer_cm": {
@@ -237,6 +247,7 @@
      "slug": "classique",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "label_img": "labels/tableau-eland-derby-classique.jpg",
      "usdz": "models/tableau-eland-derby-classique.usdz",
      "glb": "models/tableau-eland-derby-classique.glb",
      "outer_cm": {
@@ -252,6 +263,7 @@
      "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "label_img": "labels/tableau-eland-derby-grand.jpg",
      "usdz": "models/tableau-eland-derby-grand.usdz",
      "glb": "models/tableau-eland-derby-grand.glb",
      "outer_cm": {
@@ -267,6 +279,7 @@
      "slug": "geant",
      "price_framed": 4850,
      "price_unframed": 3250,
+     "label_img": "labels/tableau-eland-derby-geant.jpg",
      "usdz": "models/tableau-eland-derby-geant.usdz",
      "glb": "models/tableau-eland-derby-geant.glb",
      "outer_cm": {
@@ -294,6 +307,7 @@
      "slug": "grand",
      "price_framed": 1960,
      "price_unframed": 1400,
+     "label_img": "labels/tableau-peinture-loup-noir-grand.jpg",
      "usdz": "models/tableau-peinture-loup-noir-grand.usdz",
      "glb": "models/tableau-peinture-loup-noir-grand.glb",
      "outer_cm": {
@@ -309,6 +323,7 @@
      "slug": "geant",
      "price_framed": 3600,
      "price_unframed": 2400,
+     "label_img": "labels/tableau-peinture-loup-noir-geant.jpg",
      "usdz": "models/tableau-peinture-loup-noir-geant.usdz",
      "glb": "models/tableau-peinture-loup-noir-geant.glb",
      "outer_cm": {
@@ -336,6 +351,7 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "label_img": "labels/tableau-gorille-classique.jpg",
      "usdz": "models/tableau-gorille-classique.usdz",
      "glb": "models/tableau-gorille-classique.glb",
      "outer_cm": {
@@ -351,6 +367,7 @@
      "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "label_img": "labels/tableau-gorille-grand.jpg",
      "usdz": "models/tableau-gorille-grand.usdz",
      "glb": "models/tableau-gorille-grand.glb",
      "outer_cm": {
@@ -378,6 +395,7 @@
      "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "label_img": "labels/tableau-realiste-lievre-classique.jpg",
      "usdz": "models/tableau-realiste-lievre-classique.usdz",
      "glb": "models/tableau-realiste-lievre-classique.glb",
      "outer_cm": {

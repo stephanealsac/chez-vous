@@ -35,6 +35,11 @@ Les textes, tailles, prix et images viennent du site, tels quels. Convention lue
 
 Dans `site/catalogue.json` (bloc `frame`) : `bar_width_cm`, `bar_depth_cm`, `gap_cm`, `canvas_depth_cm`. Après modification, relancer `node build/gen_models.mjs site`.
 
+## Changer de format pendant la réalité augmentée (iPhone)
+
+Chaque fichier `.usdz` contient **tous les formats** de l'œuvre, un seul visible à la fois, avec une étiquette sous le cadre (nom du format, dimensions). **Toucher le tableau** dans la vue RA passe au format suivant (mécanisme « comportements » d'Apple : déclencheur « TapGesture » → actions « Visibility » hide/show, générés par `build/gen_models.mjs`). Les étiquettes sont produites par `build/gen_labels.py` (dossier `site/labels/`).
+Sur Android (Scene Viewer), ce mécanisme n'existe pas : on revient à la page pour changer de format.
+
 ## À tester sur un vrai iPhone (première mise en ligne)
 
 1. Ouvrir l'adresse dans Safari, choisir une œuvre, « Voir sur mon mur » : l'œuvre doit s'accrocher au mur **droite** (haut en haut). Si elle est à l'envers ou couchée → voir « Orientation » ci-dessous.
