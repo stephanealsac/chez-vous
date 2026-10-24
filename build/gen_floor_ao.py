@@ -31,5 +31,28 @@ for w in cat['works']:
         img.save(os.path.join(out, name), optimize=True)
         s['ao_img'] = f'ao/{name}'
         n += 1
+# ombre portée sur le mur : légèrement en dessous et sur la droite du cadre (lumière haut-gauche), rien au-dessus ni à gauche
+MARGIN, OFFX, OFFY, SOFT, AMAX = 7.0, 1.0, -1.8, 2.0, 0.38   # cm, décalage x, décalage y, douceur, opacité max
+for w in cat['works']:
+    for s in w['sizes']:
+        ow, oh = s['outer_cm']['w'], s['outer_cm']['h']
+        W, H = ow + 2 * MARGIN, oh + 2 * MARGIN
+        xs = (np.arange(N) + 0.5) / N * W - W / 2
+        ys = H / 2 - (np.arange(N) + 0.5) / N * H
+        X, Y = np.meshgrid(xs, ys)
+        dx = np.maximum(np.abs(X - OFFX) - ow / 2, 0); dy = np.maximum(np.abs(Y - OFFY) - oh / 2, 0)
+        d = np.sqrt(dx**2 + dy**2)                          # distance au rectangle d'ombre (cadre décalé)
+        a = AMAX * np.exp(-(d / SOFT) ** 1.3)
+        # ne garder que ce qui dépasse en dessous ou à droite du cadre (le reste est caché par le cadre ou absent)
+        m = np.maximum(np.clip((-oh / 2 - Y + 0.4) / 1.0, 0, 1), np.clip((X - ow / 2 + 0.4) / 1.0, 0, 1))
+        a = a * m
+        # fondu vers zéro sur le bord de la texture (jamais de bord visible)
+        edge = np.minimum(np.minimum(W / 2 - np.abs(X), H / 2 - np.abs(Y)) / 2.5, 1)
+        a = np.clip(a * np.clip(edge, 0, 1), 0, 1)
+        rgba = np.zeros((N, N, 4), np.uint8); rgba[..., 3] = (a * 255).round().astype(np.uint8)
+        name = f"shadow-{w['slug']}-{s['slug']}.png"
+        Image.fromarray(rgba, 'RGBA').save(os.path.join(out, name), optimize=True)
+        s['shadow_img'] = f'ao/{name}'
+        s['shadow_cm'] = {'w': round(W, 1), 'h': round(H, 1)}
 json.dump(cat, open(os.path.join(SITE, 'catalogue.json'), 'w'), ensure_ascii=False, indent=1)
-print(n, 'textures d\'occlusion')
+print(n, 'textures d\'occlusion +', n, 'ombres')

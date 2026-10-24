@@ -222,6 +222,38 @@ function usdTapeMaterial() {
             }
         }`;
 }
+function usdShadowMaterial() {
+  return `
+        def Material "ShadowMat"
+        {
+            token outputs:surface.connect = </Root/Materials/ShadowMat/PreviewSurface.outputs:surface>
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0, 0, 0)
+                float inputs:opacity.connect = </Root/Materials/ShadowMat/Texture.outputs:a>
+                float inputs:metallic = 0
+                float inputs:roughness = 1
+                float inputs:specular = 0
+                token outputs:surface
+            }
+            def Shader "uvReader_st"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "st"
+                float2 outputs:result
+            }
+            def Shader "Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @textures/shadow.png@
+                float2 inputs:st.connect = </Root/Materials/ShadowMat/uvReader_st.outputs:result>
+                token inputs:wrapS = "clamp"
+                token inputs:wrapT = "clamp"
+                float outputs:a
+            }
+        }`;
+}
 function usdPlainMaterial(name, { color, roughness, specular = 0.5 }) {
   return `
         def Material "${name}"
@@ -253,7 +285,7 @@ function buildUSDA(p, title, orient) {
 def Xform "Root"
 {
     def Scope "Materials"
-    {${usdPlainMaterial('FrameMat', MAT.frame)}${usdTapeMaterial()}${usdTexturedMaterial('FloorMat', 'textures/floor_ao.png', { roughness: MAT.floor.roughness, color: MAT.floor.color, occlusion: true, specular: MAT.floor.specular })}${usdCanvasMaterial()}
+    {${usdPlainMaterial('FrameMat', MAT.frame)}${usdTapeMaterial()}${usdTexturedMaterial('FloorMat', 'textures/floor_ao.png', { roughness: MAT.floor.roughness, color: MAT.floor.color, occlusion: true, specular: MAT.floor.specular })}${usdCanvasMaterial()}${usdShadowMaterial()}
     }
     def Scope "Scenes" (
         kind = "sceneLibrary"
@@ -276,6 +308,7 @@ ${usdMesh('Painting', [
   { m: p.sides, mat: '</Root/Materials/CanvasSideMat>', sub: 'canvasSides' },
   { m: p.front, mat: '</Root/Materials/CanvasMat>', sub: 'canvas' },
 ], orient)}
+${p.shadow.I.length ? usdMesh('Shadow', [{ m: p.shadow, mat: '</Root/Materials/ShadowMat>', sub: 'shadow' }], orient) : ''}
         }
     }
 }
@@ -284,7 +317,7 @@ ${usdMesh('Painting', [
 }
 
 // ---------- GLB ----------
-function buildGLB(p, jpg, aoPng, cloth, tape) {
+function buildGLB(p, jpg, aoPng, cloth, tape, shadowPng) {
   const bufs = []; const views = []; const accessors = [];
   let byteLength = 0;
   function addView(buf, target) {
@@ -306,8 +339,10 @@ function buildGLB(p, jpg, aoPng, cloth, tape) {
     { name: 'Floor', pbrMetallicRoughness: { baseColorFactor: [...MAT.floor.color, 1], metallicFactor: 0, roughnessFactor: MAT.floor.roughness }, occlusionTexture: { index: 1, strength: 1 } },
     { name: 'CanvasSide', pbrMetallicRoughness: { baseColorTexture: { index: 2, texCoord: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvasSide.roughness }, normalTexture: { index: 3, texCoord: 0, scale: 1 } },
     { name: 'Canvas', pbrMetallicRoughness: { baseColorTexture: { index: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvas.roughness } },
+    { name: 'Shadow', pbrMetallicRoughness: { baseColorTexture: { index: 4 }, baseColorFactor: [0, 0, 0, 1], metallicFactor: 0, roughnessFactor: 1 }, alphaMode: 'BLEND' },
   ];
-  [[p.frame, 0, false], [p.floor, 1, true], [p.sides, 2, false], [p.front, 3, true]].forEach(([m, mat, uv]) => {
+  [[p.frame, 0, false], [p.floor, 1, true], [p.sides, 2, false], [p.front, 3, true], [p.shadow, 4, true]].forEach(([m, mat, uv]) => {
+    if (!m.I.length) return;
     const attr = {
       POSITION: addAccessor(new Float32Array(m.P), 'VEC3', 5126, 34962, true),
       NORMAL: addAccessor(new Float32Array(m.N), 'VEC3', 5126, 34962),
@@ -318,13 +353,13 @@ function buildGLB(p, jpg, aoPng, cloth, tape) {
     const idx = addAccessor(new Uint16Array(m.I), 'SCALAR', 5123, 34963);
     prims.push({ attributes: attr, indices: idx, material: mat });
   });
-  const imgView = addView(jpg), aoView = addView(aoPng), clothView = addView(cloth), tapeView = addView(tape);
+  const imgView = addView(jpg), aoView = addView(aoPng), clothView = addView(cloth), tapeView = addView(tape), shadowView = addView(shadowPng);
   const json = {
     asset: { version: '2.0', generator: 'AR Tableaux - Stephane Alsac' },
     scene: 0, scenes: [{ nodes: [0] }], nodes: [{ mesh: 0, name: 'Painting' }],
     meshes: [{ primitives: prims }], materials: mats,
-    textures: [{ source: 0, sampler: 0 }, { source: 1, sampler: 0 }, { source: 2, sampler: 1 }, { source: 3, sampler: 1 }],
-    images: [{ bufferView: imgView, mimeType: 'image/jpeg' }, { bufferView: aoView, mimeType: 'image/png' }, { bufferView: clothView, mimeType: 'image/png' }, { bufferView: tapeView, mimeType: 'image/png' }],
+    textures: [{ source: 0, sampler: 0 }, { source: 1, sampler: 0 }, { source: 2, sampler: 1 }, { source: 3, sampler: 1 }, { source: 4, sampler: 0 }],
+    images: [{ bufferView: imgView, mimeType: 'image/jpeg' }, { bufferView: aoView, mimeType: 'image/png' }, { bufferView: clothView, mimeType: 'image/png' }, { bufferView: tapeView, mimeType: 'image/png' }, { bufferView: shadowView, mimeType: 'image/png' }],
     samplers: [{ magFilter: 9729, minFilter: 9987, wrapS: 33071, wrapT: 33071 }, { magFilter: 9729, minFilter: 9987, wrapS: 10497, wrapT: 10497 }],
     accessors, bufferViews: views, buffers: [{ byteLength }],
   };
@@ -344,11 +379,12 @@ let n = 0;
 for (const w of cat.works) {
   const jpg = fs.readFileSync(path.join(SITE, w.image));
   for (const s of w.sizes) {
-    const p = buildPainting(s.w, s.h, F);
+    const p = buildPainting(s.w, s.h, F, s.shadow_cm);
     const ao = fs.readFileSync(path.join(SITE, s.ao_img));
+    const shadowPng = fs.readFileSync(path.join(SITE, s.shadow_img));
     const usda = Buffer.from(buildUSDA(p, w.title, USDZ_ORIENTATION), 'utf8');
-    const usdz = usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/tape_color.png', data: cloth }, { name: 'textures/tape_normal.png', data: tape }]);
-    const glb = buildGLB(p, jpg, ao, cloth, tape);
+    const usdz = usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/tape_color.png', data: cloth }, { name: 'textures/tape_normal.png', data: tape }, { name: 'textures/shadow.png', data: shadowPng }]);
+    const glb = buildGLB(p, jpg, ao, cloth, tape, shadowPng);
     // nom unique par contenu : les navigateurs gardent les anciens fichiers en cache un an, un nouveau nom force la nouvelle version
     const h = crypto.createHash('sha1').update(usdz).update(glb).digest('hex').slice(0, 8);
     const base = `${w.slug}-${s.slug}-${h}`;

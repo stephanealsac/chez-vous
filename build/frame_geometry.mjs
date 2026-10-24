@@ -93,7 +93,7 @@ function sweep(pts, ox, oy, floorIdx) {
 }
 
 /** Tableau encadré pour une toile de w×h cm. Tous les maillages en mètres, repère debout. */
-export function buildPainting(wcm, hcm, F = FRAME) {
+export function buildPainting(wcm, hcm, F = FRAME, shadowCm = null) {
   const cm = 0.01;
   const w = wcm * cm, h = hcm * cm;
   const add = F.add_cm * cm, D = F.depth_cm * cm, floorZ = F.floor_cm * cm, cd = F.canvas_depth_cm * cm;
@@ -144,8 +144,14 @@ export function buildPainting(wcm, hcm, F = FRAME) {
   S([-w / 2, -h / 2, z0], [-w / 2, h / 2, z0], [-w / 2, h / 2, zs1], [-w / 2, -h / 2, zs1], [-1, 0, 0], [0, 1]);
   S([-w / 2, h / 2, z0], [w / 2, h / 2, z0], [w / 2, h / 2, zs1], [-w / 2, h / 2, zs1], [0, 1, 0], [1, 0]);
   S([-w / 2, -h / 2, z0], [-w / 2, -h / 2, zs1], [w / 2, -h / 2, zs1], [w / 2, -h / 2, z0], [0, -1, 0], [1, 0]);
+  // ombre portée (plan à 0,5 mm du mur, derrière le cadre, texture RGBA)
+  const shadow = emptyMesh();
+  if (shadowCm) {
+    const sw = shadowCm.w * cm / 2, sh = shadowCm.h * cm / 2;
+    addQuad(shadow, [-sw, -sh, 0.0005], [sw, -sh, 0.0005], [sw, sh, 0.0005], [-sw, sh, 0.0005], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 1, 1, 1, 1, 0, 0, 0]);
+  }
   return {
-    frame: merge(frame, back), floor, front, sides,
+    frame: merge(frame, back), floor, front, sides, shadow,
     outer: { w: 2 * ox, h: 2 * oy, d: D },
     inner: { w: 2 * (ox - F.lip_cm * cm), h: 2 * (oy - F.lip_cm * cm) },
     canvas: { w, h, z0, z1 },
