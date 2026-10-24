@@ -17,10 +17,10 @@ const OUT = path.join(SITE, 'models');
 fs.mkdirSync(OUT, { recursive: true });
 const USDZ_ORIENTATION = process.env.USDZ_ORIENTATION || 'lying';
 
-// Matières (valeurs partagées USDZ / GLB) — d'après les photos : noir satiné légèrement chaud, fond mat, toile mate
+// Matières (valeurs partagées USDZ / GLB) : noir neutre satiné (les photos iPhone réchauffent les tons), fond mat, toile mate
 const MAT = {
-  frame: { color: [0.032, 0.029, 0.026], roughness: 0.40, metallic: 0 },
-  floor: { color: [0.030, 0.027, 0.025], roughness: 0.92, metallic: 0 },
+  frame: { color: [0.028, 0.028, 0.028], roughness: 0.40, metallic: 0 },
+  floor: { color: [0.024, 0.024, 0.024], roughness: 0.92, metallic: 0 },
   canvasSide: { color: [0.030, 0.030, 0.030], roughness: 0.95, metallic: 0 },
   canvas: { roughness: 0.88, metallic: 0 },
 };
