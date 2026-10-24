@@ -398,9 +398,10 @@ function buildBehaviors(formats) {
                             uniform token info:id = "Visibility"
                             uniform token type = "hide"
                             rel affectedObjects = [ <${S}/${f.name}> ]
-                            double duration = 0
-                            uniform token easeType = "none"
-                            uniform token motionType = "none"
+                            double duration = 0.2
+                            uniform token easeType = "inout"
+                            uniform token motionType = "pop"
+                            uniform double moveDistance = 0
                             uniform token style = "basic"
                             uniform token multiplePerformOperation = "ignore"
                         }
@@ -409,9 +410,10 @@ function buildBehaviors(formats) {
                             uniform token info:id = "Visibility"
                             uniform token type = "show"
                             rel affectedObjects = [ <${S}/${next.name}> ]
-                            double duration = 0
-                            uniform token easeType = "none"
-                            uniform token motionType = "none"
+                            double duration = 0.25
+                            uniform token easeType = "inout"
+                            uniform token motionType = "pop"
+                            uniform double moveDistance = 0
                             uniform token style = "basic"
                             uniform token multiplePerformOperation = "ignore"
                         }
