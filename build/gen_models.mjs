@@ -21,7 +21,7 @@ const USDZ_ORIENTATION = process.env.USDZ_ORIENTATION || 'lying';
 const MAT = {
   frame: { color: [0.010, 0.010, 0.010], roughness: 0.30, metallic: 0, specular: 0.25 },
   floor: { color: [0.008, 0.008, 0.008], roughness: 0.90, metallic: 0, specular: 0.10 },
-  canvasSide: { color: [0.012, 0.012, 0.012], roughness: 0.95, metallic: 0, specular: 0.10 },
+  canvasSide: { color: [0.012, 0.012, 0.012], roughness: 0.90, metallic: 0, specular: 0.08 },
   canvas: { roughness: 0.88, metallic: 0 },
 };
 
@@ -196,6 +196,40 @@ function usdCanvasMaterial() {
             }
         }`;
 }
+function usdTapeMaterial() {
+  return `
+        def Material "CanvasSideMat"
+        {
+            token outputs:surface.connect = </Root/Materials/CanvasSideMat/PreviewSurface.outputs:surface>
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = ${c3(MAT.canvasSide.color)}
+                normal3f inputs:normal.connect = </Root/Materials/CanvasSideMat/Grain.outputs:rgb>
+                float inputs:metallic = 0
+                float inputs:roughness = ${MAT.canvasSide.roughness}
+                float inputs:specular = ${MAT.canvasSide.specular}
+                token outputs:surface
+            }
+            def Shader "uvReader_st1"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "st1"
+                float2 outputs:result
+            }
+            def Shader "Grain"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @textures/tape_normal.png@
+                float2 inputs:st.connect = </Root/Materials/CanvasSideMat/uvReader_st1.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float4 inputs:scale = (2, 2, 2, 1)
+                float4 inputs:bias = (-1, -1, -1, 0)
+                float3 outputs:rgb
+            }
+        }`;
+}
 function usdPlainMaterial(name, { color, roughness, specular = 0.5 }) {
   return `
         def Material "${name}"
@@ -227,7 +261,7 @@ function buildUSDA(p, title, orient) {
 def Xform "Root"
 {
     def Scope "Materials"
-    {${usdPlainMaterial('FrameMat', MAT.frame)}${usdPlainMaterial('CanvasSideMat', MAT.canvasSide)}${usdTexturedMaterial('FloorMat', 'textures/floor_ao.png', { roughness: MAT.floor.roughness, color: MAT.floor.color, occlusion: true, specular: MAT.floor.specular })}${usdCanvasMaterial()}
+    {${usdPlainMaterial('FrameMat', MAT.frame)}${usdTapeMaterial()}${usdTexturedMaterial('FloorMat', 'textures/floor_ao.png', { roughness: MAT.floor.roughness, color: MAT.floor.color, occlusion: true, specular: MAT.floor.specular })}${usdCanvasMaterial()}
     }
     def Scope "Scenes" (
         kind = "sceneLibrary"
@@ -258,7 +292,7 @@ ${usdMesh('Painting', [
 }
 
 // ---------- GLB ----------
-function buildGLB(p, jpg, aoPng, weave) {
+function buildGLB(p, jpg, aoPng, weave, tape) {
   const bufs = []; const views = []; const accessors = [];
   let byteLength = 0;
   function addView(buf, target) {
@@ -278,7 +312,7 @@ function buildGLB(p, jpg, aoPng, weave) {
   const mats = [
     { name: 'Frame', pbrMetallicRoughness: { baseColorFactor: [...MAT.frame.color, 1], metallicFactor: 0, roughnessFactor: MAT.frame.roughness } },
     { name: 'Floor', pbrMetallicRoughness: { baseColorFactor: [...MAT.floor.color, 1], metallicFactor: 0, roughnessFactor: MAT.floor.roughness }, occlusionTexture: { index: 1, strength: 1 } },
-    { name: 'CanvasSide', pbrMetallicRoughness: { baseColorFactor: [...MAT.canvasSide.color, 1], metallicFactor: 0, roughnessFactor: MAT.canvasSide.roughness } },
+    { name: 'CanvasSide', pbrMetallicRoughness: { baseColorFactor: [...MAT.canvasSide.color, 1], metallicFactor: 0, roughnessFactor: MAT.canvasSide.roughness }, normalTexture: { index: 3, texCoord: 0, scale: 1 } },
     { name: 'Canvas', pbrMetallicRoughness: { baseColorTexture: { index: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvas.roughness }, normalTexture: { index: 2, texCoord: 1, scale: 1 } },
   ];
   [[p.frame, 0, false], [p.floor, 1, true], [p.sides, 2, false], [p.front, 3, true]].forEach(([m, mat, uv]) => {
@@ -287,18 +321,18 @@ function buildGLB(p, jpg, aoPng, weave) {
       NORMAL: addAccessor(new Float32Array(m.N), 'VEC3', 5126, 34962),
     };
     if (uv) attr.TEXCOORD_0 = addAccessor(new Float32Array(m.T), 'VEC2', 5126, 34962);
-    if (m.T2) attr.TEXCOORD_1 = addAccessor(new Float32Array(m.T2), 'VEC2', 5126, 34962);
+    if (m.T2) attr[uv ? 'TEXCOORD_1' : 'TEXCOORD_0'] = addAccessor(new Float32Array(m.T2), 'VEC2', 5126, 34962);
     if (m.TAN) attr.TANGENT = addAccessor(new Float32Array(m.TAN), 'VEC4', 5126, 34962);
     const idx = addAccessor(new Uint16Array(m.I), 'SCALAR', 5123, 34963);
     prims.push({ attributes: attr, indices: idx, material: mat });
   });
-  const imgView = addView(jpg), aoView = addView(aoPng), weaveView = addView(weave);
+  const imgView = addView(jpg), aoView = addView(aoPng), weaveView = addView(weave), tapeView = addView(tape);
   const json = {
     asset: { version: '2.0', generator: 'AR Tableaux - Stephane Alsac' },
     scene: 0, scenes: [{ nodes: [0] }], nodes: [{ mesh: 0, name: 'Painting' }],
     meshes: [{ primitives: prims }], materials: mats,
-    textures: [{ source: 0, sampler: 0 }, { source: 1, sampler: 0 }, { source: 2, sampler: 1 }],
-    images: [{ bufferView: imgView, mimeType: 'image/jpeg' }, { bufferView: aoView, mimeType: 'image/png' }, { bufferView: weaveView, mimeType: 'image/png' }],
+    textures: [{ source: 0, sampler: 0 }, { source: 1, sampler: 0 }, { source: 2, sampler: 1 }, { source: 3, sampler: 1 }],
+    images: [{ bufferView: imgView, mimeType: 'image/jpeg' }, { bufferView: aoView, mimeType: 'image/png' }, { bufferView: weaveView, mimeType: 'image/png' }, { bufferView: tapeView, mimeType: 'image/png' }],
     samplers: [{ magFilter: 9729, minFilter: 9987, wrapS: 33071, wrapT: 33071 }, { magFilter: 9729, minFilter: 9987, wrapS: 10497, wrapT: 10497 }],
     accessors, bufferViews: views, buffers: [{ byteLength }],
   };
@@ -312,6 +346,7 @@ function buildGLB(p, jpg, aoPng, weave) {
 
 // ---------- boucle ----------
 const weave = fs.readFileSync(path.join(SITE, 'weave_normal.png'));
+const tape = fs.readFileSync(path.join(SITE, 'tape_normal.png'));
 let n = 0;
 for (const w of cat.works) {
   const jpg = fs.readFileSync(path.join(SITE, w.image));
@@ -320,8 +355,8 @@ for (const w of cat.works) {
     const ao = fs.readFileSync(path.join(SITE, s.ao_img));
     const base = `${w.slug}-${s.slug}`;
     const usda = Buffer.from(buildUSDA(p, w.title, USDZ_ORIENTATION), 'utf8');
-    fs.writeFileSync(path.join(OUT, base + '.usdz'), usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/weave_normal.png', data: weave }]));
-    fs.writeFileSync(path.join(OUT, base + '.glb'), buildGLB(p, jpg, ao, weave));
+    fs.writeFileSync(path.join(OUT, base + '.usdz'), usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/weave_normal.png', data: weave }, { name: 'textures/tape_normal.png', data: tape }]));
+    fs.writeFileSync(path.join(OUT, base + '.glb'), buildGLB(p, jpg, ao, weave, tape));
     s.usdz = `models/${base}.usdz`; s.glb = `models/${base}.glb`;
     s.outer_cm = { w: +(p.outer.w * 100).toFixed(1), h: +(p.outer.h * 100).toFixed(1), d: +(p.outer.d * 100).toFixed(1) };
     n++;

@@ -33,7 +33,7 @@ Les textes, tailles, prix et images viennent du site, tels quels. Convention lue
 ## Le cadre (caisse américaine, d'après photos et cotes de l'atelier)
 
 Profil dans `build/frame_geometry.mjs`, cotes dans `site/catalogue.json` (bloc `frame`) : arête avant `lip_cm` 1,8 ; le cadre ajoute `add_cm` 4,3 par côté (lèvre + jour de 2,5) ; profondeur `depth_cm` 4 ; fond du caisson `floor_cm` 1,3 (2,7 de profondeur intérieure) ; châssis + toile `canvas_depth_cm` 2,3 (face de la toile 0,4 cm en retrait de l'arête) ; arêtes avant arrondies (`fillet_*_cm`).
-Matières : noir neutre satiné (cadre ; les photos iPhone réchauffent les tons, ne pas s'y fier), fond du caisson mat avec ombre calculée (`build/gen_floor_ao.py` → `site/ao/`), toile mate avec un grain de lin très fin en relief seulement (`build/gen_weave.py` → `site/weave_normal.png`, amplitude réglable).
+Matières : noir neutre satiné (cadre ; les photos iPhone réchauffent les tons, ne pas s'y fier), fond du caisson mat avec ombre calculée (`build/gen_floor_ao.py` → `site/ao/`), toile mate avec un grain de lin très fin en relief seulement, et galon de toile fine noire mate sur les chants du châssis (`build/gen_weave.py` → `site/weave_normal.png` 18 fils/cm et `site/tape_normal.png` 30 fils/cm, amplitudes réglables).
 Aperçu image de synthèse : `node build/render.mjs models/<fichier>.glb sortie.png [front|three-quarter|corner|corner2]`.
 Après modification, relancer `build/build.sh`.
 

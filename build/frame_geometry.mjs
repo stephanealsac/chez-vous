@@ -109,12 +109,19 @@ export function buildPainting(wcm, hcm, F = FRAME) {
   addQuad(front, [-w / 2, -h / 2, z1], [w / 2, -h / 2, z1], [w / 2, h / 2, z1], [-w / 2, h / 2, z1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 1, 1, 1, 1, 0, 0, 0]);
   front.T2 = [0, hcm, wcm, hcm, wcm, 0, 0, 0]; // grain : une tuile par cm
   front.TAN = [1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1]; // tangentes (+X) pour la normal map
-  const sides = emptyMesh();
-  const S = (a, b, c, d, n) => addQuad(sides, a, b, c, d, n, n, n, n);
-  S([w / 2, -h / 2, z0], [w / 2, -h / 2, z1], [w / 2, h / 2, z1], [w / 2, h / 2, z0], [1, 0, 0]);
-  S([-w / 2, -h / 2, z0], [-w / 2, h / 2, z0], [-w / 2, h / 2, z1], [-w / 2, -h / 2, z1], [-1, 0, 0]);
-  S([-w / 2, h / 2, z0], [w / 2, h / 2, z0], [w / 2, h / 2, z1], [-w / 2, h / 2, z1], [0, 1, 0]);
-  S([-w / 2, -h / 2, z0], [-w / 2, -h / 2, z1], [w / 2, -h / 2, z1], [w / 2, -h / 2, z0], [0, -1, 0]);
+  const sides = emptyMesh(); sides.T2 = []; sides.TAN = [];
+  const dcm = (z1 - z0) * 100;
+  // chaque chant : uv2 = (longueur en cm, profondeur en cm), tangente le long de la longueur
+  const S = (a, b, c, d, n, len, tan) => {
+    addQuad(sides, a, b, c, d, n, n, n, n);
+    const L = len * 100;
+    const uv = p => [((p[0] * tan[0] + p[1] * tan[1]) + L / 2 * 0 + (tan[0] ? w / 2 : h / 2)) * 100, (p[2] - z0) * 100];
+    for (const p of [a, b, c, d]) { const [u, v] = uv(p); sides.T2.push(u, v); sides.TAN.push(tan[0], tan[1], 0, 1); }
+  };
+  S([w / 2, -h / 2, z0], [w / 2, -h / 2, z1], [w / 2, h / 2, z1], [w / 2, h / 2, z0], [1, 0, 0], h, [0, 1]);
+  S([-w / 2, -h / 2, z0], [-w / 2, h / 2, z0], [-w / 2, h / 2, z1], [-w / 2, -h / 2, z1], [-1, 0, 0], h, [0, 1]);
+  S([-w / 2, h / 2, z0], [w / 2, h / 2, z0], [w / 2, h / 2, z1], [-w / 2, h / 2, z1], [0, 1, 0], w, [1, 0]);
+  S([-w / 2, -h / 2, z0], [-w / 2, -h / 2, z1], [w / 2, -h / 2, z1], [w / 2, -h / 2, z0], [0, -1, 0], w, [1, 0]);
   return {
     frame: merge(frame, back), floor, front, sides,
     outer: { w: 2 * ox, h: 2 * oy, d: D },
