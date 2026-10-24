@@ -20,7 +20,7 @@ const list = shell.map(f => (f === 'index.html' ? './' : './' + f));
 const sw = `/* généré par gen_sw.mjs — ne pas modifier à la main */
 const VERSION = '${version}';
 const SHELL = 'alsac-chezvous-shell-' + VERSION;
-const MEDIA = 'alsac-chezvous-media';              // images HD + modèles 3D, nom stable
+const MEDIA = 'alsac-chezvous-media';              // images HD, nom stable
 const ASSETS = ${JSON.stringify(list)};
 
 self.addEventListener('install', e => {
@@ -33,7 +33,8 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   const url = new URL(req.url);
   if (req.method !== 'GET' || url.origin !== location.origin) return;
-  const isMedia = /^\\/(models|img)\\//.test(url.pathname) && !/-thumb\\.jpg$/.test(url.pathname);
+  if (/^\\/models\\//.test(url.pathname)) return;   // modèles 3D : jamais via le SW (AR Quick Look / Scene Viewer les chargent eux-mêmes)
+  const isMedia = /^\\/img\\//.test(url.pathname) && !/-thumb\\.jpg$/.test(url.pathname);
   const networkFirst = req.mode === 'navigate' || /\\/(catalogue\\.json)?$/.test(url.pathname);
   if (networkFirst) {
     // page et catalogue : réseau d'abord (toujours à jour), cache en secours hors-ligne

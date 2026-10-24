@@ -209,7 +209,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 </main>
 
 <!-- lien AR Quick Look (iOS) : un seul, gardé dans le DOM pour recevoir le tap sur la bannière -->
-<a id="ql" rel="ar" href="#" aria-hidden="true" tabindex="-1" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden"><img alt=""></a>
+<a id="ql" rel="ar" href="#" style="display:none"><img alt=""></a>
 
 <!-- ===== TUTORIEL ===== -->
 <div class="tuto" id="tuto" role="dialog" aria-modal="true" aria-label="Comment ça marche">
@@ -356,21 +356,28 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   // ---------- AR ----------
   const ql = $('#ql');
   ql.addEventListener('message', e => { if (e.data === '_apple_ar_quicklook_button_tapped' && work) location.href = work.url; }, false);
+  function usdzHref(){
+    const enc = encodeURIComponent;
+    const frag = [
+      'allowsContentScaling=0',
+      'canonicalWebPageURL=' + enc(work.url),
+      'callToAction=' + enc('Acquérir ce tirage'),
+      'checkoutTitle=' + enc(work.title),
+      'checkoutSubtitle=' + enc(`${size.label} · ${size.w} × ${size.h} cm`)
+    ];
+    if (size.price_framed) frag.push('price=' + enc(fmtEur(size.price_framed)));
+    return new URL(size.usdz, location.href).toString() + '#' + frag.join('&');
+  }
   $('#ar-btn').addEventListener('click', () => {
     if (!work || !size) return;
     if (quickLook){
-      const enc = encodeURIComponent;
-      const frag = [
-        'allowsContentScaling=0',
-        'canonicalWebPageURL=' + enc(work.url),
-        'callToAction=' + enc('Acquérir ce tirage'),
-        'checkoutTitle=' + enc(work.title),
-        'checkoutSubtitle=' + enc(`${size.label} · ${size.w} × ${size.h} cm`),
-        'price=' + enc(size.price_framed ? fmtEur(size.price_framed) + ' encadrée' : ' ')
-      ].join('&');
-      ql.href = new URL(size.usdz, location.href).toString() + '#' + frag;
+      const href = usdzHref();
+      ql.setAttribute('href', href);
       ql.click();
-      setMsg(MSG_IOS);
+      // secours : si Quick Look ne s'ouvre pas, un lien direct vers le fichier (Safari l'ouvre lui-même en 3D / RA)
+      const m = $('#ar-msg');
+      m.innerHTML = esc(MSG_IOS) + '<br><a id="ql-direct" href="' + esc(href) + '" style="color:inherit">Rien ne s\'ouvre ? Touchez ici.</a>';
+      m.classList.add('on');
     } else if (isAndroid){
       setMsg('Ouverture de la réalité augmentée…');
       $('#mv').activateAR();

@@ -1,7 +1,7 @@
 /* généré par gen_sw.mjs — ne pas modifier à la main */
-const VERSION = 'e5dfc0b137';
+const VERSION = 'df7e2b5524';
 const SHELL = 'alsac-chezvous-shell-' + VERSION;
-const MEDIA = 'alsac-chezvous-media';              // images HD + modèles 3D, nom stable
+const MEDIA = 'alsac-chezvous-media';              // images HD, nom stable
 const ASSETS = ["./catalogue.json","./fonts/CormorantGaramond-italic-ext.woff2","./fonts/CormorantGaramond-italic.woff2","./fonts/CormorantGaramond-normal-ext.woff2","./fonts/CormorantGaramond-normal.woff2","./fonts/Raleway-ext.woff2","./fonts/Raleway.woff2","./fonts/fonts.css","./icon-180.png","./icon-512.png","./img/tableau-eland-derby-thumb.jpg","./img/tableau-gorille-jungle-thumb.jpg","./img/tableau-gorille-thumb.jpg","./img/tableau-leopard-thumb.jpg","./img/tableau-peinture-ibex-thumb.jpg","./img/tableau-peinture-leopard-branche-thumb.jpg","./img/tableau-peinture-loup-noir-thumb.jpg","./img/tableau-peinture-tigre-thumb.jpg","./img/tableau-realiste-lievre-thumb.jpg","./","./manifest.webmanifest","./vendor/model-viewer.min.js","./vendor/qrcode.min.js"];
 
 self.addEventListener('install', e => {
@@ -14,7 +14,8 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   const url = new URL(req.url);
   if (req.method !== 'GET' || url.origin !== location.origin) return;
-  const isMedia = /^\/(models|img)\//.test(url.pathname) && !/-thumb\.jpg$/.test(url.pathname);
+  if (/^\/models\//.test(url.pathname)) return;   // modèles 3D : jamais via le SW (AR Quick Look / Scene Viewer les chargent eux-mêmes)
+  const isMedia = /^\/img\//.test(url.pathname) && !/-thumb\.jpg$/.test(url.pathname);
   const networkFirst = req.mode === 'navigate' || /\/(catalogue\.json)?$/.test(url.pathname);
   if (networkFirst) {
     // page et catalogue : réseau d'abord (toujours à jour), cache en secours hors-ligne
