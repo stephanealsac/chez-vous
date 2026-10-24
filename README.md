@@ -68,3 +68,12 @@ Les fichiers 3D portent un nom unique par contenu (`<slug>-<taille>-<empreinte>.
 - Une œuvre à une taille : `#<slug>/<taille>` — ex. `#the-sanctum/grand`
 
 Le slug est celui de la fiche produit WooCommerce (dernier segment de l'URL du produit).
+
+
+## Mise à jour d'octobre 2026
+- **Catalogue complet** : toutes les Éditions sur Toile achetables de la boutique (46), ordre de la boutique. `SELECTION = None` dans `build_catalogue.py`.
+- **Tailles** : prises comme le site, dans les *dimensions des variations WooCommerce* (longueur × largeur) — toile = variation « roulé dans un tube », encadrée = variation « encadré caisse US noire » (`framed_cm`, affichée telle quelle). Le texte « Taille disponible : … » de la description courte n'est plus utilisé (périmé sur plusieurs fiches). Orientation : le grand côté est horizontal si l'image est horizontale.
+- **Accueil** : titre « Éditions sur Toile » (capitales espacées, comme GALERIE sur le site), vignettes carrées recadrées au centre (`img/*-thumb.jpg`, 600 px). Les adresses d'images portent une empreinte (`?v=`) pour contourner le cache d'un an.
+- **Fiche** : plus de silhouette d'échelle ; sélecteur de taille toujours affiché (même une seule), caractères agrandis.
+- **Ombre portée** : plan transparent contre le mur (texture RGBA `ao/shadow-*.png`, matériau sans aucune réflexion : ior 1, spéculaire nul), ombre sous le cadre et à droite, fondu vers les lignes du haut et de gauche. Réglages dans `build/gen_floor_ao.py` (`OFFX, OFFY, SOFT, AMAX`).
+- **Tutoriel vidéo** : `site/tuto.mp4` (23 s, 1080×1920, H.264, 2,3 Mo) + `tuto-poster.jpg`. Fabriqué par `build/tuto/make_video.mjs` (rend `tuto.html` image par image, encode avec ffmpeg) à partir de `tuto/capture.mjs` (écrans de l'appli, serveur local :8765) et de `render.mjs` (`room`, `WALL`, `SIZE`, `DIST`, `HIDE=1` pour le mur seul). S'ouvre à la première visite de l'accueil, puis via « ? ».

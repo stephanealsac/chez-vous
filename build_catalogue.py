@@ -141,6 +141,11 @@ for a in catalogue:
     wh = subprocess.run(['identify', '-format', '%w %h', os.path.join(OUT, a['image'])], capture_output=True, text=True).stdout.split()
     a['image_px'] = [int(wh[0]), int(wh[1])]
     del a['image_src']
+    # les images sont mises en cache un an (immutable) : leur adresse porte une empreinte du contenu
+    import hashlib
+    for k in ('image', 'thumb'):
+        h = hashlib.sha1(open(os.path.join(OUT, a[k]), 'rb').read()).hexdigest()[:8]
+        a[k + '_url'] = a[k] + '?v=' + h
 
 json.dump({'frame': {'type': 'caisse-americaine', 'color': 'noir neutre satiné', 'lip_cm': 1.8, 'add_cm': 4.3, 'depth_cm': 4.0,
                      'floor_cm': 1.3, 'canvas_depth_cm': 2.3, 'canvas_round_cm': 0.25, 'fillet_outer_cm': 0.15, 'fillet_inner_cm': 0.10},

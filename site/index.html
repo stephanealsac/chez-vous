@@ -99,24 +99,14 @@ model-viewer{width:2px;height:2px}
 .ar-msg{text-align:center;display:none;padding-bottom:4px}
 .ar-msg.on{display:block}
 
-/* ----- tutoriel ----- */
-.tuto{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column;padding:calc(20px + var(--sat)) var(--gr) calc(16px + var(--sab)) var(--gl)}
+/* ----- tutoriel (vidéo) ----- */
+.tuto{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column;padding:calc(12px + var(--sat)) var(--gr) calc(12px + var(--sab)) var(--gl)}
 .tuto.open{display:flex}
-.tuto .top{font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;text-align:center;padding:6px 0 18px;border-bottom:1px solid var(--border)}
-.tuto .slides{flex:1;display:grid;overflow:hidden}
-.tuto .slide{grid-area:1/1;display:flex;flex-direction:column;justify-content:center;opacity:0;transition:opacity .35s;pointer-events:none}
-.tuto .slide.on{opacity:1;pointer-events:auto}
-.tuto .n{font:400 10px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--label)}
-.tuto h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em;margin-top:12px;text-wrap:balance}
-.tuto p{font-size:14px;color:var(--ink-soft);margin-top:14px;max-width:30em}
-.tuto .art{height:150px;margin:22px 0 0;display:flex;align-items:center}
-.tuto .art svg{height:100%;width:auto;max-width:100%}
-.tuto .foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}
-.dots{display:flex;gap:8px}
-.dots i{width:7px;height:7px;border:1px solid var(--ink);display:block}
-.dots i.on{background:var(--ink)}
-.tuto .btn{width:auto;height:44px;padding:0 22px}
-.skip{font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);min-height:44px;padding:0 12px 0 0}
+.tuto .top{font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;text-align:center;padding:10px 0 14px;border-bottom:1px solid var(--border)}
+.tuto .stage{flex:1;min-height:0;display:grid;place-items:center;padding:10px 0}
+.tuto video{max-height:100%;max-width:100%;aspect-ratio:9/16;background:var(--bg);display:block}
+.tuto .foot{display:flex;align-items:center;justify-content:center;padding-top:10px;border-top:1px solid var(--border)}
+.tuto .btn{width:auto;height:48px;padding:0 28px}
 
 footer{padding:28px var(--gr) 28px var(--gl);text-align:center}
 footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--border);font-style:normal;font-family:var(--sans);font-size:11px;letter-spacing:.06em}
@@ -173,34 +163,11 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 <!-- lien AR Quick Look (iOS) : un seul, gardé dans le DOM pour recevoir le tap sur la bannière -->
 <a id="ql" rel="ar" href="#" style="display:none"><img alt=""></a>
 
-<!-- ===== TUTORIEL ===== -->
+<!-- ===== TUTORIEL (vidéo) ===== -->
 <div class="tuto" id="tuto" role="dialog" aria-modal="true" aria-label="Comment ça marche">
   <div class="top">Stéphane Alsac</div>
-  <div class="slides" id="slides">
-    <div class="slide on">
-      <div class="n">Étape 1 / 3</div>
-      <h2>Choisissez une œuvre</h2>
-      <p>Parcourez les Éditions sur Toile et ouvrez celle qui vous parle.</p>
-      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5" aria-hidden="true"><rect x="10" y="20" width="60" height="80"/><rect x="80" y="20" width="60" height="80"/><rect x="150" y="20" width="60" height="80"/><rect x="88" y="28" width="44" height="64" fill="#1a1a1a" stroke="none"/><path d="M20 120h190" stroke="#d4cfc4"/></svg></div>
-    </div>
-    <div class="slide">
-      <div class="n">Étape 2 / 3</div>
-      <h2>Choisissez la taille</h2>
-      <p>Chaque édition existe en plusieurs formats. La silhouette vous donne l'échelle avant même la réalité augmentée.</p>
-      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5" aria-hidden="true"><rect x="12" y="60" width="50" height="34"/><rect x="74" y="44" width="70" height="50"/><rect x="156" y="20" width="56" height="74" fill="#1a1a1a"/><path d="M10 120h200" stroke="#d4cfc4"/></svg></div>
-    </div>
-    <div class="slide">
-      <div class="n">Étape 3 / 3</div>
-      <h2>Visez votre mur</h2>
-      <p id="tuto-ar-text">Touchez « Voir sur mon mur » et balayez lentement le mur avec le téléphone : l'œuvre s'y accroche d'elle-même. Glissez pour la déplacer. Pour changer de format, revenez ici et choisissez-en un autre.</p>
-      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5" aria-hidden="true"><rect x="85" y="10" width="50" height="100" rx="8"/><rect x="100" y="38" width="22" height="30" fill="#1a1a1a"/><path d="M60 60c-15 10-15 30 0 40M160 60c15 10 15 30 0 40" stroke="#8a857b"/><path d="M10 130h200" stroke="#d4cfc4"/></svg></div>
-    </div>
-  </div>
-  <div class="foot">
-    <button class="skip" id="tuto-skip" type="button">Passer</button>
-    <div class="dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
-    <button class="btn primary" id="tuto-next" type="button">Suivant</button>
-  </div>
+  <div class="stage"><video id="tuto-video" preload="none" poster="tuto-poster.jpg" playsinline muted loop aria-label="Tutoriel : choisissez une œuvre, un format, puis visez votre mur"><source src="tuto.mp4" type="video/mp4"></video></div>
+  <div class="foot"><button class="btn primary" id="tuto-close" type="button">Commencer</button></div>
 </div>
 
 <script src="vendor/model-viewer.min.js" type="module"></script>
@@ -220,7 +187,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const fmtCm = n => String(n).replace('.', ',');
   const MSG_IOS = 'Balayez lentement le mur : l\'œuvre s\'y accroche d\'elle-même. Glissez pour la déplacer. Pour changer de format, revenez ici.';
   const MSG_ANDROID = 'Balayez lentement le mur, puis touchez l\'écran pour y accrocher l\'œuvre.';
-  if (isAndroid) $('#tuto-ar-text').textContent = 'Touchez « Voir sur mon mur », balayez lentement le mur avec le téléphone, puis touchez l\'écran pour y accrocher l\'œuvre. Glissez pour la déplacer. Pour changer de taille, revenez ici et choisissez un autre format.';
 
   let cat = null, work = null, size = null;
 
@@ -235,7 +201,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       const min = Math.min(...w.sizes.map(s => s.price_framed || Infinity));
       const a = document.createElement('a');
       a.className = 'card'; a.href = '#' + w.slug;
-      a.innerHTML = `<div class="ph"><img src="${w.thumb}" alt="${esc(w.title)}" loading="lazy"></div>
+      a.innerHTML = `<div class="ph"><img src="${w.thumb_url || w.thumb}" alt="${esc(w.title)}" loading="lazy"></div>
         <h2>${esc(w.title)}</h2>
         <div class="meta">${w.sizes.length > 1 ? w.sizes.length + ' formats' : (w.sizes[0].w + ' × ' + w.sizes[0].h + ' cm')}${isFinite(min) ? ' · dès ' + fmtEur(min) : ''}</div>`;
       g.appendChild(a);
@@ -260,7 +226,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     document.body.classList.add('view-work');
     if (changed){
       window.scrollTo(0, 0);
-      $('#w-img').src = w.image; $('#w-img').alt = w.title;
+      $('#w-img').src = w.image_url || w.image; $('#w-img').alt = w.title;
       $('#w-title').textContent = w.title;
       $('#w-tech').textContent = 'Édition sur Toile' + (w.edition ? ' · ' + w.edition + ' exemplaires signés et numérotés' : '');
       $('#buy').href = w.url;
@@ -333,25 +299,23 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     if (e.detail.status === 'not-presenting') setMsg('');
   });
 
-  // ---------- tutoriel ----------
-  const tuto = $('#tuto'); let step = 0, lastFocus = null;
-  function showStep(i){
-    step = i;
-    document.querySelectorAll('#slides .slide').forEach((s, k) => s.classList.toggle('on', k === i));
-    document.querySelectorAll('#dots i').forEach((d, k) => d.classList.toggle('on', k === i));
-    $('#tuto-next').textContent = i === 2 ? 'Commencer' : 'Suivant';
+  // ---------- tutoriel (vidéo) : à la première visite, puis via « ? » ----------
+  const tuto = $('#tuto'), video = $('#tuto-video'); let lastFocus = null;
+  function openTuto(){
+    lastFocus = document.activeElement; tuto.classList.add('open'); document.body.classList.add('tuto-open');
+    video.currentTime = 0; const p = video.play(); if (p && p.catch) p.catch(() => {});
+    $('#tuto-close').focus({ preventScroll: true });
   }
-  function openTuto(){ lastFocus = document.activeElement; tuto.classList.add('open'); document.body.classList.add('tuto-open'); showStep(0); $('#tuto-next').focus({ preventScroll: true }); }
   function closeTuto(){
-    tuto.classList.remove('open'); document.body.classList.remove('tuto-open');
+    tuto.classList.remove('open'); document.body.classList.remove('tuto-open'); video.pause();
     try { localStorage.setItem('ar_tuto_seen', '1'); } catch (_) {}
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
-  $('#tuto-next').addEventListener('click', () => step < 2 ? showStep(step + 1) : closeTuto());
-  $('#tuto-skip').addEventListener('click', closeTuto);
+  $('#tuto-close').addEventListener('click', closeTuto);
   $('#help').addEventListener('click', openTuto);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && tuto.classList.contains('open')) closeTuto(); });
-  // Tutoriel : pas d'ouverture automatique (une vidéo remplacera ces écrans) ; accessible via le bouton « ? »
+  let seen = true; try { seen = localStorage.getItem('ar_tuto_seen') === '1'; } catch (_) {}
+  if (!seen && !location.hash) openTuto();   // première visite sur la page d'accueil seulement (pas sur un lien direct vers une œuvre)
 
   // ---------- ancien cache hors-ligne : on le retire (il faisait rater le premier lancement de la RA sur Safari) ----------
   if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {});

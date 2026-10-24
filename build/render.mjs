@@ -36,7 +36,7 @@ loader.load('${glb}', g => {
   const box = new THREE.Box3().setFromObject(g.scene); const size = box.getSize(new THREE.Vector3()); const c = box.getCenter(new THREE.Vector3());
   const cam = new THREE.PerspectiveCamera(40, W / H, 0.01, 20);
   const a = '${angle}';
-  if (a === 'room') { cam.position.set(c.x + 0.30, c.y - 0.25, 1.9); cam.lookAt(c.x + 0.02, c.y - 0.05, 0); cam.fov = 40; cam.updateProjectionMatrix(); }
+  if (a === 'room') { const D = ${process.env.DIST || 1.9}; cam.position.set(c.x + 0.16 * D, c.y - 0.13 * D, D); cam.lookAt(c.x + 0.02, c.y - 0.05, 0); cam.fov = 40; cam.updateProjectionMatrix(); }
   else if (a === 'front') { cam.position.set(c.x, c.y, size.y * 1.9); cam.lookAt(c.x, c.y, 0); }
   else if (a === 'three-quarter') { cam.position.set(c.x - size.x * 1.2, c.y + size.y * 0.15, size.y * 1.3); cam.lookAt(c.x, c.y, 0.02); }
   else if (a === 'corner') { const x = box.max.x, y = box.min.y; cam.position.set(x + 0.10, y - 0.06, 0.22); cam.lookAt(x - 0.05, y + 0.06, 0.02); cam.fov = 45; cam.updateProjectionMatrix(); }
