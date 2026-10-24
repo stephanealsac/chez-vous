@@ -8,7 +8,7 @@ DATA = sys.argv[1]
 OUT = sys.argv[2]
 SELECTION = [34533, 34501, 31420, 33389, 31469, 27977, 30305, 20957, 30214]
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
-MAX_TEX = 2048  # px, côté le plus long de la texture
+MAX_TEX = 1536  # px, côté le plus long de la texture (suffisant en AR, ~3× plus léger)
 
 def strip(s):
     s = re.sub(r'<[^>]+>', ' ', s)
@@ -19,6 +19,16 @@ def slugify(s):
     s = re.sub(r'[^a-zA-Z0-9]+', '-', s).strip('-').lower()
     return s
 
+# Corrections orthographiques / éditoriales appliquées aux textes du site (sans toucher au site lui-même)
+TITLES = {34533: 'Cœur de Chêne'}
+CORRECTIONS = {
+    '*': [('m’ a demandé', 'm’a demandé'), ('Nus avons', 'Nous avons'), ('fantômatiques', 'fantomatiques'),
+          ('la horizontalité', 'l’horizontalité'), ('ont été mienne ', 'ont été miennes '), (' . ', '. '),
+          ('la carcasse et le bois du wapiti vient', 'la carcasse et les bois du wapiti viennent'), ('son ennemie', 'son ennemi')],
+    33389: [('« The Sanctum » – Peinture à l’huile – Gorille dans la jungle. ', ''), ('« The Sanctum » – Peinture à l’huile – Gorille dans la jungle . ', '')],
+    27977: [('Peu connu du grand public et très loin des considérations superficielles des « écologistes » de pacotille, il ne doit sa survie aujourd’hui à l’état sauvage qu’à la lutte acharnée contre le braconnage réalisée et financée par les sociétés de chasses conservationnistes. ',
+             'Peu connu du grand public, il ne doit sa survie à l’état sauvage qu’à une lutte acharnée contre le braconnage. ')],
+}
 products = json.load(open(os.path.join(DATA, 'toile.json')))
 variations = {}
 for fn in os.listdir(os.path.join(DATA, 'var')):
@@ -62,20 +72,22 @@ for pid in SELECTION:
                 s['price_framed'] = price
             else:
                 s['price_unframed'] = price
-    technique = 'Édition sur Toile — tirage en édition limitée et signé'
     img = p['images'][0]
+    desc = strip(p['description'])
+    for a_, b_ in CORRECTIONS.get(pid, []) + CORRECTIONS.get('*', []):
+        desc = desc.replace(a_, b_)
+    name = TITLES.get(pid, name)
     catalogue.append({
         'id': pid,
         'slug': p['slug'],
         'title': name,
-        'technique': technique,
         'edition': (re.search(r'numérotée de 1 à (\d+)', sd) or [None, None])[1],
         'url': p['permalink'],
         'image_src': img['src'],
         'image': f"img/{p['slug']}.jpg",
         'thumb': f"img/{p['slug']}-thumb.jpg",
         'sizes': sizes,
-        'description': strip(p['description']),
+        'description': desc,
     })
 
 os.makedirs(os.path.join(OUT, 'img'), exist_ok=True)
@@ -94,7 +106,7 @@ for a in catalogue:
         cw, ch = iw, int(round(iw / ratio))
     a['crop_note'] = f'{iw}x{ih} -> {cw}x{ch} (ratio {ratio:.3f}, image {iw/ih:.3f})'
     subprocess.run(['convert', raw, '-auto-orient', '-gravity', 'center', '-crop', f'{cw}x{ch}+0+0', '+repage',
-                    '-strip', '-resize', f'{MAX_TEX}x{MAX_TEX}>', '-quality', '85',
+                    '-strip', '-resize', f'{MAX_TEX}x{MAX_TEX}>', '-quality', '80',
                     os.path.join(OUT, a['image'])], check=True)
     subprocess.run(['convert', raw, '-auto-orient', '-strip', '-resize', '600x600>', '-quality', '80',
                     os.path.join(OUT, a['thumb'])], check=True)

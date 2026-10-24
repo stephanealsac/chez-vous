@@ -120,16 +120,36 @@ function usdzZip(files) {
 }
 
 const f3 = x => (Math.abs(x) < 1e-9 ? 0 : +x.toFixed(5));
-function usdMesh(name, m, matPath, withSt, orient) {
-  const pts = [], nrm = [], st = [];
-  for (let i = 0; i < m.P.length; i += 3) {
-    let [x, y, z] = [m.P[i], m.P[i + 1], m.P[i + 2]];
-    let [nx, ny, nz] = [m.N[i], m.N[i + 1], m.N[i + 2]];
-    if (orient === 'lying') { [y, z] = [z, -y]; [ny, nz] = [nz, -ny]; }
-    pts.push(`(${f3(x)}, ${f3(y)}, ${f3(z)})`); nrm.push(`(${f3(nx)}, ${f3(ny)}, ${f3(nz)})`);
+/** Un seul maillage avec trois sous-ensembles de faces (cadre, côtés de toile, face peinte). */
+function usdMesh(name, parts, orient) {
+  const pts = [], nrm = [], st = [], idx = [];
+  const subsets = [];
+  let faceStart = 0;
+  for (const { m, mat, sub } of parts) {
+    const off = pts.length;
+    for (let i = 0; i < m.P.length; i += 3) {
+      let [x, y, z] = [m.P[i], m.P[i + 1], m.P[i + 2]];
+      let [nx, ny, nz] = [m.N[i], m.N[i + 1], m.N[i + 2]];
+      if (orient === 'lying') { [y, z] = [z, -y]; [ny, nz] = [nz, -ny]; }
+      pts.push(`(${f3(x)}, ${f3(y)}, ${f3(z)})`); nrm.push(`(${f3(nx)}, ${f3(ny)}, ${f3(nz)})`);
+    }
+    for (let i = 0; i < m.T.length; i += 2) st.push(`(${f3(m.T[i])}, ${f3(1 - m.T[i + 1])})`); // USD : origine en bas à gauche
+    idx.push(...m.I.map(i => i + off));
+    const nFaces = m.I.length / 3;
+    subsets.push({ sub, mat, faces: Array.from({ length: nFaces }, (_, k) => faceStart + k) });
+    faceStart += nFaces;
   }
-  for (let i = 0; i < m.T.length; i += 2) st.push(`(${f3(m.T[i])}, ${f3(1 - m.T[i + 1])})`); // USD : origine en bas à gauche
-  const counts = new Array(m.I.length / 3).fill(3).join(', ');
+  const counts = new Array(faceStart).fill(3).join(', ');
+  const subsetStr = subsets.map(s => `
+            def GeomSubset "${s.sub}" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token elementType = "face"
+                uniform token familyName = "materialBind"
+                int[] indices = [${s.faces.join(', ')}]
+                rel material:binding = ${s.mat}
+            }`).join('');
   return `
         def Mesh "${name}" (
             prepend apiSchemas = ["MaterialBindingAPI"]
@@ -137,16 +157,17 @@ function usdMesh(name, m, matPath, withSt, orient) {
         {
             uniform bool doubleSided = 0
             int[] faceVertexCounts = [${counts}]
-            int[] faceVertexIndices = [${m.I.join(', ')}]
-            rel material:binding = ${matPath}
+            int[] faceVertexIndices = [${idx.join(', ')}]
+            rel material:binding = </Root/Materials/FrameMat>
             normal3f[] normals = [${nrm.join(', ')}] (
                 interpolation = "vertex"
             )
             point3f[] points = [${pts.join(', ')}]
-${withSt ? `            float2[] primvars:st = [${st.join(', ')}] (
+            float2[] primvars:st = [${st.join(', ')}] (
                 interpolation = "vertex"
             )
-` : ''}            uniform token subdivisionScheme = "none"
+            uniform token subdivisionScheme = "none"
+            uniform token subsetFamily:materialBind:familyType = "partition"${subsetStr}
         }`;
 }
 
@@ -155,6 +176,7 @@ function buildUSDA(p, title, orient) {
 (
     customLayerData = {
         string creator = "AR Tableaux - Stephane Alsac"
+        string title = "${title.replace(/"/g, '\\"')}"
     }
     defaultPrim = "Root"
     metersPerUnit = 1
@@ -163,6 +185,60 @@ function buildUSDA(p, title, orient) {
 
 def Xform "Root"
 {
+    def Scope "Materials"
+    {
+        def Material "FrameMat"
+        {
+            token outputs:surface.connect = </Root/Materials/FrameMat/PreviewSurface.outputs:surface>
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.02, 0.02, 0.02)
+                float inputs:metallic = 0
+                float inputs:roughness = 0.85
+                token outputs:surface
+            }
+        }
+        def Material "CanvasSideMat"
+        {
+            token outputs:surface.connect = </Root/Materials/CanvasSideMat/PreviewSurface.outputs:surface>
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.35, 0.33, 0.30)
+                float inputs:metallic = 0
+                float inputs:roughness = 0.95
+                token outputs:surface
+            }
+        }
+        def Material "CanvasMat"
+        {
+            token outputs:surface.connect = </Root/Materials/CanvasMat/PreviewSurface.outputs:surface>
+            def Shader "PreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </Root/Materials/CanvasMat/Texture.outputs:rgb>
+                float inputs:metallic = 0
+                float inputs:roughness = 0.9
+                token outputs:surface
+            }
+            def Shader "uvReader_st"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "st"
+                float2 outputs:result
+            }
+            def Shader "Texture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @textures/canvas.jpg@
+                float2 inputs:st.connect = </Root/Materials/CanvasMat/uvReader_st.outputs:result>
+                token inputs:wrapS = "clamp"
+                token inputs:wrapT = "clamp"
+                float3 outputs:rgb
+            }
+        }
+    }
     def Scope "Scenes" (
         kind = "sceneLibrary"
     )
@@ -178,67 +254,15 @@ def Xform "Root"
         {
             token preliminary:anchoring:type = "plane"
             token preliminary:planeAnchoring:alignment = "vertical"
-${usdMesh('Frame', p.frame, '</Materials/FrameMat>', false, orient)}
-${usdMesh('CanvasSides', p.sides, '</Materials/CanvasSideMat>', false, orient)}
-${usdMesh('Canvas', p.front, '</Materials/CanvasMat>', true, orient)}
+${usdMesh('Painting', [
+  { m: p.frame, mat: '</Root/Materials/FrameMat>', sub: 'frame' },
+  { m: p.sides, mat: '</Root/Materials/CanvasSideMat>', sub: 'canvasSides' },
+  { m: p.front, mat: '</Root/Materials/CanvasMat>', sub: 'canvas' },
+], orient)}
         }
     }
 }
 
-def Scope "Materials"
-{
-    def Material "FrameMat"
-    {
-        token outputs:surface.connect = </Materials/FrameMat/PreviewSurface.outputs:surface>
-        def Shader "PreviewSurface"
-        {
-            uniform token info:id = "UsdPreviewSurface"
-            color3f inputs:diffuseColor = (0.02, 0.02, 0.02)
-            float inputs:metallic = 0
-            float inputs:roughness = 0.85
-            token outputs:surface
-        }
-    }
-    def Material "CanvasSideMat"
-    {
-        token outputs:surface.connect = </Materials/CanvasSideMat/PreviewSurface.outputs:surface>
-        def Shader "PreviewSurface"
-        {
-            uniform token info:id = "UsdPreviewSurface"
-            color3f inputs:diffuseColor = (0.35, 0.33, 0.30)
-            float inputs:metallic = 0
-            float inputs:roughness = 0.95
-            token outputs:surface
-        }
-    }
-    def Material "CanvasMat"
-    {
-        token outputs:surface.connect = </Materials/CanvasMat/PreviewSurface.outputs:surface>
-        def Shader "PreviewSurface"
-        {
-            uniform token info:id = "UsdPreviewSurface"
-            color3f inputs:diffuseColor.connect = </Materials/CanvasMat/Texture.outputs:rgb>
-            float inputs:metallic = 0
-            float inputs:roughness = 0.9
-            token outputs:surface
-        }
-        def Shader "uvReader_st"
-        {
-            uniform token info:id = "UsdPrimvarReader_float2"
-            token inputs:varname = "st"
-            float2 outputs:result
-        }
-        def Shader "Texture"
-        {
-            uniform token info:id = "UsdUVTexture"
-            asset inputs:file = @textures/canvas.jpg@
-            float2 inputs:st.connect = </Materials/CanvasMat/uvReader_st.outputs:result>
-            token inputs:wrapS = "clamp"
-            token inputs:wrapT = "clamp"
-            float3 outputs:rgb
-        }
-    }
-}
 `;
 }
 
@@ -306,5 +330,6 @@ for (const w of cat.works) {
     n++;
   }
 }
+for (const w of cat.works) { delete w.crop_note; delete w.image_px; delete w.technique; }
 fs.writeFileSync(path.join(SITE, 'catalogue.json'), JSON.stringify(cat, null, 1));
 console.log(`${n} modèles générés (usdz + glb), orientation USDZ = ${USDZ_ORIENTATION}`);

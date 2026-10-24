@@ -5,117 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#eeeae1">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Alsac — Chez vous">
-<title>Stéphane Alsac — Voir l'œuvre chez vous</title>
+<meta name="apple-mobile-web-app-title" content="Chez vous">
+<title>Chez vous — Stéphane Alsac</title>
 <meta name="description" content="Visualisez les Éditions sur Toile de Stéphane Alsac sur votre mur, à taille réelle, en réalité augmentée.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chez vous — Stéphane Alsac">
+<meta property="og:description" content="Posez une Édition sur Toile sur votre mur, à taille réelle, en réalité augmentée.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
+/* Jetons repris de la charte du site stephane-alsac.com (parchemin, Cormorant Garamond + Raleway, filets, zéro décoration). */
 :root{
-  --bg:#eeeae1; --bg2:#e2dbcc; --border:#d4cfc4; --ink:#1a1a1a; --ink-soft:#4a4a4a; --muted:#999999; --label:#404040;
-  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Raleway',system-ui,-apple-system,sans-serif;
+  --bg:#eeeae1; --bg2:#e2dbcc; --border:#d4cfc4; --ink:#1a1a1a; --ink-soft:#4a4a4a; --muted:#6a665e; --label:#404040;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif; --sans:'Raleway',system-ui,-apple-system,'Helvetica Neue',sans-serif;
   --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --gl:max(20px,env(safe-area-inset-left,0px)); --gr:max(20px,env(safe-area-inset-right,0px));
+  color-scheme:light;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;background:var(--bg)}
 body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--bg);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
-button,a{font-family:inherit;color:inherit}
-button{background:none;border:0;cursor:pointer}
+body.tuto-open{overflow:hidden;position:fixed;inset:0;width:100%}
+button,a{font-family:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+button{background:none;border:0;cursor:pointer;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+button:focus-visible,a:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
 img{display:block;max-width:100%}
-.hidden{display:none!important}
+.serif-note{font-family:var(--serif);font-style:italic;font-weight:300;font-size:15px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-/* ----- en-tête (identique au site : logo texte Cormorant 14px .22em) ----- */
-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:calc(14px + var(--sat)) 20px 14px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
-.brand{grid-column:2;font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;color:var(--ink);text-decoration:none;text-align:center}
+/* ----- en-tête : logo texte identique au site (Cormorant 14px / .22em) ----- */
+header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:calc(8px + var(--sat)) var(--gr) 8px var(--gl);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:calc(56px + var(--sat))}
+.brand{grid-column:2;font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;color:var(--ink);text-decoration:none;text-align:center;padding:6px 0}
 .brand small{display:block;font:300 9px/1 var(--sans);letter-spacing:.25em;color:var(--muted);margin-top:6px}
-.icon-btn{grid-column:3;justify-self:end;width:34px;height:34px;border:1px solid var(--border);display:grid;place-items:center;font:300 18px/1 var(--serif);font-style:italic;transition:border-color .3s}
-.icon-btn:active{border-color:var(--ink)}
-.back{grid-column:1;justify-self:start;display:none;align-items:center;gap:8px;font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);padding:10px 0}
+.icon-btn{grid-column:3;justify-self:end;width:44px;height:44px;display:grid;place-items:center;font:300 20px/1 var(--serif);font-style:italic}
+.icon-btn span{width:32px;height:32px;border:1px solid var(--border);display:grid;place-items:center;transition:border-color .3s}
+.icon-btn:active span{border-color:var(--ink)}
+.back{grid-column:1;justify-self:start;display:none;align-items:center;gap:8px;font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);min-height:44px;padding:0 8px 0 0}
 body.view-work .back{display:flex}
 
 /* ----- catalogue ----- */
 main{padding-bottom:calc(32px + var(--sab))}
-.intro{padding:40px 20px 32px;border-bottom:1px solid var(--border);text-align:center}
-.intro .eyebrow{font:400 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--label);margin-bottom:16px}
-.intro h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em}
+body.view-work main{padding-bottom:0}
+.intro{padding:40px var(--gr) 32px var(--gl);border-bottom:1px solid var(--border);text-align:center}
+.eyebrow{font:400 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--label);margin-bottom:16px}
+.intro h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em;text-wrap:balance}
 .intro p{margin:14px auto 0;font-size:13px;color:var(--ink-soft);max-width:32em}
 .grid{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid var(--border)}
-.card{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 16px 20px;text-decoration:none;display:block;transition:background .3s}
+.card{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 16px 20px;text-decoration:none;display:block;transition:background .3s;-webkit-touch-callout:none}
 .card:active{background:rgba(26,26,26,.03)}
-.card .ph{aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden}
+.card .ph{aspect-ratio:1/1;max-width:100%;display:grid;place-items:center;overflow:hidden}
 .card img{max-height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(26,26,26,.18))}
-.card h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;line-height:1.1;margin-top:16px;text-align:center}
-.card .meta{font-size:11px;font-style:italic;color:var(--muted);margin-top:6px;text-align:center}
+.card h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;line-height:1.1;margin-top:16px;text-align:center;text-wrap:balance}
+.card .meta{font-family:var(--serif);font-style:italic;font-weight:300;font-size:15px;color:var(--muted);margin-top:4px;text-align:center;font-variant-numeric:tabular-nums}
+.empty{padding:40px var(--gr);text-align:center;color:var(--ink-soft);font-size:13px;grid-column:1/-1;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
 
 /* ----- fiche ----- */
 .work{display:none}
 body.view-work .work{display:block}
 body.view-work .catalogue{display:none}
-.hero{padding:28px 20px 12px;display:grid;place-items:center;min-height:46vw}
+.hero{padding:28px var(--gr) 12px var(--gl);display:grid;place-items:center;min-height:46vw}
 .hero img{max-height:52vh;filter:drop-shadow(0 10px 16px rgba(26,26,26,.22))}
-.work-head{padding:10px 20px 24px;border-bottom:1px solid var(--border);text-align:center}
-.work-head .tech{font:400 9px/1.5 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--label);margin-bottom:10px}
-.work-head h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em}
+.work-head{padding:10px var(--gr) 24px var(--gl);border-bottom:1px solid var(--border);text-align:center}
+.work-head .tech{font:400 9px/1.6 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--label);margin-bottom:10px}
+.work-head h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em;text-wrap:balance}
 .work-head .desc{font-size:13px;color:var(--ink-soft);margin:14px auto 0;max-width:34em;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;text-align:left}
 .work-head .desc.open{display:block;-webkit-line-clamp:unset}
-.more{font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);margin-top:10px;border-bottom:1px solid var(--border);padding-bottom:2px}
-.section{border-bottom:1px solid var(--border);padding:22px 20px}
+.more{font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px;padding:14px 8px}
+.more span{border-bottom:1px solid var(--border);padding-bottom:2px}
+.section{border-bottom:1px solid var(--border);padding:22px var(--gr) 22px var(--gl)}
 .label{font:400 10px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--label);margin-bottom:14px}
 .sizes{display:flex;flex-direction:column;gap:8px}
-.size{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border:1px solid var(--border);text-align:left;background:transparent;transition:border-color .2s,background .2s;font-size:12px;width:100%}
-.size .l{font-family:var(--serif);font-size:20px;font-weight:300;line-height:1;font-style:italic;min-width:7.5em}
-.size .d{font-size:12px;letter-spacing:.04em;color:var(--ink-soft);flex:1}
-.size .p{font-family:var(--serif);font-size:19px;font-weight:300;line-height:1;white-space:nowrap}
-.size[aria-pressed=true]{border-color:var(--ink);background:rgba(26,26,26,.03)}
-.dims{font-size:11px;font-style:italic;color:var(--muted);margin-top:14px;text-align:center}
-.dims b{font-weight:400;font-style:normal;color:var(--ink-soft)}
+.size{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:52px;padding:10px 14px;border:1px solid var(--border);text-align:left;background:transparent;transition:border-color .2s,background .2s;font-size:12px;width:100%}
+.size .l{font-family:var(--serif);font-size:20px;font-weight:300;line-height:1;font-style:italic;min-width:7.2em}
+.size .d{font-size:12px;letter-spacing:.04em;color:var(--ink-soft);flex:1;font-variant-numeric:tabular-nums}
+.size .p{font-family:var(--serif);font-size:19px;font-weight:300;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
+.size[aria-checked=true]{border-color:var(--ink);background:rgba(26,26,26,.03)}
+.dims{margin-top:14px;text-align:center}
+.dims b{font-family:var(--sans);font-weight:400;font-style:normal;font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 
 /* échelle */
-.scale{display:flex;align-items:flex-end;gap:14px;height:150px;margin-top:4px}
+.scale{display:flex;align-items:flex-end;gap:14px;height:160px;margin-top:4px}
 .scale svg{height:100%;width:auto;max-width:100%}
-.scale .note{font-size:11px;font-style:italic;color:var(--muted);padding-bottom:4px;white-space:nowrap}
+.scale .note{padding-bottom:4px;white-space:nowrap}
 
 /* aperçu 3D */
-.preview{height:62vw;max-height:380px;background:var(--bg2);border:1px solid var(--border);position:relative}
-model-viewer{width:100%;height:100%;--poster-color:transparent;background:var(--bg2)}
-.preview .hint{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);pointer-events:none}
+.preview{height:62vw;max-height:380px;max-width:100%;background:var(--bg2);border:1px solid var(--border);position:relative}
+model-viewer{width:100%;height:100%;--poster-color:transparent;--progress-bar-color:var(--ink);--progress-bar-height:1px;background:var(--bg2)}
 
-/* actions (boutons du site : fond encre, Raleway 11px .25em) */
-.actions{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border);padding:12px 20px calc(12px + var(--sab));display:grid;grid-template-columns:1fr;gap:8px;z-index:9}
+/* actions : bouton principal épinglé, liens secondaires discrets */
+.actions{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border);padding:12px var(--gr) calc(10px + var(--sab)) var(--gl);display:grid;gap:6px;z-index:9}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;height:50px;border:1px solid var(--ink);font:400 11px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;text-decoration:none;background:transparent;width:100%;transition:background .3s,color .3s}
 .btn.primary{background:var(--ink);color:var(--bg)}
 .btn.primary:active{background:#333}
 .btn:active{background:rgba(26,26,26,.05)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.ar-msg{font-size:11px;font-style:italic;color:var(--muted);text-align:center;min-height:1.2em}
-.unsupported{padding:22px 20px;border-bottom:1px solid var(--border);display:none;text-align:center}
+.link{display:flex;align-items:center;justify-content:center;min-height:44px;font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none}
+.link span{border-bottom:1px solid var(--border);padding-bottom:3px}
+.ar-msg{text-align:center;display:none;padding-bottom:4px}
+.ar-msg.on{display:block}
+.unsupported{padding:22px var(--gr) 22px var(--gl);border-bottom:1px solid var(--border);display:none;text-align:center}
 .unsupported p{font-size:13px;color:var(--ink-soft);max-width:32em;margin:0 auto}
 .unsupported canvas{display:block;margin:16px auto 0;width:160px;height:160px;image-rendering:pixelated;border:8px solid #fff}
 
 /* ----- tutoriel ----- */
-.tuto{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column;padding:calc(24px + var(--sat)) 24px calc(20px + var(--sab))}
+.tuto{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column;padding:calc(20px + var(--sat)) var(--gr) calc(16px + var(--sab)) var(--gl)}
 .tuto.open{display:flex}
-.tuto .top{font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;text-align:center;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.tuto .top{font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;text-align:center;padding:6px 0 18px;border-bottom:1px solid var(--border)}
 .tuto .slides{flex:1;display:grid;overflow:hidden}
 .tuto .slide{grid-area:1/1;display:flex;flex-direction:column;justify-content:center;opacity:0;transition:opacity .35s;pointer-events:none}
 .tuto .slide.on{opacity:1;pointer-events:auto}
 .tuto .n{font:400 10px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--label)}
-.tuto h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em;margin-top:12px}
+.tuto h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em;margin-top:12px;text-wrap:balance}
 .tuto p{font-size:14px;color:var(--ink-soft);margin-top:14px;max-width:30em}
 .tuto .art{height:150px;margin:22px 0 0;display:flex;align-items:center}
-.tuto .art svg{height:100%;width:auto}
-.tuto .foot{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border)}
+.tuto .art svg{height:100%;width:auto;max-width:100%}
+.tuto .foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}
 .dots{display:flex;gap:8px}
 .dots i{width:7px;height:7px;border:1px solid var(--ink);display:block}
 .dots i.on{background:var(--ink)}
 .tuto .btn{width:auto;height:44px;padding:0 22px}
-.skip{font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+.skip{font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);min-height:44px;padding:0 12px 0 0}
 
-footer{padding:28px 20px;font-size:11px;font-style:italic;color:var(--muted);text-align:center}
-footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--border);font-style:normal}
+footer{padding:28px var(--gr) 28px var(--gl);text-align:center}
+footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--border);font-style:normal;font-family:var(--sans);font-size:11px;letter-spacing:.06em}
 @media (min-width:700px){
   .grid{grid-template-columns:repeat(3,1fr)}
   .intro h1{font-size:48px}
@@ -126,9 +145,9 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 <body>
 
 <header>
-  <button class="back" id="back" type="button" aria-label="Retour au catalogue">← Éditions</button>
+  <button class="back" id="back" type="button" aria-label="Retour aux éditions">← Éditions</button>
   <a class="brand" href="#">Stéphane Alsac<small>Chez vous</small></a>
-  <button class="icon-btn" id="help" type="button" aria-label="Revoir le tutoriel">?</button>
+  <button class="icon-btn" id="help" type="button" aria-label="Revoir le tutoriel"><span>?</span></button>
 </header>
 
 <main>
@@ -137,10 +156,10 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     <div class="intro">
       <div class="eyebrow">Éditions sur Toile</div>
       <h1>Vos murs, ses regards.</h1>
-      <p>Choisissez une Édition sur Toile, sa taille, puis posez-la sur votre mur en réalité augmentée — à taille réelle, encadrée en caisse américaine.</p>
+      <p>Choisissez une Édition sur Toile, sa taille, puis posez-la sur votre mur en réalité augmentée, à taille réelle, encadrée en caisse américaine.</p>
     </div>
     <div class="grid" id="grid"></div>
-    <footer>Éditions sur Toile en édition limitée, signées et numérotées. <a href="https://www.stephane-alsac.com" target="_blank" rel="noopener">stephane-alsac.com</a></footer>
+    <footer class="serif-note">Éditions limitées, signées et numérotées. <a href="https://www.stephane-alsac.com" target="_blank" rel="noopener">stephane-alsac.com</a></footer>
   </section>
 
   <!-- ===== FICHE ŒUVRE ===== -->
@@ -150,71 +169,74 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       <div class="tech" id="w-tech"></div>
       <h1 id="w-title"></h1>
       <p class="desc" id="w-desc"></p>
-      <button class="more" id="more" type="button">Lire la suite</button>
+      <button class="more" id="more" type="button"><span>Lire la suite</span></button>
     </div>
 
     <div class="section">
-      <div class="label">Choisir la taille</div>
-      <div class="sizes" id="sizes"></div>
-      <div class="dims" id="dims"></div>
+      <div class="label" id="sizes-label">Choisir la taille</div>
+      <div class="sizes" id="sizes" role="radiogroup" aria-labelledby="sizes-label"></div>
+      <div class="dims serif-note" id="dims"></div>
     </div>
 
     <div class="section">
       <div class="label">À l'échelle</div>
-      <div class="scale"><svg id="scale-svg" viewBox="0 0 300 180" preserveAspectRatio="xMinYMax meet" aria-hidden="true"></svg><div class="note">Silhouette : 1,75 m</div></div>
+      <div class="scale"><svg id="scale-svg" viewBox="0 0 300 180" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Le tableau encadré à côté d'une silhouette de 1,75 m"></svg><div class="note serif-note">Silhouette : 1,75 m</div></div>
     </div>
 
     <div class="section">
-      <div class="label">Aperçu 3D — pivotez du doigt</div>
+      <div class="label">Aperçu 3D, pivotez du doigt</div>
       <div class="preview">
         <model-viewer id="mv" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none"
-          shadow-intensity="0.6" exposure="1.05" environment-image="neutral" camera-orbit="-22deg 80deg auto" min-camera-orbit="-70deg 60deg auto" max-camera-orbit="70deg 100deg auto"
-          ar ar-modes="scene-viewer webxr" ar-placement="wall" ar-scale="fixed" loading="lazy" reveal="auto"></model-viewer>
+          shadow-intensity="0.15" exposure="1.05" environment-image="neutral" camera-orbit="-22deg 80deg auto" min-camera-orbit="-70deg 60deg auto" max-camera-orbit="70deg 100deg auto"
+          ar ar-modes="webxr scene-viewer" ar-placement="wall" ar-scale="fixed" loading="lazy" reveal="auto"><button slot="ar-button" hidden></button></model-viewer>
       </div>
     </div>
 
     <div class="unsupported" id="unsupported">
       <p>La réalité augmentée fonctionne sur iPhone, iPad et Android. Scannez ce code avec votre téléphone pour ouvrir cette œuvre.</p>
-      <canvas id="qr" width="33" height="33"></canvas>
+      <canvas id="qr" width="33" height="33" role="img" aria-label="QR code vers cette page"></canvas>
     </div>
 
     <div class="actions">
+      <div class="ar-msg serif-note" id="ar-msg" aria-live="polite"></div>
       <button class="btn primary" id="ar-btn" type="button">Voir sur mon mur</button>
       <div class="row2">
-        <a class="btn" id="buy" href="#" target="_blank" rel="noopener">Acquérir ce tirage</a>
-        <button class="btn" id="share" type="button">Partager</button>
+        <a class="link" id="buy" href="#" target="_blank" rel="noopener"><span>Acquérir ce tirage</span></a>
+        <button class="link" id="share" type="button"><span>Partager</span></button>
       </div>
-      <div class="ar-msg" id="ar-msg"></div>
     </div>
   </section>
 </main>
 
+<!-- lien AR Quick Look (iOS) : un seul, gardé dans le DOM pour recevoir le tap sur la bannière -->
+<a id="ql" rel="ar" href="#" aria-hidden="true" tabindex="-1" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden"><img alt=""></a>
+
 <!-- ===== TUTORIEL ===== -->
-<div class="tuto" id="tuto" role="dialog" aria-modal="true" aria-label="Tutoriel">
+<div class="tuto" id="tuto" role="dialog" aria-modal="true" aria-label="Comment ça marche">
   <div class="top">Stéphane Alsac</div>
   <div class="slides" id="slides">
     <div class="slide on">
       <div class="n">Étape 1 / 3</div>
       <h2>Choisissez une œuvre</h2>
       <p>Parcourez les Éditions sur Toile et ouvrez celle qui vous parle.</p>
-      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5"><rect x="10" y="20" width="60" height="80"/><rect x="80" y="20" width="60" height="80"/><rect x="150" y="20" width="60" height="80"/><rect x="88" y="28" width="44" height="64" fill="#1a1a1a" stroke="none"/><path d="M20 120h190" stroke="#d4cfc4"/></svg></div>
+      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5" aria-hidden="true"><rect x="10" y="20" width="60" height="80"/><rect x="80" y="20" width="60" height="80"/><rect x="150" y="20" width="60" height="80"/><rect x="88" y="28" width="44" height="64" fill="#1a1a1a" stroke="none"/><path d="M20 120h190" stroke="#d4cfc4"/></svg></div>
     </div>
     <div class="slide">
       <div class="n">Étape 2 / 3</div>
       <h2>Choisissez la taille</h2>
       <p>Chaque édition existe en plusieurs formats. La silhouette vous donne l'échelle avant même la réalité augmentée.</p>
-      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5"><rect x="12" y="60" width="50" height="34"/><rect x="74" y="44" width="70" height="50"/><rect x="156" y="20" width="56" height="74" fill="#1a1a1a"/><path d="M10 120h200" stroke="#d4cfc4"/></svg></div>
+      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5" aria-hidden="true"><rect x="12" y="60" width="50" height="34"/><rect x="74" y="44" width="70" height="50"/><rect x="156" y="20" width="56" height="74" fill="#1a1a1a"/><path d="M10 120h200" stroke="#d4cfc4"/></svg></div>
     </div>
     <div class="slide">
       <div class="n">Étape 3 / 3</div>
       <h2>Visez votre mur</h2>
-      <p>Touchez « Voir sur mon mur », balayez lentement le mur avec le téléphone, puis touchez l'écran pour accrocher l'œuvre. Glissez pour la déplacer. Pour changer de taille, revenez ici et choisissez un autre format.</p>
-      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5"><rect x="85" y="10" width="50" height="100" rx="8"/><rect x="100" y="38" width="22" height="30" fill="#1a1a1a"/><path d="M60 60c-15 10-15 30 0 40M160 60c15 10 15 30 0 40" stroke="#8a857b"/><path d="M10 130h200" stroke="#d4cfc4"/></svg></div>
+      <p id="tuto-ar-text">Touchez « Voir sur mon mur » et balayez lentement le mur avec le téléphone : l'œuvre s'y accroche d'elle-même. Glissez pour la déplacer. Pour changer de taille, revenez ici et choisissez un autre format.</p>
+      <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5" aria-hidden="true"><rect x="85" y="10" width="50" height="100" rx="8"/><rect x="100" y="38" width="22" height="30" fill="#1a1a1a"/><path d="M60 60c-15 10-15 30 0 40M160 60c15 10 15 30 0 40" stroke="#8a857b"/><path d="M10 130h200" stroke="#d4cfc4"/></svg></div>
     </div>
   </div>
   <div class="foot">
     <button class="skip" id="tuto-skip" type="button">Passer</button>
-    <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+    <div class="dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
     <button class="btn primary" id="tuto-next" type="button">Suivant</button>
   </div>
 </div>
@@ -228,13 +250,18 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const ua = navigator.userAgent;
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const isAndroid = /Android/i.test(ua);
-  const quickLook = (() => { const a = document.createElement('a'); return !!(a.relList && a.relList.supports && a.relList.supports('ar')); })();
-  const fmtEur = n => n == null ? '' : n.toLocaleString('fr-FR') + ' €';
+  const quickLook = isIOS && (() => { const a = document.createElement('a'); return !!(a.relList && a.relList.supports && a.relList.supports('ar')); })();
+  const fmtEur = n => n == null ? '' : String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ' ') + ' €';
   const fmtCm = n => String(n).replace('.', ',');
+  const MSG_IOS = 'Balayez lentement le mur : l\'œuvre s\'y accroche d\'elle-même. Glissez pour la déplacer.';
+  const MSG_ANDROID = 'Balayez lentement le mur, puis touchez l\'écran pour y accrocher l\'œuvre.';
+  if (isAndroid) $('#tuto-ar-text').textContent = 'Touchez « Voir sur mon mur », balayez lentement le mur avec le téléphone, puis touchez l\'écran pour y accrocher l\'œuvre. Glissez pour la déplacer. Pour changer de taille, revenez ici et choisissez un autre format.';
 
   let cat = null, work = null, size = null;
 
-  fetch('catalogue.json').then(r => r.json()).then(c => { cat = c; buildGrid(); route(); });
+  fetch('catalogue.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(c => { cat = c; buildGrid(); route(); })
+    .catch(() => { $('#grid').innerHTML = '<div class="empty">Le catalogue n\'a pas pu être chargé. Vérifiez votre connexion, puis rouvrez la page.</div>'; });
 
   // ---------- catalogue ----------
   function buildGrid(){
@@ -252,14 +279,15 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 
   // ---------- routage #slug/taille ----------
   function route(){
+    if (!cat) return;
     const h = location.hash.replace(/^#/, '');
     const [slug, sz] = h.split('/');
     const w = cat.works.find(x => x.slug === slug);
-    if (!w){ document.body.classList.remove('view-work'); work = null; document.title = 'Stéphane Alsac — Voir l\'œuvre chez vous'; return; }
+    if (!w){ document.body.classList.remove('view-work'); work = null; document.title = 'Chez vous — Stéphane Alsac'; return; }
     openWork(w, w.sizes.find(s => s.slug === sz) || w.sizes[0]);
   }
   window.addEventListener('hashchange', route);
-  $('#back').addEventListener('click', () => { history.length > 1 ? history.back() : (location.hash = ''); });
+  $('#back').addEventListener('click', () => { location.hash = ''; });
 
   function openWork(w, s){
     const changed = work !== w;
@@ -270,14 +298,14 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       $('#w-img').src = w.image; $('#w-img').alt = w.title;
       $('#w-title').textContent = w.title;
       $('#w-tech').textContent = 'Édition sur Toile' + (w.edition ? ' · ' + w.edition + ' exemplaires signés et numérotés' : '');
-      $('#w-desc').textContent = w.description; $('#w-desc').classList.remove('open'); $('#more').textContent = 'Lire la suite';
+      $('#w-desc').textContent = w.description; $('#w-desc').classList.remove('open'); $('#more').firstChild.textContent = 'Lire la suite';
       requestAnimationFrame(() => { const d = $('#w-desc'); $('#more').style.display = d.scrollHeight > d.clientHeight + 2 ? '' : 'none'; });
       $('#buy').href = w.url;
-      document.title = w.title + ' — chez vous';
+      document.title = w.title + ' chez vous — Stéphane Alsac';
       const sz = $('#sizes'); sz.innerHTML = '';
       for (const x of w.sizes){
         const b = document.createElement('button');
-        b.type = 'button'; b.className = 'size'; b.dataset.slug = x.slug;
+        b.type = 'button'; b.className = 'size'; b.dataset.slug = x.slug; b.setAttribute('role', 'radio');
         b.innerHTML = `<div class="l">${esc(x.label)}</div><div class="d">${x.w} × ${x.h} cm</div><div class="p">${x.price_framed ? fmtEur(x.price_framed) : ''}</div>`;
         b.addEventListener('click', () => { history.replaceState(null, '', '#' + w.slug + '/' + x.slug); selectSize(x); });
         sz.appendChild(b);
@@ -285,22 +313,22 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     }
     selectSize(s);
   }
+  $('#more').addEventListener('click', () => { const d = $('#w-desc'); d.classList.toggle('open'); $('#more').firstChild.textContent = d.classList.contains('open') ? 'Réduire' : 'Lire la suite'; });
 
   function selectSize(s){
     size = s;
-    document.querySelectorAll('.size').forEach(b => b.setAttribute('aria-pressed', b.dataset.slug === s.slug ? 'true' : 'false'));
+    document.querySelectorAll('.size').forEach(b => b.setAttribute('aria-checked', b.dataset.slug === s.slug ? 'true' : 'false'));
     const o = s.outer_cm;
-    $('#dims').innerHTML = `Toile <b>${s.w} × ${s.h} cm</b> · encadrée caisse américaine <b>${fmtCm(o.w)} × ${fmtCm(o.h)} cm</b>${s.price_framed ? ' · ' + fmtEur(s.price_framed) + ' encadré' : ''}${s.price_unframed ? ', ' + fmtEur(s.price_unframed) + ' roulé' : ''}`;
+    $('#dims').innerHTML = `Toile <b>${s.w} × ${s.h} cm</b> · encadrée caisse américaine <b>${fmtCm(o.w)} × ${fmtCm(o.h)} cm</b>${s.price_framed ? ' · <b>' + fmtEur(s.price_framed) + '</b> encadrée' : ''}${s.price_unframed ? ', <b>' + fmtEur(s.price_unframed) + '</b> toile seule' : ''}`;
     drawScale(o.w, o.h);
     const mv = $('#mv');
     mv.setAttribute('poster', work.image);
-    mv.setAttribute('alt', work.title + ' — ' + s.label);
-    mv.src = s.glb;
-    $('#ar-msg').textContent = '';
+    mv.setAttribute('alt', work.title + ', ' + s.label);
+    mv.setAttribute('src', s.glb);
+    setMsg('');
     if (!(quickLook || isAndroid)) { $('#unsupported').style.display = 'block'; drawQR(location.href); }
   }
-
-  $('#more').addEventListener('click', () => { const d = $('#w-desc'); d.classList.toggle('open'); $('#more').textContent = d.classList.contains('open') ? 'Réduire' : 'Lire la suite'; });
+  function setMsg(t){ const m = $('#ar-msg'); m.textContent = t; m.classList.toggle('on', !!t); }
 
   // ---------- échelle (silhouette 1,75 m) ----------
   function drawScale(wcm, hcm){
@@ -313,18 +341,21 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     const x = 64 + 26, W = Math.max(x + pw + 8, 200);
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     const py = baseline - personH;
+    // silhouette tracée sur 150 px de haut (tête à y=1, pieds à y=150)
     const person = `<g transform="translate(10,${py})" fill="#d4cfc4" stroke="#8a857b" stroke-width="1">
-      <circle cx="24" cy="11" r="9.5"/>
-      <path d="M13 24h22c4 0 7 3 7 7l3 34h-5l-4-26v46l-3 59h-6l-2-54h-2l-2 54h-6l-3-59v-46l-4 26h-5l3-34c0-4 3-7 7-7z"/></g>`;
+      <circle cx="24" cy="11" r="10"/>
+      <path d="M13 25h22c4 0 7 3 7 7l3 36h-5l-4-28v48l-3 62h-6l-2-57h-2l-2 57h-6l-3-62v-48l-4 28h-5l3-36c0-4 3-7 7-7z"/></g>`;
     const top = baseline - topPainting;
     const bar = 4.5 * scale, gap = 0.8 * scale;
     const painting = `<rect x="${x}" y="${top}" width="${pw}" height="${ph}" fill="#1a1a1a"/>
       <rect x="${x + bar + gap}" y="${top + bar + gap}" width="${Math.max(pw - 2 * (bar + gap), 1)}" height="${Math.max(ph - 2 * (bar + gap), 1)}" fill="#e2dbcc"/>
-      <text x="${x + pw / 2}" y="${top - 4}" text-anchor="middle" font-family="Raleway,sans-serif" font-size="8" letter-spacing="1" fill="#8a857b">${fmtCm(+(wcm).toFixed(1))} cm</text>`;
+      <text x="${x + pw / 2}" y="${top - 4}" text-anchor="middle" font-family="Raleway,sans-serif" font-size="8" letter-spacing="1" fill="#6a665e">${fmtCm(+(wcm).toFixed(1))} cm</text>`;
     svg.innerHTML = `<line x1="0" y1="${baseline}" x2="${W}" y2="${baseline}" stroke="#d4cfc4"/>` + person + painting;
   }
 
   // ---------- AR ----------
+  const ql = $('#ql');
+  ql.addEventListener('message', e => { if (e.data === '_apple_ar_quicklook_button_tapped' && work) location.href = work.url; }, false);
   $('#ar-btn').addEventListener('click', () => {
     if (!work || !size) return;
     if (quickLook){
@@ -334,20 +365,14 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
         'canonicalWebPageURL=' + enc(work.url),
         'callToAction=' + enc('Acquérir ce tirage'),
         'checkoutTitle=' + enc(work.title),
-        'checkoutSubtitle=' + enc(`${size.label} · ${size.w} × ${size.h} cm${size.price_framed ? ' · ' + fmtEur(size.price_framed) + ' encadré' : ''}`)
+        'checkoutSubtitle=' + enc(`${size.label} · ${size.w} × ${size.h} cm`),
+        'price=' + enc(size.price_framed ? fmtEur(size.price_framed) + ' encadrée' : ' ')
       ].join('&');
-      const href = new URL(size.usdz, location.href).toString() + '#' + frag;
-      const a = document.createElement('a');
-      a.setAttribute('rel', 'ar'); a.href = href;
-      a.appendChild(document.createElement('img'));
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.addEventListener('message', e => { if (e.data === '_apple_ar_quicklook_button_tapped') window.open(work.url, '_blank'); }, false);
-      a.click();
-      $('#ar-msg').textContent = 'Balayez lentement le mur, puis touchez l\'écran pour accrocher l\'œuvre.';
-      setTimeout(() => a.remove(), 60000);
+      ql.href = new URL(size.usdz, location.href).toString() + '#' + frag;
+      ql.click();
+      setMsg(MSG_IOS);
     } else if (isAndroid){
-      $('#ar-msg').textContent = 'Ouverture de la réalité augmentée…';
+      setMsg('Ouverture de la réalité augmentée…');
       $('#mv').activateAR();
     } else {
       $('#unsupported').style.display = 'block';
@@ -356,16 +381,18 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     }
   });
   $('#mv').addEventListener('ar-status', e => {
-    if (e.detail.status === 'failed') $('#ar-msg').textContent = 'La réalité augmentée n\'est pas disponible sur cet appareil.';
-    if (e.detail.status === 'not-presenting') $('#ar-msg').textContent = '';
+    if (e.detail.status === 'failed') setMsg('La réalité augmentée n\'est pas disponible sur cet appareil.');
+    if (e.detail.status === 'session-started') setMsg(MSG_ANDROID);
+    if (e.detail.status === 'not-presenting') setMsg('');
   });
 
   // ---------- partage ----------
   $('#share').addEventListener('click', async () => {
+    if (!work) return;
     const data = { title: work.title + ' — Stéphane Alsac', text: 'Voir « ' + work.title + ' » sur votre mur', url: location.href };
     try {
       if (navigator.share) await navigator.share(data);
-      else { await navigator.clipboard.writeText(location.href); $('#ar-msg').textContent = 'Lien copié.'; }
+      else { await navigator.clipboard.writeText(location.href); setMsg('Lien copié.'); }
     } catch (_) {}
   });
 
@@ -379,18 +406,23 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   }
 
   // ---------- tutoriel ----------
-  const tuto = $('#tuto'); let step = 0;
+  const tuto = $('#tuto'); let step = 0, lastFocus = null;
   function showStep(i){
     step = i;
     document.querySelectorAll('#slides .slide').forEach((s, k) => s.classList.toggle('on', k === i));
     document.querySelectorAll('#dots i').forEach((d, k) => d.classList.toggle('on', k === i));
     $('#tuto-next').textContent = i === 2 ? 'Commencer' : 'Suivant';
   }
-  function openTuto(){ tuto.classList.add('open'); showStep(0); }
-  function closeTuto(){ tuto.classList.remove('open'); try { localStorage.setItem('ar_tuto_seen', '1'); } catch (_) {} }
+  function openTuto(){ lastFocus = document.activeElement; tuto.classList.add('open'); document.body.classList.add('tuto-open'); showStep(0); $('#tuto-next').focus({ preventScroll: true }); }
+  function closeTuto(){
+    tuto.classList.remove('open'); document.body.classList.remove('tuto-open');
+    try { localStorage.setItem('ar_tuto_seen', '1'); } catch (_) {}
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
   $('#tuto-next').addEventListener('click', () => step < 2 ? showStep(step + 1) : closeTuto());
   $('#tuto-skip').addEventListener('click', closeTuto);
   $('#help').addEventListener('click', openTuto);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && tuto.classList.contains('open')) closeTuto(); });
   let seen = false; try { seen = localStorage.getItem('ar_tuto_seen') === '1'; } catch (_) {}
   if (!seen) openTuto();
 
