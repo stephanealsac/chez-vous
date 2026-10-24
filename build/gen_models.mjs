@@ -8,6 +8,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { buildPainting, FRAME } from './frame_geometry.mjs';
 
 const SITE = process.argv[2] || '../site';
@@ -345,6 +346,7 @@ function buildGLB(p, jpg, aoPng, weave, tape) {
 }
 
 // ---------- boucle ----------
+for (const f of fs.readdirSync(OUT)) fs.unlinkSync(path.join(OUT, f));   // on repart propre : seuls les fichiers du catalogue courant sont servis
 const weave = fs.readFileSync(path.join(SITE, 'weave_normal.png'));
 const tape = fs.readFileSync(path.join(SITE, 'tape_normal.png'));
 let n = 0;
@@ -353,10 +355,14 @@ for (const w of cat.works) {
   for (const s of w.sizes) {
     const p = buildPainting(s.w, s.h, F);
     const ao = fs.readFileSync(path.join(SITE, s.ao_img));
-    const base = `${w.slug}-${s.slug}`;
     const usda = Buffer.from(buildUSDA(p, w.title, USDZ_ORIENTATION), 'utf8');
-    fs.writeFileSync(path.join(OUT, base + '.usdz'), usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/weave_normal.png', data: weave }, { name: 'textures/tape_normal.png', data: tape }]));
-    fs.writeFileSync(path.join(OUT, base + '.glb'), buildGLB(p, jpg, ao, weave, tape));
+    const usdz = usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/weave_normal.png', data: weave }, { name: 'textures/tape_normal.png', data: tape }]);
+    const glb = buildGLB(p, jpg, ao, weave, tape);
+    // nom unique par contenu : les navigateurs gardent les anciens fichiers en cache un an, un nouveau nom force la nouvelle version
+    const h = crypto.createHash('sha1').update(usdz).update(glb).digest('hex').slice(0, 8);
+    const base = `${w.slug}-${s.slug}-${h}`;
+    fs.writeFileSync(path.join(OUT, base + '.usdz'), usdz);
+    fs.writeFileSync(path.join(OUT, base + '.glb'), glb);
     s.usdz = `models/${base}.usdz`; s.glb = `models/${base}.glb`;
     s.outer_cm = { w: +(p.outer.w * 100).toFixed(1), h: +(p.outer.h * 100).toFixed(1), d: +(p.outer.d * 100).toFixed(1) };
     n++;

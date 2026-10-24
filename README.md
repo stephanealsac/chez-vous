@@ -57,6 +57,10 @@ Si, au test sur iPhone, le tableau apparaît à l'envers ou de travers : `USDZ_O
 
 Les visuels proviennent du site et portent le filigrane « Stéphane Alsac ». Pour l'app finale (et la version App Store), remplacer `data/raw-<slug>` par les fichiers sans filigrane, puis relancer `build/build.sh` : le reste est automatique.
 
+## Cache
+
+Les fichiers 3D portent un nom unique par contenu (`<slug>-<taille>-<empreinte>.usdz`) : toute modification du cadre ou d'une image change le nom, et les téléphones chargent la nouvelle version sans vider leur cache. `catalogue.json` et la page ne sont jamais mis en cache.
+
 ## Liens
 
 - Catalogue : `https://<domaine>/`
