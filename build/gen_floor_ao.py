@@ -35,7 +35,7 @@ for w in cat['works']:
 MARGIN, OFFX, OFFY, SOFT, AMAX = 7.0, 1.0, -1.8, 2.0, 0.38   # cm, décalage x, décalage y, douceur, opacité max
 for w in cat['works']:
     for s in w['sizes']:
-        ow, oh = s['outer_cm']['w'], s['outer_cm']['h']
+        ow, oh = s['w'] + 2 * add, s['h'] + 2 * add          # dimensions hors-tout du cadre
         # zone de la texture : x de −ow/2+1 à ow/2+MARGIN, y de −oh/2−MARGIN à oh/2−1 (le reste est vide, inutile)
         x0, x1 = -ow / 2 + 1.0, ow / 2 + MARGIN
         y0, y1 = -oh / 2 - MARGIN, oh / 2 - 1.0

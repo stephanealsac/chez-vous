@@ -53,16 +53,14 @@ body.view-work .back{display:flex}
 /* ----- catalogue ----- */
 main{padding-bottom:calc(32px + var(--sab))}
 body.view-work main{padding-bottom:0}
-.intro{padding:40px var(--gr) 32px var(--gl);border-bottom:1px solid var(--border);text-align:center}
-.eyebrow{font:400 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--label);margin-bottom:16px}
-.intro h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em;text-wrap:balance}
-.intro p{margin:14px auto 0;font-size:13px;color:var(--ink-soft);max-width:32em}
+.intro{padding:38px var(--gr) 30px var(--gl);border-bottom:1px solid var(--border);text-align:center}
+.intro h1{font:400 22px/1.2 var(--serif);letter-spacing:.25em;text-transform:uppercase;color:var(--ink);padding-left:.25em;white-space:nowrap}
 .grid{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid var(--border)}
-.card{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 16px 20px;text-decoration:none;display:block;transition:background .3s;-webkit-touch-callout:none}
+.card{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 14px 18px;text-decoration:none;display:block;transition:background .3s;-webkit-touch-callout:none}
 .card:active{background:rgba(26,26,26,.03)}
-.card .ph{aspect-ratio:1/1;max-width:100%;display:grid;place-items:center;overflow:hidden}
-.card img{max-height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(26,26,26,.18))}
-.card h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;line-height:1.1;margin-top:16px;text-align:center;text-wrap:balance}
+.card .ph{aspect-ratio:1/1;width:100%;overflow:hidden;background:var(--bg2)}
+.card img{width:100%;height:100%;object-fit:cover;object-position:center}
+.card h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:21px;line-height:1.1;margin-top:14px;text-align:center;text-wrap:balance}
 .card .meta{font-family:var(--serif);font-style:italic;font-weight:300;font-size:15px;color:var(--muted);margin-top:4px;text-align:center;font-variant-numeric:tabular-nums}
 .empty{padding:40px var(--gr);text-align:center;color:var(--ink-soft);font-size:13px;grid-column:1/-1;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
 
@@ -85,11 +83,6 @@ body.view-work .catalogue{display:none}
 .size[aria-checked=true]{border-color:var(--ink);background:rgba(26,26,26,.03)}
 .dims{margin-top:14px;text-align:center}
 .dims b{font-family:var(--sans);font-weight:400;font-style:normal;font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
-
-/* échelle */
-.scale{display:flex;align-items:flex-end;gap:14px;height:160px;margin-top:4px}
-.scale svg{height:100%;width:auto;max-width:100%}
-.scale .note{padding-bottom:4px;white-space:nowrap}
 
 /* moteur RA Android (invisible) */
 .ar-engine{position:absolute;left:-9999px;top:0;width:2px;height:2px;overflow:hidden}
@@ -129,7 +122,7 @@ footer{padding:28px var(--gr) 28px var(--gl);text-align:center}
 footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--border);font-style:normal;font-family:var(--sans);font-size:11px;letter-spacing:.06em}
 @media (min-width:700px){
   .grid{grid-template-columns:repeat(3,1fr)}
-  .intro h1{font-size:48px}
+  .intro h1{font-size:28px}
   .work{max-width:720px;margin:0 auto;border-left:1px solid var(--border);border-right:1px solid var(--border)}
 }
 </style>
@@ -145,11 +138,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 <main>
   <!-- ===== CATALOGUE ===== -->
   <section class="catalogue">
-    <div class="intro">
-      <div class="eyebrow">Éditions sur Toile</div>
-      <h1>Vos murs, ses regards.</h1>
-      <p>Choisissez une Édition sur Toile, sa taille, puis posez-la sur votre mur en réalité augmentée, à taille réelle, encadrée en caisse américaine.</p>
-    </div>
+    <div class="intro"><h1>Éditions sur Toile</h1></div>
     <div class="grid" id="grid"></div>
     <footer class="serif-note">Éditions limitées, signées et numérotées. <a href="https://www.stephane-alsac.com" target="_blank" rel="noopener">stephane-alsac.com</a></footer>
   </section>
@@ -166,11 +155,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       <div class="label" id="sizes-label">Choisir la taille</div>
       <div class="sizes" id="sizes" role="radiogroup" aria-labelledby="sizes-label"></div>
       <div class="dims serif-note" id="dims"></div>
-    </div>
-
-    <div class="section">
-      <div class="label">À l'échelle</div>
-      <div class="scale"><svg id="scale-svg" viewBox="0 0 300 180" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Le tableau encadré à côté d'une silhouette de 1,75 m"></svg><div class="note serif-note">Silhouette : 1,75 m</div></div>
     </div>
 
     <!-- Android : model-viewer sert uniquement à lancer la réalité augmentée (Scene Viewer / WebXR), il n'est pas affiché -->
@@ -298,7 +282,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     document.querySelectorAll('.size').forEach(b => b.setAttribute('aria-checked', b.dataset.slug === s.slug ? 'true' : 'false'));
     const o = s.outer_cm;
     $('#dims').innerHTML = `Toile <b>${s.w} × ${s.h} cm</b> · encadrée caisse américaine <b>${fmtCm(o.w)} × ${fmtCm(o.h)} cm</b>${s.price_framed ? ' · <b>' + fmtEur(s.price_framed) + '</b> encadrée' : ''}${s.price_unframed ? ', <b>' + fmtEur(s.price_unframed) + '</b> toile seule' : ''}`;
-    drawScale(o.w, o.h);
     const mv = $('#mv');
     mv.setAttribute('alt', work.title + ', ' + s.label);
     if (isAndroid) mv.setAttribute('src', s.glb);
@@ -309,29 +292,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const prefetched = new Set();
   function prefetch(u){ if (prefetched.has(u)) return; prefetched.add(u); try { fetch(u, { mode: 'same-origin', credentials: 'omit' }).then(r => r.arrayBuffer()).catch(() => {}); } catch (_) {} }
   function setMsg(t){ const m = $('#ar-msg'); m.textContent = t; m.classList.toggle('on', !!t); }
-
-  // ---------- échelle (silhouette 1,75 m) ----------
-  function drawScale(wcm, hcm){
-    const svg = $('#scale-svg');
-    const scale = 150 / 175;                      // 175 cm → 150 px
-    const pw = wcm * scale, ph = hcm * scale, personH = 175 * scale;
-    const centre = 150 * scale;                   // centre du tableau à 1,50 m du sol (accrochage courant)
-    const topPainting = centre + ph / 2;
-    const PAD = 16, H = Math.max(personH, topPainting) + PAD + 6, baseline = H - 6;
-    const x = 64 + 26, W = Math.max(x + pw + 8, 200);
-    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    const py = baseline - personH;
-    // silhouette tracée sur 150 px de haut (tête à y=1, pieds à y=150)
-    const person = `<g transform="translate(10,${py})" fill="#d4cfc4" stroke="#8a857b" stroke-width="1">
-      <circle cx="24" cy="11" r="10"/>
-      <path d="M13 25h22c4 0 7 3 7 7l3 36h-5l-4-28v48l-3 62h-6l-2-57h-2l-2 57h-6l-3-62v-48l-4 28h-5l3-36c0-4 3-7 7-7z"/></g>`;
-    const top = baseline - topPainting;
-    const bar = 4.5 * scale, gap = 0.8 * scale;
-    const painting = `<rect x="${x}" y="${top}" width="${pw}" height="${ph}" fill="#1a1a1a"/>
-      <rect x="${x + bar + gap}" y="${top + bar + gap}" width="${Math.max(pw - 2 * (bar + gap), 1)}" height="${Math.max(ph - 2 * (bar + gap), 1)}" fill="#e2dbcc"/>
-      <text x="${x + pw / 2}" y="${top - 4}" text-anchor="middle" font-family="Raleway,sans-serif" font-size="8" letter-spacing="1" fill="#6a665e">${fmtCm(+(wcm).toFixed(1))} cm</text>`;
-    svg.innerHTML = `<line x1="0" y1="${baseline}" x2="${W}" y2="${baseline}" stroke="#d4cfc4"/>` + person + painting;
-  }
 
   // ---------- AR ----------
   const ql = $('#ql');

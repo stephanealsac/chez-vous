@@ -6,7 +6,7 @@ import json, re, html, sys, os, subprocess, unicodedata
 
 DATA = sys.argv[1]
 OUT = sys.argv[2]
-SELECTION = [34533, 34501, 31420, 33389, 31469, 27977, 30305, 20957, 30214]
+SELECTION = None  # None = toutes les Éditions sur Toile achetables (ordre de la boutique)
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
 MAX_TEX = 1536  # px, côté le plus long de la texture (suffisant en AR, ~3× plus léger)
 
@@ -20,6 +20,20 @@ def slugify(s):
     return s
 
 products = json.load(open(os.path.join(DATA, 'toile.json')))
+SIZE_RX = r'(Classique|Grand|Géant|Monumental)\s*:\s*(\d{2,3})\s*(?:cm)?\s*[xX×]\s*(\d{2,3})\s*cm'
+if SELECTION is None:
+    SELECTION = [p['id'] for p in products if p.get('is_purchasable') and re.search(SIZE_RX, strip(p['short_description']))]
+# variations (prix par taille/montage) : téléchargées une fois depuis la Store API, en cache dans data/var
+os.makedirs(os.path.join(DATA, 'var'), exist_ok=True)
+import time
+for p in products:
+    if p['id'] not in SELECTION:
+        continue
+    for v in p['variations']:
+        fn = os.path.join(DATA, 'var', f"{v['id']}.json")
+        if not os.path.exists(fn):
+            subprocess.run(['curl', '-sS', '-m', '60', '-A', UA, '-o', fn, f"https://www.stephane-alsac.com/wp-json/wc/store/v1/products/{v['id']}"], check=True)
+            time.sleep(0.4)
 variations = {}
 for fn in os.listdir(os.path.join(DATA, 'var')):
     v = json.load(open(os.path.join(DATA, 'var', fn)))
@@ -42,7 +56,7 @@ for pid in SELECTION:
         subprocess.run(['curl', '-sS', '-m', '60', '-A', UA, '-o', raw0, img0['src']], check=True)
     wh0 = subprocess.run(['identify', '-format', '%w %h', raw0], capture_output=True, text=True).stdout.split()
     landscape = int(wh0[0]) >= int(wh0[1])
-    for label, a_, b_ in re.findall(r'(Classique|Grand|Géant|Monumental)\s*:\s*(\d{2,3})\s*[xX×]\s*(\d{2,3})\s*cm', sd):
+    for label, a_, b_ in re.findall(SIZE_RX, sd):
         big, small = max(int(a_), int(b_)), min(int(a_), int(b_))
         w, h = (big, small) if landscape else (small, big)
         sizes.append({'label': label, 'w': w, 'h': h, 'slug': slugify(label)})
@@ -58,7 +72,7 @@ for pid in SELECTION:
             if not vv:
                 continue
             price = int(vv['prices']['price'])
-            if attrs.get('Montage') == 'encadre-caisse-us-noire':
+            if attrs.get('Montage') in ('encadre-caisse-us-noire', 'encadre'):
                 s['price_framed'] = price
             else:
                 s['price_unframed'] = price
@@ -95,8 +109,9 @@ for a in catalogue:
     subprocess.run(['convert', raw, '-auto-orient', '-gravity', 'center', '-crop', f'{cw}x{ch}+0+0', '+repage',
                     '-strip', '-resize', f'{MAX_TEX}x{MAX_TEX}>', '-quality', '80',
                     os.path.join(OUT, a['image'])], check=True)
-    subprocess.run(['convert', raw, '-auto-orient', '-strip', '-resize', '600x600>', '-quality', '80',
-                    os.path.join(OUT, a['thumb'])], check=True)
+    # vignette carrée (grille d'accueil) : recadrée au centre, 600 px
+    subprocess.run(['convert', raw, '-auto-orient', '-strip', '-resize', '600x600^', '-gravity', 'center', '-extent', '600x600',
+                    '-quality', '80', os.path.join(OUT, a['thumb'])], check=True)
     wh = subprocess.run(['identify', '-format', '%w %h', os.path.join(OUT, a['image'])], capture_output=True, text=True).stdout.split()
     a['image_px'] = [int(wh[0]), int(wh[1])]
     del a['image_src']
