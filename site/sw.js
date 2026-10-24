@@ -1,5 +1,5 @@
 /* généré par gen_sw.mjs — ne pas modifier à la main */
-const VERSION = 'c9e94217ff';
+const VERSION = 'e5dfc0b137';
 const SHELL = 'alsac-chezvous-shell-' + VERSION;
 const MEDIA = 'alsac-chezvous-media';              // images HD + modèles 3D, nom stable
 const ASSETS = ["./catalogue.json","./fonts/CormorantGaramond-italic-ext.woff2","./fonts/CormorantGaramond-italic.woff2","./fonts/CormorantGaramond-normal-ext.woff2","./fonts/CormorantGaramond-normal.woff2","./fonts/Raleway-ext.woff2","./fonts/Raleway.woff2","./fonts/fonts.css","./icon-180.png","./icon-512.png","./img/tableau-eland-derby-thumb.jpg","./img/tableau-gorille-jungle-thumb.jpg","./img/tableau-gorille-thumb.jpg","./img/tableau-leopard-thumb.jpg","./img/tableau-peinture-ibex-thumb.jpg","./img/tableau-peinture-leopard-branche-thumb.jpg","./img/tableau-peinture-loup-noir-thumb.jpg","./img/tableau-peinture-tigre-thumb.jpg","./img/tableau-realiste-lievre-thumb.jpg","./","./manifest.webmanifest","./vendor/model-viewer.min.js","./vendor/qrcode.min.js"];
