@@ -8,7 +8,11 @@ const errs = []; page.on('pageerror', e => errs.push(e.message)); page.on('conso
 const failed = []; page.on('response', r => { if (r.status() >= 400) failed.push(r.status() + ' ' + r.url()); });
 await page.goto('https://chez-vous.stephane-alsac.com/', { waitUntil: 'networkidle' });
 console.log('titre:', await page.title(), '| cartes:', await page.locator('a.card').count());
-await page.click('a.card:nth-child(3)'); await page.waitForTimeout(800);
+const tutoOpen = await page.evaluate(() => document.querySelector('#tuto').classList.contains('open'));
+const videoOk = await page.evaluate(() => new Promise(res => { const v = document.querySelector('#tuto-video'); if (v.readyState >= 2) return res(true); v.addEventListener('loadeddata', () => res(true), { once: true }); setTimeout(() => res(false), 15000); }));
+console.log('tutoriel 1re visite:', tutoOpen, '| vidéo chargée:', videoOk);
+if (tutoOpen) { await page.click('#tuto-close'); await page.waitForTimeout(300); }
+await page.click('a.card:nth-child(8)'); await page.waitForTimeout(800);   // 8 = Corne de Brume (2 formats)
 console.log('fiche:', await page.locator('#w-title').textContent(), '| formats:', await page.locator('.size').count(), '| hash', await page.evaluate(() => location.hash));
 await page.click('.size:nth-child(2)'); await page.waitForTimeout(300);
 console.log('format 2 → hash', await page.evaluate(() => location.hash), '| dims:', (await page.locator('#dims').textContent()).trim());
