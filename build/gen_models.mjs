@@ -157,7 +157,6 @@ function usdCanvasMaterial() {
             {
                 uniform token info:id = "UsdPreviewSurface"
                 color3f inputs:diffuseColor.connect = </Root/Materials/CanvasMat/Texture.outputs:rgb>
-                normal3f inputs:normal.connect = </Root/Materials/CanvasMat/Grain.outputs:rgb>
                 float inputs:metallic = 0
                 float inputs:roughness = ${MAT.canvas.roughness}
                 float inputs:specular = 0.25
@@ -169,12 +168,6 @@ function usdCanvasMaterial() {
                 token inputs:varname = "st"
                 float2 outputs:result
             }
-            def Shader "uvReader_st1"
-            {
-                uniform token info:id = "UsdPrimvarReader_float2"
-                token inputs:varname = "st1"
-                float2 outputs:result
-            }
             def Shader "Texture"
             {
                 uniform token info:id = "UsdUVTexture"
@@ -182,17 +175,6 @@ function usdCanvasMaterial() {
                 float2 inputs:st.connect = </Root/Materials/CanvasMat/uvReader_st.outputs:result>
                 token inputs:wrapS = "clamp"
                 token inputs:wrapT = "clamp"
-                float3 outputs:rgb
-            }
-            def Shader "Grain"
-            {
-                uniform token info:id = "UsdUVTexture"
-                asset inputs:file = @textures/weave_normal.png@
-                float2 inputs:st.connect = </Root/Materials/CanvasMat/uvReader_st1.outputs:result>
-                token inputs:wrapS = "repeat"
-                token inputs:wrapT = "repeat"
-                float4 inputs:scale = (2, 2, 2, 1)
-                float4 inputs:bias = (-1, -1, -1, 0)
                 float3 outputs:rgb
             }
         }`;
@@ -205,7 +187,7 @@ function usdTapeMaterial() {
             def Shader "PreviewSurface"
             {
                 uniform token info:id = "UsdPreviewSurface"
-                color3f inputs:diffuseColor = ${c3(MAT.canvasSide.color)}
+                color3f inputs:diffuseColor.connect = </Root/Materials/CanvasSideMat/Cloth.outputs:rgb>
                 normal3f inputs:normal.connect = </Root/Materials/CanvasSideMat/Grain.outputs:rgb>
                 float inputs:metallic = 0
                 float inputs:roughness = ${MAT.canvasSide.roughness}
@@ -217,6 +199,15 @@ function usdTapeMaterial() {
                 uniform token info:id = "UsdPrimvarReader_float2"
                 token inputs:varname = "st1"
                 float2 outputs:result
+            }
+            def Shader "Cloth"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @textures/tape_color.png@
+                float2 inputs:st.connect = </Root/Materials/CanvasSideMat/uvReader_st1.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
             }
             def Shader "Grain"
             {
@@ -293,7 +284,7 @@ ${usdMesh('Painting', [
 }
 
 // ---------- GLB ----------
-function buildGLB(p, jpg, aoPng, weave, tape) {
+function buildGLB(p, jpg, aoPng, cloth, tape) {
   const bufs = []; const views = []; const accessors = [];
   let byteLength = 0;
   function addView(buf, target) {
@@ -313,8 +304,8 @@ function buildGLB(p, jpg, aoPng, weave, tape) {
   const mats = [
     { name: 'Frame', pbrMetallicRoughness: { baseColorFactor: [...MAT.frame.color, 1], metallicFactor: 0, roughnessFactor: MAT.frame.roughness } },
     { name: 'Floor', pbrMetallicRoughness: { baseColorFactor: [...MAT.floor.color, 1], metallicFactor: 0, roughnessFactor: MAT.floor.roughness }, occlusionTexture: { index: 1, strength: 1 } },
-    { name: 'CanvasSide', pbrMetallicRoughness: { baseColorFactor: [...MAT.canvasSide.color, 1], metallicFactor: 0, roughnessFactor: MAT.canvasSide.roughness }, normalTexture: { index: 3, texCoord: 0, scale: 1 } },
-    { name: 'Canvas', pbrMetallicRoughness: { baseColorTexture: { index: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvas.roughness }, normalTexture: { index: 2, texCoord: 1, scale: 1 } },
+    { name: 'CanvasSide', pbrMetallicRoughness: { baseColorTexture: { index: 2, texCoord: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvasSide.roughness }, normalTexture: { index: 3, texCoord: 0, scale: 1 } },
+    { name: 'Canvas', pbrMetallicRoughness: { baseColorTexture: { index: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvas.roughness } },
   ];
   [[p.frame, 0, false], [p.floor, 1, true], [p.sides, 2, false], [p.front, 3, true]].forEach(([m, mat, uv]) => {
     const attr = {
@@ -327,13 +318,13 @@ function buildGLB(p, jpg, aoPng, weave, tape) {
     const idx = addAccessor(new Uint16Array(m.I), 'SCALAR', 5123, 34963);
     prims.push({ attributes: attr, indices: idx, material: mat });
   });
-  const imgView = addView(jpg), aoView = addView(aoPng), weaveView = addView(weave), tapeView = addView(tape);
+  const imgView = addView(jpg), aoView = addView(aoPng), clothView = addView(cloth), tapeView = addView(tape);
   const json = {
     asset: { version: '2.0', generator: 'AR Tableaux - Stephane Alsac' },
     scene: 0, scenes: [{ nodes: [0] }], nodes: [{ mesh: 0, name: 'Painting' }],
     meshes: [{ primitives: prims }], materials: mats,
     textures: [{ source: 0, sampler: 0 }, { source: 1, sampler: 0 }, { source: 2, sampler: 1 }, { source: 3, sampler: 1 }],
-    images: [{ bufferView: imgView, mimeType: 'image/jpeg' }, { bufferView: aoView, mimeType: 'image/png' }, { bufferView: weaveView, mimeType: 'image/png' }, { bufferView: tapeView, mimeType: 'image/png' }],
+    images: [{ bufferView: imgView, mimeType: 'image/jpeg' }, { bufferView: aoView, mimeType: 'image/png' }, { bufferView: clothView, mimeType: 'image/png' }, { bufferView: tapeView, mimeType: 'image/png' }],
     samplers: [{ magFilter: 9729, minFilter: 9987, wrapS: 33071, wrapT: 33071 }, { magFilter: 9729, minFilter: 9987, wrapS: 10497, wrapT: 10497 }],
     accessors, bufferViews: views, buffers: [{ byteLength }],
   };
@@ -347,7 +338,7 @@ function buildGLB(p, jpg, aoPng, weave, tape) {
 
 // ---------- boucle ----------
 for (const f of fs.readdirSync(OUT)) fs.unlinkSync(path.join(OUT, f));   // on repart propre : seuls les fichiers du catalogue courant sont servis
-const weave = fs.readFileSync(path.join(SITE, 'weave_normal.png'));
+const cloth = fs.readFileSync(path.join(SITE, 'tape_color.png'));
 const tape = fs.readFileSync(path.join(SITE, 'tape_normal.png'));
 let n = 0;
 for (const w of cat.works) {
@@ -356,8 +347,8 @@ for (const w of cat.works) {
     const p = buildPainting(s.w, s.h, F);
     const ao = fs.readFileSync(path.join(SITE, s.ao_img));
     const usda = Buffer.from(buildUSDA(p, w.title, USDZ_ORIENTATION), 'utf8');
-    const usdz = usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/weave_normal.png', data: weave }, { name: 'textures/tape_normal.png', data: tape }]);
-    const glb = buildGLB(p, jpg, ao, weave, tape);
+    const usdz = usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/tape_color.png', data: cloth }, { name: 'textures/tape_normal.png', data: tape }]);
+    const glb = buildGLB(p, jpg, ao, cloth, tape);
     // nom unique par contenu : les navigateurs gardent les anciens fichiers en cache un an, un nouveau nom force la nouvelle version
     const h = crypto.createHash('sha1').update(usdz).update(glb).digest('hex').slice(0, 8);
     const base = `${w.slug}-${s.slug}-${h}`;

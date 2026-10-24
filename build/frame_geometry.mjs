@@ -107,12 +107,10 @@ export function buildPainting(wcm, hcm, F = FRAME) {
   // toile : châssis à arête avant arrondie (rayon rc) ; l'image tourne sur l'arrondi, le galon couvre le chant vertical.
   const z0 = floorZ, z1 = floorZ + cd, rc = (F.canvas_round_cm || 0.4) * cm;
   const imgUV = p => [(p[0] + w / 2) / w, 1 - (p[1] + h / 2) / h];                 // image étalée sur toute la largeur/hauteur
-  const grainUV = p => [(p[0] + w / 2) * 100, (h / 2 - p[1]) * 100];               // grain : 1 tuile / cm
   // face plane (en retrait de rc sur chaque bord)
-  const front = emptyMesh(); front.T2 = []; front.TAN = [];
+  const front = emptyMesh();
   const fq = [[-w / 2 + rc, -h / 2 + rc, z1], [w / 2 - rc, -h / 2 + rc, z1], [w / 2 - rc, h / 2 - rc, z1], [-w / 2 + rc, h / 2 - rc, z1]];
   addQuad(front, ...fq, [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], fq.flatMap(imgUV));
-  for (const q of fq) { front.T2.push(...grainUV(q)); front.TAN.push(1, 0, 0, 1); }
   // congé : balayé autour du rectangle de la toile, K segments, normales radiales
   const K = 4;
   const ring = [];
@@ -133,7 +131,6 @@ export function buildPainting(wcm, hcm, F = FRAME) {
       const P = (xy, z) => [xy[0], xy[1], z];
       const pts4 = [P(a0, a.z), P(a1, a.z), P(b1, b.z), P(b0, b.z)];
       addQuad(front, ...pts4, n3(a.n), n3(a.n), n3(b.n), n3(b.n), pts4.flatMap(imgUV));
-      for (const q of pts4) { front.T2.push(...grainUV(q)); front.TAN.push(sd.tan[0], sd.tan[1], 0, 1); }
     }
   }
   // chants verticaux (galon), du fond jusqu'au départ de l'arrondi
