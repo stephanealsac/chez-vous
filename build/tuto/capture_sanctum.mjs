@@ -1,0 +1,17 @@
+import { chromium, devices } from 'playwright';
+const out = new URL('.', import.meta.url).pathname;
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ ...devices['iPhone 13'], deviceScaleFactor: 2, viewport: { width: 390, height: 844 }, locale: 'fr-FR' });
+await ctx.addInitScript(() => { const s = DOMTokenList.prototype.supports; DOMTokenList.prototype.supports = function (t) { return t === 'ar' ? true : s.call(this, t); }; try { localStorage.setItem('ar_tuto_seen', '1'); } catch (_) {} });
+const page = await ctx.newPage();
+await page.goto('http://localhost:8765/', { waitUntil: 'networkidle' }); await page.waitForTimeout(500);
+const card = await page.$eval('a.card[href="#tableau-gorille-jungle"] .ph', e => { const b = e.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + window.scrollY + b.height / 2 }; });
+await page.screenshot({ path: out + 'full-catalogue.png', fullPage: true });
+await page.goto('http://localhost:8765/#tableau-gorille-jungle/geant', { waitUntil: 'networkidle' }); await page.waitForTimeout(600);
+const rows = await page.$$eval('.size', es => es.map(e => { const b = e.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + window.scrollY + b.height / 2, slug: e.dataset.slug }; }));
+await page.evaluate(() => { document.querySelector('.actions').style.position = 'static'; });
+await page.screenshot({ path: out + 'full-sanctum.png', fullPage: true });
+const btn = await page.$eval('#ar-btn', e => { const b = e.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + window.scrollY + b.height / 2 }; });
+const docH = await page.evaluate(() => document.documentElement.scrollHeight);
+console.log(JSON.stringify({ card, rows, btn, docH }));
+await browser.close();

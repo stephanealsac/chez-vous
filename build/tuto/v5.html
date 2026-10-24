@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Film 5 — Motion design, The Sanctum</title>
+<link rel="stylesheet" href="../../site/fonts/fonts.css"><link rel="stylesheet" href="common.css">
+<style>
+body{background:var(--bg)}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;perspective:2600px;perspective-origin:50% 42%;overflow:hidden}
+/* ouverture : mots cinétiques */
+#kin{position:absolute;left:90px;right:90px;top:0;height:1920px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+#kin .w{display:inline-block;font-family:var(--serif);font-style:italic;font-weight:300;font-size:118px;line-height:1.06;letter-spacing:.01em;margin:0 .14em;opacity:0;will-change:transform}
+#kin .line{display:block}
+#brandtop{position:absolute;left:0;width:1080px;top:150px;text-align:center;font:400 30px/1 var(--serif);letter-spacing:.3em;text-transform:uppercase;opacity:0}
+/* iPhone 3D */
+.iphone{position:absolute;left:260px;top:390px;width:560px;height:1140px;transform-style:preserve-3d;border-radius:92px;
+  background:linear-gradient(135deg,#4a4a4c,#141416 38%,#2a2a2d 68%,#0c0c0d);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.22),inset 0 0 0 6px #19191b,0 70px 90px rgba(20,14,8,.42),0 20px 30px rgba(20,14,8,.25);opacity:0}
+.iphone .scr{position:absolute;inset:16px;border-radius:78px;overflow:hidden;background:#000}
+.iphone .island{position:absolute;left:50%;top:34px;width:150px;height:44px;margin-left:-75px;border-radius:24px;background:#000;z-index:5}
+.iphone .glare{position:absolute;inset:0;border-radius:92px;background:linear-gradient(112deg,rgba(255,255,255,.16),rgba(255,255,255,0) 32%,rgba(255,255,255,0) 66%,rgba(255,255,255,.07));pointer-events:none;z-index:6}
+.iphone .side{position:absolute;width:6px;background:#2d2d30;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.iphone .lay{position:absolute;left:0;top:0;width:528px;height:1108px;opacity:0;overflow:hidden}
+.iphone .lay img.page{position:absolute;left:0;top:0;width:528px;height:auto;display:block}
+#dark{background:#000}
+/* monde RA (la pièce réelle) : 1320 × 2470, mis à l'échelle dans l'écran ou plein cadre */
+.world{position:absolute;left:0;top:0;width:1080px;height:1460px;transform-origin:0 0;overflow:hidden;background:#000}
+.world img.plate{position:absolute;left:0;top:0;width:1080px;height:1460px}
+.world .hang{position:absolute;opacity:0;filter:drop-shadow(10px 18px 22px rgba(20,14,8,.45)) drop-shadow(3px 6px 6px rgba(20,14,8,.3))}
+.world .hang img{width:100%;height:100%;display:block}
+.world .dots{opacity:0}
+.world .dots i{width:9px;height:9px}
+.world .pulse{position:absolute;border:5px solid #fff;opacity:0;box-shadow:0 0 30px rgba(255,255,255,.8)}
+.world .coach{position:absolute;left:540px;top:330px;opacity:0}
+.world .coach svg{position:absolute;left:-150px;top:-60px;width:300px;height:360px;overflow:visible}
+#fullwrap{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;opacity:0;background:#000}
+/* cotes dans le monde */
+.wdim{position:absolute;left:0;top:0;width:1080px;height:1460px;opacity:0}
+.wdim line{stroke:#fff;stroke-width:4;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.wdim text{font-family:var(--serif);font-size:54px;font-weight:400;fill:#fff;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+/* pastilles */
+.pill{position:absolute;padding:22px 38px;border-radius:999px;background:var(--ink);color:var(--bg);font:500 26px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;opacity:0;transform-origin:50% 50%;box-shadow:0 18px 30px rgba(20,14,8,.25)}
+.pill.light{background:rgba(238,234,225,.96);color:var(--ink)}
+.pill b{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:.04em;text-transform:none;margin-left:14px}
+/* bannière Quick Look */
+.banner{position:absolute;left:34px;right:34px;bottom:54px;padding:40px 44px;border-radius:44px;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:space-between;gap:30px;transform:translateY(140px);opacity:0}
+.banner .t{font:600 38px/1.3 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#111}
+.banner .s{font:400 30px/1.35 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#555;white-space:nowrap}
+.banner .b{font:600 34px/1 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#0a7cff;white-space:nowrap}
+/* achat : carte parchemin + coche */
+#buy{position:absolute;inset:0;background:var(--bg);opacity:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#buy svg{width:260px;height:260px}
+#buy .lab{font:500 28px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;margin-top:40px}
+#buy .big{font-size:96px;margin-top:26px}
+#white{position:absolute;inset:0;background:#fff;opacity:0}
+#fade{position:absolute;inset:0;background:var(--bg);opacity:0}
+</style></head>
+<body>
+<div id="stage">
+  <div id="brandtop">Stéphane Alsac</div>
+  <div id="kin"></div>
+
+  <div class="iphone" id="ph">
+    <div class="side" style="left:-6px;top:250px;height:70px"></div><div class="side" style="left:-6px;top:360px;height:120px"></div><div class="side" style="left:-6px;top:500px;height:120px"></div><div class="side" style="right:-6px;top:380px;height:180px"></div>
+    <div class="scr">
+      <div class="lay" id="l-cat"><img class="page" src="full-catalogue.png" alt=""></div>
+      <div class="lay" id="l-fiche"><img class="page" src="full-sanctum.png" alt=""></div>
+      <div class="lay" id="dark"></div>
+      <div class="lay" id="l-cam"><div class="world" id="w1"></div></div>
+    </div>
+    <div class="island"></div><div class="glare"></div>
+  </div>
+  <div class="pill" id="p1">Éditions sur Toile</div>
+  <div class="pill" id="p2">Format <b>Géant · 190 × 90 cm</b></div>
+  <div class="pill" id="p3">Réalité augmentée</div>
+  <div class="ripple" id="rip1" style="border-color:rgba(26,26,26,.9)"></div>
+
+  <div id="fullwrap"><img id="bgblur" src="sanctum-plate.jpg" alt="" style="position:absolute;left:0;top:0;width:1080px;height:1460px;transform-origin:50% 50%;filter:blur(34px) brightness(.72) saturate(.9)"><div class="world" id="w2" style="box-shadow:0 40px 90px rgba(0,0,0,.45)"></div>
+    <div class="pill light" id="p4">À taille réelle</div>
+    <div class="banner" id="banner"><div><div class="t">The Sanctum</div><div class="s">Géant · 190 × 90 cm, 2 980 €</div></div><div class="b">Acquérir ce tirage</div></div>
+    <div class="pill light" id="p5"></div>
+    <div class="ripple" id="rip2" style="border-color:rgba(255,255,255,.95)"></div>
+    <div id="fingerhost"></div>
+  </div>
+  <div id="white"></div>
+  <div id="buy"><svg viewBox="0 0 260 260"><circle cx="130" cy="130" r="118" fill="none" stroke="#1a1a1a" stroke-width="4" id="ck-c"/><path d="M78 134 L116 172 L186 94" fill="none" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" id="ck"/></svg><div class="lab">Acquérir ce tirage</div><div class="big" style="font-family:var(--serif);font-style:italic;font-weight:300;line-height:1">en un geste</div></div>
+  <div class="abs card" id="c-end" style="background:var(--bg)"><div class="brand">Stéphane Alsac</div><div class="big">Chez vous</div><div class="rule"></div><div class="site">chez-vous.stephane-alsac.com</div></div>
+  <div id="fade"></div>
+</div>
+<script src="common.js"></script>
+<script>
+// ---------- mots cinétiques ----------
+const LINES = [['Et', 'si', 'vous', 'pouviez'], ['le', 'voir'], ['chez', 'vous', '?']];
+const kin = $('kin'); const words = [];
+LINES.forEach(l => { const d = document.createElement('div'); d.className = 'line'; l.forEach(w => { const s = document.createElement('span'); s.className = 'w'; s.textContent = w; d.appendChild(s); words.push(s); }); kin.appendChild(d); });
+// ---------- monde RA : pièce réelle + tableau ----------
+const PK = 4.25, PCX = 575, PBOT = 1061;   // px/cm dans la pièce, centre x, bas du tableau (25 cm au-dessus du canapé)
+const SIZES = { grand: [148.6, 73.6, 'sanctum-grand.png', 'Grand', '140 × 65'], geant: [198.6, 98.6, 'sanctum-geant.png', 'Géant', '190 × 90'], monumental: [248.6, 122.6, 'sanctum-monumental.png', 'Monumental', '240 × 114'] };
+let WCM = SIZES.geant[0], HCM = SIZES.geant[1], PCY = PBOT - HCM * PK / 2;
+function worldHTML() {
+  return `<img class="plate" src="sanctum-plate.jpg" alt="">
+    <div class="dots"></div>
+    <div class="hang"><img src="sanctum-geant.png" alt=""></div>
+    <div class="pulse"></div>
+    <div class="coach"><svg viewBox="0 0 300 360" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"><g class="glyph" style="transform-origin:150px 230px"><rect x="90" y="30" width="120" height="210" rx="26"/><circle cx="150" cy="206" r="6" fill="#fff" stroke="none"/></g><path d="M34 290 q116 84 232 0" stroke-dasharray="4 18" stroke-width="7" opacity=".9"/></svg></div>
+    <svg class="wdim" viewBox="0 0 1080 1460">
+      <line class="dh" x1="${PCX - WCM * PK / 2}" y1="${PCY - HCM * PK / 2 - 56}" x2="${PCX + WCM * PK / 2}" y2="${PCY - HCM * PK / 2 - 56}"/>
+      <line x1="${PCX - WCM * PK / 2}" y1="${PCY - HCM * PK / 2 - 76}" x2="${PCX - WCM * PK / 2}" y2="${PCY - HCM * PK / 2 - 36}"/><line x1="${PCX + WCM * PK / 2}" y1="${PCY - HCM * PK / 2 - 76}" x2="${PCX + WCM * PK / 2}" y2="${PCY - HCM * PK / 2 - 36}"/>
+      <text class="th" x="${PCX}" y="${PCY - HCM * PK / 2 - 96}" text-anchor="middle">190 cm</text>
+      <line class="dv" x1="${PCX + WCM * PK / 2 + 56}" y1="${PCY - HCM * PK / 2}" x2="${PCX + WCM * PK / 2 + 56}" y2="${PCY + HCM * PK / 2}"/>
+      <line x1="${PCX + WCM * PK / 2 + 36}" y1="${PCY - HCM * PK / 2}" x2="${PCX + WCM * PK / 2 + 76}" y2="${PCY - HCM * PK / 2}"/><line x1="${PCX + WCM * PK / 2 + 36}" y1="${PCY + HCM * PK / 2}" x2="${PCX + WCM * PK / 2 + 76}" y2="${PCY + HCM * PK / 2}"/>
+      <text class="tv" x="${PCX + WCM * PK / 2 + 96}" y="${PCY + 18}" text-anchor="start">90 cm</text>
+    </svg>`;
+}
+const worlds = ['w1', 'w2'].map(id => { const w = $(id); w.innerHTML = worldHTML(); const h = w.querySelector('.hang'); placeHang(h, PCX, PCY, WCM, HCM, PK); makeDots(w.querySelector('.dots'), 80, 120, 200, 840, 1000, 9);
+  for (const l of w.querySelectorAll('.dh,.dv')) { const L = Math.hypot(l.x2.baseVal.value - l.x1.baseVal.value, l.y2.baseVal.value - l.y1.baseVal.value); l.style.strokeDasharray = L; l.dataset.len = L; }
+  return w; });
+function sizeAt(t) { return t < 18.6 ? 'geant' : t < 20.2 ? 'grand' : t < 21.8 ? 'monumental' : 'geant'; }
+function worldState(w, t, dragX) {
+  const h = w.querySelector('.hang'), ap = seg(t, 16.3, 17.3);
+  const k = sizeAt(t), S = SIZES[k]; const img = h.querySelector('img'); if (!img.src.endsWith(S[2])) img.src = S[2];
+  placeHang(h, PCX, PBOT - S[1] * PK / 2, S[0], S[1], PK);
+  const chg = Math.min(seg(t, 18.6, 18.9), seg(t, 20.2, 20.5), seg(t, 21.8, 22.1));   // petit rebond à chaque changement
+  const bump = [18.6, 20.2, 21.8].reduce((m, t0) => Math.max(m, t >= t0 && t < t0 + .35 ? Math.sin((t - t0) / .35 * Math.PI) : 0), 0);
+  show(h, ap, `translate(${dragX}px,0) scale(${0.94 + 0.06 * ap + 0.02 * bump})`);
+  animDots(w.querySelector('.dots'), t, win(t, 13.9, 14.6, 16.0, 16.8));
+  const c = w.querySelector('.coach'); c.style.opacity = win(t, 11.2, 11.8, 15.6, 16.2); c.querySelector('.glyph').style.transform = `rotate(${Math.sin((t - 11) * 2.6) * 16}deg)`;
+  const pu = win(t, 16.3, 16.5, 16.8, 17.8), g = 1 + 0.3 * seg(t, 16.3, 17.8), pw = WCM * PK * g, phh = HCM * PK * g;
+  Object.assign(w.querySelector('.pulse').style, { left: PCX + dragX - pw / 2 + 'px', top: PCY - phh / 2 + 'px', width: pw + 'px', height: phh + 'px', opacity: pu * .9 });
+  const d = w.querySelector('.wdim'); d.style.opacity = win(t, 17.0, 17.4, 18.3, 18.6); d.style.transform = `translate(${dragX}px,0)`;
+  const u = seg(t, 17.0, 18.0); for (const l of d.querySelectorAll('.dh,.dv')) l.style.strokeDashoffset = (1 - u) * +l.dataset.len;
+  d.querySelector('.th').style.opacity = seg(t, 17.6, 18.0); d.querySelector('.tv').style.opacity = seg(t, 17.8, 18.2);
+}
+$('fingerhost').innerHTML = fingerHTML('fg');
+const ph = $('ph'), SW = 528, SH = 1108, ZS = SH / 1460;   // écran, échelle du monde dans l'écran
+const K2 = 528 / 780;   // captures (780 px) → écran
+const CARD = [97.75 * 2 * K2, 1571.1 * 2 * K2], SIZE = [195 * 2 * K2, 522 * 2 * K2], BTN = [195 * 2 * K2, 751.2 * 2 * K2];
+const easeBack = x => { const c = 1.70158; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+function pop(el, t, a, hold, x, y) { const u = clamp((t - a) / .55); const out = hold ? 1 - seg(t, hold, hold + .4) : 1; el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.opacity = (u > 0 ? 1 : 0) * out; el.style.transform = `scale(${u > 0 ? easeBack(u) : 0})`; }
+
+window.DURATION = 36.8;
+window.render = function (t) {
+  // ---------- ouverture ----------
+  $('brandtop').style.opacity = win(t, 0.2, 0.9, 3.4, 4.0);
+  words.forEach((w, i) => { const a = 0.9 + i * 0.28; const u = seg(t, a, a + .5); const o = 1 - seg(t, 3.5, 4.0); w.style.opacity = u * o; w.style.transform = `translateY(${30 - 30 * u}px)`; });
+  // ---------- iPhone ----------
+  const enter = seg(t, 3.7, 4.7);
+  const sway = Math.sin(t * 0.9) * 5, swayX = Math.sin(t * 0.7 + 1) * 4;
+  const hand = t > 10.9 ? 1 : 0;   // tenue en main : plus de mouvement
+  const hs = hand * (1 - seg(t, 12.4, 13.6));
+  const rotY = lerp(-14, 7 + swayX, enter) * (1 - seg(t, 12.4, 13.6)) + hs * Math.sin((t - 10.9) * 1.8) * 6;
+  const rotX = lerp(6, 3 + sway * .4, enter) * (1 - seg(t, 12.4, 13.6)) + hs * Math.sin((t - 10.9) * 1.3) * 4;
+  const zoom = seg(t, 12.4, 13.7);
+  const sc = lerp(1, 2.06, easeOut(zoom));
+  const ty = lerp(1500, 0, easeOut(enter)) + Math.sin(t * 1.1) * 8 * (1 - zoom);
+  const tx = lerp(0, 0, enter) + hs * Math.sin((t - 10.9) * 1.5) * 18;
+  // centre de l'écran du téléphone vers le centre du cadre lors du zoom
+  const cx0 = 260 + 280, cy0 = 390 + 570; const dx = (540 - cx0) * zoom, dy = (960 - cy0) * zoom;
+  ph.style.opacity = enter > 0 && t < 14.2 ? 1 : 0;   // disparaît une fois le plein cadre en place
+  ph.style.transform = `translate3d(${tx + dx}px,${ty + dy}px,0) rotateY(${rotY}deg) rotateX(${rotX}deg) scale(${sc})`;
+  // écrans
+  const catScroll = lerp(0, CARD[1] - 520, seg(t, 4.5, 6.3));
+  $('l-cat').style.opacity = win(t, 0, 0.1, 6.8, 7.1); $('l-cat').querySelector('img').style.transform = `translateY(${-catScroll}px)`;
+  const fScroll = 0;
+  $('l-fiche').style.opacity = win(t, 6.8, 7.1, 10.2, 10.7); $('l-fiche').querySelector('img').style.transform = `translateY(${-fScroll}px)`;
+  $('dark').style.opacity = win(t, 10.2, 10.7, 10.8, 11.3);
+  $('l-cam').style.opacity = win(t, 10.8, 11.0);
+  // monde dans l'écran : drift de la main
+  const drift = hand * (Math.sin((t - 10.9) * 1.4) * 40 * (1 - zoom));
+  $('w1').style.transform = `translate(${(SW - 1080 * ZS) / 2 + drift * ZS}px,0) scale(${ZS})`;
+  worldState($('w1'), t, 0);
+  // touches dans l'écran (coordonnées écran → cadre, approximation : téléphone non zoomé)
+  const scrLeft = 260 + 16 + tx, scrTop = 390 + 16 + ty;
+  const taps1 = [[6.5, CARD[0], CARD[1] - catScroll], [8.0, SIZE[0], SIZE[1]], [10.0, BTN[0], BTN[1]]];
+  $('rip1').style.opacity = 0;
+  for (const [t0, x, y] of taps1) if (t >= t0 && t < t0 + .7) rippleAt($('rip1'), scrLeft + x, scrTop + y, t, t0);
+  // pastilles
+  pop($('p1'), t, 4.9, 6.3, 70, 330);
+  pop($('p2'), t, 8.2, 9.8, 330, 1600);
+  pop($('p3'), t, 11.1, 12.3, 520, 290);
+  // ---------- plein cadre ----------
+  const fw = $('fullwrap'); fw.style.opacity = win(t, 13.55, 13.85, 29.5, 30.3);
+  const settle = seg(t, 13.9, 15.6), back = seg(t, 24.6, 26.4);
+  // la caméra recule quand le format grandit, puis encore un peu (« reculez »)
+  const zMon = seg(t, 20.2, 20.9) * (1 - seg(t, 21.8, 22.5));
+  const ws = lerp(lerp(2.06 * ZS, 1.1, settle), 0.92, back) - 0.12 * zMon - 0.03 * seg(t, 21.8, 22.5);
+  $('bgblur').style.transform = `translate(0px,${230 + Math.sin(t * 1.7) * 4}px) scale(${1.9 + 0.1 * Math.sin(t * .3)})`;
+  const drift2 = Math.sin((t - 13.6) * 1.2) * 14 * (1 - back) + Math.sin(t * 2.3) * 3;
+  const ox = 540 - 540 * ws + drift2, oy = 960 - 730 * ws + Math.sin(t * 1.7) * 4;
+  $('w2').style.transform = `translate(${ox}px,${oy}px) scale(${ws})`;
+  const dragX = 110 * seg(t, 23.0, 24.4);
+  worldState($('w2'), t, dragX);
+  pop($('p4'), t, 17.2, 18.4, 70, 150);
+  // pastilles de format pendant le cycle
+  const k = sizeAt(t); const S = SIZES[k]; $('p5').innerHTML = `${S[3]} <b>${S[4]} cm</b>`;
+  const t0 = k === 'grand' ? 18.6 : k === 'monumental' ? 20.2 : t >= 21.8 ? 21.8 : -1;
+  if (t0 > 0 && t < 23.0) pop($('p5'), t, t0, 22.6, 70, 150); else $('p5').style.opacity = 0;
+  const b = seg(t, 27.0, 27.8); show($('banner'), b, `translateY(${140 - 140 * b}px)`);
+  // doigt
+  const fx0 = ox + (PCX) * ws, fy0 = oy + (PBOT - 60) * ws;
+  let fx = 1250, fy = 2200, vis = 0, press = 0;
+  if (t > 22.2 && t < 25.4) { const u = seg(t, 22.2, 22.9); fx = lerp(1250, fx0, u); fy = lerp(2200, fy0, u); fx += 110 * ws * seg(t, 23.0, 24.4); const o = seg(t, 24.6, 25.3); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1; press = t > 22.85 && t < 24.5 ? 1 : 0; }
+  if (t > 28.4 && t < 30.2) { const u = seg(t, 28.4, 29.1); fx = lerp(1250, 870, u); fy = lerp(2200, 1800, u); const o = seg(t, 29.5, 30.1); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1; press = win(t, 29.15, 29.3, 29.45, 29.6); }
+  fingerAt($('fg'), fx, fy, press, vis);
+  $('rip2').style.opacity = 0;
+  if (t >= 22.9 && t < 23.6) rippleAt($('rip2'), fx0, fy0, t, 22.9);
+  if (t >= 29.25 && t < 29.9) rippleAt($('rip2'), 870, 1800, t, 29.25);
+  // ---------- achat ----------
+  $('white').style.opacity = win(t, 29.5, 29.7, 29.75, 30.2);
+  $('buy').style.opacity = win(t, 29.9, 30.4, 33.0, 33.6);
+  const ck = seg(t, 30.4, 31.1); $('ck').style.strokeDasharray = 200; $('ck').style.strokeDashoffset = 200 * (1 - ck);
+  $('ck-c').style.strokeDasharray = 742; $('ck-c').style.strokeDashoffset = 742 * (1 - seg(t, 30.0, 30.9));
+  // ---------- fin ----------
+  $('c-end').style.opacity = win(t, 33.2, 34.1);
+  $('fade').style.opacity = seg(t, 36.0, 36.8);
+};
+render(0);
+</script>
+</body></html>
