@@ -370,9 +370,16 @@ function buildBehaviors(formats, start) {
   const onLoad = `
                 def Preliminary_Behavior "OnLoad"
                 {
-                    rel triggers = [ <${S}/Behaviors/OnLoad/Trigger> ]
+                    rel triggers = [ <${S}/Behaviors/OnLoad/Near>, <${S}/Behaviors/OnLoad/Trigger> ]
                     rel actions = [ <${S}/Behaviors/OnLoad/Group> ]
                     uniform bool exclusive = 0
+
+                    def Preliminary_Trigger "Near"
+                    {
+                        uniform token info:id = "ProximityToCamera"
+                        uniform double distance = 100
+                        rel affectedObjects = [ <${S}/${formats[start].name}> ]
+                    }
 
                     def Preliminary_Trigger "Trigger"
                     {
