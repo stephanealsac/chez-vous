@@ -25,24 +25,28 @@
    "sizes": [
     {
      "label": "Classique",
-     "w": 45,
-     "h": 54,
      "slug": "classique",
+     "w": 60,
+     "h": 80,
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 69,
+      "h": 89
+     },
      "ao_img": "ao/tableau-peinture-tigre-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-tigre-classique.png",
      "shadow_cm": {
-      "x0": -25.8,
-      "x1": 33.8,
-      "y0": -38.3,
-      "y1": 30.3
+      "x0": -33.3,
+      "x1": 41.3,
+      "y0": -51.3,
+      "y1": 43.3
      },
-     "usdz": "models/tableau-peinture-tigre-classique-c2569929.usdz",
-     "glb": "models/tableau-peinture-tigre-classique-c2569929.glb",
+     "usdz": "models/tableau-peinture-tigre-classique-0762487f.usdz",
+     "glb": "models/tableau-peinture-tigre-classique-0762487f.glb",
      "outer_cm": {
-      "w": 53.6,
-      "h": 62.6,
+      "w": 68.6,
+      "h": 88.6,
       "d": 4
      }
     }
@@ -60,24 +64,28 @@
    "sizes": [
     {
      "label": "Classique",
-     "w": 45,
-     "h": 54,
      "slug": "classique",
+     "w": 37,
+     "h": 65,
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 46,
+      "h": 74
+     },
      "ao_img": "ao/tableau-peinture-lievre-course-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-lievre-course-classique.png",
      "shadow_cm": {
-      "x0": -25.8,
-      "x1": 33.8,
-      "y0": -38.3,
-      "y1": 30.3
+      "x0": -21.8,
+      "x1": 29.8,
+      "y0": -43.8,
+      "y1": 35.8
      },
-     "usdz": "models/tableau-peinture-lievre-course-classique-ff2bd219.usdz",
-     "glb": "models/tableau-peinture-lievre-course-classique-ff2bd219.glb",
+     "usdz": "models/tableau-peinture-lievre-course-classique-36681096.usdz",
+     "glb": "models/tableau-peinture-lievre-course-classique-36681096.glb",
      "outer_cm": {
-      "w": 53.6,
-      "h": 62.6,
+      "w": 45.6,
+      "h": 73.6,
       "d": 4
      }
     }
@@ -95,23 +103,27 @@
    "sizes": [
     {
      "label": "Classique",
-     "w": 54,
-     "h": 45,
      "slug": "classique",
+     "w": 80,
+     "h": 45,
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 89,
+      "h": 54
+     },
      "ao_img": "ao/tableau-peinture-bison-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-bison-classique.png",
      "shadow_cm": {
-      "x0": -30.3,
-      "x1": 38.3,
+      "x0": -43.3,
+      "x1": 51.3,
       "y0": -33.8,
       "y1": 25.8
      },
-     "usdz": "models/tableau-peinture-bison-classique-e53bfdcb.usdz",
-     "glb": "models/tableau-peinture-bison-classique-e53bfdcb.glb",
+     "usdz": "models/tableau-peinture-bison-classique-3795ec07.usdz",
+     "glb": "models/tableau-peinture-bison-classique-3795ec07.glb",
      "outer_cm": {
-      "w": 62.6,
+      "w": 88.6,
       "h": 53.6,
       "d": 4
      }
@@ -130,11 +142,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 45,
      "h": 54,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 54,
+      "h": 63
+     },
      "ao_img": "ao/tableau-portrait-zebre-classique.png",
      "shadow_img": "ao/shadow-tableau-portrait-zebre-classique.png",
      "shadow_cm": {
@@ -165,11 +181,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 45,
      "h": 80,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 54,
+      "h": 89
+     },
      "ao_img": "ao/tableau-peinture-leopard-branche-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-leopard-branche-classique.png",
      "shadow_cm": {
@@ -200,24 +220,28 @@
    "sizes": [
     {
      "label": "Classique",
-     "w": 45,
-     "h": 54,
      "slug": "classique",
+     "w": 46,
+     "h": 65,
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 55,
+      "h": 74
+     },
      "ao_img": "ao/tableau-peinture-puma-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-puma-classique.png",
      "shadow_cm": {
-      "x0": -25.8,
-      "x1": 33.8,
-      "y0": -38.3,
-      "y1": 30.3
+      "x0": -26.3,
+      "x1": 34.3,
+      "y0": -43.8,
+      "y1": 35.8
      },
-     "usdz": "models/tableau-peinture-puma-classique-b3b7680b.usdz",
-     "glb": "models/tableau-peinture-puma-classique-b3b7680b.glb",
+     "usdz": "models/tableau-peinture-puma-classique-638a8b6c.usdz",
+     "glb": "models/tableau-peinture-puma-classique-638a8b6c.glb",
      "outer_cm": {
-      "w": 53.6,
-      "h": 62.6,
+      "w": 54.6,
+      "h": 73.6,
       "d": 4
      }
     }
@@ -235,11 +259,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 35,
      "h": 43,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 44,
+      "h": 52
+     },
      "ao_img": "ao/tableau-peinture-vol-de-becasse-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-vol-de-becasse-classique.png",
      "shadow_cm": {
@@ -270,34 +298,42 @@
    "sizes": [
     {
      "label": "Classique",
-     "w": 60,
-     "h": 90,
      "slug": "classique",
+     "w": 65,
+     "h": 90,
      "price_framed": 1960,
      "price_unframed": 1400,
+     "framed_cm": {
+      "w": 74,
+      "h": 99
+     },
      "ao_img": "ao/tableau-peinture-ibex-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-ibex-classique.png",
      "shadow_cm": {
-      "x0": -33.3,
-      "x1": 41.3,
+      "x0": -35.8,
+      "x1": 43.8,
       "y0": -56.3,
       "y1": 48.3
      },
-     "usdz": "models/tableau-peinture-ibex-classique-3f3c16ec.usdz",
-     "glb": "models/tableau-peinture-ibex-classique-3f3c16ec.glb",
+     "usdz": "models/tableau-peinture-ibex-classique-4448d575.usdz",
+     "glb": "models/tableau-peinture-ibex-classique-4448d575.glb",
      "outer_cm": {
-      "w": 68.6,
+      "w": 73.6,
       "h": 98.6,
       "d": 4
      }
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 90,
      "h": 130,
-     "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "framed_cm": {
+      "w": 99,
+      "h": 139
+     },
      "ao_img": "ao/tableau-peinture-ibex-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-ibex-grand.png",
      "shadow_cm": {
@@ -306,8 +342,8 @@
       "y0": -76.3,
       "y1": 68.3
      },
-     "usdz": "models/tableau-peinture-ibex-grand-923a4b72.usdz",
-     "glb": "models/tableau-peinture-ibex-grand-923a4b72.glb",
+     "usdz": "models/tableau-peinture-ibex-grand-b0c52c5e.usdz",
+     "glb": "models/tableau-peinture-ibex-grand-b0c52c5e.glb",
      "outer_cm": {
       "w": 98.6,
       "h": 138.6,
@@ -328,11 +364,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-leopard-arbre-classique.png",
      "shadow_img": "ao/shadow-tableau-leopard-arbre-classique.png",
      "shadow_cm": {
@@ -351,11 +391,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-leopard-arbre-grand.png",
      "shadow_img": "ao/shadow-tableau-leopard-arbre-grand.png",
      "shadow_cm": {
@@ -386,11 +430,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 45,
      "h": 54,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 54,
+      "h": 63
+     },
      "ao_img": "ao/tableau-leopard-felin-classique.png",
      "shadow_img": "ao/shadow-tableau-leopard-felin-classique.png",
      "shadow_cm": {
@@ -421,11 +469,15 @@
    "sizes": [
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-gorille-jungle-grand.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-grand.png",
      "shadow_cm": {
@@ -444,11 +496,15 @@
     },
     {
      "label": "Géant",
+     "slug": "geant",
      "w": 190,
      "h": 90,
-     "slug": "geant",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "framed_cm": {
+      "w": 199,
+      "h": 99
+     },
      "ao_img": "ao/tableau-gorille-jungle-geant.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-geant.png",
      "shadow_cm": {
@@ -467,11 +523,15 @@
     },
     {
      "label": "Monumental",
+     "slug": "monumental",
      "w": 240,
      "h": 114,
-     "slug": "monumental",
      "price_framed": 4850,
      "price_unframed": 3250,
+     "framed_cm": {
+      "w": 249,
+      "h": 123
+     },
      "ao_img": "ao/tableau-gorille-jungle-monumental.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-monumental.png",
      "shadow_cm": {
@@ -502,11 +562,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 60,
      "h": 90,
-     "slug": "classique",
      "price_framed": 1960,
      "price_unframed": 1400,
+     "framed_cm": {
+      "w": 69,
+      "h": 99
+     },
      "ao_img": "ao/tableau-rhinoceros-noir-classique.png",
      "shadow_img": "ao/shadow-tableau-rhinoceros-noir-classique.png",
      "shadow_cm": {
@@ -525,11 +589,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 90,
      "h": 140,
-     "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "framed_cm": {
+      "w": 99,
+      "h": 149
+     },
      "ao_img": "ao/tableau-rhinoceros-noir-grand.png",
      "shadow_img": "ao/shadow-tableau-rhinoceros-noir-grand.png",
      "shadow_cm": {
@@ -560,11 +628,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 90,
+      "h": 50
+     },
      "ao_img": "ao/sous-la-canope-classique.png",
      "shadow_img": "ao/shadow-sous-la-canope-classique.png",
      "shadow_cm": {
@@ -583,11 +655,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 150,
+      "h": 75
+     },
      "ao_img": "ao/sous-la-canope-grand.png",
      "shadow_img": "ao/shadow-sous-la-canope-grand.png",
      "shadow_cm": {
@@ -618,11 +694,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 60,
      "h": 90,
-     "slug": "classique",
      "price_framed": 1960,
      "price_unframed": 1400,
+     "framed_cm": {
+      "w": 69,
+      "h": 99
+     },
      "ao_img": "ao/invictus-classique.png",
      "shadow_img": "ao/shadow-invictus-classique.png",
      "shadow_cm": {
@@ -641,11 +721,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 90,
      "h": 140,
-     "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "framed_cm": {
+      "w": 99,
+      "h": 149
+     },
      "ao_img": "ao/invictus-grand.png",
      "shadow_img": "ao/shadow-invictus-grand.png",
      "shadow_cm": {
@@ -676,11 +760,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-leopard-classique.png",
      "shadow_img": "ao/shadow-tableau-leopard-classique.png",
      "shadow_cm": {
@@ -699,11 +787,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-leopard-grand.png",
      "shadow_img": "ao/shadow-tableau-leopard-grand.png",
      "shadow_cm": {
@@ -722,11 +814,15 @@
     },
     {
      "label": "Géant",
+     "slug": "geant",
      "w": 190,
      "h": 90,
-     "slug": "geant",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "framed_cm": {
+      "w": 199,
+      "h": 99
+     },
      "ao_img": "ao/tableau-leopard-geant.png",
      "shadow_img": "ao/shadow-tableau-leopard-geant.png",
      "shadow_cm": {
@@ -757,11 +853,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 60,
      "h": 90,
-     "slug": "classique",
      "price_framed": 1960,
      "price_unframed": 1400,
+     "framed_cm": {
+      "w": 69,
+      "h": 99
+     },
      "ao_img": "ao/tableau-portrait-lion-maximus-classique.png",
      "shadow_img": "ao/shadow-tableau-portrait-lion-maximus-classique.png",
      "shadow_cm": {
@@ -780,11 +880,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 90,
      "h": 140,
-     "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "framed_cm": {
+      "w": 99,
+      "h": 149
+     },
      "ao_img": "ao/tableau-portrait-lion-maximus-grand.png",
      "shadow_img": "ao/shadow-tableau-portrait-lion-maximus-grand.png",
      "shadow_cm": {
@@ -815,11 +919,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 65,
      "h": 37,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 74,
+      "h": 46
+     },
      "ao_img": "ao/tableau-realiste-lievre-classique.png",
      "shadow_img": "ao/shadow-tableau-realiste-lievre-classique.png",
      "shadow_cm": {
@@ -850,11 +958,15 @@
    "sizes": [
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 100,
      "h": 60,
-     "slug": "grand",
      "price_framed": 1960,
      "price_unframed": 1400,
+     "framed_cm": {
+      "w": 109,
+      "h": 69
+     },
      "ao_img": "ao/tableau-peinture-loup-noir-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-loup-noir-grand.png",
      "shadow_cm": {
@@ -873,11 +985,15 @@
     },
     {
      "label": "Géant",
+     "slug": "geant",
      "w": 150,
      "h": 90,
-     "slug": "geant",
      "price_framed": 3600,
      "price_unframed": 2400,
+     "framed_cm": {
+      "w": 159,
+      "h": 99
+     },
      "ao_img": "ao/tableau-peinture-loup-noir-geant.png",
      "shadow_img": "ao/shadow-tableau-peinture-loup-noir-geant.png",
      "shadow_cm": {
@@ -908,11 +1024,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-portrait-leopard-2-classique.png",
      "shadow_img": "ao/shadow-tableau-portrait-leopard-2-classique.png",
      "shadow_cm": {
@@ -931,11 +1051,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-portrait-leopard-2-grand.png",
      "shadow_img": "ao/shadow-tableau-portrait-leopard-2-grand.png",
      "shadow_cm": {
@@ -966,11 +1090,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 65,
      "h": 37,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 74,
+      "h": 46
+     },
      "ao_img": "ao/tableau-serpent-cobra-classique.png",
      "shadow_img": "ao/shadow-tableau-serpent-cobra-classique.png",
      "shadow_cm": {
@@ -1001,11 +1129,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-mouflon-canada-classique.png",
      "shadow_img": "ao/shadow-tableau-mouflon-canada-classique.png",
      "shadow_cm": {
@@ -1024,11 +1156,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-mouflon-canada-grand.png",
      "shadow_img": "ao/shadow-tableau-mouflon-canada-grand.png",
      "shadow_cm": {
@@ -1059,11 +1195,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-romi-leopard-classique.png",
      "shadow_img": "ao/shadow-tableau-romi-leopard-classique.png",
      "shadow_cm": {
@@ -1082,11 +1222,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-romi-leopard-grand.png",
      "shadow_img": "ao/shadow-tableau-romi-leopard-grand.png",
      "shadow_cm": {
@@ -1117,11 +1261,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-peinture-zebres-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-zebres-classique.png",
      "shadow_cm": {
@@ -1140,11 +1288,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-peinture-zebres-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-zebres-grand.png",
      "shadow_cm": {
@@ -1175,11 +1327,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-vieux-buffle-classique.png",
      "shadow_img": "ao/shadow-tableau-vieux-buffle-classique.png",
      "shadow_cm": {
@@ -1198,11 +1354,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-vieux-buffle-grand.png",
      "shadow_img": "ao/shadow-tableau-vieux-buffle-grand.png",
      "shadow_cm": {
@@ -1233,11 +1393,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 65,
      "h": 37,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 74,
+      "h": 46
+     },
      "ao_img": "ao/tableau-renard-classique.png",
      "shadow_img": "ao/shadow-tableau-renard-classique.png",
      "shadow_cm": {
@@ -1268,11 +1432,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 70,
      "h": 41,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 79,
+      "h": 50
+     },
      "ao_img": "ao/tableau-wapiti-classique.png",
      "shadow_img": "ao/shadow-tableau-wapiti-classique.png",
      "shadow_cm": {
@@ -1291,11 +1459,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 115,
      "h": 68,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 124,
+      "h": 77
+     },
      "ao_img": "ao/tableau-wapiti-grand.png",
      "shadow_img": "ao/shadow-tableau-wapiti-grand.png",
      "shadow_cm": {
@@ -1326,11 +1498,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 70,
      "h": 41,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 79,
+      "h": 50
+     },
      "ao_img": "ao/tableau-peinture-sangliers-neige-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-sangliers-neige-classique.png",
      "shadow_cm": {
@@ -1349,11 +1525,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 115,
      "h": 68,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 124,
+      "h": 77
+     },
      "ao_img": "ao/tableau-peinture-sangliers-neige-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-sangliers-neige-grand.png",
      "shadow_cm": {
@@ -1384,11 +1564,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-combat-leopards-classique.png",
      "shadow_img": "ao/shadow-tableau-combat-leopards-classique.png",
      "shadow_cm": {
@@ -1407,11 +1591,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-combat-leopards-grand.png",
      "shadow_img": "ao/shadow-tableau-combat-leopards-grand.png",
      "shadow_cm": {
@@ -1442,11 +1630,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 41,
      "h": 70,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 50,
+      "h": 79
+     },
      "ao_img": "ao/impression-toile-tableau-buffle-classique.png",
      "shadow_img": "ao/shadow-impression-toile-tableau-buffle-classique.png",
      "shadow_cm": {
@@ -1465,11 +1657,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 68,
      "h": 115,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 77,
+      "h": 124
+     },
      "ao_img": "ao/impression-toile-tableau-buffle-grand.png",
      "shadow_img": "ao/shadow-impression-toile-tableau-buffle-grand.png",
      "shadow_cm": {
@@ -1500,11 +1696,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-crocodile-classique.png",
      "shadow_img": "ao/shadow-tableau-crocodile-classique.png",
      "shadow_cm": {
@@ -1523,11 +1723,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-crocodile-grand.png",
      "shadow_img": "ao/shadow-tableau-crocodile-grand.png",
      "shadow_cm": {
@@ -1558,11 +1762,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-leopards-peinture-classique.png",
      "shadow_img": "ao/shadow-tableau-leopards-peinture-classique.png",
      "shadow_cm": {
@@ -1581,11 +1789,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-leopards-peinture-grand.png",
      "shadow_img": "ao/shadow-tableau-leopards-peinture-grand.png",
      "shadow_cm": {
@@ -1616,11 +1828,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-toile-guepards-classique.png",
      "shadow_img": "ao/shadow-tableau-toile-guepards-classique.png",
      "shadow_cm": {
@@ -1639,11 +1855,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-toile-guepards-grand.png",
      "shadow_img": "ao/shadow-tableau-toile-guepards-grand.png",
      "shadow_cm": {
@@ -1674,11 +1894,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 105,
      "h": 75,
-     "slug": "classique",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 114,
+      "h": 84
+     },
      "ao_img": "ao/tableau-eland-derby-classique.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-classique.png",
      "shadow_cm": {
@@ -1697,11 +1921,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 100,
-     "slug": "grand",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "framed_cm": {
+      "w": 149,
+      "h": 109
+     },
      "ao_img": "ao/tableau-eland-derby-grand.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-grand.png",
      "shadow_cm": {
@@ -1720,11 +1948,15 @@
     },
     {
      "label": "Géant",
+     "slug": "geant",
      "w": 180,
      "h": 130,
-     "slug": "geant",
      "price_framed": 4850,
      "price_unframed": 3250,
+     "framed_cm": {
+      "w": 189,
+      "h": 139
+     },
      "ao_img": "ao/tableau-eland-derby-geant.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-geant.png",
      "shadow_cm": {
@@ -1755,11 +1987,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 50,
      "h": 36,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 59,
+      "h": 45
+     },
      "ao_img": "ao/peinture-lion-classique.png",
      "shadow_img": "ao/shadow-peinture-lion-classique.png",
      "shadow_cm": {
@@ -1790,11 +2026,15 @@
    "sizes": [
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 115,
      "h": 75,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 124,
+      "h": 84
+     },
      "ao_img": "ao/tableau-elan-orignal-grand.png",
      "shadow_img": "ao/shadow-tableau-elan-orignal-grand.png",
      "shadow_cm": {
@@ -1813,11 +2053,15 @@
     },
     {
      "label": "Géant",
+     "slug": "geant",
      "w": 160,
      "h": 105,
-     "slug": "geant",
      "price_framed": 2980,
      "price_unframed": 1900,
+     "framed_cm": {
+      "w": 169,
+      "h": 114
+     },
      "ao_img": "ao/tableau-elan-orignal-geant.png",
      "shadow_img": "ao/shadow-tableau-elan-orignal-geant.png",
      "shadow_cm": {
@@ -1836,11 +2080,15 @@
     },
     {
      "label": "Monumental",
+     "slug": "monumental",
      "w": 220,
      "h": 140,
-     "slug": "monumental",
      "price_framed": 4850,
      "price_unframed": 3250,
+     "framed_cm": {
+      "w": 229,
+      "h": 149
+     },
      "ao_img": "ao/tableau-elan-orignal-monumental.png",
      "shadow_img": "ao/shadow-tableau-elan-orignal-monumental.png",
      "shadow_cm": {
@@ -1871,11 +2119,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 41,
      "h": 70,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 50,
+      "h": 79
+     },
      "ao_img": "ao/grand-tableau-lion-classique.png",
      "shadow_img": "ao/shadow-grand-tableau-lion-classique.png",
      "shadow_cm": {
@@ -1894,11 +2146,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 68,
      "h": 115,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 77,
+      "h": 124
+     },
      "ao_img": "ao/grand-tableau-lion-grand.png",
      "shadow_img": "ao/shadow-grand-tableau-lion-grand.png",
      "shadow_cm": {
@@ -1929,11 +2185,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 70,
      "h": 41,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 79,
+      "h": 50
+     },
      "ao_img": "ao/tableau-ours-grizzly-classique.png",
      "shadow_img": "ao/shadow-tableau-ours-grizzly-classique.png",
      "shadow_cm": {
@@ -1952,11 +2212,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 115,
      "h": 68,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 124,
+      "h": 77
+     },
      "ao_img": "ao/tableau-ours-grizzly-grand.png",
      "shadow_img": "ao/shadow-tableau-ours-grizzly-grand.png",
      "shadow_cm": {
@@ -1987,11 +2251,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 41,
      "h": 70,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 50,
+      "h": 80
+     },
      "ao_img": "ao/tableau-elephanteau-realiste-classique.png",
      "shadow_img": "ao/shadow-tableau-elephanteau-realiste-classique.png",
      "shadow_cm": {
@@ -2010,11 +2278,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 68,
      "h": 115,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 78,
+      "h": 125
+     },
      "ao_img": "ao/tableau-elephanteau-realiste-grand.png",
      "shadow_img": "ao/shadow-tableau-elephanteau-realiste-grand.png",
      "shadow_cm": {
@@ -2045,11 +2317,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 40,
      "h": 52,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 49,
+      "h": 61
+     },
      "ao_img": "ao/peinture-leopard-classique.png",
      "shadow_img": "ao/shadow-peinture-leopard-classique.png",
      "shadow_cm": {
@@ -2080,11 +2356,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 49,
      "h": 60,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 58,
+      "h": 69
+     },
      "ao_img": "ao/tableau-gorille-classique.png",
      "shadow_img": "ao/shadow-tableau-gorille-classique.png",
      "shadow_cm": {
@@ -2103,11 +2383,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 82,
      "h": 100,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 91,
+      "h": 109
+     },
      "ao_img": "ao/tableau-gorille-grand.png",
      "shadow_img": "ao/shadow-tableau-gorille-grand.png",
      "shadow_cm": {
@@ -2138,11 +2422,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 30,
      "h": 43,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 39,
+      "h": 52
+     },
      "ao_img": "ao/tableau-zebres-classique.png",
      "shadow_img": "ao/shadow-tableau-zebres-classique.png",
      "shadow_cm": {
@@ -2173,11 +2461,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 85,
      "h": 40,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
      "ao_img": "ao/tableau-lions-classique.png",
      "shadow_img": "ao/shadow-tableau-lions-classique.png",
      "shadow_cm": {
@@ -2196,11 +2488,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 140,
      "h": 65,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
      "ao_img": "ao/tableau-lions-grand.png",
      "shadow_img": "ao/shadow-tableau-lions-grand.png",
      "shadow_cm": {
@@ -2231,11 +2527,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 41,
      "h": 70,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 50,
+      "h": 79
+     },
      "ao_img": "ao/tableau-peinture-tigre-bengal-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-tigre-bengal-classique.png",
      "shadow_cm": {
@@ -2254,11 +2554,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 68,
      "h": 115,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 77,
+      "h": 124
+     },
      "ao_img": "ao/tableau-peinture-tigre-bengal-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-tigre-bengal-grand.png",
      "shadow_cm": {
@@ -2289,11 +2593,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 70,
      "h": 53,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 79,
+      "h": 62
+     },
      "ao_img": "ao/tableau-buffle-lycaons-classique.png",
      "shadow_img": "ao/shadow-tableau-buffle-lycaons-classique.png",
      "shadow_cm": {
@@ -2312,11 +2620,15 @@
     },
     {
      "label": "Grand",
+     "slug": "grand",
      "w": 115,
      "h": 87,
-     "slug": "grand",
      "price_framed": 1820,
      "price_unframed": 1300,
+     "framed_cm": {
+      "w": 124,
+      "h": 96
+     },
      "ao_img": "ao/tableau-buffle-lycaons-grand.png",
      "shadow_img": "ao/shadow-tableau-buffle-lycaons-grand.png",
      "shadow_cm": {
@@ -2347,11 +2659,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 45,
      "h": 27,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 54,
+      "h": 36
+     },
      "ao_img": "ao/tableau-tortue-bousier-classique.png",
      "shadow_img": "ao/shadow-tableau-tortue-bousier-classique.png",
      "shadow_cm": {
@@ -2382,11 +2698,15 @@
    "sizes": [
     {
      "label": "Classique",
+     "slug": "classique",
      "w": 65,
      "h": 33,
-     "slug": "classique",
      "price_framed": 1150,
      "price_unframed": 760,
+     "framed_cm": {
+      "w": 74,
+      "h": 42
+     },
      "ao_img": "ao/tableau-lionceau-classique.png",
      "shadow_img": "ao/shadow-tableau-lionceau-classique.png",
      "shadow_cm": {

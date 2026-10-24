@@ -280,7 +280,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   function selectSize(s){
     size = s;
     document.querySelectorAll('.size').forEach(b => b.setAttribute('aria-checked', b.dataset.slug === s.slug ? 'true' : 'false'));
-    const o = s.outer_cm;
+    const o = s.framed_cm || s.outer_cm;   // taille encadrée telle que le site l’affiche (sinon calculée)
     $('#dims').innerHTML = `Toile <b>${s.w} × ${s.h} cm</b> · encadrée caisse américaine <b>${fmtCm(o.w)} × ${fmtCm(o.h)} cm</b>${s.price_framed ? ' · <b>' + fmtEur(s.price_framed) + '</b> encadrée' : ''}${s.price_unframed ? ', <b>' + fmtEur(s.price_unframed) + '</b> toile seule' : ''}`;
     const mv = $('#mv');
     mv.setAttribute('alt', work.title + ', ' + s.label);

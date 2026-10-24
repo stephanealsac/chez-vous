@@ -22,7 +22,7 @@ def slugify(s):
 products = json.load(open(os.path.join(DATA, 'toile.json')))
 SIZE_RX = r'(Classique|Grand|Géant|Monumental)\s*:\s*(\d{2,3})\s*(?:cm)?\s*[xX×]\s*(\d{2,3})\s*cm'
 if SELECTION is None:
-    SELECTION = [p['id'] for p in products if p.get('is_purchasable') and re.search(SIZE_RX, strip(p['short_description']))]
+    SELECTION = [p['id'] for p in products if p.get('is_purchasable') and p['variations']]
 # variations (prix par taille/montage) : téléchargées une fois depuis la Store API, en cache dans data/var
 os.makedirs(os.path.join(DATA, 'var'), exist_ok=True)
 import time
@@ -44,38 +44,64 @@ for pid in SELECTION:
     p = next(x for x in products if x['id'] == pid)
     name = strip(p['name']).strip('« »').strip()
     sd = strip(p['short_description'])
-    # Tailles : "Classique : 54 x 45 cm"
-    sizes = []
-    # Convention du site : le plus grand côté est écrit en premier ("54 x 45" pour un portrait, "140 x 65" pour
-    # un paysage). On oriente donc le couple selon l'orientation de l'image.
+    # Tailles : comme le site, depuis les DIMENSIONS des variations WooCommerce (longueur × largeur), pas depuis le
+    # texte de la description courte (souvent périmé). Toile = variation « roulé dans un tube » (sinon « monté sur
+    # châssis ») ; encadrée = variation « encadré caisse US noire ».
     img0 = p['images'][0]
-    landscape = True
-    m = re.search(r' (\d+)w$', img0['srcset'].split(',')[0].strip()) if img0.get('srcset') else None
     raw0 = os.path.join(DATA, 'raw-' + p['slug'])
     if not os.path.exists(raw0):
         subprocess.run(['curl', '-sS', '-m', '60', '-A', UA, '-o', raw0, img0['src']], check=True)
     wh0 = subprocess.run(['identify', '-format', '%w %h', raw0], capture_output=True, text=True).stdout.split()
     landscape = int(wh0[0]) >= int(wh0[1])
-    for label, a_, b_ in re.findall(SIZE_RX, sd):
-        big, small = max(int(a_), int(b_)), min(int(a_), int(b_))
-        w, h = (big, small) if landscape else (small, big)
-        sizes.append({'label': label, 'w': w, 'h': h, 'slug': slugify(label)})
-    # prix par taille (variation Taille=<slug>)
-    for s in sizes:
-        s['price_framed'] = None
-        s['price_unframed'] = None
-        for v in p['variations']:
-            attrs = {a['name']: a['value'] for a in v['attributes']}
-            if 'Taille' in attrs and attrs['Taille'] != s['slug']:
-                continue
-            vv = variations.get(v['id'])
-            if not vv:
-                continue
-            price = int(vv['prices']['price'])
-            if attrs.get('Montage') in ('encadre-caisse-us-noire', 'encadre'):
-                s['price_framed'] = price
+    def orient(l, w):
+        big, small = max(l, w), min(l, w)
+        return (big, small) if landscape else (small, big)
+    labels = {}
+    for a in p.get('attributes', []):
+        if a['name'] == 'Taille':
+            labels = {t['slug']: t['name'] for t in a['terms']}
+    groups = {}
+    for v in p['variations']:
+        vv = variations.get(v['id'])
+        if not vv:
+            continue
+        attrs = {a['name']: a['value'] for a in v['attributes']}
+        key = attrs.get('Taille', 'classique')
+        g = groups.setdefault(key, {'label': labels.get(key, key.capitalize()), 'slug': key, 'price_framed': None, 'price_unframed': None})
+        d = vv['dimensions']
+        dims = (float(d['length'] or 0), float(d['width'] or 0))
+        price = int(vv['prices']['price'])
+        mnt = attrs.get('Montage')
+        if mnt in ('encadre-caisse-us-noire', 'encadre'):
+            g['price_framed'] = price
+            if dims[0] and dims[1]:
+                g['framed'] = dims
+        else:
+            if g['price_unframed'] is None or mnt == 'roule-tube':
+                g['price_unframed'] = price
+            if dims[0] and dims[1] and (mnt == 'roule-tube' or 'canvas' not in g):
+                g['canvas'] = dims
+    sizes = []
+    for g in groups.values():
+        if 'canvas' not in g:
+            if 'framed' in g:
+                g['canvas'] = (g['framed'][0] - 9, g['framed'][1] - 9)
             else:
-                s['price_unframed'] = price
+                m = re.search(r'%s\s*:\s*(\d{2,3})\s*(?:cm)?\s*[xX×]\s*(\d{2,3})\s*cm' % re.escape(g['label']), sd)
+                if not m:
+                    continue
+                g['canvas'] = (float(m.group(1)), float(m.group(2)))
+        w, h = orient(*g['canvas'])
+        s_ = {'label': g['label'], 'slug': g['slug'], 'w': int(w) if w == int(w) else w, 'h': int(h) if h == int(h) else h,
+              'price_framed': g['price_framed'], 'price_unframed': g['price_unframed']}
+        if 'framed' in g:
+            fw, fh = orient(*g['framed'])
+            s_['framed_cm'] = {'w': int(fw) if fw == int(fw) else fw, 'h': int(fh) if fh == int(fh) else fh}
+        sizes.append(s_)
+    sizes.sort(key=lambda x: x['w'] * x['h'])
+    if not sizes:
+        print('IGNORÉ (aucune taille) :', name)
+        continue
     img = p['images'][0]
     desc = strip(p['description'])  # texte du site, tel quel
     catalogue.append({
