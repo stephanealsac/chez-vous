@@ -75,10 +75,6 @@ body.view-work .catalogue{display:none}
 .work-head{padding:10px var(--gr) 24px var(--gl);border-bottom:1px solid var(--border);text-align:center}
 .work-head .tech{font:400 9px/1.6 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--label);margin-bottom:10px}
 .work-head h1{font-family:var(--serif);font-style:italic;font-weight:300;font-size:36px;line-height:1.05;letter-spacing:.03em;text-wrap:balance}
-.work-head .desc{font-size:13px;color:var(--ink-soft);margin:14px auto 0;max-width:34em;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;text-align:left}
-.work-head .desc.open{display:block;-webkit-line-clamp:unset}
-.more{font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px;padding:14px 8px}
-.more span{border-bottom:1px solid var(--border);padding-bottom:2px}
 .section{border-bottom:1px solid var(--border);padding:22px var(--gr) 22px var(--gl)}
 .label{font:400 10px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--label);margin-bottom:14px}
 .sizes{display:flex;flex-direction:column;gap:8px}
@@ -95,9 +91,9 @@ body.view-work .catalogue{display:none}
 .scale svg{height:100%;width:auto;max-width:100%}
 .scale .note{padding-bottom:4px;white-space:nowrap}
 
-/* aperçu 3D */
-.preview{height:62vw;max-height:380px;max-width:100%;background:var(--bg2);border:1px solid var(--border);position:relative}
-model-viewer{width:100%;height:100%;--poster-color:transparent;--progress-bar-color:var(--ink);--progress-bar-height:1px;background:var(--bg2)}
+/* moteur RA Android (invisible) */
+.ar-engine{position:absolute;left:-9999px;top:0;width:2px;height:2px;overflow:hidden}
+model-viewer{width:2px;height:2px}
 
 /* actions : bouton principal épinglé, liens secondaires discrets */
 .actions{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border);padding:12px var(--gr) calc(10px + var(--sab)) var(--gl);display:grid;gap:6px;z-index:9}
@@ -168,8 +164,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     <div class="work-head">
       <div class="tech" id="w-tech"></div>
       <h1 id="w-title"></h1>
-      <p class="desc" id="w-desc"></p>
-      <button class="more" id="more" type="button"><span>Lire la suite</span></button>
     </div>
 
     <div class="section">
@@ -183,13 +177,9 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       <div class="scale"><svg id="scale-svg" viewBox="0 0 300 180" preserveAspectRatio="xMinYMax meet" role="img" aria-label="Le tableau encadré à côté d'une silhouette de 1,75 m"></svg><div class="note serif-note">Silhouette : 1,75 m</div></div>
     </div>
 
-    <div class="section">
-      <div class="label">Aperçu 3D, pivotez du doigt</div>
-      <div class="preview">
-        <model-viewer id="mv" camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none"
-          shadow-intensity="0.15" exposure="1.05" environment-image="neutral" camera-orbit="-22deg 80deg auto" min-camera-orbit="-70deg 60deg auto" max-camera-orbit="70deg 100deg auto"
-          ar ar-modes="webxr scene-viewer" ar-placement="wall" ar-scale="fixed" loading="lazy" reveal="auto"><button slot="ar-button" hidden></button></model-viewer>
-      </div>
+    <!-- Android : model-viewer sert uniquement à lancer la réalité augmentée (Scene Viewer / WebXR), il n'est pas affiché -->
+    <div class="ar-engine" aria-hidden="true">
+      <model-viewer id="mv" interaction-prompt="none" ar ar-modes="webxr scene-viewer" ar-placement="wall" ar-scale="fixed" loading="eager" reveal="manual"><button slot="ar-button" hidden></button></model-viewer>
     </div>
 
     <div class="unsupported" id="unsupported">
@@ -302,8 +292,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       $('#w-img').src = w.image; $('#w-img').alt = w.title;
       $('#w-title').textContent = w.title;
       $('#w-tech').textContent = 'Édition sur Toile' + (w.edition ? ' · ' + w.edition + ' exemplaires signés et numérotés' : '');
-      $('#w-desc').textContent = w.description; $('#w-desc').classList.remove('open'); $('#more').firstChild.textContent = 'Lire la suite';
-      requestAnimationFrame(() => { const d = $('#w-desc'); $('#more').style.display = d.scrollHeight > d.clientHeight + 2 ? '' : 'none'; });
       $('#buy').href = w.url;
       document.title = w.title + ' chez vous — Stéphane Alsac';
       const sz = $('#sizes'); sz.innerHTML = '';
@@ -317,7 +305,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     }
     selectSize(s);
   }
-  $('#more').addEventListener('click', () => { const d = $('#w-desc'); d.classList.toggle('open'); $('#more').firstChild.textContent = d.classList.contains('open') ? 'Réduire' : 'Lire la suite'; });
 
   function selectSize(s){
     size = s;
@@ -326,9 +313,8 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     $('#dims').innerHTML = `Toile <b>${s.w} × ${s.h} cm</b> · encadrée caisse américaine <b>${fmtCm(o.w)} × ${fmtCm(o.h)} cm</b>${s.price_framed ? ' · <b>' + fmtEur(s.price_framed) + '</b> encadrée' : ''}${s.price_unframed ? ', <b>' + fmtEur(s.price_unframed) + '</b> toile seule' : ''}`;
     drawScale(o.w, o.h);
     const mv = $('#mv');
-    mv.setAttribute('poster', work.image);
     mv.setAttribute('alt', work.title + ', ' + s.label);
-    mv.setAttribute('src', s.glb);
+    if (isAndroid) mv.setAttribute('src', s.glb);
     setMsg('');
     if (!isMobile) { $('#unsupported').style.display = 'block'; drawQR(location.href); }
     if (iosNoAR) { const m = $('#ar-msg'); m.innerHTML = 'Pour la réalité augmentée, ouvrez cette page dans Safari.<br><a href="' + esc(safariLink()) + '" style="color:inherit">Ouvrir dans Safari</a>'; m.classList.add('on'); }
