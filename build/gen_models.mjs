@@ -19,9 +19,9 @@ const USDZ_ORIENTATION = process.env.USDZ_ORIENTATION || 'lying';
 
 // Matières (valeurs partagées USDZ / GLB) : noir neutre satiné (les photos iPhone réchauffent les tons), fond mat, toile mate
 const MAT = {
-  frame: { color: [0.028, 0.028, 0.028], roughness: 0.40, metallic: 0 },
-  floor: { color: [0.024, 0.024, 0.024], roughness: 0.92, metallic: 0 },
-  canvasSide: { color: [0.030, 0.030, 0.030], roughness: 0.95, metallic: 0 },
+  frame: { color: [0.010, 0.010, 0.010], roughness: 0.30, metallic: 0, specular: 0.25 },
+  floor: { color: [0.008, 0.008, 0.008], roughness: 0.90, metallic: 0, specular: 0.10 },
+  canvasSide: { color: [0.012, 0.012, 0.012], roughness: 0.95, metallic: 0, specular: 0.10 },
   canvas: { roughness: 0.88, metallic: 0 },
 };
 
@@ -115,7 +115,7 @@ function usdMesh(name, parts, orient) {
             uniform token subsetFamily:materialBind:familyType = "partition"${subsetStr}
         }`;
 }
-function usdTexturedMaterial(name, file, { roughness, color, occlusion }) {
+function usdTexturedMaterial(name, file, { roughness, color, occlusion, specular = 0.3 }) {
   return `
         def Material "${name}"
         {
@@ -127,7 +127,7 @@ function usdTexturedMaterial(name, file, { roughness, color, occlusion }) {
                             : `color3f inputs:diffuseColor.connect = </Root/Materials/${name}/Texture.outputs:rgb>`}
                 float inputs:metallic = 0
                 float inputs:roughness = ${roughness}
-                float inputs:specular = 0.3
+                float inputs:specular = ${specular}
                 token outputs:surface
             }
             def Shader "uvReader_st"
@@ -196,7 +196,7 @@ function usdCanvasMaterial() {
             }
         }`;
 }
-function usdPlainMaterial(name, { color, roughness }) {
+function usdPlainMaterial(name, { color, roughness, specular = 0.5 }) {
   return `
         def Material "${name}"
         {
@@ -207,7 +207,7 @@ function usdPlainMaterial(name, { color, roughness }) {
                 color3f inputs:diffuseColor = ${c3(color)}
                 float inputs:metallic = 0
                 float inputs:roughness = ${roughness}
-                float inputs:specular = 0.5
+                float inputs:specular = ${specular}
                 token outputs:surface
             }
         }`;
@@ -227,7 +227,7 @@ function buildUSDA(p, title, orient) {
 def Xform "Root"
 {
     def Scope "Materials"
-    {${usdPlainMaterial('FrameMat', MAT.frame)}${usdPlainMaterial('CanvasSideMat', MAT.canvasSide)}${usdTexturedMaterial('FloorMat', 'textures/floor_ao.png', { roughness: MAT.floor.roughness, color: MAT.floor.color, occlusion: true })}${usdCanvasMaterial()}
+    {${usdPlainMaterial('FrameMat', MAT.frame)}${usdPlainMaterial('CanvasSideMat', MAT.canvasSide)}${usdTexturedMaterial('FloorMat', 'textures/floor_ao.png', { roughness: MAT.floor.roughness, color: MAT.floor.color, occlusion: true, specular: MAT.floor.specular })}${usdCanvasMaterial()}
     }
     def Scope "Scenes" (
         kind = "sceneLibrary"
