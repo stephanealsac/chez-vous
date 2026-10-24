@@ -220,7 +220,7 @@ ${usdMesh('Painting', [
   { m: f.p.sides, mat: '</Root/Materials/CanvasSideMat>', sub: 'canvasSides' },
   { m: f.p.front, mat: '</Root/Materials/CanvasMat>', sub: 'canvas' },
 ], orient).replace(/^/gm, '    ')}
-${usdMesh('Label', [{ m: f.p.label, mat: `</Root/Materials/LabelMat${i}>`, sub: 'label' }], orient).replace(/^/gm, '    ')}
+${behaviors ? usdMesh('Label', [{ m: f.p.label, mat: `</Root/Materials/LabelMat${i}>`, sub: 'label' }], orient).replace(/^/gm, '    ') : ''}
             }`).join('');
   return `#usda 1.0
 (
@@ -287,7 +287,7 @@ def Xform "Root"
                 token inputs:wrapT = "clamp"
                 float3 outputs:rgb
             }
-        }${formats.map((_, i) => labelMaterial(i)).join('')}
+        }${behaviors ? formats.map((_, i) => labelMaterial(i)).join('') : ''}
     }
     def Scope "Scenes" (
         kind = "sceneLibrary"
@@ -472,9 +472,10 @@ for (const w of cat.works) {
   const labels = w.sizes.map(s => fs.readFileSync(path.join(SITE, s.label_img)));
   w.sizes.forEach((s, i) => {
     const base = `${w.slug}-${s.slug}`;
-    const usda = Buffer.from(buildUSDA(formats, i, w.title, USDZ_ORIENTATION, buildBehaviors(formats, i)), 'utf8');
+    // Un format par fichier : AR Quick Look n'exécute pas de façon fiable les comportements de changement de format
+    // (testé : le masquage initial n'est pas appliqué). Le changement de taille en RA sera fait dans l'app native.
+    const usda = Buffer.from(buildUSDA([formats[i]], 0, w.title, USDZ_ORIENTATION, ''), 'utf8');
     const files = [{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }];
-    labels.forEach((l, k) => files.push({ name: `textures/label${k}.jpg`, data: l }));
     fs.writeFileSync(path.join(OUT, base + '.usdz'), usdzZip(files));
     fs.writeFileSync(path.join(OUT, base + '.glb'), buildGLB(formats[i].p, jpg));
     s.usdz = `models/${base}.usdz`; s.glb = `models/${base}.glb`;

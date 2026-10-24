@@ -35,10 +35,9 @@ Les textes, tailles, prix et images viennent du site, tels quels. Convention lue
 
 Dans `site/catalogue.json` (bloc `frame`) : `bar_width_cm`, `bar_depth_cm`, `gap_cm`, `canvas_depth_cm`. Après modification, relancer `node build/gen_models.mjs site`.
 
-## Changer de format pendant la réalité augmentée (iPhone)
+## Changer de format pendant la réalité augmentée
 
-Chaque fichier `.usdz` contient **tous les formats** de l'œuvre, un seul visible à la fois, avec une étiquette sous le cadre (nom du format, dimensions). **Toucher le tableau** dans la vue RA passe au format suivant (mécanisme « comportements » d'Apple : déclencheur « TapGesture » → actions « Visibility » hide/show, générés par `build/gen_models.mjs`). Les étiquettes sont produites par `build/gen_labels.py` (dossier `site/labels/`).
-Sur Android (Scene Viewer), ce mécanisme n'existe pas : on revient à la page pour changer de format.
+Testé et abandonné sur le web : AR Quick Look exécute le toucher et le masquage, mais pas l'état initial (formats superposés). Un format par fichier `.usdz` ; on revient à la page pour changer. Le changement de taille en direct sera fait dans l'app native (ARKit).
 
 ## À tester sur un vrai iPhone (première mise en ligne)
 

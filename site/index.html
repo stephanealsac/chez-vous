@@ -208,7 +208,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     <div class="slide">
       <div class="n">Étape 3 / 3</div>
       <h2>Visez votre mur</h2>
-      <p id="tuto-ar-text">Touchez « Voir sur mon mur » et balayez lentement le mur avec le téléphone : l'œuvre s'y accroche d'elle-même. Glissez pour la déplacer. Touchez le tableau pour passer au format suivant.</p>
+      <p id="tuto-ar-text">Touchez « Voir sur mon mur » et balayez lentement le mur avec le téléphone : l'œuvre s'y accroche d'elle-même. Glissez pour la déplacer. Pour changer de format, revenez ici et choisissez-en un autre.</p>
       <div class="art"><svg viewBox="0 0 220 150" fill="none" stroke="#1a1a1a" stroke-width="1.5" aria-hidden="true"><rect x="85" y="10" width="50" height="100" rx="8"/><rect x="100" y="38" width="22" height="30" fill="#1a1a1a"/><path d="M60 60c-15 10-15 30 0 40M160 60c15 10 15 30 0 40" stroke="#8a857b"/><path d="M10 130h200" stroke="#d4cfc4"/></svg></div>
     </div>
   </div>
@@ -234,7 +234,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const safariLink = () => 'x-safari-' + location.href;  // ouvre l'adresse dans Safari depuis un navigateur intégré
   const fmtEur = n => n == null ? '' : String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ' ') + ' €';
   const fmtCm = n => String(n).replace('.', ',');
-  const MSG_IOS = 'Balayez lentement le mur : l\'œuvre s\'y accroche d\'elle-même. Glissez pour la déplacer, touchez le tableau pour changer de format.';
+  const MSG_IOS = 'Balayez lentement le mur : l\'œuvre s\'y accroche d\'elle-même. Glissez pour la déplacer. Pour changer de format, revenez ici.';
   const MSG_ANDROID = 'Balayez lentement le mur, puis touchez l\'écran pour y accrocher l\'œuvre.';
   if (isAndroid) $('#tuto-ar-text').textContent = 'Touchez « Voir sur mon mur », balayez lentement le mur avec le téléphone, puis touchez l\'écran pour y accrocher l\'œuvre. Glissez pour la déplacer. Pour changer de taille, revenez ici et choisissez un autre format.';
 
