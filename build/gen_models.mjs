@@ -20,7 +20,7 @@ const USDZ_ORIENTATION = process.env.USDZ_ORIENTATION || 'lying';
 
 // Matières (valeurs partagées USDZ / GLB) : noir neutre satiné (les photos iPhone réchauffent les tons), fond mat, toile mate
 const MAT = {
-  frame: { color: [0.014, 0.014, 0.014], roughness: 0.48, metallic: 0, specular: 0.16 },
+  frame: { color: [0.014, 0.014, 0.014], roughness: 0.62, metallic: 0, specular: 0.12 },
   floor: { color: [0.010, 0.010, 0.010], roughness: 0.92, metallic: 0, specular: 0.08 },
   canvasSide: { color: [0.016, 0.016, 0.016], roughness: 0.82, metallic: 0, specular: 0.12 },
   canvas: { roughness: 0.88, metallic: 0 },
