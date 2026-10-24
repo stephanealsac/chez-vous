@@ -1,0 +1,55 @@
+/* Éléments communs aux trois films : charte du site, pièce illustrée, silhouette, cartes. Scène fixe 1080 × 1920. */
+:root{--bg:#eeeae1;--bg2:#e2dbcc;--border:#d4cfc4;--ink:#1a1a1a;--ink-soft:#4a4a4a;--muted:#6a665e;--label:#404040;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Raleway',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg);font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+.abs{position:absolute}
+.card{left:0;top:0;width:1080px;height:1920px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0}
+.brand{font:400 30px/1 var(--serif);letter-spacing:.3em;text-transform:uppercase;padding-left:.3em}
+.big{font-family:var(--serif);font-style:italic;font-weight:300;font-size:150px;line-height:1;letter-spacing:.02em;margin-top:34px}
+.rule{width:120px;height:1px;background:var(--border);margin:44px auto 0}
+.site{font:400 24px/1 var(--sans);letter-spacing:.2em;color:var(--ink-soft);margin-top:30px}
+.num{font-family:var(--serif);font-weight:300;font-size:170px;line-height:1;color:var(--ink);letter-spacing:.02em}
+
+/* ---------- pièce (salon) ---------- */
+.room{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;background:#d6cec0}
+.room .wall{position:absolute;left:0;top:0;width:100%;height:1400px;background:linear-gradient(100deg,#e1d9cb 0%,#d6cdbf 45%,#cbc2b3 100%)}
+.room .light{position:absolute;left:-260px;top:-160px;width:1000px;height:1500px;background:radial-gradient(ellipse at 25% 30%,rgba(255,251,242,.5),rgba(255,251,242,0) 62%)}
+.room .skirt{position:absolute;left:0;top:1400px;width:100%;height:16px;background:#ebe5d9;box-shadow:0 3px 0 #b9ae9e,0 -1px 0 #f3eee4}
+.room .floor{position:absolute;left:0;top:1416px;width:100%;height:504px;background:
+  linear-gradient(rgba(0,0,0,.16),rgba(0,0,0,0) 22%),
+  repeating-linear-gradient(90deg,rgba(0,0,0,0) 0 118px,rgba(60,40,20,.18) 118px 121px),
+  linear-gradient(#b5a083,#a48c6c)}
+.room .shadowc{position:absolute;left:70px;top:1395px;width:560px;height:60px;background:radial-gradient(ellipse at 50% 30%,rgba(0,0,0,.22),rgba(0,0,0,0) 70%)}
+.room .top{position:absolute;left:90px;top:1226px;width:520px;height:16px;background:#4a3d31;border-radius:2px;box-shadow:0 2px 0 #3a2f26}
+.room .leg{position:absolute;top:1242px;width:12px;height:174px;background:#4a3d31}
+.room .vase{position:absolute;left:170px;top:1096px;width:84px;height:130px;background:linear-gradient(90deg,#f1ece2,#d9d2c4);border-radius:14px 14px 22px 22px}
+.room .plant{position:absolute;left:92px;top:900px;width:260px;height:230px}
+.room .books{position:absolute;left:430px;top:1190px;width:120px;height:36px;background:#9d8a74;border-radius:2px;box-shadow:0 -14px 0 -2px #c9bfae,0 -26px 0 -4px #7f6b58}
+.room .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,rgba(0,0,0,0) 50%,rgba(20,14,8,.22) 100%)}
+/* tableau accroché : taille en px = cm × échelle de la pièce */
+.room .hang{position:absolute;opacity:0;filter:drop-shadow(8px 14px 16px rgba(20,14,8,.32)) drop-shadow(2px 4px 4px rgba(20,14,8,.25))}
+.room .hang img{width:100%;height:100%;display:block}
+/* points de détection du plan (RA) */
+.dots{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;opacity:0}
+.dots i{position:absolute;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,.9)}
+
+/* ---------- silhouette de dos ---------- */
+.person{position:absolute;opacity:0}
+.person svg{display:block;overflow:visible}
+.person .ink{fill:#2b2621;stroke:#2b2621}
+
+/* ---------- téléphone ---------- */
+.phone{position:absolute;border-radius:34px;background:#141414;box-shadow:0 18px 30px rgba(20,14,8,.35);opacity:0}
+.phone .screen{position:absolute;inset:9px;border-radius:26px;overflow:hidden;background:#000}
+.phone .screen .cam{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0}
+.phone .thumb{position:absolute;left:-16px;bottom:34px;width:44px;height:96px;border-radius:22px;background:#2b2621;transform:rotate(18deg)}
+
+/* ---------- lignes de cote ---------- */
+.dim{position:absolute;opacity:0}
+.dim line{stroke:#1a1a1a;stroke-width:3}
+.dim text{font-family:var(--serif);font-size:54px;font-weight:400;fill:#1a1a1a}
+
+/* ---------- doigt ---------- */
+.finger{position:absolute;width:260px;height:520px;transform-origin:50% 100%;opacity:0;filter:drop-shadow(0 18px 22px rgba(0,0,0,.28))}
+.ripple{position:absolute;width:140px;height:140px;margin:-70px 0 0 -70px;border-radius:50%;border:4px solid rgba(26,26,26,.9);opacity:0}

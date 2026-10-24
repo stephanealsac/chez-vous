@@ -6,23 +6,25 @@ import path from 'node:path';
 const [,, glb, out, angle = 'three-quarter'] = process.argv;
 const WALL = process.env.WALL || '#c9cdc9'; const [RW, RH] = (process.env.SIZE || '1200x1600').split('x').map(Number);
 const three = fs.readFileSync('node_modules/three/build/three.module.js', 'utf8');
-const html = `<!doctype html><html><body style="margin:0;background:#dfe0dc">
+const html = `<!doctype html><html><body style="margin:0;background:${process.env.ALPHA ? "transparent" : "#dfe0dc"}">
 <script type="importmap">{"imports":{"three":"./three.module.js","three/addons/":"./jsm/"}}</script>
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 const W = ${RW}, H = ${RH};
-const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+const ALPHA = ${process.env.ALPHA ? 'true' : 'false'};
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: ALPHA });
+if (ALPHA) renderer.setClearColor(0x000000, 0);
 renderer.setSize(W, H); renderer.setPixelRatio(1);
 renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.8;
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
-const scene = new THREE.Scene(); scene.background = new THREE.Color('${WALL}');
+const scene = new THREE.Scene(); if (!ALPHA) scene.background = new THREE.Color('${WALL}');
 const pmrem = new THREE.PMREMGenerator(renderer); scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 // mur
 const wall = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.MeshStandardMaterial({ color: '${WALL}', roughness: 0.95 }));
-wall.position.z = -0.0005; wall.receiveShadow = true; scene.add(wall);
+wall.position.z = -0.0005; wall.receiveShadow = true; if (!ALPHA) scene.add(wall);
 // lumière : fenêtre à gauche + ambiance
 const sun = new THREE.DirectionalLight('#fff4e6', 1.1); sun.position.set(-2.5, 2.2, 2.5); sun.castShadow = false;   // pas d'ombre temps réel : Quick Look n'en projette pas sur un mur, seule l'ombre peinte compte
 sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0002; sun.shadow.normalBias = 0.002;
@@ -32,7 +34,8 @@ scene.add(new THREE.HemisphereLight('#e8ecf5', '#8a8070', 0.35));
 const loader = new GLTFLoader();
 loader.load('${glb}', g => {
   g.scene.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
-  if (!${process.env.HIDE ? 'true' : 'false'}) scene.add(g.scene);   // HIDE=1 : mur seul, même caméra (fond pour la vidéo)
+  if (!${process.env.HIDE ? 'true' : 'false'}) scene.add(g.scene);
+  if (ALPHA) g.scene.traverse(o => { if (o.isMesh && o.material && o.material.name === 'Shadow') o.visible = false; });   // l'ombre est refaite en CSS   // HIDE=1 : mur seul, même caméra (fond pour la vidéo)
   const box = new THREE.Box3().setFromObject(g.scene); const size = box.getSize(new THREE.Vector3()); const c = box.getCenter(new THREE.Vector3());
   const cam = new THREE.PerspectiveCamera(40, W / H, 0.01, 20);
   const a = '${angle}';
@@ -65,6 +68,6 @@ page.on('console', m => { if (m.type() === 'error') console.error('console:', m.
 await page.goto('http://localhost:8799/');
 await page.waitForFunction(() => window.__done || window.__err, null, { timeout: 120000 });
 const err = await page.evaluate(() => window.__err); if (err) console.error('erreur', err);
-await page.screenshot({ path: out });
+await page.screenshot({ omitBackground: !!process.env.ALPHA, path: out });
 await browser.close(); srv.close();
 console.log('rendu', out);

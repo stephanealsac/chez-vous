@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Film 2 — Pictogrammes</title>
+<link rel="stylesheet" href="../../site/fonts/fonts.css"><link rel="stylesheet" href="common.css">
+<style>
+.beat{position:absolute;left:0;top:0;width:1080px;height:1920px;opacity:0}
+.beat .num{position:absolute;left:0;width:1080px;top:200px;text-align:center}
+svg.pic{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible}
+.ink{fill:none;stroke:#1a1a1a;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.soft{fill:none;stroke:#9a948a;stroke-width:4;stroke-linecap:round}
+.dimtxt{font-family:var(--serif);font-weight:400;font-size:64px;fill:#1a1a1a;text-anchor:middle}
+.dimtxt tspan{font-size:40px;fill:#6a665e}
+.pimg{position:absolute;transform-origin:50% 50%}
+.pimg img{width:100%;height:100%;display:block;filter:drop-shadow(6px 10px 12px rgba(26,26,26,.25))}
+.chk{fill:none;stroke:#1a1a1a;stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+</style></head>
+<body>
+
+<!-- 1 · choisir une œuvre -->
+<div class="beat" id="b1">
+  <div class="num">1</div>
+  <svg class="pic" id="grid"></svg>
+  <div class="pimg" id="p1"><img src="frame-alpha.png" alt=""></div>
+</div>
+
+<!-- 2 · choisir le format (à côté de soi) -->
+<div class="beat" id="b2">
+  <div class="num">2</div>
+  <svg class="pic">
+    <g transform="translate(120,700)"><path class="ink" id="man" d="M150 8 a52 52 0 1 1 -0.1 0 M110 124 Q150 112 190 124 L228 146 L244 430 L216 432 L204 300 L206 560 L200 964 L160 964 L153 610 L147 610 L140 964 L100 964 L94 560 L96 300 L84 432 L56 430 L72 146 Z"/>
+      <line class="soft" x1="-40" y1="964" x2="860" y2="964"/></g>
+  </svg>
+  <div class="pimg" id="p2"><img src="frame-alpha.png" alt=""></div>
+  <svg class="pic"><text class="dimtxt" id="dim2" x="700" y="1760">60 × 80 <tspan>cm</tspan></text></svg>
+</div>
+
+<!-- 3 · viser le mur -->
+<div class="beat" id="b3">
+  <div class="num">3</div>
+  <svg class="pic">
+    <line class="soft" x1="60" y1="1500" x2="1020" y2="1500"/>
+    <line class="soft" x1="60" y1="1530" x2="1020" y2="1530" stroke-width="2"/>
+    <g id="dots3"></g>
+  </svg>
+  <div class="pimg" id="p3"><img src="frame-alpha.png" alt=""></div>
+  <svg class="pic" id="ph3" style="transform-origin:540px 1460px">
+    <defs><clipPath id="scr"><rect x="394" y="864" width="292" height="592" rx="34"/></clipPath></defs>
+    <rect class="ink" x="380" y="850" width="320" height="620" rx="50" fill="#eeeae1"/>
+    <image id="scrimg" clip-path="url(#scr)" href="frame-alpha.png" x="0" y="0" width="0" height="0"/>
+    <rect class="ink" x="394" y="864" width="292" height="592" rx="34" stroke-width="3"/>
+    <path class="soft" id="arcL" d="M300 1040 q-80 120 0 240" stroke-width="5"/>
+    <path class="soft" id="arcR" d="M780 1040 q80 120 0 240" stroke-width="5"/>
+  </svg>
+  <svg class="pic"><path class="chk" id="chk" d="M770 1150 L830 1210 L950 1080"/></svg>
+</div>
+
+<div class="abs card" id="c-end" style="background:var(--bg)">
+  <div class="brand">Stéphane Alsac</div>
+  <div class="big" style="font-size:118px">Éditions sur Toile</div>
+  <div class="rule"></div>
+  <div class="site">chez-vous.stephane-alsac.com</div>
+</div>
+
+<script src="common.js"></script>
+<script>
+// ----- 1 : grille 3 × 3 -----
+const g = $('grid'); let cells = [];
+for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+  const x = 540 - 300 + c * 210 - 85 + 100, y = 960 - 330 + r * 250 - 105 + 90;
+  const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  rect.setAttribute('class', 'ink'); rect.setAttribute('x', x); rect.setAttribute('y', y); rect.setAttribute('width', 170); rect.setAttribute('height', 210); rect.setAttribute('rx', 4);
+  rect.style.strokeDasharray = 760; g.appendChild(rect); cells.push({ rect, x, y, i: r * 3 + c });
+}
+const p1 = $('p1'); p1.style.left = '395px'; p1.style.top = '773px'; p1.style.width = '290px'; p1.style.height = '374px';   // 68.6 × 88.6 cm à 4.22 px/cm, centré (540, 960)
+// ----- 2 : formats, 4 px/cm, personne 1,75 m (700 px) dont les pieds sont à y = 1664 -----
+const K2 = 4, FLOOR = 1664, CX2 = 700, SIZES = [[45, 54], [60, 80], [90, 130]];
+function setP2(w, h) { const W = (w + 8.6) * K2, H = (h + 8.6) * K2; const cy = FLOOR - 150 * K2; Object.assign($('p2').style, { left: CX2 - W / 2 + 'px', top: cy - H / 2 + 'px', width: W + 'px', height: H + 'px' }); }
+// ----- 3 : mur, 3.4 px/cm, tableau centré (540, 1180) -----
+const K3 = 3.2, W3 = 68.6 * K3, H3 = 88.6 * K3;
+Object.assign($('p3').style, { left: 540 - W3 / 2 + 'px', top: 1150 - H3 / 2 + 'px', width: W3 + 'px', height: H3 + 'px' });
+const si = $('scrimg'); si.setAttribute('x', 540 - W3 / 2); si.setAttribute('y', 1150 - H3 / 2); si.setAttribute('width', W3); si.setAttribute('height', H3);
+const d3 = $('dots3'); { let s = 11; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  for (let i = 0; i < 44; i++) { const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); c.setAttribute('cx', 140 + rnd() * 800); c.setAttribute('cy', 720 + rnd() * 720); c.setAttribute('r', 4); c.setAttribute('fill', '#7a746a'); c.dataset.ph = rnd(); d3.appendChild(c); } }
+for (const id of ['man', 'chk', 'arcL', 'arcR']) { const e = $(id); const L = e.getTotalLength(); e.style.strokeDasharray = L; e.dataset.len = L; }
+
+window.DURATION = 24.5;
+window.render = function (t) {
+  // ===== 1 =====
+  const b1 = $('b1'); b1.style.opacity = win(t, 0.2, 0.8, 6.2, 6.8);
+  cells.forEach((c, k) => { const u = seg(t, 0.6 + k * 0.12, 1.4 + k * 0.12); c.rect.style.strokeDashoffset = 760 * (1 - u); c.rect.style.opacity = 1 - seg(t, 3.6, 4.2) * (c.i === 4 ? 0 : 1); });
+  const pick = seg(t, 2.4, 3.2);                     // la case centrale se remplit
+  const grow = seg(t, 3.6, 4.8);                     // puis grandit
+  const sc = lerp(170 / 290, 1, grow);
+  show(p1, pick, `scale(${sc})`);
+  cells[4].rect.style.opacity = 1 - grow;
+  // ===== 2 =====
+  const b2 = $('b2'); b2.style.opacity = win(t, 6.6, 7.2, 13.2, 13.8);
+  $('man').style.strokeDashoffset = (1 - seg(t, 6.8, 8.2)) * +$('man').dataset.len;
+  // tailles : 45×54 (8.4) → 60×80 (10.0) → 90×130 (11.6)
+  const u1 = seg(t, 9.6, 10.4), u2 = seg(t, 11.2, 12.0);
+  const w = lerp(lerp(45, 60, u1), 90, u2), h = lerp(lerp(54, 80, u1), 130, u2);
+  setP2(w, h); show($('p2'), seg(t, 8.2, 8.9));
+  const lbl = t < 10 ? '45 × 54' : t < 11.6 ? '60 × 80' : '90 × 130';
+  $('dim2').firstChild.textContent = lbl + ' ';
+  $('dim2').style.opacity = seg(t, 8.6, 9.2) * (t < 10 ? 1 - win(t, 9.6, 9.6, 9.75, 10) : t < 11.6 ? win(t, 10.0, 10.3, 11.2, 11.6) : seg(t, 11.6, 11.9));
+  // ===== 3 =====
+  const b3 = $('b3'); b3.style.opacity = win(t, 13.6, 14.2, 21.0, 21.6);
+  const sw = t < 14.8 ? 0 : t < 19.0 ? Math.sin((t - 14.8) / 4.2 * Math.PI * 2) * seg(t, 14.8, 15.6) * (1 - seg(t, 18.2, 19.0)) : 0;
+  $('ph3').style.transform = `translate(${sw * 60}px,0) rotate(${sw * -9}deg)`;
+  const arcs = win(t, 14.8, 15.6, 18.0, 18.8);
+  $('arcL').style.strokeDashoffset = $('arcR').style.strokeDashoffset = (1 - arcs) * +$('arcL').dataset.len;
+  const dv = win(t, 15.4, 16.0, 18.4, 19.2);
+  for (const c of d3.children) c.style.opacity = dv * (0.2 + 0.8 * Math.abs(Math.sin(t * 2.4 + +c.dataset.ph * 6.28)));
+  si.style.opacity = seg(t, 17.2, 18.4);                  // le tableau apparaît dans l'écran
+  const out = seg(t, 19.0, 19.9);                           // le téléphone s'efface, le tableau reste
+  $('ph3').style.opacity = 1 - out; $('p3').style.opacity = out;
+  $('chk').style.strokeDashoffset = (1 - seg(t, 20.0, 20.7)) * +$('chk').dataset.len;
+  // fin
+  $('c-end').style.opacity = win(t, 21.6, 22.6);
+};
+render(0);
+</script>
+</body></html>
