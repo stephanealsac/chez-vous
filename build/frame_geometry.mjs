@@ -12,6 +12,7 @@ export const FRAME = {
   depth_cm: 4.0,      // profondeur totale (mur → arête)
   floor_cm: 1.3,      // hauteur du fond du caisson : 4 − 2,7 de profondeur intérieure
   canvas_depth_cm: 2.3, // châssis 2 cm + toile ; face à 0,4 cm en retrait de l'arête
+  canvas_round_cm: 0.4, // arête avant du châssis arrondie : l'image tourne sur l'arrondi
   fillet_outer_cm: 0.15,
   fillet_inner_cm: 0.10,
 };
@@ -103,25 +104,49 @@ export function buildPainting(wcm, hcm, F = FRAME) {
   // dos (contre le mur)
   const back = emptyMesh();
   addQuad(back, [-ox, -oy, 0], [ox, -oy, 0], [ox, oy, 0], [-ox, oy, 0], [0, 0, -1], [0, 0, -1], [0, 0, -1], [0, 0, -1]);
-  // toile : face avant texturée (uv glTF, origine en haut à gauche), chants noirs
-  const z0 = floorZ, z1 = floorZ + cd;
-  const front = emptyMesh();
-  addQuad(front, [-w / 2, -h / 2, z1], [w / 2, -h / 2, z1], [w / 2, h / 2, z1], [-w / 2, h / 2, z1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 1, 1, 1, 1, 0, 0, 0]);
-  front.T2 = [0, hcm, wcm, hcm, wcm, 0, 0, 0]; // grain : une tuile par cm
-  front.TAN = [1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1]; // tangentes (+X) pour la normal map
+  // toile : châssis à arête avant arrondie (rayon rc) ; l'image tourne sur l'arrondi, le galon couvre le chant vertical.
+  const z0 = floorZ, z1 = floorZ + cd, rc = (F.canvas_round_cm || 0.4) * cm;
+  const imgUV = p => [(p[0] + w / 2) / w, 1 - (p[1] + h / 2) / h];                 // image étalée sur toute la largeur/hauteur
+  const grainUV = p => [(p[0] + w / 2) * 100, (h / 2 - p[1]) * 100];               // grain : 1 tuile / cm
+  // face plane (en retrait de rc sur chaque bord)
+  const front = emptyMesh(); front.T2 = []; front.TAN = [];
+  const fq = [[-w / 2 + rc, -h / 2 + rc, z1], [w / 2 - rc, -h / 2 + rc, z1], [w / 2 - rc, h / 2 - rc, z1], [-w / 2 + rc, h / 2 - rc, z1]];
+  addQuad(front, ...fq, [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], fq.flatMap(imgUV));
+  for (const q of fq) { front.T2.push(...grainUV(q)); front.TAN.push(1, 0, 0, 1); }
+  // congé : balayé autour du rectangle de la toile, K segments, normales radiales
+  const K = 4;
+  const ring = [];
+  for (let k = 0; k <= K; k++) { const a = (Math.PI / 2) * (k / K); ring.push({ u: rc - rc * Math.cos(a), z: z1 - rc + rc * Math.sin(a), n: [-Math.cos(a), Math.sin(a)] }); }
+  // (u = enfoncement depuis le bord extérieur de la toile ; n = [composante vers l'extérieur (-u) ... ] ; on réutilise sweep avec inward)
+  const csides = [
+    { inward: [0, -1, 0], ends: u => [[-(w / 2 - u), h / 2 - u], [w / 2 - u, h / 2 - u]], tan: [1, 0] },
+    { inward: [0, 1, 0], ends: u => [[w / 2 - u, -(h / 2 - u)], [-(w / 2 - u), -(h / 2 - u)]], tan: [1, 0] },
+    { inward: [1, 0, 0], ends: u => [[-(w / 2 - u), -(h / 2 - u)], [-(w / 2 - u), h / 2 - u]], tan: [0, 1] },
+    { inward: [-1, 0, 0], ends: u => [[w / 2 - u, h / 2 - u], [w / 2 - u, -(h / 2 - u)]], tan: [0, 1] },
+  ];
+  for (let i = 0; i < ring.length - 1; i++) {
+    const a = ring[i], b = ring[i + 1];
+    for (const sd of csides) {
+      const [a0, a1] = sd.ends(a.u), [b0, b1] = sd.ends(b.u);
+      // n2d = (-cos a) vers l'extérieur du rectangle = -inward ; (sin a) vers +z
+      const n3 = n => [-sd.inward[0] * (-n[0]), -sd.inward[1] * (-n[0]), n[1]];
+      const P = (xy, z) => [xy[0], xy[1], z];
+      const pts4 = [P(a0, a.z), P(a1, a.z), P(b1, b.z), P(b0, b.z)];
+      addQuad(front, ...pts4, n3(a.n), n3(a.n), n3(b.n), n3(b.n), pts4.flatMap(imgUV));
+      for (const q of pts4) { front.T2.push(...grainUV(q)); front.TAN.push(sd.tan[0], sd.tan[1], 0, 1); }
+    }
+  }
+  // chants verticaux (galon), du fond jusqu'au départ de l'arrondi
   const sides = emptyMesh(); sides.T2 = []; sides.TAN = [];
-  const dcm = (z1 - z0) * 100;
-  // chaque chant : uv2 = (longueur en cm, profondeur en cm), tangente le long de la longueur
-  const S = (a, b, c, d, n, len, tan) => {
+  const zs1 = z1 - rc;
+  const S = (a, b, c, d, n, tan) => {
     addQuad(sides, a, b, c, d, n, n, n, n);
-    const L = len * 100;
-    const uv = p => [((p[0] * tan[0] + p[1] * tan[1]) + L / 2 * 0 + (tan[0] ? w / 2 : h / 2)) * 100, (p[2] - z0) * 100];
-    for (const p of [a, b, c, d]) { const [u, v] = uv(p); sides.T2.push(u, v); sides.TAN.push(tan[0], tan[1], 0, 1); }
+    for (const p of [a, b, c, d]) { sides.T2.push(((p[0] * tan[0] + p[1] * tan[1]) + (tan[0] ? w / 2 : h / 2)) * 100, (p[2] - z0) * 100); sides.TAN.push(tan[0], tan[1], 0, 1); }
   };
-  S([w / 2, -h / 2, z0], [w / 2, -h / 2, z1], [w / 2, h / 2, z1], [w / 2, h / 2, z0], [1, 0, 0], h, [0, 1]);
-  S([-w / 2, -h / 2, z0], [-w / 2, h / 2, z0], [-w / 2, h / 2, z1], [-w / 2, -h / 2, z1], [-1, 0, 0], h, [0, 1]);
-  S([-w / 2, h / 2, z0], [w / 2, h / 2, z0], [w / 2, h / 2, z1], [-w / 2, h / 2, z1], [0, 1, 0], w, [1, 0]);
-  S([-w / 2, -h / 2, z0], [-w / 2, -h / 2, z1], [w / 2, -h / 2, z1], [w / 2, -h / 2, z0], [0, -1, 0], w, [1, 0]);
+  S([w / 2, -h / 2, z0], [w / 2, -h / 2, zs1], [w / 2, h / 2, zs1], [w / 2, h / 2, z0], [1, 0, 0], [0, 1]);
+  S([-w / 2, -h / 2, z0], [-w / 2, h / 2, z0], [-w / 2, h / 2, zs1], [-w / 2, -h / 2, zs1], [-1, 0, 0], [0, 1]);
+  S([-w / 2, h / 2, z0], [w / 2, h / 2, z0], [w / 2, h / 2, zs1], [-w / 2, h / 2, zs1], [0, 1, 0], [1, 0]);
+  S([-w / 2, -h / 2, z0], [-w / 2, -h / 2, zs1], [w / 2, -h / 2, zs1], [w / 2, -h / 2, z0], [0, -1, 0], [1, 0]);
   return {
     frame: merge(frame, back), floor, front, sides,
     outer: { w: 2 * ox, h: 2 * oy, d: D },

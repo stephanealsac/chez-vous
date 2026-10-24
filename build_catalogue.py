@@ -102,7 +102,7 @@ for a in catalogue:
     del a['image_src']
 
 json.dump({'frame': {'type': 'caisse-americaine', 'color': 'noir neutre satiné', 'lip_cm': 1.8, 'add_cm': 4.3, 'depth_cm': 4.0,
-                     'floor_cm': 1.3, 'canvas_depth_cm': 2.3, 'fillet_outer_cm': 0.15, 'fillet_inner_cm': 0.10},
+                     'floor_cm': 1.3, 'canvas_depth_cm': 2.3, 'canvas_round_cm': 0.4, 'fillet_outer_cm': 0.15, 'fillet_inner_cm': 0.10},
            'artist': 'Stéphane Alsac', 'site': 'https://www.stephane-alsac.com', 'works': catalogue},
           open(os.path.join(OUT, 'catalogue.json'), 'w'), ensure_ascii=False, indent=1)
 for a in catalogue:
