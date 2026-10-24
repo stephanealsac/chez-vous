@@ -388,8 +388,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   $('#tuto-skip').addEventListener('click', closeTuto);
   $('#help').addEventListener('click', openTuto);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && tuto.classList.contains('open')) closeTuto(); });
-  let seen = false; try { seen = localStorage.getItem('ar_tuto_seen') === '1'; } catch (_) {}
-  if (!seen) openTuto();
+  // Tutoriel : pas d'ouverture automatique (une vidéo remplacera ces écrans) ; accessible via le bouton « ? »
 
   // ---------- hors-ligne ----------
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
