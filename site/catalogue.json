@@ -37,13 +37,13 @@
      "ao_img": "ao/tableau-peinture-tigre-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-tigre-classique.png",
      "shadow_cm": {
-      "x0": -33.3,
+      "x0": -41.3,
       "x1": 41.3,
       "y0": -51.3,
-      "y1": 43.3
+      "y1": 51.3
      },
-     "usdz": "models/tableau-peinture-tigre-classique-0762487f.usdz",
-     "glb": "models/tableau-peinture-tigre-classique-0762487f.glb",
+     "usdz": "models/tableau-peinture-tigre-classique-d95ad45e.usdz",
+     "glb": "models/tableau-peinture-tigre-classique-d95ad45e.glb",
      "outer_cm": {
       "w": 68.6,
       "h": 88.6,
@@ -76,13 +76,13 @@
      "ao_img": "ao/tableau-peinture-lievre-course-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-lievre-course-classique.png",
      "shadow_cm": {
-      "x0": -21.8,
+      "x0": -29.8,
       "x1": 29.8,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-peinture-lievre-course-classique-36681096.usdz",
-     "glb": "models/tableau-peinture-lievre-course-classique-36681096.glb",
+     "usdz": "models/tableau-peinture-lievre-course-classique-f5586e0a.usdz",
+     "glb": "models/tableau-peinture-lievre-course-classique-f5586e0a.glb",
      "outer_cm": {
       "w": 45.6,
       "h": 73.6,
@@ -115,13 +115,13 @@
      "ao_img": "ao/tableau-peinture-bison-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-bison-classique.png",
      "shadow_cm": {
-      "x0": -43.3,
+      "x0": -51.3,
       "x1": 51.3,
       "y0": -33.8,
-      "y1": 25.8
+      "y1": 33.8
      },
-     "usdz": "models/tableau-peinture-bison-classique-3795ec07.usdz",
-     "glb": "models/tableau-peinture-bison-classique-3795ec07.glb",
+     "usdz": "models/tableau-peinture-bison-classique-fae9e20f.usdz",
+     "glb": "models/tableau-peinture-bison-classique-fae9e20f.glb",
      "outer_cm": {
       "w": 88.6,
       "h": 53.6,
@@ -154,13 +154,13 @@
      "ao_img": "ao/tableau-portrait-zebre-classique.png",
      "shadow_img": "ao/shadow-tableau-portrait-zebre-classique.png",
      "shadow_cm": {
-      "x0": -25.8,
+      "x0": -33.8,
       "x1": 33.8,
       "y0": -38.3,
-      "y1": 30.3
+      "y1": 38.3
      },
-     "usdz": "models/tableau-portrait-zebre-classique-2d81cca6.usdz",
-     "glb": "models/tableau-portrait-zebre-classique-2d81cca6.glb",
+     "usdz": "models/tableau-portrait-zebre-classique-0bbd699d.usdz",
+     "glb": "models/tableau-portrait-zebre-classique-0bbd699d.glb",
      "outer_cm": {
       "w": 53.6,
       "h": 62.6,
@@ -193,13 +193,13 @@
      "ao_img": "ao/tableau-peinture-leopard-branche-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-leopard-branche-classique.png",
      "shadow_cm": {
-      "x0": -25.8,
+      "x0": -33.8,
       "x1": 33.8,
       "y0": -51.3,
-      "y1": 43.3
+      "y1": 51.3
      },
-     "usdz": "models/tableau-peinture-leopard-branche-classique-9d2b559e.usdz",
-     "glb": "models/tableau-peinture-leopard-branche-classique-9d2b559e.glb",
+     "usdz": "models/tableau-peinture-leopard-branche-classique-9e64aa20.usdz",
+     "glb": "models/tableau-peinture-leopard-branche-classique-9e64aa20.glb",
      "outer_cm": {
       "w": 53.6,
       "h": 88.6,
@@ -232,13 +232,13 @@
      "ao_img": "ao/tableau-peinture-puma-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-puma-classique.png",
      "shadow_cm": {
-      "x0": -26.3,
+      "x0": -34.3,
       "x1": 34.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-peinture-puma-classique-638a8b6c.usdz",
-     "glb": "models/tableau-peinture-puma-classique-638a8b6c.glb",
+     "usdz": "models/tableau-peinture-puma-classique-64f02d86.usdz",
+     "glb": "models/tableau-peinture-puma-classique-64f02d86.glb",
      "outer_cm": {
       "w": 54.6,
       "h": 73.6,
@@ -271,13 +271,13 @@
      "ao_img": "ao/tableau-peinture-vol-de-becasse-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-vol-de-becasse-classique.png",
      "shadow_cm": {
-      "x0": -20.8,
+      "x0": -28.8,
       "x1": 28.8,
       "y0": -32.8,
-      "y1": 24.8
+      "y1": 32.8
      },
-     "usdz": "models/tableau-peinture-vol-de-becasse-classique-85016cd4.usdz",
-     "glb": "models/tableau-peinture-vol-de-becasse-classique-85016cd4.glb",
+     "usdz": "models/tableau-peinture-vol-de-becasse-classique-d09eec50.usdz",
+     "glb": "models/tableau-peinture-vol-de-becasse-classique-d09eec50.glb",
      "outer_cm": {
       "w": 43.6,
       "h": 51.6,
@@ -310,13 +310,13 @@
      "ao_img": "ao/tableau-peinture-ibex-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-ibex-classique.png",
      "shadow_cm": {
-      "x0": -35.8,
+      "x0": -43.8,
       "x1": 43.8,
       "y0": -56.3,
-      "y1": 48.3
+      "y1": 56.3
      },
-     "usdz": "models/tableau-peinture-ibex-classique-4448d575.usdz",
-     "glb": "models/tableau-peinture-ibex-classique-4448d575.glb",
+     "usdz": "models/tableau-peinture-ibex-classique-d28d8203.usdz",
+     "glb": "models/tableau-peinture-ibex-classique-d28d8203.glb",
      "outer_cm": {
       "w": 73.6,
       "h": 98.6,
@@ -337,13 +337,13 @@
      "ao_img": "ao/tableau-peinture-ibex-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-ibex-grand.png",
      "shadow_cm": {
-      "x0": -48.3,
+      "x0": -56.3,
       "x1": 56.3,
       "y0": -76.3,
-      "y1": 68.3
+      "y1": 76.3
      },
-     "usdz": "models/tableau-peinture-ibex-grand-b0c52c5e.usdz",
-     "glb": "models/tableau-peinture-ibex-grand-b0c52c5e.glb",
+     "usdz": "models/tableau-peinture-ibex-grand-f4ba2e88.usdz",
+     "glb": "models/tableau-peinture-ibex-grand-f4ba2e88.glb",
      "outer_cm": {
       "w": 98.6,
       "h": 138.6,
@@ -376,13 +376,13 @@
      "ao_img": "ao/tableau-leopard-arbre-classique.png",
      "shadow_img": "ao/shadow-tableau-leopard-arbre-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-leopard-arbre-classique-ab3e13a0.usdz",
-     "glb": "models/tableau-leopard-arbre-classique-ab3e13a0.glb",
+     "usdz": "models/tableau-leopard-arbre-classique-c8b5321b.usdz",
+     "glb": "models/tableau-leopard-arbre-classique-c8b5321b.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -403,13 +403,13 @@
      "ao_img": "ao/tableau-leopard-arbre-grand.png",
      "shadow_img": "ao/shadow-tableau-leopard-arbre-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-leopard-arbre-grand-f1878717.usdz",
-     "glb": "models/tableau-leopard-arbre-grand-f1878717.glb",
+     "usdz": "models/tableau-leopard-arbre-grand-d1a13616.usdz",
+     "glb": "models/tableau-leopard-arbre-grand-d1a13616.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -442,13 +442,13 @@
      "ao_img": "ao/tableau-leopard-felin-classique.png",
      "shadow_img": "ao/shadow-tableau-leopard-felin-classique.png",
      "shadow_cm": {
-      "x0": -25.8,
+      "x0": -33.8,
       "x1": 33.8,
       "y0": -38.3,
-      "y1": 30.3
+      "y1": 38.3
      },
-     "usdz": "models/tableau-leopard-felin-classique-d674e1a9.usdz",
-     "glb": "models/tableau-leopard-felin-classique-d674e1a9.glb",
+     "usdz": "models/tableau-leopard-felin-classique-626cd4ef.usdz",
+     "glb": "models/tableau-leopard-felin-classique-626cd4ef.glb",
      "outer_cm": {
       "w": 53.6,
       "h": 62.6,
@@ -481,13 +481,13 @@
      "ao_img": "ao/tableau-gorille-jungle-grand.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-gorille-jungle-grand-88b377eb.usdz",
-     "glb": "models/tableau-gorille-jungle-grand-88b377eb.glb",
+     "usdz": "models/tableau-gorille-jungle-grand-302b80a0.usdz",
+     "glb": "models/tableau-gorille-jungle-grand-302b80a0.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -508,13 +508,13 @@
      "ao_img": "ao/tableau-gorille-jungle-geant.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-geant.png",
      "shadow_cm": {
-      "x0": -98.3,
+      "x0": -106.3,
       "x1": 106.3,
       "y0": -56.3,
-      "y1": 48.3
+      "y1": 56.3
      },
-     "usdz": "models/tableau-gorille-jungle-geant-54c8fcf5.usdz",
-     "glb": "models/tableau-gorille-jungle-geant-54c8fcf5.glb",
+     "usdz": "models/tableau-gorille-jungle-geant-cea88a5d.usdz",
+     "glb": "models/tableau-gorille-jungle-geant-cea88a5d.glb",
      "outer_cm": {
       "w": 198.6,
       "h": 98.6,
@@ -535,13 +535,13 @@
      "ao_img": "ao/tableau-gorille-jungle-monumental.png",
      "shadow_img": "ao/shadow-tableau-gorille-jungle-monumental.png",
      "shadow_cm": {
-      "x0": -123.3,
+      "x0": -131.3,
       "x1": 131.3,
       "y0": -68.3,
-      "y1": 60.3
+      "y1": 68.3
      },
-     "usdz": "models/tableau-gorille-jungle-monumental-60a66d28.usdz",
-     "glb": "models/tableau-gorille-jungle-monumental-60a66d28.glb",
+     "usdz": "models/tableau-gorille-jungle-monumental-3dab8056.usdz",
+     "glb": "models/tableau-gorille-jungle-monumental-3dab8056.glb",
      "outer_cm": {
       "w": 248.6,
       "h": 122.6,
@@ -574,13 +574,13 @@
      "ao_img": "ao/tableau-rhinoceros-noir-classique.png",
      "shadow_img": "ao/shadow-tableau-rhinoceros-noir-classique.png",
      "shadow_cm": {
-      "x0": -33.3,
+      "x0": -41.3,
       "x1": 41.3,
       "y0": -56.3,
-      "y1": 48.3
+      "y1": 56.3
      },
-     "usdz": "models/tableau-rhinoceros-noir-classique-2055a3bc.usdz",
-     "glb": "models/tableau-rhinoceros-noir-classique-2055a3bc.glb",
+     "usdz": "models/tableau-rhinoceros-noir-classique-f3e329a5.usdz",
+     "glb": "models/tableau-rhinoceros-noir-classique-f3e329a5.glb",
      "outer_cm": {
       "w": 68.6,
       "h": 98.6,
@@ -601,13 +601,13 @@
      "ao_img": "ao/tableau-rhinoceros-noir-grand.png",
      "shadow_img": "ao/shadow-tableau-rhinoceros-noir-grand.png",
      "shadow_cm": {
-      "x0": -48.3,
+      "x0": -56.3,
       "x1": 56.3,
       "y0": -81.3,
-      "y1": 73.3
+      "y1": 81.3
      },
-     "usdz": "models/tableau-rhinoceros-noir-grand-6cade455.usdz",
-     "glb": "models/tableau-rhinoceros-noir-grand-6cade455.glb",
+     "usdz": "models/tableau-rhinoceros-noir-grand-6ab04f0a.usdz",
+     "glb": "models/tableau-rhinoceros-noir-grand-6ab04f0a.glb",
      "outer_cm": {
       "w": 98.6,
       "h": 148.6,
@@ -640,13 +640,13 @@
      "ao_img": "ao/sous-la-canope-classique.png",
      "shadow_img": "ao/shadow-sous-la-canope-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/sous-la-canope-classique-37eb9400.usdz",
-     "glb": "models/sous-la-canope-classique-37eb9400.glb",
+     "usdz": "models/sous-la-canope-classique-f4289e2d.usdz",
+     "glb": "models/sous-la-canope-classique-f4289e2d.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -667,13 +667,13 @@
      "ao_img": "ao/sous-la-canope-grand.png",
      "shadow_img": "ao/shadow-sous-la-canope-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/sous-la-canope-grand-7ade66ce.usdz",
-     "glb": "models/sous-la-canope-grand-7ade66ce.glb",
+     "usdz": "models/sous-la-canope-grand-678ab46a.usdz",
+     "glb": "models/sous-la-canope-grand-678ab46a.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -706,13 +706,13 @@
      "ao_img": "ao/invictus-classique.png",
      "shadow_img": "ao/shadow-invictus-classique.png",
      "shadow_cm": {
-      "x0": -33.3,
+      "x0": -41.3,
       "x1": 41.3,
       "y0": -56.3,
-      "y1": 48.3
+      "y1": 56.3
      },
-     "usdz": "models/invictus-classique-94718054.usdz",
-     "glb": "models/invictus-classique-94718054.glb",
+     "usdz": "models/invictus-classique-40020977.usdz",
+     "glb": "models/invictus-classique-40020977.glb",
      "outer_cm": {
       "w": 68.6,
       "h": 98.6,
@@ -733,13 +733,13 @@
      "ao_img": "ao/invictus-grand.png",
      "shadow_img": "ao/shadow-invictus-grand.png",
      "shadow_cm": {
-      "x0": -48.3,
+      "x0": -56.3,
       "x1": 56.3,
       "y0": -81.3,
-      "y1": 73.3
+      "y1": 81.3
      },
-     "usdz": "models/invictus-grand-faedf81b.usdz",
-     "glb": "models/invictus-grand-faedf81b.glb",
+     "usdz": "models/invictus-grand-7856e3ba.usdz",
+     "glb": "models/invictus-grand-7856e3ba.glb",
      "outer_cm": {
       "w": 98.6,
       "h": 148.6,
@@ -772,13 +772,13 @@
      "ao_img": "ao/tableau-leopard-classique.png",
      "shadow_img": "ao/shadow-tableau-leopard-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-leopard-classique-eeaea281.usdz",
-     "glb": "models/tableau-leopard-classique-eeaea281.glb",
+     "usdz": "models/tableau-leopard-classique-0cc15d2a.usdz",
+     "glb": "models/tableau-leopard-classique-0cc15d2a.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -799,13 +799,13 @@
      "ao_img": "ao/tableau-leopard-grand.png",
      "shadow_img": "ao/shadow-tableau-leopard-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-leopard-grand-95e2e5ee.usdz",
-     "glb": "models/tableau-leopard-grand-95e2e5ee.glb",
+     "usdz": "models/tableau-leopard-grand-94cd313e.usdz",
+     "glb": "models/tableau-leopard-grand-94cd313e.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -826,13 +826,13 @@
      "ao_img": "ao/tableau-leopard-geant.png",
      "shadow_img": "ao/shadow-tableau-leopard-geant.png",
      "shadow_cm": {
-      "x0": -98.3,
+      "x0": -106.3,
       "x1": 106.3,
       "y0": -56.3,
-      "y1": 48.3
+      "y1": 56.3
      },
-     "usdz": "models/tableau-leopard-geant-75bcfb7e.usdz",
-     "glb": "models/tableau-leopard-geant-75bcfb7e.glb",
+     "usdz": "models/tableau-leopard-geant-e68d9f34.usdz",
+     "glb": "models/tableau-leopard-geant-e68d9f34.glb",
      "outer_cm": {
       "w": 198.6,
       "h": 98.6,
@@ -865,13 +865,13 @@
      "ao_img": "ao/tableau-portrait-lion-maximus-classique.png",
      "shadow_img": "ao/shadow-tableau-portrait-lion-maximus-classique.png",
      "shadow_cm": {
-      "x0": -33.3,
+      "x0": -41.3,
       "x1": 41.3,
       "y0": -56.3,
-      "y1": 48.3
+      "y1": 56.3
      },
-     "usdz": "models/tableau-portrait-lion-maximus-classique-a3760aa9.usdz",
-     "glb": "models/tableau-portrait-lion-maximus-classique-a3760aa9.glb",
+     "usdz": "models/tableau-portrait-lion-maximus-classique-fcdf441c.usdz",
+     "glb": "models/tableau-portrait-lion-maximus-classique-fcdf441c.glb",
      "outer_cm": {
       "w": 68.6,
       "h": 98.6,
@@ -892,13 +892,13 @@
      "ao_img": "ao/tableau-portrait-lion-maximus-grand.png",
      "shadow_img": "ao/shadow-tableau-portrait-lion-maximus-grand.png",
      "shadow_cm": {
-      "x0": -48.3,
+      "x0": -56.3,
       "x1": 56.3,
       "y0": -81.3,
-      "y1": 73.3
+      "y1": 81.3
      },
-     "usdz": "models/tableau-portrait-lion-maximus-grand-17103621.usdz",
-     "glb": "models/tableau-portrait-lion-maximus-grand-17103621.glb",
+     "usdz": "models/tableau-portrait-lion-maximus-grand-d5ff113f.usdz",
+     "glb": "models/tableau-portrait-lion-maximus-grand-d5ff113f.glb",
      "outer_cm": {
       "w": 98.6,
       "h": 148.6,
@@ -931,13 +931,13 @@
      "ao_img": "ao/tableau-realiste-lievre-classique.png",
      "shadow_img": "ao/shadow-tableau-realiste-lievre-classique.png",
      "shadow_cm": {
-      "x0": -35.8,
+      "x0": -43.8,
       "x1": 43.8,
       "y0": -29.8,
-      "y1": 21.8
+      "y1": 29.8
      },
-     "usdz": "models/tableau-realiste-lievre-classique-fa31fb8a.usdz",
-     "glb": "models/tableau-realiste-lievre-classique-fa31fb8a.glb",
+     "usdz": "models/tableau-realiste-lievre-classique-7a0f2110.usdz",
+     "glb": "models/tableau-realiste-lievre-classique-7a0f2110.glb",
      "outer_cm": {
       "w": 73.6,
       "h": 45.6,
@@ -970,13 +970,13 @@
      "ao_img": "ao/tableau-peinture-loup-noir-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-loup-noir-grand.png",
      "shadow_cm": {
-      "x0": -53.3,
+      "x0": -61.3,
       "x1": 61.3,
       "y0": -41.3,
-      "y1": 33.3
+      "y1": 41.3
      },
-     "usdz": "models/tableau-peinture-loup-noir-grand-4f113c0f.usdz",
-     "glb": "models/tableau-peinture-loup-noir-grand-4f113c0f.glb",
+     "usdz": "models/tableau-peinture-loup-noir-grand-c34cea58.usdz",
+     "glb": "models/tableau-peinture-loup-noir-grand-c34cea58.glb",
      "outer_cm": {
       "w": 108.6,
       "h": 68.6,
@@ -997,13 +997,13 @@
      "ao_img": "ao/tableau-peinture-loup-noir-geant.png",
      "shadow_img": "ao/shadow-tableau-peinture-loup-noir-geant.png",
      "shadow_cm": {
-      "x0": -78.3,
+      "x0": -86.3,
       "x1": 86.3,
       "y0": -56.3,
-      "y1": 48.3
+      "y1": 56.3
      },
-     "usdz": "models/tableau-peinture-loup-noir-geant-cd66d465.usdz",
-     "glb": "models/tableau-peinture-loup-noir-geant-cd66d465.glb",
+     "usdz": "models/tableau-peinture-loup-noir-geant-5304f180.usdz",
+     "glb": "models/tableau-peinture-loup-noir-geant-5304f180.glb",
      "outer_cm": {
       "w": 158.6,
       "h": 98.6,
@@ -1036,13 +1036,13 @@
      "ao_img": "ao/tableau-portrait-leopard-2-classique.png",
      "shadow_img": "ao/shadow-tableau-portrait-leopard-2-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-portrait-leopard-2-classique-36758912.usdz",
-     "glb": "models/tableau-portrait-leopard-2-classique-36758912.glb",
+     "usdz": "models/tableau-portrait-leopard-2-classique-66b6534d.usdz",
+     "glb": "models/tableau-portrait-leopard-2-classique-66b6534d.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1063,13 +1063,13 @@
      "ao_img": "ao/tableau-portrait-leopard-2-grand.png",
      "shadow_img": "ao/shadow-tableau-portrait-leopard-2-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-portrait-leopard-2-grand-2e5b34a7.usdz",
-     "glb": "models/tableau-portrait-leopard-2-grand-2e5b34a7.glb",
+     "usdz": "models/tableau-portrait-leopard-2-grand-f6d64ac8.usdz",
+     "glb": "models/tableau-portrait-leopard-2-grand-f6d64ac8.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1102,13 +1102,13 @@
      "ao_img": "ao/tableau-serpent-cobra-classique.png",
      "shadow_img": "ao/shadow-tableau-serpent-cobra-classique.png",
      "shadow_cm": {
-      "x0": -35.8,
+      "x0": -43.8,
       "x1": 43.8,
       "y0": -29.8,
-      "y1": 21.8
+      "y1": 29.8
      },
-     "usdz": "models/tableau-serpent-cobra-classique-8d8975f9.usdz",
-     "glb": "models/tableau-serpent-cobra-classique-8d8975f9.glb",
+     "usdz": "models/tableau-serpent-cobra-classique-03358950.usdz",
+     "glb": "models/tableau-serpent-cobra-classique-03358950.glb",
      "outer_cm": {
       "w": 73.6,
       "h": 45.6,
@@ -1141,13 +1141,13 @@
      "ao_img": "ao/tableau-mouflon-canada-classique.png",
      "shadow_img": "ao/shadow-tableau-mouflon-canada-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-mouflon-canada-classique-ac63f076.usdz",
-     "glb": "models/tableau-mouflon-canada-classique-ac63f076.glb",
+     "usdz": "models/tableau-mouflon-canada-classique-4f7a4d82.usdz",
+     "glb": "models/tableau-mouflon-canada-classique-4f7a4d82.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1168,13 +1168,13 @@
      "ao_img": "ao/tableau-mouflon-canada-grand.png",
      "shadow_img": "ao/shadow-tableau-mouflon-canada-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-mouflon-canada-grand-a77f3295.usdz",
-     "glb": "models/tableau-mouflon-canada-grand-a77f3295.glb",
+     "usdz": "models/tableau-mouflon-canada-grand-97c9c6dc.usdz",
+     "glb": "models/tableau-mouflon-canada-grand-97c9c6dc.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1207,13 +1207,13 @@
      "ao_img": "ao/tableau-romi-leopard-classique.png",
      "shadow_img": "ao/shadow-tableau-romi-leopard-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-romi-leopard-classique-4db2095a.usdz",
-     "glb": "models/tableau-romi-leopard-classique-4db2095a.glb",
+     "usdz": "models/tableau-romi-leopard-classique-d6a04b23.usdz",
+     "glb": "models/tableau-romi-leopard-classique-d6a04b23.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1234,13 +1234,13 @@
      "ao_img": "ao/tableau-romi-leopard-grand.png",
      "shadow_img": "ao/shadow-tableau-romi-leopard-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-romi-leopard-grand-fba78574.usdz",
-     "glb": "models/tableau-romi-leopard-grand-fba78574.glb",
+     "usdz": "models/tableau-romi-leopard-grand-3a89df2f.usdz",
+     "glb": "models/tableau-romi-leopard-grand-3a89df2f.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1273,13 +1273,13 @@
      "ao_img": "ao/tableau-peinture-zebres-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-zebres-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-peinture-zebres-classique-31aa1f1e.usdz",
-     "glb": "models/tableau-peinture-zebres-classique-31aa1f1e.glb",
+     "usdz": "models/tableau-peinture-zebres-classique-6d3b7d7a.usdz",
+     "glb": "models/tableau-peinture-zebres-classique-6d3b7d7a.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1300,13 +1300,13 @@
      "ao_img": "ao/tableau-peinture-zebres-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-zebres-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-peinture-zebres-grand-61dabcfb.usdz",
-     "glb": "models/tableau-peinture-zebres-grand-61dabcfb.glb",
+     "usdz": "models/tableau-peinture-zebres-grand-0ef3db94.usdz",
+     "glb": "models/tableau-peinture-zebres-grand-0ef3db94.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1339,13 +1339,13 @@
      "ao_img": "ao/tableau-vieux-buffle-classique.png",
      "shadow_img": "ao/shadow-tableau-vieux-buffle-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-vieux-buffle-classique-2860c762.usdz",
-     "glb": "models/tableau-vieux-buffle-classique-2860c762.glb",
+     "usdz": "models/tableau-vieux-buffle-classique-2c075398.usdz",
+     "glb": "models/tableau-vieux-buffle-classique-2c075398.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1366,13 +1366,13 @@
      "ao_img": "ao/tableau-vieux-buffle-grand.png",
      "shadow_img": "ao/shadow-tableau-vieux-buffle-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-vieux-buffle-grand-c6e8998f.usdz",
-     "glb": "models/tableau-vieux-buffle-grand-c6e8998f.glb",
+     "usdz": "models/tableau-vieux-buffle-grand-230022d1.usdz",
+     "glb": "models/tableau-vieux-buffle-grand-230022d1.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1405,13 +1405,13 @@
      "ao_img": "ao/tableau-renard-classique.png",
      "shadow_img": "ao/shadow-tableau-renard-classique.png",
      "shadow_cm": {
-      "x0": -35.8,
+      "x0": -43.8,
       "x1": 43.8,
       "y0": -29.8,
-      "y1": 21.8
+      "y1": 29.8
      },
-     "usdz": "models/tableau-renard-classique-364e3b70.usdz",
-     "glb": "models/tableau-renard-classique-364e3b70.glb",
+     "usdz": "models/tableau-renard-classique-af8f9119.usdz",
+     "glb": "models/tableau-renard-classique-af8f9119.glb",
      "outer_cm": {
       "w": 73.6,
       "h": 45.6,
@@ -1444,13 +1444,13 @@
      "ao_img": "ao/tableau-wapiti-classique.png",
      "shadow_img": "ao/shadow-tableau-wapiti-classique.png",
      "shadow_cm": {
-      "x0": -38.3,
+      "x0": -46.3,
       "x1": 46.3,
       "y0": -31.8,
-      "y1": 23.8
+      "y1": 31.8
      },
-     "usdz": "models/tableau-wapiti-classique-2125764c.usdz",
-     "glb": "models/tableau-wapiti-classique-2125764c.glb",
+     "usdz": "models/tableau-wapiti-classique-02d9c797.usdz",
+     "glb": "models/tableau-wapiti-classique-02d9c797.glb",
      "outer_cm": {
       "w": 78.6,
       "h": 49.6,
@@ -1471,13 +1471,13 @@
      "ao_img": "ao/tableau-wapiti-grand.png",
      "shadow_img": "ao/shadow-tableau-wapiti-grand.png",
      "shadow_cm": {
-      "x0": -60.8,
+      "x0": -68.8,
       "x1": 68.8,
       "y0": -45.3,
-      "y1": 37.3
+      "y1": 45.3
      },
-     "usdz": "models/tableau-wapiti-grand-600e4766.usdz",
-     "glb": "models/tableau-wapiti-grand-600e4766.glb",
+     "usdz": "models/tableau-wapiti-grand-06f33dca.usdz",
+     "glb": "models/tableau-wapiti-grand-06f33dca.glb",
      "outer_cm": {
       "w": 123.6,
       "h": 76.6,
@@ -1510,13 +1510,13 @@
      "ao_img": "ao/tableau-peinture-sangliers-neige-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-sangliers-neige-classique.png",
      "shadow_cm": {
-      "x0": -38.3,
+      "x0": -46.3,
       "x1": 46.3,
       "y0": -31.8,
-      "y1": 23.8
+      "y1": 31.8
      },
-     "usdz": "models/tableau-peinture-sangliers-neige-classique-66e821f9.usdz",
-     "glb": "models/tableau-peinture-sangliers-neige-classique-66e821f9.glb",
+     "usdz": "models/tableau-peinture-sangliers-neige-classique-9b255c3f.usdz",
+     "glb": "models/tableau-peinture-sangliers-neige-classique-9b255c3f.glb",
      "outer_cm": {
       "w": 78.6,
       "h": 49.6,
@@ -1537,13 +1537,13 @@
      "ao_img": "ao/tableau-peinture-sangliers-neige-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-sangliers-neige-grand.png",
      "shadow_cm": {
-      "x0": -60.8,
+      "x0": -68.8,
       "x1": 68.8,
       "y0": -45.3,
-      "y1": 37.3
+      "y1": 45.3
      },
-     "usdz": "models/tableau-peinture-sangliers-neige-grand-e08929a3.usdz",
-     "glb": "models/tableau-peinture-sangliers-neige-grand-e08929a3.glb",
+     "usdz": "models/tableau-peinture-sangliers-neige-grand-eb1e5f48.usdz",
+     "glb": "models/tableau-peinture-sangliers-neige-grand-eb1e5f48.glb",
      "outer_cm": {
       "w": 123.6,
       "h": 76.6,
@@ -1576,13 +1576,13 @@
      "ao_img": "ao/tableau-combat-leopards-classique.png",
      "shadow_img": "ao/shadow-tableau-combat-leopards-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-combat-leopards-classique-f2984e0b.usdz",
-     "glb": "models/tableau-combat-leopards-classique-f2984e0b.glb",
+     "usdz": "models/tableau-combat-leopards-classique-3aaff099.usdz",
+     "glb": "models/tableau-combat-leopards-classique-3aaff099.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1603,13 +1603,13 @@
      "ao_img": "ao/tableau-combat-leopards-grand.png",
      "shadow_img": "ao/shadow-tableau-combat-leopards-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-combat-leopards-grand-bc02d773.usdz",
-     "glb": "models/tableau-combat-leopards-grand-bc02d773.glb",
+     "usdz": "models/tableau-combat-leopards-grand-088cea23.usdz",
+     "glb": "models/tableau-combat-leopards-grand-088cea23.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1642,13 +1642,13 @@
      "ao_img": "ao/impression-toile-tableau-buffle-classique.png",
      "shadow_img": "ao/shadow-impression-toile-tableau-buffle-classique.png",
      "shadow_cm": {
-      "x0": -23.8,
+      "x0": -31.8,
       "x1": 31.8,
       "y0": -46.3,
-      "y1": 38.3
+      "y1": 46.3
      },
-     "usdz": "models/impression-toile-tableau-buffle-classique-440a47a2.usdz",
-     "glb": "models/impression-toile-tableau-buffle-classique-440a47a2.glb",
+     "usdz": "models/impression-toile-tableau-buffle-classique-e787e0cd.usdz",
+     "glb": "models/impression-toile-tableau-buffle-classique-e787e0cd.glb",
      "outer_cm": {
       "w": 49.6,
       "h": 78.6,
@@ -1669,13 +1669,13 @@
      "ao_img": "ao/impression-toile-tableau-buffle-grand.png",
      "shadow_img": "ao/shadow-impression-toile-tableau-buffle-grand.png",
      "shadow_cm": {
-      "x0": -37.3,
+      "x0": -45.3,
       "x1": 45.3,
       "y0": -68.8,
-      "y1": 60.8
+      "y1": 68.8
      },
-     "usdz": "models/impression-toile-tableau-buffle-grand-a321c554.usdz",
-     "glb": "models/impression-toile-tableau-buffle-grand-a321c554.glb",
+     "usdz": "models/impression-toile-tableau-buffle-grand-680d9d74.usdz",
+     "glb": "models/impression-toile-tableau-buffle-grand-680d9d74.glb",
      "outer_cm": {
       "w": 76.6,
       "h": 123.6,
@@ -1708,13 +1708,13 @@
      "ao_img": "ao/tableau-crocodile-classique.png",
      "shadow_img": "ao/shadow-tableau-crocodile-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-crocodile-classique-4bfffb15.usdz",
-     "glb": "models/tableau-crocodile-classique-4bfffb15.glb",
+     "usdz": "models/tableau-crocodile-classique-65a12ccb.usdz",
+     "glb": "models/tableau-crocodile-classique-65a12ccb.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1735,13 +1735,13 @@
      "ao_img": "ao/tableau-crocodile-grand.png",
      "shadow_img": "ao/shadow-tableau-crocodile-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-crocodile-grand-336004af.usdz",
-     "glb": "models/tableau-crocodile-grand-336004af.glb",
+     "usdz": "models/tableau-crocodile-grand-6d6137ca.usdz",
+     "glb": "models/tableau-crocodile-grand-6d6137ca.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1774,13 +1774,13 @@
      "ao_img": "ao/tableau-leopards-peinture-classique.png",
      "shadow_img": "ao/shadow-tableau-leopards-peinture-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-leopards-peinture-classique-f0d4d538.usdz",
-     "glb": "models/tableau-leopards-peinture-classique-f0d4d538.glb",
+     "usdz": "models/tableau-leopards-peinture-classique-f5971c8e.usdz",
+     "glb": "models/tableau-leopards-peinture-classique-f5971c8e.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1801,13 +1801,13 @@
      "ao_img": "ao/tableau-leopards-peinture-grand.png",
      "shadow_img": "ao/shadow-tableau-leopards-peinture-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-leopards-peinture-grand-51ba9910.usdz",
-     "glb": "models/tableau-leopards-peinture-grand-51ba9910.glb",
+     "usdz": "models/tableau-leopards-peinture-grand-9c3426f1.usdz",
+     "glb": "models/tableau-leopards-peinture-grand-9c3426f1.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1840,13 +1840,13 @@
      "ao_img": "ao/tableau-toile-guepards-classique.png",
      "shadow_img": "ao/shadow-tableau-toile-guepards-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-toile-guepards-classique-033eb79e.usdz",
-     "glb": "models/tableau-toile-guepards-classique-033eb79e.glb",
+     "usdz": "models/tableau-toile-guepards-classique-d4f41860.usdz",
+     "glb": "models/tableau-toile-guepards-classique-d4f41860.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -1867,13 +1867,13 @@
      "ao_img": "ao/tableau-toile-guepards-grand.png",
      "shadow_img": "ao/shadow-tableau-toile-guepards-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-toile-guepards-grand-bd4402b5.usdz",
-     "glb": "models/tableau-toile-guepards-grand-bd4402b5.glb",
+     "usdz": "models/tableau-toile-guepards-grand-c3b8dc37.usdz",
+     "glb": "models/tableau-toile-guepards-grand-c3b8dc37.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -1906,13 +1906,13 @@
      "ao_img": "ao/tableau-eland-derby-classique.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-classique.png",
      "shadow_cm": {
-      "x0": -55.8,
+      "x0": -63.8,
       "x1": 63.8,
       "y0": -48.8,
-      "y1": 40.8
+      "y1": 48.8
      },
-     "usdz": "models/tableau-eland-derby-classique-ba9c4f0a.usdz",
-     "glb": "models/tableau-eland-derby-classique-ba9c4f0a.glb",
+     "usdz": "models/tableau-eland-derby-classique-3aa23caa.usdz",
+     "glb": "models/tableau-eland-derby-classique-3aa23caa.glb",
      "outer_cm": {
       "w": 113.6,
       "h": 83.6,
@@ -1933,13 +1933,13 @@
      "ao_img": "ao/tableau-eland-derby-grand.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -61.3,
-      "y1": 53.3
+      "y1": 61.3
      },
-     "usdz": "models/tableau-eland-derby-grand-5cef78bf.usdz",
-     "glb": "models/tableau-eland-derby-grand-5cef78bf.glb",
+     "usdz": "models/tableau-eland-derby-grand-16c5f2ff.usdz",
+     "glb": "models/tableau-eland-derby-grand-16c5f2ff.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 108.6,
@@ -1960,13 +1960,13 @@
      "ao_img": "ao/tableau-eland-derby-geant.png",
      "shadow_img": "ao/shadow-tableau-eland-derby-geant.png",
      "shadow_cm": {
-      "x0": -93.3,
+      "x0": -101.3,
       "x1": 101.3,
       "y0": -76.3,
-      "y1": 68.3
+      "y1": 76.3
      },
-     "usdz": "models/tableau-eland-derby-geant-db307048.usdz",
-     "glb": "models/tableau-eland-derby-geant-db307048.glb",
+     "usdz": "models/tableau-eland-derby-geant-dd6eace1.usdz",
+     "glb": "models/tableau-eland-derby-geant-dd6eace1.glb",
      "outer_cm": {
       "w": 188.6,
       "h": 138.6,
@@ -1999,13 +1999,13 @@
      "ao_img": "ao/peinture-lion-classique.png",
      "shadow_img": "ao/shadow-peinture-lion-classique.png",
      "shadow_cm": {
-      "x0": -28.3,
+      "x0": -36.3,
       "x1": 36.3,
       "y0": -29.3,
-      "y1": 21.3
+      "y1": 29.3
      },
-     "usdz": "models/peinture-lion-classique-de29fc87.usdz",
-     "glb": "models/peinture-lion-classique-de29fc87.glb",
+     "usdz": "models/peinture-lion-classique-da04eae1.usdz",
+     "glb": "models/peinture-lion-classique-da04eae1.glb",
      "outer_cm": {
       "w": 58.6,
       "h": 44.6,
@@ -2038,13 +2038,13 @@
      "ao_img": "ao/tableau-elan-orignal-grand.png",
      "shadow_img": "ao/shadow-tableau-elan-orignal-grand.png",
      "shadow_cm": {
-      "x0": -60.8,
+      "x0": -68.8,
       "x1": 68.8,
       "y0": -48.8,
-      "y1": 40.8
+      "y1": 48.8
      },
-     "usdz": "models/tableau-elan-orignal-grand-9f86d61d.usdz",
-     "glb": "models/tableau-elan-orignal-grand-9f86d61d.glb",
+     "usdz": "models/tableau-elan-orignal-grand-76945cfa.usdz",
+     "glb": "models/tableau-elan-orignal-grand-76945cfa.glb",
      "outer_cm": {
       "w": 123.6,
       "h": 83.6,
@@ -2065,13 +2065,13 @@
      "ao_img": "ao/tableau-elan-orignal-geant.png",
      "shadow_img": "ao/shadow-tableau-elan-orignal-geant.png",
      "shadow_cm": {
-      "x0": -83.3,
+      "x0": -91.3,
       "x1": 91.3,
       "y0": -63.8,
-      "y1": 55.8
+      "y1": 63.8
      },
-     "usdz": "models/tableau-elan-orignal-geant-f9b7cdcd.usdz",
-     "glb": "models/tableau-elan-orignal-geant-f9b7cdcd.glb",
+     "usdz": "models/tableau-elan-orignal-geant-c531057f.usdz",
+     "glb": "models/tableau-elan-orignal-geant-c531057f.glb",
      "outer_cm": {
       "w": 168.6,
       "h": 113.6,
@@ -2092,13 +2092,13 @@
      "ao_img": "ao/tableau-elan-orignal-monumental.png",
      "shadow_img": "ao/shadow-tableau-elan-orignal-monumental.png",
      "shadow_cm": {
-      "x0": -113.3,
+      "x0": -121.3,
       "x1": 121.3,
       "y0": -81.3,
-      "y1": 73.3
+      "y1": 81.3
      },
-     "usdz": "models/tableau-elan-orignal-monumental-3e181fff.usdz",
-     "glb": "models/tableau-elan-orignal-monumental-3e181fff.glb",
+     "usdz": "models/tableau-elan-orignal-monumental-4f4f365b.usdz",
+     "glb": "models/tableau-elan-orignal-monumental-4f4f365b.glb",
      "outer_cm": {
       "w": 228.6,
       "h": 148.6,
@@ -2131,13 +2131,13 @@
      "ao_img": "ao/grand-tableau-lion-classique.png",
      "shadow_img": "ao/shadow-grand-tableau-lion-classique.png",
      "shadow_cm": {
-      "x0": -23.8,
+      "x0": -31.8,
       "x1": 31.8,
       "y0": -46.3,
-      "y1": 38.3
+      "y1": 46.3
      },
-     "usdz": "models/grand-tableau-lion-classique-ad314309.usdz",
-     "glb": "models/grand-tableau-lion-classique-ad314309.glb",
+     "usdz": "models/grand-tableau-lion-classique-46577bb1.usdz",
+     "glb": "models/grand-tableau-lion-classique-46577bb1.glb",
      "outer_cm": {
       "w": 49.6,
       "h": 78.6,
@@ -2158,13 +2158,13 @@
      "ao_img": "ao/grand-tableau-lion-grand.png",
      "shadow_img": "ao/shadow-grand-tableau-lion-grand.png",
      "shadow_cm": {
-      "x0": -37.3,
+      "x0": -45.3,
       "x1": 45.3,
       "y0": -68.8,
-      "y1": 60.8
+      "y1": 68.8
      },
-     "usdz": "models/grand-tableau-lion-grand-f14b4d73.usdz",
-     "glb": "models/grand-tableau-lion-grand-f14b4d73.glb",
+     "usdz": "models/grand-tableau-lion-grand-37f21e33.usdz",
+     "glb": "models/grand-tableau-lion-grand-37f21e33.glb",
      "outer_cm": {
       "w": 76.6,
       "h": 123.6,
@@ -2197,13 +2197,13 @@
      "ao_img": "ao/tableau-ours-grizzly-classique.png",
      "shadow_img": "ao/shadow-tableau-ours-grizzly-classique.png",
      "shadow_cm": {
-      "x0": -38.3,
+      "x0": -46.3,
       "x1": 46.3,
       "y0": -31.8,
-      "y1": 23.8
+      "y1": 31.8
      },
-     "usdz": "models/tableau-ours-grizzly-classique-f95579e4.usdz",
-     "glb": "models/tableau-ours-grizzly-classique-f95579e4.glb",
+     "usdz": "models/tableau-ours-grizzly-classique-dea774a7.usdz",
+     "glb": "models/tableau-ours-grizzly-classique-dea774a7.glb",
      "outer_cm": {
       "w": 78.6,
       "h": 49.6,
@@ -2224,13 +2224,13 @@
      "ao_img": "ao/tableau-ours-grizzly-grand.png",
      "shadow_img": "ao/shadow-tableau-ours-grizzly-grand.png",
      "shadow_cm": {
-      "x0": -60.8,
+      "x0": -68.8,
       "x1": 68.8,
       "y0": -45.3,
-      "y1": 37.3
+      "y1": 45.3
      },
-     "usdz": "models/tableau-ours-grizzly-grand-f43b1b82.usdz",
-     "glb": "models/tableau-ours-grizzly-grand-f43b1b82.glb",
+     "usdz": "models/tableau-ours-grizzly-grand-3a393f9c.usdz",
+     "glb": "models/tableau-ours-grizzly-grand-3a393f9c.glb",
      "outer_cm": {
       "w": 123.6,
       "h": 76.6,
@@ -2263,13 +2263,13 @@
      "ao_img": "ao/tableau-elephanteau-realiste-classique.png",
      "shadow_img": "ao/shadow-tableau-elephanteau-realiste-classique.png",
      "shadow_cm": {
-      "x0": -23.8,
+      "x0": -31.8,
       "x1": 31.8,
       "y0": -46.3,
-      "y1": 38.3
+      "y1": 46.3
      },
-     "usdz": "models/tableau-elephanteau-realiste-classique-f967befc.usdz",
-     "glb": "models/tableau-elephanteau-realiste-classique-f967befc.glb",
+     "usdz": "models/tableau-elephanteau-realiste-classique-5fa91270.usdz",
+     "glb": "models/tableau-elephanteau-realiste-classique-5fa91270.glb",
      "outer_cm": {
       "w": 49.6,
       "h": 78.6,
@@ -2290,13 +2290,13 @@
      "ao_img": "ao/tableau-elephanteau-realiste-grand.png",
      "shadow_img": "ao/shadow-tableau-elephanteau-realiste-grand.png",
      "shadow_cm": {
-      "x0": -37.3,
+      "x0": -45.3,
       "x1": 45.3,
       "y0": -68.8,
-      "y1": 60.8
+      "y1": 68.8
      },
-     "usdz": "models/tableau-elephanteau-realiste-grand-ad3fc6ee.usdz",
-     "glb": "models/tableau-elephanteau-realiste-grand-ad3fc6ee.glb",
+     "usdz": "models/tableau-elephanteau-realiste-grand-76c70da1.usdz",
+     "glb": "models/tableau-elephanteau-realiste-grand-76c70da1.glb",
      "outer_cm": {
       "w": 76.6,
       "h": 123.6,
@@ -2329,13 +2329,13 @@
      "ao_img": "ao/peinture-leopard-classique.png",
      "shadow_img": "ao/shadow-peinture-leopard-classique.png",
      "shadow_cm": {
-      "x0": -23.3,
+      "x0": -31.3,
       "x1": 31.3,
       "y0": -37.3,
-      "y1": 29.3
+      "y1": 37.3
      },
-     "usdz": "models/peinture-leopard-classique-c2d768af.usdz",
-     "glb": "models/peinture-leopard-classique-c2d768af.glb",
+     "usdz": "models/peinture-leopard-classique-584013bb.usdz",
+     "glb": "models/peinture-leopard-classique-584013bb.glb",
      "outer_cm": {
       "w": 48.6,
       "h": 60.6,
@@ -2368,13 +2368,13 @@
      "ao_img": "ao/tableau-gorille-classique.png",
      "shadow_img": "ao/shadow-tableau-gorille-classique.png",
      "shadow_cm": {
-      "x0": -27.8,
+      "x0": -35.8,
       "x1": 35.8,
       "y0": -41.3,
-      "y1": 33.3
+      "y1": 41.3
      },
-     "usdz": "models/tableau-gorille-classique-baac8afa.usdz",
-     "glb": "models/tableau-gorille-classique-baac8afa.glb",
+     "usdz": "models/tableau-gorille-classique-5f3d99be.usdz",
+     "glb": "models/tableau-gorille-classique-5f3d99be.glb",
      "outer_cm": {
       "w": 57.6,
       "h": 68.6,
@@ -2395,13 +2395,13 @@
      "ao_img": "ao/tableau-gorille-grand.png",
      "shadow_img": "ao/shadow-tableau-gorille-grand.png",
      "shadow_cm": {
-      "x0": -44.3,
+      "x0": -52.3,
       "x1": 52.3,
       "y0": -61.3,
-      "y1": 53.3
+      "y1": 61.3
      },
-     "usdz": "models/tableau-gorille-grand-6caeb400.usdz",
-     "glb": "models/tableau-gorille-grand-6caeb400.glb",
+     "usdz": "models/tableau-gorille-grand-398c8021.usdz",
+     "glb": "models/tableau-gorille-grand-398c8021.glb",
      "outer_cm": {
       "w": 90.6,
       "h": 108.6,
@@ -2434,13 +2434,13 @@
      "ao_img": "ao/tableau-zebres-classique.png",
      "shadow_img": "ao/shadow-tableau-zebres-classique.png",
      "shadow_cm": {
-      "x0": -18.3,
+      "x0": -26.3,
       "x1": 26.3,
       "y0": -32.8,
-      "y1": 24.8
+      "y1": 32.8
      },
-     "usdz": "models/tableau-zebres-classique-f3251515.usdz",
-     "glb": "models/tableau-zebres-classique-f3251515.glb",
+     "usdz": "models/tableau-zebres-classique-d41768e3.usdz",
+     "glb": "models/tableau-zebres-classique-d41768e3.glb",
      "outer_cm": {
       "w": 38.6,
       "h": 51.6,
@@ -2473,13 +2473,13 @@
      "ao_img": "ao/tableau-lions-classique.png",
      "shadow_img": "ao/shadow-tableau-lions-classique.png",
      "shadow_cm": {
-      "x0": -45.8,
+      "x0": -53.8,
       "x1": 53.8,
       "y0": -31.3,
-      "y1": 23.3
+      "y1": 31.3
      },
-     "usdz": "models/tableau-lions-classique-23fe8b9a.usdz",
-     "glb": "models/tableau-lions-classique-23fe8b9a.glb",
+     "usdz": "models/tableau-lions-classique-6441ac69.usdz",
+     "glb": "models/tableau-lions-classique-6441ac69.glb",
      "outer_cm": {
       "w": 93.6,
       "h": 48.6,
@@ -2500,13 +2500,13 @@
      "ao_img": "ao/tableau-lions-grand.png",
      "shadow_img": "ao/shadow-tableau-lions-grand.png",
      "shadow_cm": {
-      "x0": -73.3,
+      "x0": -81.3,
       "x1": 81.3,
       "y0": -43.8,
-      "y1": 35.8
+      "y1": 43.8
      },
-     "usdz": "models/tableau-lions-grand-51eeff72.usdz",
-     "glb": "models/tableau-lions-grand-51eeff72.glb",
+     "usdz": "models/tableau-lions-grand-ec77451d.usdz",
+     "glb": "models/tableau-lions-grand-ec77451d.glb",
      "outer_cm": {
       "w": 148.6,
       "h": 73.6,
@@ -2539,13 +2539,13 @@
      "ao_img": "ao/tableau-peinture-tigre-bengal-classique.png",
      "shadow_img": "ao/shadow-tableau-peinture-tigre-bengal-classique.png",
      "shadow_cm": {
-      "x0": -23.8,
+      "x0": -31.8,
       "x1": 31.8,
       "y0": -46.3,
-      "y1": 38.3
+      "y1": 46.3
      },
-     "usdz": "models/tableau-peinture-tigre-bengal-classique-40c508e1.usdz",
-     "glb": "models/tableau-peinture-tigre-bengal-classique-40c508e1.glb",
+     "usdz": "models/tableau-peinture-tigre-bengal-classique-9729e9a0.usdz",
+     "glb": "models/tableau-peinture-tigre-bengal-classique-9729e9a0.glb",
      "outer_cm": {
       "w": 49.6,
       "h": 78.6,
@@ -2566,13 +2566,13 @@
      "ao_img": "ao/tableau-peinture-tigre-bengal-grand.png",
      "shadow_img": "ao/shadow-tableau-peinture-tigre-bengal-grand.png",
      "shadow_cm": {
-      "x0": -37.3,
+      "x0": -45.3,
       "x1": 45.3,
       "y0": -68.8,
-      "y1": 60.8
+      "y1": 68.8
      },
-     "usdz": "models/tableau-peinture-tigre-bengal-grand-3a29ee07.usdz",
-     "glb": "models/tableau-peinture-tigre-bengal-grand-3a29ee07.glb",
+     "usdz": "models/tableau-peinture-tigre-bengal-grand-25467fa8.usdz",
+     "glb": "models/tableau-peinture-tigre-bengal-grand-25467fa8.glb",
      "outer_cm": {
       "w": 76.6,
       "h": 123.6,
@@ -2605,13 +2605,13 @@
      "ao_img": "ao/tableau-buffle-lycaons-classique.png",
      "shadow_img": "ao/shadow-tableau-buffle-lycaons-classique.png",
      "shadow_cm": {
-      "x0": -38.3,
+      "x0": -46.3,
       "x1": 46.3,
       "y0": -37.8,
-      "y1": 29.8
+      "y1": 37.8
      },
-     "usdz": "models/tableau-buffle-lycaons-classique-98a98c6a.usdz",
-     "glb": "models/tableau-buffle-lycaons-classique-98a98c6a.glb",
+     "usdz": "models/tableau-buffle-lycaons-classique-112f8bfd.usdz",
+     "glb": "models/tableau-buffle-lycaons-classique-112f8bfd.glb",
      "outer_cm": {
       "w": 78.6,
       "h": 61.6,
@@ -2632,13 +2632,13 @@
      "ao_img": "ao/tableau-buffle-lycaons-grand.png",
      "shadow_img": "ao/shadow-tableau-buffle-lycaons-grand.png",
      "shadow_cm": {
-      "x0": -60.8,
+      "x0": -68.8,
       "x1": 68.8,
       "y0": -54.8,
-      "y1": 46.8
+      "y1": 54.8
      },
-     "usdz": "models/tableau-buffle-lycaons-grand-0741e57b.usdz",
-     "glb": "models/tableau-buffle-lycaons-grand-0741e57b.glb",
+     "usdz": "models/tableau-buffle-lycaons-grand-f64abec1.usdz",
+     "glb": "models/tableau-buffle-lycaons-grand-f64abec1.glb",
      "outer_cm": {
       "w": 123.6,
       "h": 95.6,
@@ -2671,13 +2671,13 @@
      "ao_img": "ao/tableau-tortue-bousier-classique.png",
      "shadow_img": "ao/shadow-tableau-tortue-bousier-classique.png",
      "shadow_cm": {
-      "x0": -25.8,
+      "x0": -33.8,
       "x1": 33.8,
       "y0": -24.8,
-      "y1": 16.8
+      "y1": 24.8
      },
-     "usdz": "models/tableau-tortue-bousier-classique-362827e5.usdz",
-     "glb": "models/tableau-tortue-bousier-classique-362827e5.glb",
+     "usdz": "models/tableau-tortue-bousier-classique-2c7d0697.usdz",
+     "glb": "models/tableau-tortue-bousier-classique-2c7d0697.glb",
      "outer_cm": {
       "w": 53.6,
       "h": 35.6,
@@ -2710,13 +2710,13 @@
      "ao_img": "ao/tableau-lionceau-classique.png",
      "shadow_img": "ao/shadow-tableau-lionceau-classique.png",
      "shadow_cm": {
-      "x0": -35.8,
+      "x0": -43.8,
       "x1": 43.8,
       "y0": -27.8,
-      "y1": 19.8
+      "y1": 27.8
      },
-     "usdz": "models/tableau-lionceau-classique-6238957c.usdz",
-     "glb": "models/tableau-lionceau-classique-6238957c.glb",
+     "usdz": "models/tableau-lionceau-classique-1eaedb95.usdz",
+     "glb": "models/tableau-lionceau-classique-1eaedb95.glb",
      "outer_cm": {
       "w": 73.6,
       "h": 41.6,

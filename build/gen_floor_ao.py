@@ -36,9 +36,9 @@ MARGIN, OFFX, OFFY, SOFT, AMAX = 7.0, 1.0, -1.8, 2.0, 0.38   # cm, décalage x, 
 for w in cat['works']:
     for s in w['sizes']:
         ow, oh = s['w'] + 2 * add, s['h'] + 2 * add          # dimensions hors-tout du cadre
-        # zone de la texture : x de −ow/2+1 à ow/2+MARGIN, y de −oh/2−MARGIN à oh/2−1 (le reste est vide, inutile)
-        x0, x1 = -ow / 2 + 1.0, ow / 2 + MARGIN
-        y0, y1 = -oh / 2 - MARGIN, oh / 2 - 1.0
+        # zone de la texture : tout autour du cadre (le plan est invisible là où l'opacité est nulle)
+        x0, x1 = -ow / 2 - MARGIN, ow / 2 + MARGIN
+        y0, y1 = -oh / 2 - MARGIN, oh / 2 + MARGIN
         W, H = x1 - x0, y1 - y0
         xs = x0 + (np.arange(N) + 0.5) / N * W
         ys = y1 - (np.arange(N) + 0.5) / N * H
@@ -46,11 +46,12 @@ for w in cat['works']:
         dx = np.maximum(np.abs(X - OFFX) - ow / 2, 0); dy = np.maximum(np.abs(Y - OFFY) - oh / 2, 0)
         d = np.sqrt(dx**2 + dy**2)                          # distance au rectangle d'ombre (cadre décalé)
         a = AMAX * np.exp(-(d / SOFT) ** 1.3)
-        # ne garder que ce qui dépasse en dessous ou à droite du cadre (le reste est caché par le cadre ou absent)
-        m = np.maximum(np.clip((-oh / 2 - Y + 0.4) / 1.0, 0, 1), np.clip((X - ow / 2 + 0.4) / 1.0, 0, 1))
+        # rien au-dessus de la ligne du haut ni à gauche de la ligne de gauche du cadre, avec un fondu doux vers ces
+        # lignes ; opacité pleine au contact du cadre (pas de liseré clair)
+        m = np.clip((oh / 2 - Y) / 1.6, 0, 1) * np.clip((X + ow / 2) / 1.6, 0, 1)
         a = a * m
         # fondu vers zéro sur le bord de la texture (jamais de bord visible)
-        edge = np.minimum(np.minimum(x1 - X, Y - y0) / 2.5, 1)
+        edge = np.minimum(np.minimum(np.minimum(x1 - X, X - x0), np.minimum(Y - y0, y1 - Y)) / 2.5, 1)
         a = np.clip(a * np.clip(edge, 0, 1), 0, 1)
         rgba = np.zeros((N, N, 4), np.uint8); rgba[..., 3] = (a * 255).round().astype(np.uint8)
         name = f"shadow-{w['slug']}-{s['slug']}.png"

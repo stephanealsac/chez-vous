@@ -24,7 +24,7 @@ const pmrem = new THREE.PMREMGenerator(renderer); scene.environment = pmrem.from
 const wall = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.MeshStandardMaterial({ color: '${WALL}', roughness: 0.95 }));
 wall.position.z = -0.0005; wall.receiveShadow = true; scene.add(wall);
 // lumière : fenêtre à gauche + ambiance
-const sun = new THREE.DirectionalLight('#fff4e6', 1.1); sun.position.set(-2.5, 2.2, 2.5); sun.castShadow = true;
+const sun = new THREE.DirectionalLight('#fff4e6', 1.1); sun.position.set(-2.5, 2.2, 2.5); sun.castShadow = false;   // pas d'ombre temps réel : Quick Look n'en projette pas sur un mur, seule l'ombre peinte compte
 sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0002; sun.shadow.normalBias = 0.002;
 Object.assign(sun.shadow.camera, { left: -1.5, right: 1.5, top: 1.5, bottom: -1.5, near: 0.1, far: 10 });
 scene.add(sun);
@@ -32,11 +32,11 @@ scene.add(new THREE.HemisphereLight('#e8ecf5', '#8a8070', 0.35));
 const loader = new GLTFLoader();
 loader.load('${glb}', g => {
   g.scene.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
-  scene.add(g.scene);
+  if (!${process.env.HIDE ? 'true' : 'false'}) scene.add(g.scene);   // HIDE=1 : mur seul, même caméra (fond pour la vidéo)
   const box = new THREE.Box3().setFromObject(g.scene); const size = box.getSize(new THREE.Vector3()); const c = box.getCenter(new THREE.Vector3());
   const cam = new THREE.PerspectiveCamera(40, W / H, 0.01, 20);
   const a = '${angle}';
-  if (a === 'room') { cam.position.set(c.x + 0.28, c.y - 0.22, 1.55); cam.lookAt(c.x + 0.02, c.y - 0.04, 0); cam.fov = 38; cam.updateProjectionMatrix(); }
+  if (a === 'room') { cam.position.set(c.x + 0.30, c.y - 0.25, 1.9); cam.lookAt(c.x + 0.02, c.y - 0.05, 0); cam.fov = 40; cam.updateProjectionMatrix(); }
   else if (a === 'front') { cam.position.set(c.x, c.y, size.y * 1.9); cam.lookAt(c.x, c.y, 0); }
   else if (a === 'three-quarter') { cam.position.set(c.x - size.x * 1.2, c.y + size.y * 0.15, size.y * 1.3); cam.lookAt(c.x, c.y, 0.02); }
   else if (a === 'corner') { const x = box.max.x, y = box.min.y; cam.position.set(x + 0.10, y - 0.06, 0.22); cam.lookAt(x - 0.05, y + 0.06, 0.02); cam.fov = 45; cam.updateProjectionMatrix(); }
