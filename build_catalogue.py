@@ -19,16 +19,6 @@ def slugify(s):
     s = re.sub(r'[^a-zA-Z0-9]+', '-', s).strip('-').lower()
     return s
 
-# Corrections orthographiques / éditoriales appliquées aux textes du site (sans toucher au site lui-même)
-TITLES = {34533: 'Cœur de Chêne'}
-CORRECTIONS = {
-    '*': [('m’ a demandé', 'm’a demandé'), ('Nus avons', 'Nous avons'), ('fantômatiques', 'fantomatiques'),
-          ('la horizontalité', 'l’horizontalité'), ('ont été mienne ', 'ont été miennes '), (' . ', '. '),
-          ('la carcasse et le bois du wapiti vient', 'la carcasse et les bois du wapiti viennent'), ('son ennemie', 'son ennemi')],
-    33389: [('« The Sanctum » – Peinture à l’huile – Gorille dans la jungle. ', ''), ('« The Sanctum » – Peinture à l’huile – Gorille dans la jungle . ', '')],
-    27977: [('Peu connu du grand public et très loin des considérations superficielles des « écologistes » de pacotille, il ne doit sa survie aujourd’hui à l’état sauvage qu’à la lutte acharnée contre le braconnage réalisée et financée par les sociétés de chasses conservationnistes. ',
-             'Peu connu du grand public, il ne doit sa survie à l’état sauvage qu’à une lutte acharnée contre le braconnage. ')],
-}
 products = json.load(open(os.path.join(DATA, 'toile.json')))
 variations = {}
 for fn in os.listdir(os.path.join(DATA, 'var')):
@@ -73,10 +63,7 @@ for pid in SELECTION:
             else:
                 s['price_unframed'] = price
     img = p['images'][0]
-    desc = strip(p['description'])
-    for a_, b_ in CORRECTIONS.get(pid, []) + CORRECTIONS.get('*', []):
-        desc = desc.replace(a_, b_)
-    name = TITLES.get(pid, name)
+    desc = strip(p['description'])  # texte du site, tel quel
     catalogue.append({
         'id': pid,
         'slug': p['slug'],

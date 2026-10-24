@@ -29,7 +29,7 @@ Après le premier déploiement, relancer `SITE_URL=https://<adresse finale> buil
 2. Lancer `build/build.sh`.
 3. Déployer `site/` (ou `git push` si Netlify est branché sur le dépôt).
 
-Les tailles, prix et images viennent du site. Convention lue automatiquement : le site écrit le grand côté en premier (« 54 × 45 » pour un portrait, « 140 × 65 » pour un paysage) ; l'orientation est déduite de l'image.
+Les textes, tailles, prix et images viennent du site, tels quels. Convention lue automatiquement : le site écrit le grand côté en premier (« 54 × 45 » pour un portrait, « 140 × 65 » pour un paysage) ; l'orientation est déduite de l'image.
 
 ## Réglages du cadre
 
