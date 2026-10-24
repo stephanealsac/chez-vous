@@ -1,0 +1,28 @@
+// Captures d'écran iPhone de la page locale (http://localhost:8765)
+import { chromium, devices } from 'playwright';
+const out = process.argv[2] || '/tmp/claude-0/-home-claude/32b6d276-528f-52b6-9df0-08434b432727/scratchpad';
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ ...devices['iPhone 13'], locale: 'fr-FR' });
+const page = await ctx.newPage();
+const errors = [];
+page.on('pageerror', e => errors.push('pageerror: ' + e.message));
+page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.type() + ': ' + m.text()); });
+await page.goto('http://localhost:8765/', { waitUntil: 'networkidle' });
+await page.screenshot({ path: out + '/01-tuto.png' });
+await page.click('#tuto-next'); await page.waitForTimeout(400);
+await page.screenshot({ path: out + '/02-tuto2.png' });
+await page.click('#tuto-next'); await page.waitForTimeout(400);
+await page.screenshot({ path: out + '/03-tuto3.png' });
+await page.click('#tuto-next'); await page.waitForTimeout(300);
+await page.screenshot({ path: out + '/04-catalogue.png', fullPage: true });
+await page.click('a.card:nth-child(4)'); await page.waitForTimeout(800);
+await page.waitForFunction(() => { const mv = document.querySelector('#mv'); return mv && mv.loaded; }, null, { timeout: 15000 }).catch(() => errors.push('model-viewer not loaded in 15s'));
+await page.waitForTimeout(800);
+await page.screenshot({ path: out + '/05-fiche.png', fullPage: true });
+await page.click('.size:nth-child(3)'); await page.waitForTimeout(1500);
+await page.screenshot({ path: out + '/06-fiche-taille3.png', fullPage: true });
+await page.click('#ar-btn'); await page.waitForTimeout(600);
+await page.screenshot({ path: out + '/07-ar-click.png', fullPage: true });
+console.log('hash', await page.evaluate(() => location.hash));
+console.log(errors.length ? errors.join('\n') : 'no console errors');
+await browser.close();

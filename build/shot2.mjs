@@ -1,0 +1,16 @@
+import { chromium, devices } from 'playwright';
+const out = '/tmp/claude-0/-home-claude/32b6d276-528f-52b6-9df0-08434b432727/scratchpad';
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ ...devices['iPhone 13'], locale: 'fr-FR' });
+const page = await ctx.newPage();
+await page.goto('http://localhost:8765/#tableau-gorille-jungle/geant', { waitUntil: 'networkidle' });
+await page.evaluate(() => { try { localStorage.setItem('ar_tuto_seen','1'); } catch(e){} document.querySelector('#tuto').classList.remove('open'); });
+await page.waitForTimeout(500);
+await page.screenshot({ path: out + '/v1.png' });
+await page.evaluate(() => document.querySelector('.scale').scrollIntoView());
+await page.waitForTimeout(300);
+await page.screenshot({ path: out + '/v2.png' });
+await page.evaluate(() => document.querySelector('.preview').scrollIntoView({block:'center'}));
+await page.waitForTimeout(2500);
+await page.screenshot({ path: out + '/v3.png' });
+await browser.close();

@@ -1,0 +1,15 @@
+{
+  "name": "Stéphane Alsac — Chez vous",
+  "short_name": "Alsac",
+  "description": "Visualisez les Éditions sur Toile de Stéphane Alsac sur votre mur, à taille réelle.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eeeae1",
+  "theme_color": "#eeeae1",
+  "lang": "fr",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

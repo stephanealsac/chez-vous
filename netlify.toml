@@ -1,0 +1,4 @@
+# Si Netlify est branché sur ce dépôt : le site est le dossier "site", sans étape de build.
+[build]
+  publish = "site"
+  command = ""
