@@ -101,14 +101,10 @@ model-viewer{width:2px;height:2px}
 .btn.primary{background:var(--ink);color:var(--bg)}
 .btn.primary:active{background:#333}
 .btn:active{background:rgba(26,26,26,.05)}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .link{display:flex;align-items:center;justify-content:center;min-height:44px;font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none}
 .link span{border-bottom:1px solid var(--border);padding-bottom:3px}
 .ar-msg{text-align:center;display:none;padding-bottom:4px}
 .ar-msg.on{display:block}
-.unsupported{padding:22px var(--gr) 22px var(--gl);border-bottom:1px solid var(--border);display:none;text-align:center}
-.unsupported p{font-size:13px;color:var(--ink-soft);max-width:32em;margin:0 auto}
-.unsupported canvas{display:block;margin:16px auto 0;width:160px;height:160px;image-rendering:pixelated;border:8px solid #fff}
 
 /* ----- tutoriel ----- */
 .tuto{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column;padding:calc(20px + var(--sat)) var(--gr) calc(16px + var(--sab)) var(--gl)}
@@ -182,18 +178,10 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       <model-viewer id="mv" interaction-prompt="none" ar ar-modes="webxr scene-viewer" ar-placement="wall" ar-scale="fixed" loading="eager" reveal="manual"><button slot="ar-button" hidden></button></model-viewer>
     </div>
 
-    <div class="unsupported" id="unsupported">
-      <p>La réalité augmentée fonctionne sur iPhone, iPad et Android. Scannez ce code avec votre téléphone pour ouvrir cette œuvre.</p>
-      <canvas id="qr" width="33" height="33" role="img" aria-label="QR code vers cette page"></canvas>
-    </div>
-
     <div class="actions">
       <div class="ar-msg serif-note" id="ar-msg" aria-live="polite"></div>
       <button class="btn primary" id="ar-btn" type="button">Voir sur mon mur</button>
-      <div class="row2">
-        <a class="link" id="buy" href="#" target="_blank" rel="noopener"><span>Acquérir ce tirage</span></a>
-        <button class="link" id="share" type="button"><span>Partager</span></button>
-      </div>
+      <a class="link" id="buy" href="#" target="_blank" rel="noopener"><span>Acquérir ce tirage</span></a>
     </div>
   </section>
 </main>
@@ -232,7 +220,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 </div>
 
 <script src="vendor/model-viewer.min.js" type="module"></script>
-<script src="vendor/qrcode.min.js"></script>
 <script>
 (function(){
   'use strict';
@@ -316,7 +303,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     mv.setAttribute('alt', work.title + ', ' + s.label);
     if (isAndroid) mv.setAttribute('src', s.glb);
     setMsg('');
-    if (!isMobile) { $('#unsupported').style.display = 'block'; drawQR(location.href); }
     if (iosNoAR) { const m = $('#ar-msg'); m.innerHTML = 'Pour la réalité augmentée, ouvrez cette page dans Safari.<br><a href="' + esc(safariLink()) + '" style="color:inherit">Ouvrir dans Safari</a>'; m.classList.add('on'); }
   }
   function setMsg(t){ const m = $('#ar-msg'); m.textContent = t; m.classList.toggle('on', !!t); }
@@ -374,12 +360,8 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       $('#mv').activateAR();
     } else if (iosNoAR){
       location.href = safariLink();
-    } else if (!isMobile){
-      $('#unsupported').style.display = 'block';
-      $('#unsupported').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      drawQR(location.href);
     } else {
-      setMsg('La réalité augmentée n\'est pas disponible dans ce navigateur. Ouvrez la page dans Safari ou Chrome.');
+      setMsg(isMobile ? 'La réalité augmentée n\'est pas disponible dans ce navigateur. Ouvrez la page dans Safari ou Chrome.' : 'La réalité augmentée fonctionne sur iPhone, iPad et Android : ouvrez cette page sur votre téléphone.');
     }
   });
   $('#mv').addEventListener('ar-status', e => {
@@ -387,25 +369,6 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     if (e.detail.status === 'session-started') setMsg(MSG_ANDROID);
     if (e.detail.status === 'not-presenting') setMsg('');
   });
-
-  // ---------- partage ----------
-  $('#share').addEventListener('click', async () => {
-    if (!work) return;
-    const data = { title: work.title + ' — Stéphane Alsac', text: 'Voir « ' + work.title + ' » sur votre mur', url: location.href };
-    try {
-      if (navigator.share) await navigator.share(data);
-      else { await navigator.clipboard.writeText(location.href); setMsg('Lien copié.'); }
-    } catch (_) {}
-  });
-
-  // ---------- QR (poste non compatible) ----------
-  function drawQR(text){
-    if (!window.qrcode) return;
-    const q = qrcode(0, 'M'); q.addData(text); q.make();
-    const n = q.getModuleCount(), c = $('#qr'); c.width = n; c.height = n;
-    const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, n, n); ctx.fillStyle = '#1a1a1a';
-    for (let r = 0; r < n; r++) for (let col = 0; col < n; col++) if (q.isDark(r, col)) ctx.fillRect(col, r, 1, 1);
-  }
 
   // ---------- tutoriel ----------
   const tuto = $('#tuto'); let step = 0, lastFocus = null;
