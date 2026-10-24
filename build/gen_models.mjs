@@ -215,7 +215,6 @@ function buildUSDA(formats, start, title, orient, behaviors) {
   const prims = formats.map((f, i) => `
             def Xform "${f.name}"
             {
-                token visibility = "${i === start ? 'inherited' : 'invisible'}"
 ${usdMesh('Painting', [
   { m: f.p.frame, mat: '</Root/Materials/FrameMat>', sub: 'frame' },
   { m: f.p.sides, mat: '</Root/Materials/CanvasSideMat>', sub: 'canvasSides' },
@@ -364,12 +363,48 @@ function buildGLB(p, jpg) {
 }
 
 // ---------- comportements : toucher le format i → cacher i, montrer i+1 ----------
-function buildBehaviors(formats) {
+function buildBehaviors(formats, start) {
   if (formats.length < 2) return '';
   const S = '/Root/Scenes/Scene';
+  const others = formats.filter((_, i) => i !== start);
+  const onLoad = `
+                def Preliminary_Behavior "OnLoad"
+                {
+                    rel triggers = [ <${S}/Behaviors/OnLoad/Trigger> ]
+                    rel actions = [ <${S}/Behaviors/OnLoad/Group> ]
+                    uniform bool exclusive = 0
+
+                    def Preliminary_Trigger "Trigger"
+                    {
+                        uniform token info:id = "SceneTransition"
+                        uniform token type = "enter"
+                    }
+
+                    def Preliminary_Action "Group"
+                    {
+                        uniform token info:id = "Group"
+                        uniform token type = "parallel"
+                        uniform bool loops = 0
+                        uniform uint performCount = 1
+                        uniform token multiplePerformOperation = "ignore"
+                        rel actions = [ ${others.map(o => `<${S}/Behaviors/OnLoad/Group/Hide${o.name}>`).join(', ')} ]
+${others.map(o => `
+                        def Preliminary_Action "Hide${o.name}"
+                        {
+                            uniform token info:id = "Visibility"
+                            uniform token type = "hide"
+                            rel affectedObjects = [ <${S}/${o.name}> ]
+                            double duration = 0
+                            uniform token easeType = "none"
+                            uniform token motionType = "pop"
+                            uniform double moveDistance = 0
+                            uniform token multiplePerformOperation = "ignore"
+                        }`).join('')}
+                    }
+                }`;
   return `
             def Scope "Behaviors"
-            {${formats.map((f, i) => {
+            {${onLoad}${formats.map((f, i) => {
     const next = formats[(i + 1) % formats.length];
     return `
                 def Preliminary_Behavior "Tap${i}"
@@ -428,10 +463,9 @@ for (const w of cat.works) {
   const jpg = fs.readFileSync(path.join(SITE, w.image));
   const formats = w.sizes.map((s, i) => ({ p: buildPainting(s.w, s.h), name: `Format${i}`, size: s }));
   const labels = w.sizes.map(s => fs.readFileSync(path.join(SITE, s.label_img)));
-  const behaviors = buildBehaviors(formats);
   w.sizes.forEach((s, i) => {
     const base = `${w.slug}-${s.slug}`;
-    const usda = Buffer.from(buildUSDA(formats, i, w.title, USDZ_ORIENTATION, behaviors), 'utf8');
+    const usda = Buffer.from(buildUSDA(formats, i, w.title, USDZ_ORIENTATION, buildBehaviors(formats, i)), 'utf8');
     const files = [{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }];
     labels.forEach((l, k) => files.push({ name: `textures/label${k}.jpg`, data: l }));
     fs.writeFileSync(path.join(OUT, base + '.usdz'), usdzZip(files));
