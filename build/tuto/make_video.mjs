@@ -29,7 +29,7 @@ await browser.close();
 const audio = process.env.AUDIO;   // AUDIO=chemin.wav : piste son mixée dans le MP4 (AAC)
 execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-framerate', String(fps), '-i', path.join(frames, 'f%05d.jpg'),
   ...(audio ? ['-i', audio] : []),
-  '-c:v', 'libx264', '-profile:v', 'high', '-level', '4.0', '-pix_fmt', 'yuv420p', '-crf', '22', '-preset', 'slow',
+  '-c:v', 'libx264', '-profile:v', 'high', '-level', '4.0', '-pix_fmt', 'yuv420p', '-crf', process.env.CRF || '22', '-preset', 'slow',
   ...(audio ? ['-c:a', 'aac', '-b:a', '160k', '-shortest'] : ['-an']),
   '-movflags', '+faststart', path.join(site, name + '.mp4')]);
 execFileSync('convert', [poster, '-quality', '82', path.join(site, name + '-poster.jpg')]);

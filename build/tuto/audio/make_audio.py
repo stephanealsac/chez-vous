@@ -70,6 +70,7 @@ if tf < DUR - 2:
         place(music, piano(midi(n), 5.0, 0.8), tf + (n - 50) * 0.03)
     place(music, pad([midi(n) for n in [50, 57, 62, 66]], DUR - tf), tf)
 music = reverb(music)
+if VER == 6: music[:] = 0
 # fondu de fin
 fo = np.ones(N, np.float32); k = int(1.6 * SR); fo[-k:] = np.linspace(1, 0, k)
 music *= fo
@@ -104,7 +105,14 @@ def shimmer(notes, dur=2.2, g=0.35):
         f = midi(m); d = i * 0.05
         s += (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * f * 2.76 * t)) * np.exp(-np.maximum(t - d, 0) * 2.0) * (t > d)
     return (s / len(notes) * g).astype(np.float32)
-if VER >= 5:
+if VER == 6:   # film 6 : bruitages seuls, pas de musique ni de voix
+    place(sfx, whoosh(), 0.15); place(sfx, whoosh(0.9, 200, 1800, .45), 8.55)
+    for tt in [1.3, 4.2, 7.3, 13.0, 15.6]: place(sfx, pop(), tt)
+    for tt in [3.2, 6.2, 17.3, 23.15]: place(sfx, tick(), tt)
+    place(sfx, thump(), 6.95)
+    place(sfx, shimmer([86, 90, 93, 98, 102]), 12.3)
+    place(sfx, shimmer([74, 81], 1.6, .4), 26.5)
+elif VER >= 5:
     place(sfx, whoosh(), 3.65); place(sfx, whoosh(0.9, 200, 1800, .45), 12.35)
     for tt in [4.9, 8.2, 11.1, 17.2, 18.6, 20.2, 21.8]: place(sfx, pop(), tt)
     for tt in [6.5, 8.0, 10.0, 22.9, 29.25]: place(sfx, tick(), tt)
@@ -149,7 +157,7 @@ mix = music * music_gain * 0.9 + sfx * 0.9 + voice * 1.0
 left = music * music_gain * 0.9 * 1.0 + sfx * 0.9 + voice
 right = music * music_gain * 0.9 * 0.96 + np.roll(sfx, 40) * 0.9 + voice
 st = np.stack([left, right], 1)
-peak = np.abs(st).max(); st = st / peak * 0.89
+peak = np.abs(st).max(); st = st / peak * (0.35 if VER == 6 else 0.89)
 with wave.open(OUT, 'wb') as w:
     w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
     w.writeframes((st * 32767).astype(np.int16).tobytes())
