@@ -15,9 +15,6 @@
   Content-Type: application/manifest+json
 /tuto.mp4
   Content-Type: video/mp4
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=31536000, immutable
 /tuto-poster.jpg
-  Cache-Control: public, max-age=86400
-/tuto-v*.mp4
-  Content-Type: video/mp4
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=31536000, immutable
