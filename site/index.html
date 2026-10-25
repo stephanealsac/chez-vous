@@ -104,9 +104,13 @@ model-viewer{width:2px;height:2px}
 .tuto.open{display:flex}
 .tuto .top{font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;text-align:center;padding:10px 0 14px;border-bottom:1px solid var(--border)}
 .tuto .stage{flex:1;min-height:0;display:grid;place-items:center;padding:10px 0}
-.tuto video{max-height:100%;max-width:100%;aspect-ratio:9/16;background:var(--bg);display:block}
+.tuto .player{position:relative;max-height:100%;aspect-ratio:9/16;display:grid;place-items:center}
+.tuto video{height:100%;max-height:100%;max-width:100%;aspect-ratio:9/16;background:var(--bg);display:block}
+.tuto .play{position:absolute;left:50%;top:50%;width:88px;height:88px;margin:-44px 0 0 -44px;padding:0;display:grid;place-items:center;transition:opacity .3s}
+.tuto .play svg{width:88px;height:88px;filter:drop-shadow(0 6px 14px rgba(26,26,26,.25))}
+.tuto .player.playing .play{opacity:0;pointer-events:none}
 .tuto .foot{display:flex;align-items:center;justify-content:center;padding-top:10px;border-top:1px solid var(--border)}
-.tuto .btn{width:auto;height:48px;padding:0 28px}
+.tuto .skip{font:400 11px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink);min-height:48px;padding:0 28px;border:1px solid var(--ink)}
 
 footer{padding:28px var(--gr) 28px var(--gl);text-align:center}
 footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--border);font-style:normal;font-family:var(--sans);font-size:11px;letter-spacing:.06em}
@@ -166,8 +170,9 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 <!-- ===== TUTORIEL (vidéo) ===== -->
 <div class="tuto" id="tuto" role="dialog" aria-modal="true" aria-label="Comment ça marche">
   <div class="top">Stéphane Alsac</div>
-  <div class="stage"><video id="tuto-video" preload="none" poster="tuto-poster.jpg?v=55179108" playsinline muted loop aria-label="Tutoriel : choisissez une œuvre, un format, puis visez votre mur"><source src="tuto.mp4?v=23d0dfc1" type="video/mp4"></video></div>
-  <div class="foot"><button class="btn primary" id="tuto-close" type="button">Commencer</button></div>
+  <div class="stage"><div class="player"><video id="tuto-video" preload="metadata" poster="tuto-poster.jpg?v=701c0f8c" playsinline aria-label="Tutoriel : choisissez une œuvre, un format, puis visez votre mur"><source src="tuto.mp4?v=23d0dfc1b" type="video/mp4"></video>
+    <button class="play" id="tuto-play" type="button" aria-label="Lire le tutoriel"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="rgba(238,234,225,.92)" stroke="#1a1a1a" stroke-width="1"/><path d="M19 15 L33 24 L19 33 Z" fill="#1a1a1a"/></svg></button></div></div>
+  <div class="foot"><button class="skip" id="tuto-close" type="button">Passer</button></div>
 </div>
 
 <script src="vendor/model-viewer.min.js" type="module"></script>
@@ -299,18 +304,22 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     if (e.detail.status === 'not-presenting') setMsg('');
   });
 
-  // ---------- tutoriel (vidéo) : à la première visite, puis via « ? » ----------
-  const tuto = $('#tuto'), video = $('#tuto-video'); let lastFocus = null;
+  // ---------- tutoriel (vidéo) : à la première visite, puis via « ? » — pas de lecture automatique ----------
+  const tuto = $('#tuto'), video = $('#tuto-video'), player = tuto.querySelector('.player'); let lastFocus = null;
   function openTuto(){
     lastFocus = document.activeElement; tuto.classList.add('open'); document.body.classList.add('tuto-open');
-    video.currentTime = 0; const p = video.play(); if (p && p.catch) p.catch(() => {});
-    $('#tuto-close').focus({ preventScroll: true });
+    video.pause(); video.currentTime = 0; player.classList.remove('playing'); $('#tuto-close').textContent = 'Passer';
   }
   function closeTuto(){
     tuto.classList.remove('open'); document.body.classList.remove('tuto-open'); video.pause();
     try { localStorage.setItem('ar_tuto_seen', '1'); } catch (_) {}
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
+  $('#tuto-play').addEventListener('click', () => { video.muted = false; const p = video.play(); if (p && p.catch) p.catch(() => {}); });
+  video.addEventListener('play', () => player.classList.add('playing'));
+  video.addEventListener('pause', () => { if (!video.ended) player.classList.remove('playing'); });
+  video.addEventListener('ended', () => { player.classList.remove('playing'); $('#tuto-close').textContent = 'Commencer'; });
+  video.addEventListener('click', () => { if (!video.paused) video.pause(); });
   $('#tuto-close').addEventListener('click', closeTuto);
   $('#help').addEventListener('click', openTuto);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && tuto.classList.contains('open')) closeTuto(); });
