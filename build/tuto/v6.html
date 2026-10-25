@@ -83,8 +83,8 @@ const SIZES = { classique: [93.6, 48.6, 'zebra-classique.png', 'Classique', '85 
 const OFF = [-96, 74];   // le Grand apparaît décalé (bas-gauche), puis on le recentre au doigt
 // Grand : décalé, puis le doigt lui fait faire un cercle (on peut le mettre n'importe où), puis le pose à sa place
 function hangPos(t) {
-  const u = clamp((t - 17.4) / 1.3), a = u * Math.PI * 2, r = 110 * Math.sin(u * Math.PI);
-  const adj = seg(t, 18.8, 19.8);
+  const u = clamp((t - 17.8) / 1.3), a = u * Math.PI * 2, r = 110 * Math.sin(u * Math.PI);
+  const adj = seg(t, 19.2, 20.2);
   return [lerp(FX + OFF[0] + r * Math.cos(a), FX, adj), lerp(FY + OFF[1] + r * Math.sin(a) * 0.7, FY, adj)];
 }
 function worldHTML() {
@@ -107,18 +107,18 @@ function setDims(w, cx, cy, wcm, hcm, label) {
 }
 function worldState(w, t) {
   const h = w.querySelector('.hang'), img = h.querySelector('img');
-  const grand = t >= 15.6;
+  const grand = t >= 16.8;
   const S = grand ? SIZES.grand : SIZES.classique; if (!img.src.endsWith(S[2])) img.src = S[2];
   const [cx, cy] = grand ? hangPos(t) : [FX, FY];
   placeHang(h, cx, cy, S[0], S[1], PK);
-  const ap = seg(t, 12.3, 13.3), bump = t >= 15.6 && t < 15.95 ? Math.sin((t - 15.6) / .35 * Math.PI) : 0;
+  const ap = seg(t, 12.6, 13.6), bump = t >= 16.8 && t < 17.15 ? Math.sin((t - 16.8) / .35 * Math.PI) : 0;
   show(h, ap, `scale(${0.94 + 0.06 * ap + 0.02 * bump})`);
-  animDots(w.querySelector('.dots'), t, win(t, 9.9, 10.6, 12.0, 12.8));
-  const c = w.querySelector('.coach'); c.style.opacity = win(t, 7.3, 7.9, 11.6, 12.2); c.querySelector('.glyph').style.transform = `rotate(${Math.sin((t - 7) * 2.6) * 16}deg)`;
-  const pu = win(t, 12.3, 12.5, 12.8, 13.8), g = 1 + 0.3 * seg(t, 12.3, 13.8), pw = S[0] * PK * g, phh = S[1] * PK * g;
+  animDots(w.querySelector('.dots'), t, win(t, 10.6, 11.2, 12.2, 12.9));
+  const c = w.querySelector('.coach'); c.style.opacity = win(t, 8.5, 9.1, 11.8, 12.3); c.querySelector('.glyph').style.transform = `rotate(${Math.sin((t - 7) * 2.6) * 16}deg)`;
+  const pu = win(t, 12.6, 12.8, 13.1, 14.1), g = 1 + 0.3 * seg(t, 12.6, 14.1), pw = S[0] * PK * g, phh = S[1] * PK * g;
   Object.assign(w.querySelector('.pulse').style, { left: cx - pw / 2 + 'px', top: cy - phh / 2 + 'px', width: pw + 'px', height: phh + 'px', opacity: pu * .9 });
   // cotes : Classique (13.2 → 15.2), puis Grand une fois centré (19.6 → 21.4)
-  const d = w.querySelector('.wdim'); const dv = Math.max(win(t, 13.2, 13.6, 14.9, 15.3), win(t, 20.2, 20.6, 21.8, 22.2));
+  const d = w.querySelector('.wdim'); const dv = Math.max(win(t, 13.4, 13.8, 15.0, 15.4), win(t, 20.6, 21.0, 22.0, 22.4));
   d.style.opacity = dv; setDims(w, cx, cy, S[0], S[1], grand ? ['140', '65'] : ['85', '40']);
 }
 $('fingerhost').innerHTML = fingerHTML('fg');
@@ -129,13 +129,13 @@ const easeBack = x => { const c = 1.70158; return 1 + (c + 1) * Math.pow(x - 1, 
 function pop(el, t, a, hold, x, y) { const u = clamp((t - a) / .55); const out = hold ? 1 - seg(t, hold, hold + .4) : 1; el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.opacity = (u > 0 ? 1 : 0) * out; el.style.transform = `scale(${u > 0 ? easeBack(u) : 0})`; }
 // sous-titres : [début, fin, texte]
 const SUBS = [
-  [1.0, 3.4, 'Choisissez une Édition sur Toile'],
-  [3.8, 6.6, 'Cliquez sur « Voir sur mon mur »'],
-  [7.4, 11.8, 'Balayez lentement votre mur'],
-  [12.4, 15.2, 'L\'œuvre s\'accroche, à sa taille réelle'],
-  [15.6, 17.2, 'Changez de format'],
-  [17.2, 20.2, 'Ajustez sa position du doigt'],
-  [21.2, 26.0, 'Commandez-la directement'],
+  [2.0, 4.4, 'Choisissez une Édition sur Toile'],
+  [5.2, 7.8, 'Cliquez sur « Voir sur mon mur »'],
+  [8.6, 12.2, 'Balayez lentement votre mur'],
+  [12.8, 15.2, 'L\'œuvre s\'accroche, à sa taille réelle'],
+  [15.5, 17.4, 'Cliquez sur le tableau pour changer de format'],
+  [17.7, 20.6, 'Ajustez sa position du doigt'],
+  [21.6, 26.4, 'Commandez-la directement'],
 ];
 function subtitle(t) {
   const s = $('subtxt'); let v = 0, txt = '';
@@ -143,65 +143,67 @@ function subtitle(t) {
   s.textContent = txt; s.style.opacity = v; s.style.transform = `translateY(${8 - 8 * v}px)`;
 }
 
-window.DURATION = 29.2;
+window.DURATION = 29.8;
 window.render = function (t) {
   // ---------- iPhone ----------
   const enter = seg(t, 0.2, 1.2);
   const sway = Math.sin(t * 0.9) * 5, swayX = Math.sin(t * 0.7 + 1) * 4;
-  const hand = t > 7.0 ? 1 : 0;
-  const zoom = seg(t, 8.6, 9.9);
+  const hand = t > 8.2 ? 1 : 0;
+  const zoom = seg(t, 9.4, 10.6);
   const hs = hand * (1 - zoom);
-  const rotY = lerp(-14, 7 + swayX, enter) * (1 - zoom) + hs * Math.sin((t - 7) * 1.8) * 6;
-  const rotX = lerp(6, 3 + sway * .4, enter) * (1 - zoom) + hs * Math.sin((t - 7) * 1.3) * 4;
+  const rotY = lerp(-14, 7 + swayX, enter) * (1 - zoom) + hs * Math.sin((t - 8.2) * 1.8) * 6;
+  const rotX = lerp(6, 3 + sway * .4, enter) * (1 - zoom) + hs * Math.sin((t - 8.2) * 1.3) * 4;
   const sc = lerp(1, 1.74, easeOut(zoom));
   const ty = lerp(1500, 0, easeOut(enter)) + Math.sin(t * 1.1) * 8 * (1 - zoom);
-  const tx = hs * Math.sin((t - 7) * 1.5) * 18;
+  const tx = hs * Math.sin((t - 8.2) * 1.5) * 18;
   const cx0 = 540, cy0 = 960; const dx = (540 - cx0) * zoom, dy = (960 - cy0) * zoom;
-  ph.style.opacity = enter > 0 && t < 10.3 ? 1 : 0;
+  ph.style.opacity = enter > 0 && t < 11.0 ? 1 : 0;
   ph.style.transform = `translate3d(${tx + dx}px,${ty + dy}px,0) rotateY(${rotY}deg) rotateX(${rotX}deg) scale(${sc})`;
-  const catScroll = lerp(0, CARD[1] - 560, seg(t, 1.1, 3.0));
-  $('l-cat').style.opacity = win(t, 0, 0.1, 3.5, 3.8); $('l-cat').querySelector('img').style.transform = `translateY(${-catScroll}px)`;
-  $('l-fiche').style.opacity = win(t, 3.5, 3.8, 6.4, 6.9);
-  $('dark').style.opacity = win(t, 6.4, 6.9, 7.0, 7.5);
-  $('l-cam').style.opacity = win(t, 7.0, 7.2);
-  const drift = hand * (Math.sin((t - 7) * 1.4) * 40 * (1 - zoom));
+  const catScroll = lerp(0, CARD[1] - 560, seg(t, 2.0, 3.9));
+  $('l-cat').style.opacity = win(t, 0, 0.1, 4.9, 5.2); $('l-cat').querySelector('img').style.transform = `translateY(${-catScroll}px)`;
+  $('l-fiche').style.opacity = win(t, 4.9, 5.2, 7.6, 8.1);
+  $('dark').style.opacity = win(t, 7.6, 8.1, 8.2, 8.7);
+  $('l-cam').style.opacity = win(t, 8.2, 8.4);
+  const drift = hand * (Math.sin((t - 8.2) * 1.4) * 40 * (1 - zoom));
   $('w1').style.transform = `translate(${(SW - 1080 * ZS) / 2 + drift * ZS}px,0) scale(${ZS})`;
   worldState($('w1'), t);
   const scrLeft = 260 + 16 + tx, scrTop = 390 + 16 + ty;
-  const taps1 = [[3.2, CARD[0], CARD[1] - catScroll], [6.2, BTN[0], BTN[1]]];
+  const taps1 = [[4.6, CARD[0], CARD[1] - catScroll], [7.4, BTN[0], BTN[1]]];
   $('rip1').style.opacity = 0;
   for (const [t0, x, y] of taps1) if (t >= t0 && t < t0 + .7) rippleAt($('rip1'), scrLeft + x, scrTop + y, t, t0);
-  pop($('p1'), t, 1.3, 3.0, 70, 1600);
-  pop($('p2'), t, 4.2, 6.0, 300, 1600);
-  pop($('p3'), t, 7.3, 8.5, 400, 1600);
   // ---------- plein cadre ----------
-  const fw = $('fullwrap'); fw.style.opacity = win(t, 9.75, 10.05, 26.2, 26.9);
-  const settle = seg(t, 10.0, 11.4);
-  const ws = lerp(1.74 * ZS, 1.035, settle) - 0.035 * seg(t, 12.0, 13.4);   // léger sur-cadrage tant que la main bouge (pas de bord noir)
-  const drift2 = Math.sin((t - 9.8) * 1.2) * 10 * (1 - seg(t, 12, 13)) + Math.sin(t * 2.3) * 2;
+  const fw = $('fullwrap'); fw.style.opacity = win(t, 10.45, 10.75, 26.6, 27.3);
+  const settle = seg(t, 10.7, 11.9);
+  const ws = lerp(1.74 * ZS, 1.035, settle) - 0.035 * seg(t, 12.2, 13.2);   // léger sur-cadrage tant que la main bouge (pas de bord noir)
+  const drift2 = Math.sin((t - 10.5) * 1.2) * 10 * (1 - seg(t, 12, 12.8)) + Math.sin(t * 2.3) * 2;
   const ox = 540 - 540 * ws + drift2, oy = 960 - 960 * ws + Math.sin(t * 1.7) * 3;
   $('w2').style.transform = `translate(${ox}px,${oy}px) scale(${ws})`;
   worldState($('w2'), t);
   // pastilles de format sur le mur
-  if (t >= 13.0 && t < 15.6) pop($('p4'), t, 13.0, 15.1, 70, 340); else if (t >= 15.6 && t < 20.6) pop($('p4'), t, 15.6, 20.1, 70, 340); else $('p4').style.opacity = 0;
-  $('p4').innerHTML = t < 15.6 ? 'Classique <b>85 × 40 cm</b>' : 'Grand <b>140 × 65 cm</b>';
-  const b = seg(t, 21.0, 21.8); show($('banner'), b, `translateY(${140 - 140 * b}px)`);
+  if (t >= 13.2 && t < 16.8) pop($('p4'), t, 13.2, 15.3, 70, 340); else if (t >= 16.8 && t < 21.2) pop($('p4'), t, 16.8, 20.7, 70, 340); else $('p4').style.opacity = 0;
+  $('p4').innerHTML = t < 16.8 ? 'Classique <b>85 × 40 cm</b>' : 'Grand <b>140 × 65 cm</b>';
+  const b = seg(t, 21.4, 22.2); show($('banner'), b, `translateY(${140 - 140 * b}px)`);
   // doigt : recentrage du Grand (17.0 → 19.8), puis « Acquérir ce tirage » (22.2 → 24.0)
   const [hx0, hy0] = hangPos(t); const hx = hx0, hy = hy0 + 40;
   let fx = 1250, fy = 2200, vis = 0, press = 0;
-  if (t > 16.6 && t < 20.6) { const u = seg(t, 16.6, 17.3); fx = lerp(1250, hx, u); fy = lerp(2200, hy, u); const o = seg(t, 19.9, 20.5); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1; press = t > 17.3 && t < 19.85 ? 1 : 0; }
-  if (t > 22.8 && t < 24.8) { const u = seg(t, 22.8, 23.5); fx = lerp(1250, 870, u); fy = lerp(2200, 1800, u); const o = seg(t, 24.1, 24.7); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1; press = win(t, 23.65, 23.8, 23.95, 24.1); }
+  if (t > 15.8 && t < 21.0) {
+    const u = seg(t, 15.8, 16.4); fx = lerp(1250, FX, u); fy = lerp(2200, FY + 40, u);          // vers le Classique
+    if (t > 16.6) { const m = seg(t, 16.6, 17.2); fx = lerp(FX, hx, m); fy = lerp(FY + 40, hy, m); }   // vers le Grand décalé
+    const o = seg(t, 20.3, 20.9); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1;
+    press = win(t, 16.4, 16.5, 16.6, 16.75) || (t > 17.75 && t < 20.25 ? 1 : 0);
+  }
+  if (t > 23.2 && t < 25.2) { const u = seg(t, 23.2, 23.9); fx = lerp(1250, 870, u); fy = lerp(2200, 1800, u); const o = seg(t, 24.5, 25.1); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1; press = win(t, 24.05, 24.2, 24.35, 24.5); }
   fingerAt($('fg'), fx, fy, press, vis);
   $('rip2').style.opacity = 0;
-  if (t >= 17.3 && t < 18.0) rippleAt($('rip2'), FX + OFF[0], FY + OFF[1] + 40, t, 17.3);
-  if (t >= 23.75 && t < 24.4) rippleAt($('rip2'), 870, 1800, t, 23.75);
+  if (t >= 16.5 && t < 17.2) rippleAt($('rip2'), FX, FY + 40, t, 16.5);
+  if (t >= 24.15 && t < 24.8) rippleAt($('rip2'), 870, 1800, t, 24.15);
   // ---------- commande ----------
-  $('white').style.opacity = win(t, 26.2, 26.4, 26.45, 26.9);
-  $('buy').style.opacity = win(t, 26.6, 27.1, 99, 100);
-  const ck = seg(t, 27.1, 27.8); $('ck').style.strokeDasharray = 200; $('ck').style.strokeDashoffset = 200 * (1 - ck);
-  $('ck-c').style.strokeDasharray = 742; $('ck-c').style.strokeDashoffset = 742 * (1 - seg(t, 26.7, 27.6));
+  $('white').style.opacity = win(t, 26.6, 26.8, 26.85, 27.3);
+  $('buy').style.opacity = win(t, 27.0, 27.5, 99, 100);
+  const ck = seg(t, 27.5, 28.2); $('ck').style.strokeDasharray = 200; $('ck').style.strokeDashoffset = 200 * (1 - ck);
+  $('ck-c').style.strokeDasharray = 742; $('ck-c').style.strokeDashoffset = 742 * (1 - seg(t, 27.1, 28.0));
   subtitle(t);
-  $('fade').style.opacity = seg(t, 28.6, 29.2);
+  $('fade').style.opacity = seg(t, 29.2, 29.8);
 };
 render(0);
 </script>
