@@ -197,7 +197,7 @@ function usdTapeMaterial() {
             def Shader "uvReader_st1"
             {
                 uniform token info:id = "UsdPrimvarReader_float2"
-                token inputs:varname = "st1"
+                token inputs:varname = "st"
                 float2 outputs:result
             }
             def Shader "Cloth"
@@ -308,9 +308,9 @@ def Xform "Root"
 ${usdMesh('Painting', [
   { m: p.frame, mat: '</Root/Materials/FrameMat>', sub: 'frame' },
   { m: p.floor, mat: '</Root/Materials/FloorMat>', sub: 'floor' },
-  { m: p.sides, mat: '</Root/Materials/CanvasSideMat>', sub: 'canvasSides' },
   { m: p.front, mat: '</Root/Materials/CanvasMat>', sub: 'canvas' },
 ], orient)}
+${usdMesh('CanvasSides', [{ m: { ...p.sides, T: p.sides.T2, T2: undefined }, mat: '</Root/Materials/CanvasSideMat>', sub: 'canvasSides' }], orient)}
 ${p.shadow.I.length ? usdMesh('Shadow', [{ m: p.shadow, mat: '</Root/Materials/ShadowMat>', sub: 'shadow' }], orient) : ''}
         }
     }

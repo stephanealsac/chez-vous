@@ -27,4 +27,4 @@ def weave(N, threads, amp, seed, out, color_out=None, base=0.075, contrast=0.55)
         Image.fromarray((np.clip(srgb, 0, 1) * 255).round().astype(np.uint8), 'L').convert('RGB').save(os.path.join(sys.argv[1], color_out), optimize=True)
         print(color_out, 'sRGB', int(srgb.min() * 255), '-', int(srgb.max() * 255))
 
-weave(256, 24, 0.45, 11, 'tape_normal.png', 'tape_color.png', base=0.022, contrast=0.7)   # galon des chants du châssis (relief + nuances)
+weave(256, 24, 0.6, 11, 'tape_normal.png', 'tape_color.png', base=0.024, contrast=1.0)   # galon des chants du châssis (relief + nuances)
