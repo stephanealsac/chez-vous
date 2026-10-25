@@ -8,3 +8,8 @@ chez-vous-site.zip
 build/render-tmp/
 siwis.onnx*
 build/tuto/audio/*.onnx*
+
+# iOS : généré
+ios/ChezVous/Catalogue/
+ios/ChezVous.xcodeproj/
+ios/build/

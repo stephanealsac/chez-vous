@@ -1,0 +1,41 @@
+name: ios
+on:
+  push:
+    paths: ['ios/**', 'site/catalogue.json', '.github/workflows/ios.yml']
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Outils
+        run: brew install xcodegen
+      - name: Catalogue embarqué + projet
+        run: bash ios/prepare.sh && cd ios && xcodegen generate
+      - name: Compilation (simulateur)
+        run: |
+          cd ios
+          xcodebuild -project ChezVous.xcodeproj -scheme ChezVous -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build.log | xcpretty || true
+          test -d build/Build/Products/Debug-iphonesimulator/ChezVous.app || { grep -E "error:|warning: .*Swift" build.log | head -60; exit 1; }
+          grep -E " error:" build.log | head -40 || true
+      - name: Captures d'écran
+        run: |
+          UDID=$(xcrun simctl list devices available -j | python3 -c "import json,sys;d=json.load(sys.stdin)['devices'];print([x['udid'] for k,v in d.items() if 'iOS-18' in k for x in v if x['name'].startswith('iPhone 16')][0])")
+          xcrun simctl boot $UDID; xcrun simctl bootstatus $UDID -b
+          xcrun simctl install $UDID ios/build/Build/Products/Debug-iphonesimulator/ChezVous.app
+          mkdir -p shots
+          xcrun simctl launch $UDID com.stephanealsac.chezvous; sleep 6; xcrun simctl io $UDID screenshot shots/1-tutoriel.png
+          xcrun simctl terminate $UDID com.stephanealsac.chezvous
+          xcrun simctl launch $UDID com.stephanealsac.chezvous -tutoSeen YES; sleep 5; xcrun simctl io $UDID screenshot shots/2-catalogue.png
+          xcrun simctl terminate $UDID com.stephanealsac.chezvous
+          xcrun simctl launch $UDID com.stephanealsac.chezvous -tutoSeen YES -openWork tableau-peinture-zebres; sleep 5; xcrun simctl io $UDID screenshot shots/3-fiche.png
+          ls -la shots; du -sh ios/build/Build/Products/Debug-iphonesimulator/ChezVous.app
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-shots
+          path: |
+            shots/
+            ios/build.log
