@@ -71,7 +71,7 @@ Le slug est celui de la fiche produit WooCommerce (dernier segment de l'URL du p
 
 
 ## Mise à jour d'octobre 2026
-- **Catalogue complet** : toutes les Éditions sur Toile achetables de la boutique (46), ordre de la boutique. `SELECTION = None` dans `build_catalogue.py`.
+- **Catalogue complet** : toutes les Éditions sur Toile achetables de la boutique (63 au 25/10/2026 ; la liste `data/toile.json` se relit avec `per_page=100`), ordre de la boutique. Les fiches sans variante ni prix (Kimya, Spartacus, El Magnifico, Fiercely Protective) sont ignorées. `SELECTION = None` dans `build_catalogue.py`.
 - **Tailles** : prises comme le site, dans les *dimensions des variations WooCommerce* (longueur × largeur) — toile = variation « roulé dans un tube », encadrée = variation « encadré caisse US noire » (`framed_cm`, affichée telle quelle). Le texte « Taille disponible : … » de la description courte n'est plus utilisé (périmé sur plusieurs fiches). Orientation : le grand côté est horizontal si l'image est horizontale.
 - **Accueil** : titre « Éditions sur Toile » (capitales espacées, comme GALERIE sur le site), vignettes carrées recadrées au centre (`img/*-thumb.jpg`, 600 px). Les adresses d'images portent une empreinte (`?v=`) pour contourner le cache d'un an.
 - **Fiche** : plus de silhouette d'échelle ; sélecteur de taille toujours affiché (même une seule), caractères agrandis.

@@ -2817,6 +2817,1000 @@
    "description": "Entre le lionceau et le lion, la grâce ne disparaît pas — elle se transforme en majesté. À cet âge, tout est encore ouvert — la curiosité prime sur la méfiance, et ces yeux dorés regardent le monde sans encore savoir qu’ils finiront par en faire leur domaine. Dans chaque mouvement maladroit, chaque bâillement trop grand pour sa gueule encore petite, se devine déjà le prédateur qu’il deviendra. Le titre s’est imposé naturellement. Pas seulement parce que ce lionceau est fils de roi — mais parce qu’il incarne quelque chose d’universel que Saint-Exupéry avait si bien capturé : cette façon d’être pleinement là, sans calcul ni défense, de voir le monde avec des yeux neufs. Les lionceaux, comme les enfants, n’ont pas encore appris à faire semblant. Pour la composition, j’ai choisi de m’approcher au plus près. Le cadrage serré n’est pas un hasard : je voulais qu’on soit face à lui, presque à hauteur de son regard, sans pouvoir esquiver cette présence. Pas de mise à distance, pas de savane en fond de décor — juste lui, ce regard, et cette fourrure encore douce qui n’a pas encore pris sa couleur définitive. La peinture à l’huile, travaillée dans la tradition hyperréaliste, s’attache ici à saisir les nuances infinies de ce pelage ocre et fauve, la lumière qui joue sur les petites touffes encore indécises, ce manteau de transition entre l’enfance et la majesté à venir. Peindre Le Petit Prince , c’était fixer l’avant-règne — ce moment suspendu, fragile et irrépétible, où un futur roi observe encore le monde avec des yeux d’enfant.",
    "image_url": "img/tableau-lionceau.jpg?v=ec16c22e",
    "thumb_url": "img/tableau-lionceau-thumb.jpg?v=e7f884f9"
+  },
+  {
+   "id": 19158,
+   "slug": "leopard-arbre",
+   "title": "Mon Précieux",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/leopard-arbre/",
+   "image": "img/leopard-arbre.jpg",
+   "thumb": "img/leopard-arbre-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 85,
+     "h": 57,
+     "price_framed": 1300,
+     "price_unframed": 890,
+     "framed_cm": {
+      "w": 94,
+      "h": 66
+     },
+     "ao_img": "ao/leopard-arbre-classique.png",
+     "shadow_img": "ao/shadow-leopard-arbre-classique.png",
+     "shadow_cm": {
+      "x0": -53.8,
+      "x1": 53.8,
+      "y0": -39.8,
+      "y1": 39.8
+     },
+     "usdz": "models/leopard-arbre-classique-c6183426.usdz",
+     "glb": "models/leopard-arbre-classique-c6183426.glb",
+     "outer_cm": {
+      "w": 93.6,
+      "h": 65.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 140,
+     "h": 95,
+     "price_framed": 2030,
+     "price_unframed": 1470,
+     "framed_cm": {
+      "w": 149,
+      "h": 104
+     },
+     "ao_img": "ao/leopard-arbre-grand.png",
+     "shadow_img": "ao/shadow-leopard-arbre-grand.png",
+     "shadow_cm": {
+      "x0": -81.3,
+      "x1": 81.3,
+      "y0": -58.8,
+      "y1": 58.8
+     },
+     "usdz": "models/leopard-arbre-grand-78990b1d.usdz",
+     "glb": "models/leopard-arbre-grand-78990b1d.glb",
+     "outer_cm": {
+      "w": 148.6,
+      "h": 103.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Le léopard est le seul grand félin qui hisse ses proies dans les arbres. Un comportement qui tient à la fois du génie et de l’obsession — garder pour soi, à l’abri des hyènes et des lions, ce qu’on a mis des heures à chasser. En observant cette scène, le titre s’est imposé naturellement : Mon Précieux . Pas comme une plaisanterie — comme une vérité. Dans la savane, le léopard est une exception : solitaire là où les lions vivent en clan, discret là où les guépards courent à découvert. Cette individualité se retrouve jusque dans sa façon de chasser — et de garder. Ce qu’il conquiert lui appartient entièrement, sans partage ni concession. Mon Précieux est aussi un portrait de caractère : celui d’un animal qui n’a jamais appris à partager. Pour la composition, j’ai opté pour le contre-plongée : on regarde vers le haut, comme si on se trouvait au pied de l’arbre. Le léopard domine le cadre, suspendu entre ciel et terre, sa proie pendant dans le vide. Cette verticalité était essentielle — elle dit l’ascension, l’effort, et cette façon qu’a le léopard de mettre son butin hors de portée du monde. La lumière filtrée par le feuillage crée un jeu de taches dorées sur la robe mouchetée — deux motifs qui se répondent et se confondent presque. La peinture à l’huile, dans sa capacité à graduer les valeurs avec une précision infinie, est l’outil idéal pour saisir cette complexité chromatique : le beige, l’ocre, le noir des rosettes, et cette lumière d’Afrique qui traverse tout.",
+   "image_url": "img/leopard-arbre.jpg?v=7496ea2d",
+   "thumb_url": "img/leopard-arbre-thumb.jpg?v=47fbcd47"
+  },
+  {
+   "id": 18247,
+   "slug": "peinture-brocard-ete",
+   "title": "Esprit des Blés",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/peinture-brocard-ete/",
+   "image": "img/peinture-brocard-ete.jpg",
+   "thumb": "img/peinture-brocard-ete-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 60,
+     "h": 38,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 69,
+      "h": 47
+     },
+     "ao_img": "ao/peinture-brocard-ete-classique.png",
+     "shadow_img": "ao/shadow-peinture-brocard-ete-classique.png",
+     "shadow_cm": {
+      "x0": -41.3,
+      "x1": 41.3,
+      "y0": -30.3,
+      "y1": 30.3
+     },
+     "usdz": "models/peinture-brocard-ete-classique-027ef873.usdz",
+     "glb": "models/peinture-brocard-ete-classique-027ef873.glb",
+     "outer_cm": {
+      "w": 68.6,
+      "h": 46.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 95,
+     "h": 60,
+     "price_framed": 1820,
+     "price_unframed": 1300,
+     "framed_cm": {
+      "w": 104,
+      "h": 69
+     },
+     "ao_img": "ao/peinture-brocard-ete-grand.png",
+     "shadow_img": "ao/shadow-peinture-brocard-ete-grand.png",
+     "shadow_cm": {
+      "x0": -58.8,
+      "x1": 58.8,
+      "y0": -41.3,
+      "y1": 41.3
+     },
+     "usdz": "models/peinture-brocard-ete-grand-328ed142.usdz",
+     "glb": "models/peinture-brocard-ete-grand-328ed142.glb",
+     "outer_cm": {
+      "w": 103.6,
+      "h": 68.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Il y a quelque chose d’unique dans ces apparitions furtives au cœur des champs de blé. Le brocard surgit, s’immobilise, et dans cet instant suspendu entre la fuite et la curiosité, il devient autre chose qu’un animal : une présence, un souffle, un esprit des blés . Ce titre ne décrit pas une scène — il la dépasse. Peindre des animaux africains occupe l’essentiel de mon travail. Mais de temps en temps, je reviens vers la faune qui m’entoure, celle des forêts et des grandes plaines céréalières françaises. Le chevreuil — et en particulier le brocard dans sa robe d’été — possède une élégance discrète, presque secrète, que j’ai toujours voulu capturer. Pour la composition, je voulais qu’on soit immergé dans le blé, au même niveau que l’animal. La mer de tiges et d’épis occupe l’essentiel du cadre, le brocard émergeant à peine — comme s’il apparaissait. Cet enfouissement dans la matière végétale était essentiel : il dit la discrétion naturelle du chevreuil, sa façon d’appartenir au paysage. La lumière d’été, rasante et chaude, transforme le champ en un camaïeu d’or et de roux — les mêmes tonalités que le pelage estival du brocard. La peinture à l’huile, travaillée dans la tradition hyperréaliste, cherche ici à fondre l’animal dans son décor tout en le révélant : une contradiction que seule la peinture peut tenir.",
+   "image_url": "img/peinture-brocard-ete.jpg?v=e3fc2e98",
+   "thumb_url": "img/peinture-brocard-ete-thumb.jpg?v=faf85ca0"
+  },
+  {
+   "id": 17306,
+   "slug": "tableau-lion-lionceaux-clan-famille",
+   "title": "Une Sieste Compromise",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/tableau-lion-lionceaux-clan-famille/",
+   "image": "img/tableau-lion-lionceaux-clan-famille.jpg",
+   "thumb": "img/tableau-lion-lionceaux-clan-famille-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 70,
+     "h": 41,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 79,
+      "h": 50
+     },
+     "ao_img": "ao/tableau-lion-lionceaux-clan-famille-classique.png",
+     "shadow_img": "ao/shadow-tableau-lion-lionceaux-clan-famille-classique.png",
+     "shadow_cm": {
+      "x0": -46.3,
+      "x1": 46.3,
+      "y0": -31.8,
+      "y1": 31.8
+     },
+     "usdz": "models/tableau-lion-lionceaux-clan-famille-classique-c1b1a17f.usdz",
+     "glb": "models/tableau-lion-lionceaux-clan-famille-classique-c1b1a17f.glb",
+     "outer_cm": {
+      "w": 78.6,
+      "h": 49.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 115,
+     "h": 68,
+     "price_framed": 1820,
+     "price_unframed": 1300,
+     "framed_cm": {
+      "w": 124,
+      "h": 77
+     },
+     "ao_img": "ao/tableau-lion-lionceaux-clan-famille-grand.png",
+     "shadow_img": "ao/shadow-tableau-lion-lionceaux-clan-famille-grand.png",
+     "shadow_cm": {
+      "x0": -68.8,
+      "x1": 68.8,
+      "y0": -45.3,
+      "y1": 45.3
+     },
+     "usdz": "models/tableau-lion-lionceaux-clan-famille-grand-d83d48c4.usdz",
+     "glb": "models/tableau-lion-lionceaux-clan-famille-grand-d83d48c4.glb",
+     "outer_cm": {
+      "w": 123.6,
+      "h": 76.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Il y a dans cette scène quelque chose d’universel — et de profondément drôle. Un père qui voudrait bien souffler après la chasse, et deux petits qui ont d’autres plans. La sieste du roi des animaux n’aura pas lieu : ses lionceaux ont décidé qu’il était un terrain de jeu. Le titre, je dois le dire, ne vient pas de moi : c’est la personne qui possède aujourd’hui ce tableau qui l’a trouvé — et on ne pouvait pas mieux dire. Pour la composition, j’ai opté pour une structure triangulaire dont la ligne de force court de la crinière du lion jusqu’à la patte gauche du lionceau — une diagonale qui concentre l’énergie de la scène. La réaction du père — gueule entrouverte, regard oblique — vient dynamiser ce qui aurait pu n’être qu’une scène tranquille de fin de journée. C’est cet instant de bascule entre repos et chaos qui m’a captivé. Le tableau joue sur une quasi-monochromie — l’ocre, le fauve, le beige dominent, à peine contrastés par les ombres bleues de la lumière déclinante. C’est la tête du lion qui capte le regard : éclairée de face, elle émerge du fond dans un contraste de tons chauds et froids que la peinture à l’huile rend avec une grande précision. Ce que j’aime dans cette peinture, c’est qu’elle dit quelque chose de vrai sur la vie de famille — chez les lions comme ailleurs. La majesté n’y résiste pas longtemps face à deux lionceaux décidés. Et dans cette résignation du père, à mi-chemin entre l’agacement et la tendresse, je reconnais quelque chose de très humain.",
+   "image_url": "img/tableau-lion-lionceaux-clan-famille.jpg?v=58babca4",
+   "thumb_url": "img/tableau-lion-lionceaux-clan-famille-thumb.jpg?v=138ab744"
+  },
+  {
+   "id": 8533,
+   "slug": "high-and-mighty",
+   "title": "High and Mighty",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/high-and-mighty/",
+   "image": "img/high-and-mighty.jpg",
+   "thumb": "img/high-and-mighty-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 85,
+     "h": 40,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 94,
+      "h": 49
+     },
+     "ao_img": "ao/high-and-mighty-classique.png",
+     "shadow_img": "ao/shadow-high-and-mighty-classique.png",
+     "shadow_cm": {
+      "x0": -53.8,
+      "x1": 53.8,
+      "y0": -31.3,
+      "y1": 31.3
+     },
+     "usdz": "models/high-and-mighty-classique-e07f1bf6.usdz",
+     "glb": "models/high-and-mighty-classique-e07f1bf6.glb",
+     "outer_cm": {
+      "w": 93.6,
+      "h": 48.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 140,
+     "h": 65,
+     "price_framed": 1820,
+     "price_unframed": 1300,
+     "framed_cm": {
+      "w": 149,
+      "h": 74
+     },
+     "ao_img": "ao/high-and-mighty-grand.png",
+     "shadow_img": "ao/shadow-high-and-mighty-grand.png",
+     "shadow_cm": {
+      "x0": -81.3,
+      "x1": 81.3,
+      "y0": -43.8,
+      "y1": 43.8
+     },
+     "usdz": "models/high-and-mighty-grand-eb28dca0.usdz",
+     "glb": "models/high-and-mighty-grand-eb28dca0.glb",
+     "outer_cm": {
+      "w": 148.6,
+      "h": 73.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "L’expression anglaise High and Mighty désigne l’arrogance tranquille de ceux qui n’ont rien à prouver. Face à un éléphant qui charge, elle prend un sens radicalement différent — et beaucoup plus urgent. Les défenses pointées, la trompe dressée, la masse entière lancée dans votre direction : vous comprenez immédiatement ce que high et mighty veulent vraiment dire. La première charge d’un éléphant est souvent une charge d’intimidation — une démonstration de force, pas une attaque réelle. La règle sur le terrain est simple : ne pas bouger. Simple à énoncer. Beaucoup plus difficile à appliquer quand plusieurs tonnes foncent droit vers vous. Il faut une sacrée dose de sang-froid — et une lecture du comportement animal à laquelle on fait confiance les yeux fermés. Pour la composition, j’ai choisi un point de vue au ras du sol — comme si on se trouvait directement dans la ligne de charge. La trompe levée, les défenses en avant, la masse qui occupe tout le cadre : rien n’est laissé au repos dans cette image. Je voulais qu’on ressente la pression de cet instant, l’air comprimé entre l’éléphant et nous. La peinture à l’huile rend toute sa densité à cette peau rugueuse et vivante, ces plis profonds où la lumière se fracture, cette texture qui dit à elle seule l’âge et la puissance. Le travail hyperréaliste cherche ici à capturer non seulement la forme — mais la tension de cet instant suspendu entre l’intimidation et la fuite.",
+   "image_url": "img/high-and-mighty.jpg?v=7f740e9e",
+   "thumb_url": "img/high-and-mighty-thumb.jpg?v=a33b9d69"
+  },
+  {
+   "id": 16779,
+   "slug": "tableau-leopard-le-chasseur",
+   "title": "Le Chasseur",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/tableau-leopard-le-chasseur/",
+   "image": "img/tableau-leopard-le-chasseur.jpg",
+   "thumb": "img/tableau-leopard-le-chasseur-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 52,
+     "h": 70,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 61,
+      "h": 79
+     },
+     "ao_img": "ao/tableau-leopard-le-chasseur-classique.png",
+     "shadow_img": "ao/shadow-tableau-leopard-le-chasseur-classique.png",
+     "shadow_cm": {
+      "x0": -37.3,
+      "x1": 37.3,
+      "y0": -46.3,
+      "y1": 46.3
+     },
+     "usdz": "models/tableau-leopard-le-chasseur-classique-596a7482.usdz",
+     "glb": "models/tableau-leopard-le-chasseur-classique-596a7482.glb",
+     "outer_cm": {
+      "w": 60.6,
+      "h": 78.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 85,
+     "h": 115,
+     "price_framed": 1820,
+     "price_unframed": 1300,
+     "framed_cm": {
+      "w": 94,
+      "h": 124
+     },
+     "ao_img": "ao/tableau-leopard-le-chasseur-grand.png",
+     "shadow_img": "ao/shadow-tableau-leopard-le-chasseur-grand.png",
+     "shadow_cm": {
+      "x0": -53.8,
+      "x1": 53.8,
+      "y0": -68.8,
+      "y1": 68.8
+     },
+     "usdz": "models/tableau-leopard-le-chasseur-grand-21ce2949.usdz",
+     "glb": "models/tableau-leopard-le-chasseur-grand-21ce2949.glb",
+     "outer_cm": {
+      "w": 93.6,
+      "h": 123.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Ce léopard ne court pas. Il marche. Et c’est peut-être ça le plus inquiétant : cette avance lente, calculée, les yeux rivés sur l’objectif — sur nous. Dans la peinture comme sur le terrain, c’est la phase d’approche qui saisit le plus. L’accélération finale, on ne la verra pas venir. C’est maintenant qu’il faut décider. La chasse du léopard ne ressemble pas à celle du guépard. Pas d’explosion de vitesse en terrain découvert — mais une patience, une précision, une capacité à se fondre dans le décor jusqu’au dernier instant. Ce tableau a été commandé par un collectionneur avec une vision précise : capturer cet avant — l’approche silencieuse, la décision déjà prise. Pour la composition, j’ai choisi la frontalité pure. Le léopard occupe tout le cadre, au ras du sol, il avance droit vers le regardeur. Cette symétrie n’est pas un effet esthétique — elle est au service d’une sensation : être face à lui, sans issue. Le format vertical amplifie sa stature, sa présence physique dans l’espace. La palette tient dans peu de couleurs : l’ocre chaud de l’herbe sèche du bushveld, le blanc et le noir des rosettes, l’or des yeux. La peinture à l’huile, travaillée dans la tradition hyperréaliste, cherche ici à rendre chaque poil, chaque tache, chaque reflet — et à faire du regardeur non pas un spectateur, mais une proie.",
+   "image_url": "img/tableau-leopard-le-chasseur.jpg?v=5041eeb9",
+   "thumb_url": "img/tableau-leopard-le-chasseur-thumb.jpg?v=32eba74c"
+  },
+  {
+   "id": 16691,
+   "slug": "tableau-peinture-lion-gnou",
+   "title": "Je t’ai à l’oeil",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/tableau-peinture-lion-gnou/",
+   "image": "img/tableau-peinture-lion-gnou.jpg",
+   "thumb": "img/tableau-peinture-lion-gnou-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 80,
+     "h": 100,
+     "price_framed": 1960,
+     "price_unframed": 1400,
+     "framed_cm": {
+      "w": 89,
+      "h": 109
+     },
+     "ao_img": "ao/tableau-peinture-lion-gnou-grand.png",
+     "shadow_img": "ao/shadow-tableau-peinture-lion-gnou-grand.png",
+     "shadow_cm": {
+      "x0": -51.3,
+      "x1": 51.3,
+      "y0": -61.3,
+      "y1": 61.3
+     },
+     "usdz": "models/tableau-peinture-lion-gnou-grand-459da446.usdz",
+     "glb": "models/tableau-peinture-lion-gnou-grand-459da446.glb",
+     "outer_cm": {
+      "w": 88.6,
+      "h": 108.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Géant",
+     "slug": "geant",
+     "w": 130,
+     "h": 160,
+     "price_framed": 2980,
+     "price_unframed": 1900,
+     "framed_cm": {
+      "w": 139,
+      "h": 169
+     },
+     "ao_img": "ao/tableau-peinture-lion-gnou-geant.png",
+     "shadow_img": "ao/shadow-tableau-peinture-lion-gnou-geant.png",
+     "shadow_cm": {
+      "x0": -76.3,
+      "x1": 76.3,
+      "y0": -91.3,
+      "y1": 91.3
+     },
+     "usdz": "models/tableau-peinture-lion-gnou-geant-a0b46b23.usdz",
+     "glb": "models/tableau-peinture-lion-gnou-geant-a0b46b23.glb",
+     "outer_cm": {
+      "w": 138.6,
+      "h": 168.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Kenya, Masai Mara, quatrième jour de safari. Pour la première fois, j’avais emmené mes deux enfants avec moi — ceux qui m’ont vu peindre des lions toute leur vie, mais qui n’en avaient jamais vu un en liberté. Ce jour-là, nous tombons sur ce mâle superbe qui vient de tuer un gnou. Il se lève pour cacher sa proie dans un fourré, se retourne — et plante ses yeux dans les miens. Pas d’agressivité. Juste un regard qui dit tout : Je t’ai à l’œil. Pour rendre justice à ce moment, il n’y avait qu’une façon : peindre le lion à taille réelle. Une confrontation directe, sans mise à distance possible. Le lion occupe tout le format, regard frontal, la proie encore dans la gueule. Le cadrage serré ne laisse aucune échappatoire : vous êtes dans la scène. La peinture à l’huile permet ici une précision qui confine au documentaire — chaque nuance de la lumière africaine, chaque poil de la crinière encore dans le mouvement du lever, chaque détail du gnou dans la gueule — tout en restant une peinture. C’est cette tension entre la réalité brute et l’acte artistique que cherche le travail hyperréaliste. Ce tableau suscite parfois l’incompréhension — voire le rejet. Des spectateurs m’ont reproché de peindre une scène de violence. Cette réaction dit quelque chose sur notre époque : une société de plus en plus déconnectée du vivant, qui oublie que chasser pour se nourrir est aussi vieux que la vie. Je ne suis pas là pour raconter une histoire rassurante — ni Bambi, ni le Roi Lion. Je peins la vie telle qu’elle est, avec ses moments de grâce et ses moments dramatiques. Ce regard du lion, je l’ai voulu frontal et sans détour : parce que la vérité mérite qu’on la regarde en face.",
+   "image_url": "img/tableau-peinture-lion-gnou.jpg?v=2ede81e6",
+   "thumb_url": "img/tableau-peinture-lion-gnou-thumb.jpg?v=11726e57"
+  },
+  {
+   "id": 11452,
+   "slug": "peinture-brame-cerf",
+   "title": "Infidèle",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/peinture-brame-cerf/",
+   "image": "img/peinture-brame-cerf.jpg",
+   "thumb": "img/peinture-brame-cerf-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 70,
+     "h": 41,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 79,
+      "h": 50
+     },
+     "ao_img": "ao/peinture-brame-cerf-classique.png",
+     "shadow_img": "ao/shadow-peinture-brame-cerf-classique.png",
+     "shadow_cm": {
+      "x0": -46.3,
+      "x1": 46.3,
+      "y0": -31.8,
+      "y1": 31.8
+     },
+     "usdz": "models/peinture-brame-cerf-classique-cbe9e030.usdz",
+     "glb": "models/peinture-brame-cerf-classique-cbe9e030.glb",
+     "outer_cm": {
+      "w": 78.6,
+      "h": 49.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 115,
+     "h": 68,
+     "price_framed": 1820,
+     "price_unframed": 1300,
+     "framed_cm": {
+      "w": 124,
+      "h": 77
+     },
+     "ao_img": "ao/peinture-brame-cerf-grand.png",
+     "shadow_img": "ao/shadow-peinture-brame-cerf-grand.png",
+     "shadow_cm": {
+      "x0": -68.8,
+      "x1": 68.8,
+      "y0": -45.3,
+      "y1": 45.3
+     },
+     "usdz": "models/peinture-brame-cerf-grand-a7f704f6.usdz",
+     "glb": "models/peinture-brame-cerf-grand-a7f704f6.glb",
+     "outer_cm": {
+      "w": 123.6,
+      "h": 76.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Le titre ne doit rien au hasard. Pendant la période du rut, de mi-septembre à début octobre, le cerf mâle abandonne toute discrétion. Il brame, il charge, il défend son territoire — et s’accouple avec autant de biches que possible. Infidèle par nature, par nécessité, par instinct. Ce nom dit quelque chose de vrai sur cet animal que la tradition de chasse a toujours nimbé d’une forme de grandeur virile. Ce tableau a une histoire particulière : il a été réalisé dans le cadre d’un reportage de 52 minutes pour la chaîne Seasons, signé David Flacard et Laurent Buchemeyer. Pendant six mois, ils m’ont suivi — depuis les premières observations du brame dans le nord Médoc jusqu’à la présentation du tableau fini au Game-Fair de Lamotte Beuvron. Un processus long, immersif, qui commence toujours par écouter avant de peindre. Pour la composition, j’ai choisi le gros plan maximal. Le cerf ne rentre pas dans le cadre — il le déborde. La tête levée, la bouche grande ouverte dans le cri du brame, les bois qui se déploient sur toute la largeur du format horizontal : tout est dans l’excès, la démesure, l’urgence. C’est l’instant où l’animal est le plus lui-même — et le moins discret. La lumière du petit matin humide du Médoc est ce que j’ai cherché à retranscrire avant tout. Pas une lumière franche — une lumière diffuse, bleutée, qui enveloppe le cerf dans la brume et fait apparaître son souffle comme une flamme. La palette est volontairement resserrée : gris, beige, ocre chaud sur les bois. La peinture à l’huile permet de travailler ces dégradés subtils, ces passages imperceptibles entre le poil et le brouillard, entre l’animal et son environnement.",
+   "image_url": "img/peinture-brame-cerf.jpg?v=d877ebf8",
+   "thumb_url": "img/peinture-brame-cerf-thumb.jpg?v=684dce1c"
+  },
+  {
+   "id": 10839,
+   "slug": "dust-rage-peinture-rhino",
+   "title": "Dust Rage",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/dust-rage-peinture-rhino/",
+   "image": "img/dust-rage-peinture-rhino.jpg",
+   "thumb": "img/dust-rage-peinture-rhino-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 40,
+     "h": 53,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 49,
+      "h": 62
+     },
+     "ao_img": "ao/dust-rage-peinture-rhino-classique.png",
+     "shadow_img": "ao/shadow-dust-rage-peinture-rhino-classique.png",
+     "shadow_cm": {
+      "x0": -31.3,
+      "x1": 31.3,
+      "y0": -37.8,
+      "y1": 37.8
+     },
+     "usdz": "models/dust-rage-peinture-rhino-classique-da91941e.usdz",
+     "glb": "models/dust-rage-peinture-rhino-classique-da91941e.glb",
+     "outer_cm": {
+      "w": 48.6,
+      "h": 61.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 65,
+     "h": 86,
+     "price_framed": 1820,
+     "price_unframed": 1300,
+     "framed_cm": {
+      "w": 74,
+      "h": 95
+     },
+     "ao_img": "ao/dust-rage-peinture-rhino-grand.png",
+     "shadow_img": "ao/shadow-dust-rage-peinture-rhino-grand.png",
+     "shadow_cm": {
+      "x0": -43.8,
+      "x1": 43.8,
+      "y0": -54.3,
+      "y1": 54.3
+     },
+     "usdz": "models/dust-rage-peinture-rhino-grand-a398705e.usdz",
+     "glb": "models/dust-rage-peinture-rhino-grand-a398705e.glb",
+     "outer_cm": {
+      "w": 73.6,
+      "h": 94.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "« Dust Rage » est une contraction. Dust, la poussière que le rhinocéros en charge soulève comme un nuage de guerre. Et Rage, ma colère face au braconnage — cette boucherie industrielle qui massacre les rhinocéros pour leur corne, un simple amas de kératine vendu à prix d’or sans aucune justification scientifique. Ce titre est autant un état d’esprit qu’un titre de tableau. Mais ce tableau est avant tout un pied de nez à ceux qui voudraient réduire cet animal à un trophée ou une marchandise. Ce rhinocéros est vivant, souverain, magnifique. Il est au premier plan, il occupe tout l’espace, il charge. Cette charge n’est pas une menace — c’est une réponse. Une réponse d’une beauté irréfutable à la laideur de ceux qui le pourchassent. J’ai choisi le face-à-face sans recul. Le rhinocéros déborde du cadre — il prend de la place, il envahit. La poussière enveloppe la scène dans une atmosphère de mouvement total, presque sonore. Le premier plan brutal, la masse du corps, le regard — tout donne ce sentiment de présence absolue, impossible à esquiver. La lumière est sèche, directe, africaine. Elle découpe les volumes de la peau avec précision — chaque pli, chaque craquelure du cuir. Mais l’hyperréalisme n’est pas une fin en soi : il est au service de l’émotion. Rendre ce rhinocéros aussi concret et tangible, c’est refuser qu’il devienne abstrait — qu’il se réduise à un chiffre dans un rapport de braconnage.",
+   "image_url": "img/dust-rage-peinture-rhino.jpg?v=c0d5817c",
+   "thumb_url": "img/dust-rage-peinture-rhino-thumb.jpg?v=e1ecfcf7"
+  },
+  {
+   "id": 10762,
+   "slug": "bad-lieutenant",
+   "title": "Bad Lieutenant",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/bad-lieutenant/",
+   "image": "img/bad-lieutenant.jpg",
+   "thumb": "img/bad-lieutenant-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 70,
+     "h": 38,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 79,
+      "h": 47
+     },
+     "ao_img": "ao/bad-lieutenant-classique.png",
+     "shadow_img": "ao/shadow-bad-lieutenant-classique.png",
+     "shadow_cm": {
+      "x0": -46.3,
+      "x1": 46.3,
+      "y0": -30.3,
+      "y1": 30.3
+     },
+     "usdz": "models/bad-lieutenant-classique-1caaf003.usdz",
+     "glb": "models/bad-lieutenant-classique-1caaf003.glb",
+     "outer_cm": {
+      "w": 78.6,
+      "h": 46.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 110,
+     "h": 60,
+     "price_framed": 1820,
+     "price_unframed": 1300,
+     "framed_cm": {
+      "w": 119,
+      "h": 69
+     },
+     "ao_img": "ao/bad-lieutenant-grand.png",
+     "shadow_img": "ao/shadow-bad-lieutenant-grand.png",
+     "shadow_cm": {
+      "x0": -66.3,
+      "x1": 66.3,
+      "y0": -41.3,
+      "y1": 41.3
+     },
+     "usdz": "models/bad-lieutenant-grand-d2a23288.usdz",
+     "glb": "models/bad-lieutenant-grand-d2a23288.glb",
+     "outer_cm": {
+      "w": 118.6,
+      "h": 68.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Il y a quelque chose de particulier dans le vieux sanglier solitaire. Chassé des groupes, retranché dans les parties les plus denses de la forêt, il a développé une intelligence et une méfiance que les jeunes n’ont pas encore. Les chasseurs l’appellent « la bête noire ». Le titre s’est imposé pendant que je le peignais : Bad Lieutenant — pas le mauvais flic, mais le flic solitaire, celui qui agit selon ses propres règles et rend sa propre justice. La scène se passe en hiver, dans une forêt qui n’est pas à tout le monde. La neige est profonde, mais le sanglier avance — tête haute, fier, avec cette énergie sourde et inexorable qui caractérise l’animal. Une avancée que rien ne semble pouvoir arrêter. Le format panoramique épouse le mouvement horizontal de l’animal. Le contraste est radical : le corps sombre et massif contre la blancheur de la neige, la forêt qui se fond dans l’obscurité derrière lui. La neige projetée par ses propres pattes crée une atmosphère de puissance brute. J’ai travaillé la texture du pelage avec soin — ce poil raide, dense, presque minéral qui rend le sanglier si particulier. Ce tableau est une ode à l’animal sauvage dans son élément le plus radical : l’hiver, la forêt, la neige. Pas de lumière dorée, pas de couleurs chatoyantes. Juste le noir, le blanc, et cette énergie que rien ne semble pouvoir arrêter. Bad Lieutenant ne pose pas pour le tableau. Il traverse.",
+   "image_url": "img/bad-lieutenant.jpg?v=2b7a8e8a",
+   "thumb_url": "img/bad-lieutenant-thumb.jpg?v=bada5014"
+  },
+  {
+   "id": 10747,
+   "slug": "peinture-elephants-crossing",
+   "title": "Elephants Crossing",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/peinture-elephants-crossing/",
+   "image": "img/peinture-elephants-crossing.jpg",
+   "thumb": "img/peinture-elephants-crossing-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 95,
+     "h": 47,
+     "price_framed": 1600,
+     "price_unframed": 1100,
+     "framed_cm": {
+      "w": 104,
+      "h": 56
+     },
+     "ao_img": "ao/peinture-elephants-crossing-classique.png",
+     "shadow_img": "ao/shadow-peinture-elephants-crossing-classique.png",
+     "shadow_cm": {
+      "x0": -58.8,
+      "x1": 58.8,
+      "y0": -34.8,
+      "y1": 34.8
+     },
+     "usdz": "models/peinture-elephants-crossing-classique-9664bef6.usdz",
+     "glb": "models/peinture-elephants-crossing-classique-9664bef6.glb",
+     "outer_cm": {
+      "w": 103.6,
+      "h": 55.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Le Zambèze est l’un de ces fleuves qui structurent l’Afrique australe autant qu’ils la traversent. Les éléphants le franchissent régulièrement, souvent en groupe, dans un silence relatif qui contraste avec la puissance de ce qu’on observe. Trois d’entre eux, ici. L’eau à mi-corps, les défenses captant la lumière, les trompes relevées. Ce qui m’a arrêté dans cette scène, c’est la façon dont les corps s’organisent naturellement dans l’espace — presque comme une composition pensée, alors qu’elle ne l’est pas du tout. Trois masses immenses qui avancent dans le même sens, et pourtant chacune avec sa propre présence, son propre rapport à la lumière. La composition est résolument horizontale, mais les trompes et les défenses viennent y introduire des diagonales, des ruptures, un dynamisme graphique presque abstrait. J’ai beaucoup travaillé la texture — la peau épaisse et rugueuse des éléphants, l’eau qui accroche la lumière différemment selon les surfaces, le contraste entre les zones d’ombre profondes et les reflets presque blancs sur les défenses. Ce tableau est autant un exercice de lumière qu’un portrait d’animaux. À un certain niveau de détail, la peau d’un éléphant mouillé devient presque une abstraction — une géographie de textures et de tons. C’est ce que je voulais explorer ici, et ce que j’espère que le spectateur ressent en s’approchant.",
+   "image_url": "img/peinture-elephants-crossing.jpg?v=8841525e",
+   "thumb_url": "img/peinture-elephants-crossing-thumb.jpg?v=4a1d1fb4"
+  },
+  {
+   "id": 8010,
+   "slug": "peinture-lion-regard",
+   "title": "You’re Next",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/peinture-lion-regard/",
+   "image": "img/peinture-lion-regard.jpg",
+   "thumb": "img/peinture-lion-regard-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 75,
+     "h": 55,
+     "price_framed": 1600,
+     "price_unframed": 1100,
+     "framed_cm": {
+      "w": 84,
+      "h": 64
+     },
+     "ao_img": "ao/peinture-lion-regard-classique.png",
+     "shadow_img": "ao/shadow-peinture-lion-regard-classique.png",
+     "shadow_cm": {
+      "x0": -48.8,
+      "x1": 48.8,
+      "y0": -38.8,
+      "y1": 38.8
+     },
+     "usdz": "models/peinture-lion-regard-classique-01d9ec25.usdz",
+     "glb": "models/peinture-lion-regard-classique-01d9ec25.glb",
+     "outer_cm": {
+      "w": 83.6,
+      "h": 63.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Afrique du Sud, le Timbavati. Ce jeune lion mâle dévore un buffle depuis plus de deux jours — ils sont sept à se le partager. Nous observons la scène avec les vautours : les mouches pullulent, l’odeur est forte, à la limite du supportable. Les lions sont repus mais ne quitteront la carcasse que bien plus tard. À travers la corne du buffle, le jeune mâle me fixe soudain. Pas d’agressivité, pas de fuite — juste ce regard calme, direct, qui semble dire : « Bouge pas. Le prochain, c’est toi. » C’est ce moment précis que j’ai voulu peindre. La composition est construite autour de cet affrontement de regards : le lion au premier plan, la corne du buffle comme un cadre dans le cadre, et l’œil — cet œil jaune, fixe, qui occupe le centre du tableau. Les tons sont sombres, chauds, saturés de cette lumière d’après-midi africaine. La texture du pelage, le sang, la poussière — tout contribue à l’immédiateté de la scène. Je voulais que le spectateur ressente ce que j’ai ressenti ce jour-là : cette légère inquiétude mêlée de fascination, ce privilège d’être là, si près, et cette certitude absolue d’être en bas de la chaîne alimentaire.",
+   "image_url": "img/peinture-lion-regard.jpg?v=5ac6c298",
+   "thumb_url": "img/peinture-lion-regard-thumb.jpg?v=207a7f6e"
+  },
+  {
+   "id": 5769,
+   "slug": "peinture-tableau-buffle-lastwarning",
+   "title": "Last Warning",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/peinture-tableau-buffle-lastwarning/",
+   "image": "img/peinture-tableau-buffle-lastwarning.jpg",
+   "thumb": "img/peinture-tableau-buffle-lastwarning-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 86,
+     "h": 37,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 95,
+      "h": 46
+     },
+     "ao_img": "ao/peinture-tableau-buffle-lastwarning-classique.png",
+     "shadow_img": "ao/shadow-peinture-tableau-buffle-lastwarning-classique.png",
+     "shadow_cm": {
+      "x0": -54.3,
+      "x1": 54.3,
+      "y0": -29.8,
+      "y1": 29.8
+     },
+     "usdz": "models/peinture-tableau-buffle-lastwarning-classique-17abed37.usdz",
+     "glb": "models/peinture-tableau-buffle-lastwarning-classique-17abed37.glb",
+     "outer_cm": {
+      "w": 94.6,
+      "h": 45.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 140,
+     "h": 60,
+     "price_framed": 2184,
+     "price_unframed": 1560,
+     "framed_cm": {
+      "w": 149,
+      "h": 69
+     },
+     "ao_img": "ao/peinture-tableau-buffle-lastwarning-grand.png",
+     "shadow_img": "ao/shadow-peinture-tableau-buffle-lastwarning-grand.png",
+     "shadow_cm": {
+      "x0": -81.3,
+      "x1": 81.3,
+      "y0": -41.3,
+      "y1": 41.3
+     },
+     "usdz": "models/peinture-tableau-buffle-lastwarning-grand-3d418e8d.usdz",
+     "glb": "models/peinture-tableau-buffle-lastwarning-grand-3d418e8d.glb",
+     "outer_cm": {
+      "w": 148.6,
+      "h": 68.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Le buffle n’a pas un regard de bovin. Tous ceux que j’ai pu observer avaient leur caractère propre, leurs traits, leur personnalité — certains sont beaux, d’autres le sont moins. Mais ce qui les réunit, c’est cette intensité dans les yeux, un regard qui vous jauge et vous juge de haut, presque humain dans sa dureté. Quand Robert Ruark a écrit que le buffle « vous regarde comme si vous lui deviez de l’argent », il a mis des mots exacts sur ce que ressent quiconque a croisé ce regard-là. « Last Warning » — le dernier avertissement. Ce gros mâle vous fixe, vous évalue. Charge ou pas ? Peut-être. Peut-être pas. C’est précisément cette incertitude qui rend l’animal si fascinant et si redouté. J’ai voulu peindre un buffle avec une vraie personnalité — un visage dont l’intensité transperce, pas un animal générique. Illustrer la phrase de Ruark à travers un tableau, rendre ce sentiment qu’on éprouve quand un buffle vous juge dans les yeux. Le format panoramique s’est imposé naturellement : il fallait que les cornes occupent tout l’espace, qu’elles débordent presque du cadre. La palette est froide — bleus, gris, blancs cassés — pour restituer la lumière particulière de la savane en pleine journée, et concentrer toute la tension du tableau dans le seul regard de l’animal. En arrière-plan, un second buffle à peine esquissé rappelle que ce mâle n’est pas seul. Le regard est toujours le point de départ de mes tableaux. C’est lui qui accroche, qui interroge, qui crée le lien entre l’animal et celui qui regarde. Avec Last Warning, je voulais que ce lien soit inconfortable — que le spectateur ressente, même le temps d’un instant, ce que ressent un homme face à un buffle qui a pris sa décision.",
+   "image_url": "img/peinture-tableau-buffle-lastwarning.jpg?v=f1a82e55",
+   "thumb_url": "img/peinture-tableau-buffle-lastwarning-thumb.jpg?v=75acc480"
+  },
+  {
+   "id": 4574,
+   "slug": "tableau-lion",
+   "title": "Sunset Guardian",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/tableau-lion/",
+   "image": "img/tableau-lion.jpg",
+   "thumb": "img/tableau-lion-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 41,
+     "h": 27,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 50,
+      "h": 36
+     },
+     "ao_img": "ao/tableau-lion-classique.png",
+     "shadow_img": "ao/shadow-tableau-lion-classique.png",
+     "shadow_cm": {
+      "x0": -31.8,
+      "x1": 31.8,
+      "y0": -24.8,
+      "y1": 24.8
+     },
+     "usdz": "models/tableau-lion-classique-f10e8690.usdz",
+     "glb": "models/tableau-lion-classique-f10e8690.glb",
+     "outer_cm": {
+      "w": 49.6,
+      "h": 35.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Neuf mois sans peindre. Neuf mois à mettre de côté les pinceaux, les toiles, les odeurs d’huile. Ce n’était pas une pause choisie par la fatigue, mais une nécessité — le temps de comprendre pourquoi je peins, et vers où je veux aller. Sunset Guardian est né de ce silence. Le premier tableau après la longue parenthèse. J’ai voulu que ce lion incarne exactement ce que j’avais trouvé pendant ces neuf mois : une présence posée, sans agitation. Il ne regarde pas, il est . Assis dans la lumière du soir, il n’a rien à prouver. Cette sérénité souveraine, c’est ce que je cherchais à retrouver moi-même. La lumière rasante du soleil couchant sculpte le pelage en touches chaudes — ors, orangés brûlés, ombres longues. Le fond disparaît dans une brume dorée qui isole la figure et concentre toute l’attention sur le visage. La facture est plus enlevée que mes travaux antérieurs, plus libre dans le détail, sans sacrifier le réalisme de l’ensemble. Ce tableau marque un tournant dans mon travail. Après la pause, je ne cherchais plus à prouver la technique — je voulais que chaque coup de pinceau porte quelque chose de vrai. Sunset Guardian est la première œuvre où j’ai eu le sentiment d’avoir peint exactement ce que je ressentais, et pas simplement ce que je voyais.",
+   "image_url": "img/tableau-lion.jpg?v=cb5087c0",
+   "thumb_url": "img/tableau-lion-thumb.jpg?v=61b2c56c"
+  },
+  {
+   "id": 4347,
+   "slug": "the-big-one-peinture-elephant",
+   "title": "The Big One",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/the-big-one-peinture-elephant/",
+   "image": "img/the-big-one-peinture-elephant.jpg",
+   "thumb": "img/the-big-one-peinture-elephant-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Grand",
+     "slug": "grand",
+     "w": 80,
+     "h": 100,
+     "price_framed": 1960,
+     "price_unframed": 1400,
+     "framed_cm": {
+      "w": 89,
+      "h": 109
+     },
+     "ao_img": "ao/the-big-one-peinture-elephant-grand.png",
+     "shadow_img": "ao/shadow-the-big-one-peinture-elephant-grand.png",
+     "shadow_cm": {
+      "x0": -51.3,
+      "x1": 51.3,
+      "y0": -61.3,
+      "y1": 61.3
+     },
+     "usdz": "models/the-big-one-peinture-elephant-grand-ccb5ad31.usdz",
+     "glb": "models/the-big-one-peinture-elephant-grand-ccb5ad31.glb",
+     "outer_cm": {
+      "w": 88.6,
+      "h": 108.6,
+      "d": 4
+     }
+    },
+    {
+     "label": "Géant",
+     "slug": "geant",
+     "w": 130,
+     "h": 162,
+     "price_framed": 2980,
+     "price_unframed": 1900,
+     "framed_cm": {
+      "w": 139,
+      "h": 171
+     },
+     "ao_img": "ao/the-big-one-peinture-elephant-geant.png",
+     "shadow_img": "ao/shadow-the-big-one-peinture-elephant-geant.png",
+     "shadow_cm": {
+      "x0": -76.3,
+      "x1": 76.3,
+      "y0": -92.3,
+      "y1": 92.3
+     },
+     "usdz": "models/the-big-one-peinture-elephant-geant-e72898c1.usdz",
+     "glb": "models/the-big-one-peinture-elephant-geant-e72898c1.glb",
+     "outer_cm": {
+      "w": 138.6,
+      "h": 170.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "Il y a, dans la vie d’un artiste, une œuvre qui prend une place à part — une seule, qui porte tout le reste. The Big One est la mienne. Ce défi, j’y pensais depuis longtemps. Quand j’ai finalement décidé de me lancer, je n’avais pas encore vraiment mesuré ce que ça allait représenter. Un an de travail. Des moments de doute profond, des moments de joie pure. Des dizaines de tubes vidés, des pinceaux usés jusqu’à la corde — et pour les parties hautes, un échafaudage, parce que la toile fait 2,50 mètres. Et puis ce jour, la dernière touche, qui restera gravé en moi comme l’un des instants les plus intenses de ma vie d’artiste. Le tableau est aujourd’hui accroché chez un ami cher. De temps en temps, je lui rends visite. Et, bizarrement, je ne m’en lasse pas. La composition est frontale, presque symétrique — l’éléphant arrive droit sur vous, tête haute, oreilles déployées, trompe basse. Il occupe toute la toile, du bord gauche au bord droit. La palette est celle de la savane en saison sèche : des ocres dorés, des bruns chauds et ambrés, un fond d’herbes sèches qui enveloppe la silhouette. Chaleureux, presque lumineux — et pourtant, écrasant. À cette échelle, la peinture cesse d’être un objet que l’on regarde pour devenir quelque chose que l’on ressent. Je voulais que le spectateur éprouve physiquement la présence de l’animal — non pas l’observer à distance, mais se retrouver face à lui, comme en brousse.",
+   "image_url": "img/the-big-one-peinture-elephant.jpg?v=5eae6025",
+   "thumb_url": "img/the-big-one-peinture-elephant-thumb.jpg?v=01e9aefc"
+  },
+  {
+   "id": 4694,
+   "slug": "twiga-peinture-giraffe-tableau-portrait",
+   "title": "Twiga",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/twiga-peinture-giraffe-tableau-portrait/",
+   "image": "img/twiga-peinture-giraffe-tableau-portrait.jpg",
+   "thumb": "img/twiga-peinture-giraffe-tableau-portrait-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 27,
+     "h": 41,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 36,
+      "h": 50
+     },
+     "ao_img": "ao/twiga-peinture-giraffe-tableau-portrait-classique.png",
+     "shadow_img": "ao/shadow-twiga-peinture-giraffe-tableau-portrait-classique.png",
+     "shadow_cm": {
+      "x0": -24.8,
+      "x1": 24.8,
+      "y0": -31.8,
+      "y1": 31.8
+     },
+     "usdz": "models/twiga-peinture-giraffe-tableau-portrait-classique-8ec1cb79.usdz",
+     "glb": "models/twiga-peinture-giraffe-tableau-portrait-classique-8ec1cb79.glb",
+     "outer_cm": {
+      "w": 35.6,
+      "h": 49.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "“Twiga” — c’est le mot swahili pour “girafe”. Un mot qui sonne comme l’animal lui-même : haut, élancé, un peu déséquilibré dans sa beauté. Ce tableau fait partie de la série “Sépias Africains”, dans laquelle j’ai travaillé avec une palette reserrée, presque monochrome, pour aller à l’essentiel de la forme. Le modèle avait six mois au moment de la peinture. Six mois, et déjà trois mètres. Il y a dans la jeunesse de la girafe quelque chose d’attachant — ces longues pattes encore maladroites, ce cou qui n’est pas encore tout à fait maîtrisé, cette curiosité ouverte sur le monde. Je voulais fixer cet instant précis où la maladresse est encore visible, avant que la grâce définitive ne s’installe. Pour la composition, j’ai choisi le portrait serré. Le girafon occupe presque tout le champ vertical. Pas de paysage, pas de contexte : juste lui. Ce resserrement force le regard à se poser sur les détails — les taches, la texture du pelage, l’œil surtout, cet œil immense et doux qui est peut-être la chose la plus belle chez la girafe. La lumière est douce, tamisée, de cette qualité particulière qu’on trouve en fin d’après-midi sur les savanes. Les tons sépia amplifient cet effet — ils réchauffent la scène, leur donnent une densité temporelle, comme si ce moment appartenait déjà à un passé précieux. C’est ça que j’aime dans cette série : la couleur s’efface pour que la forme reste.",
+   "image_url": "img/twiga-peinture-giraffe-tableau-portrait.jpg?v=3164eaaa",
+   "thumb_url": "img/twiga-peinture-giraffe-tableau-portrait-thumb.jpg?v=1c654fdb"
+  },
+  {
+   "id": 4685,
+   "slug": "peinture-rhino",
+   "title": "Pembe",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/peinture-rhino/",
+   "image": "img/peinture-rhino.jpg",
+   "thumb": "img/peinture-rhino-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 33,
+     "h": 41,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 42,
+      "h": 50
+     },
+     "ao_img": "ao/peinture-rhino-classique.png",
+     "shadow_img": "ao/shadow-peinture-rhino-classique.png",
+     "shadow_cm": {
+      "x0": -27.8,
+      "x1": 27.8,
+      "y0": -31.8,
+      "y1": 31.8
+     },
+     "usdz": "models/peinture-rhino-classique-d701c3eb.usdz",
+     "glb": "models/peinture-rhino-classique-d701c3eb.glb",
+     "outer_cm": {
+      "w": 41.6,
+      "h": 49.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "« Pembe » signifie « Corne » en Swahili. Un seul mot pour désigner ce qui fait le rhinocéros : ce qui le distingue, ce qui le protège, et ce qui, aujourd’hui, le met en danger. Ce tableau appartient à la collection des « Sépias Africains » — une série où j’ai choisi de travailler en camaïeux chauds, presque monochromes, pour concentrer l’attention sur la forme plutôt que sur la couleur. Ce qui m’a fasciné ici, c’est la peau. Cette armure naturelle, plissée, craquelée, presque minérale. J’ai travaillé la lumière rase qui vient souligner chaque relief, chaque pli, chaque fissure — comme si la matière elle-même racontait une vie entière. Le résultat est moins un portrait qu’une étude de texture. Le rhinocéros devient presque abstrait — une surface de pierre et de cuir, traversée par la lumière.",
+   "image_url": "img/peinture-rhino.jpg?v=0b0565fc",
+   "thumb_url": "img/peinture-rhino-thumb.jpg?v=ba5e4185"
+  },
+  {
+   "id": 4666,
+   "slug": "udongo-portrait-elephant-tableau",
+   "title": "Udongo",
+   "edition": "25",
+   "url": "https://www.stephane-alsac.com/boutique/tirages-art/tirages-sur-toile/udongo-portrait-elephant-tableau/",
+   "image": "img/udongo-portrait-elephant-tableau.jpg",
+   "thumb": "img/udongo-portrait-elephant-tableau-thumb.jpg",
+   "sizes": [
+    {
+     "label": "Classique",
+     "slug": "classique",
+     "w": 27,
+     "h": 41,
+     "price_framed": 1150,
+     "price_unframed": 760,
+     "framed_cm": {
+      "w": 36,
+      "h": 50
+     },
+     "ao_img": "ao/udongo-portrait-elephant-tableau-classique.png",
+     "shadow_img": "ao/shadow-udongo-portrait-elephant-tableau-classique.png",
+     "shadow_cm": {
+      "x0": -24.8,
+      "x1": 24.8,
+      "y0": -31.8,
+      "y1": 31.8
+     },
+     "usdz": "models/udongo-portrait-elephant-tableau-classique-d8626d25.usdz",
+     "glb": "models/udongo-portrait-elephant-tableau-classique-d8626d25.glb",
+     "outer_cm": {
+      "w": 35.6,
+      "h": 49.6,
+      "d": 4
+     }
+    }
+   ],
+   "description": "« Udongo » est ma première peinture à l’huile. Peindre l’éléphant — cet animal monumental, à la peau épaisse comme la terre — s’est imposé comme une évidence pour inaugurer cette technique. La peinture à l’huile offre une matière, une profondeur que l’acrylique ne peut rendre de la même façon. Et l’éléphant, peut-être plus que tout autre animal, méritait cette richesse. L’éléphant d’Udongo n’est pas montré en mouvement, ni dans l’action. Il est simplement là — présent, massif, imperturbable. Le cadrage serré sur sa peau fait disparaître l’horizon, le contexte, le décor. Il ne reste que lui : cette architecture vivante, cette terre animée. « Udongo », la terre en Swahili. C’était le seul titre possible. Deux couleurs seulement : de la terre d’ombre brûlée et du blanc de titane. Cette palette réduite à l’essentiel n’est pas une contrainte — c’est un choix. Elle oblige à tout dire avec la lumière, le contraste, la matière. La peau de l’éléphant, avec ses craquelures et ses sillons profonds, devient un territoire en soi. À force de sobriété, le tableau bascule vers quelque chose d’autre : on ne sait plus si l’on regarde un animal ou un paysage minéral. Avec Udongo, je voulais explorer jusqu’où une palette dépouillée pouvait aller. La peinture à l’huile m’a permis de travailler la texture en couches successives — d’accumuler la matière comme l’éléphant accumule les années. Ce tableau est une déclaration d’intention pour toute la collection Sépias Africains : la faune comme prétexte à explorer la peinture dans sa dimension la plus brute.",
+   "image_url": "img/udongo-portrait-elephant-tableau.jpg?v=938fe020",
+   "thumb_url": "img/udongo-portrait-elephant-tableau-thumb.jpg?v=8225bff8"
   }
  ]
 }
