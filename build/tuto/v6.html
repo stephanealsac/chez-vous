@@ -27,26 +27,27 @@ body{background:var(--bg)}
 .world .coach svg{position:absolute;left:-150px;top:-60px;width:300px;height:360px;overflow:visible}
 #fullwrap{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;opacity:0;background:#000}
 .wdim{position:absolute;left:0;top:0;width:1080px;height:1920px;opacity:0}
-.wdim line{stroke:#1a1a1a;stroke-width:4}
+.wdim line{display:none}
+.wdim text.th,.wdim text.tv{display:none}
 .wdim text{font-family:var(--serif);font-size:54px;font-weight:400;fill:#1a1a1a}
 .wdim text.lbl{font-style:italic;font-weight:300;font-size:64px}
 /* pastilles */
 .pill{position:absolute;padding:22px 38px;border-radius:999px;background:var(--ink);color:var(--bg);font:500 26px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;opacity:0;transform-origin:50% 50%;box-shadow:0 18px 30px rgba(20,14,8,.25)}
 .pill b{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:.04em;text-transform:none;margin-left:14px}
 /* sous-titres */
-#sub{position:absolute;left:60px;right:60px;top:230px;text-align:center;pointer-events:none}
+#sub{position:absolute;left:60px;right:60px;top:230px;z-index:40;text-align:center;pointer-events:none}
 #sub span{display:inline-block;padding:10px 20px;color:var(--ink);font-family:var(--serif);font-style:italic;font-weight:300;font-size:74px;line-height:1.1;letter-spacing:.01em;opacity:0;text-shadow:0 0 22px rgba(238,234,225,.95),0 0 44px rgba(238,234,225,.8);text-wrap:balance}
 /* bannière Quick Look */
 .banner{position:absolute;left:34px;right:34px;bottom:54px;padding:40px 44px;border-radius:44px;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:space-between;gap:30px;transform:translateY(140px);opacity:0}
 .banner .t{font:600 38px/1.3 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#111}
 .banner .s{font:400 30px/1.35 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#555;white-space:nowrap}
 .banner .b{font:600 34px/1 -apple-system,'Helvetica Neue',Helvetica,sans-serif;color:#0a7cff;white-space:nowrap}
-#buy{position:absolute;inset:0;background:var(--bg);opacity:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#buy{position:absolute;inset:0;background:var(--bg);opacity:0;z-index:35;display:flex;flex-direction:column;align-items:center;justify-content:center}
 #buy svg{width:260px;height:260px}
 #buy .lab{font:500 28px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;margin-top:40px}
 #buy .big{font-size:84px;margin-top:26px}
-#white{position:absolute;inset:0;background:#fff;opacity:0}
-#fade{position:absolute;inset:0;background:var(--bg);opacity:0}
+#white{position:absolute;inset:0;background:#fff;opacity:0;z-index:30}
+#fade{position:absolute;inset:0;background:var(--bg);opacity:0;z-index:60}
 </style></head>
 <body>
 <div id="stage">
@@ -104,7 +105,7 @@ function setDims(w, cx, cy, wcm, hcm, label) {
   L('.dh', { x1: x0, y1: y0 - 56, x2: x1, y2: y0 - 56 }); L('.t1', { x1: x0, y1: y0 - 76, x2: x0, y2: y0 - 36 }); L('.t2', { x1: x1, y1: y0 - 76, x2: x1, y2: y0 - 36 });
   L('.dv', { x1: x1 + 56, y1: y0, x2: x1 + 56, y2: y1 }); L('.t3', { x1: x1 + 36, y1: y0, x2: x1 + 76, y2: y0 }); L('.t4', { x1: x1 + 36, y1: y1, x2: x1 + 76, y2: y1 });
   const th = d.querySelector('.th'); th.setAttribute('x', cx); th.setAttribute('y', y0 - 92); th.textContent = label[0] + ' cm';
-  const lb = d.querySelector('.lbl'); lb.setAttribute('x', cx); lb.setAttribute('y', y1 + 86); lb.textContent = 'Format ' + label[2];
+  const lb = d.querySelector('.lbl'); lb.setAttribute('x', cx); lb.setAttribute('y', y1 + 78); lb.textContent = 'Format ' + label[2];
   const tv = d.querySelector('.tv'); const fits = x1 + 92 + 150 < 1080;
   tv.setAttribute('text-anchor', fits ? 'start' : 'end'); tv.setAttribute('x', fits ? x1 + 92 : Math.min(x1 + 56 + 70, 1068)); tv.setAttribute('y', fits ? cy + 18 : y0 - 26); tv.textContent = label[1] + ' cm';
 }
@@ -180,7 +181,7 @@ window.render = function (T) {
   for (const [t0, x, y] of taps1) if (t >= t0 && t < t0 + .7) rippleAt($('rip1'), scrLeft + x, scrTop + y, t, t0);
   for (const [t0, y] of [[6.0, ROWS[1]], [7.0, ROWS[0]]]) if (T >= t0 && T < t0 + .7) rippleAt($('rip1'), scrLeft + 195 * 2 * K2, scrTop + y, T, t0);
   // ---------- plein cadre ----------
-  const fw = $('fullwrap'); fw.style.opacity = win(t, 10.45, 10.75, 26.6, 27.3);
+  const fw = $('fullwrap'); fw.style.opacity = win(t, 10.45, 10.75, 26.75, 26.85);
   const settle = seg(t, 10.7, 11.9);
   const ws = lerp(1.74 * ZS, 1.035, settle) - 0.035 * seg(t, 12.2, 13.2);   // léger sur-cadrage tant que la main bouge (pas de bord noir)
   const drift2 = Math.sin((t - 10.5) * 1.2) * 10 * (1 - seg(t, 12, 12.8)) + Math.sin(t * 2.3) * 2;
@@ -204,8 +205,8 @@ window.render = function (T) {
   if (t >= 16.5 && t < 17.2) rippleAt($('rip2'), FX, FY + 40, t, 16.5);
   if (t >= 24.15 && t < 24.8) rippleAt($('rip2'), 870, 1800, t, 24.15);
   // ---------- commande ----------
-  $('white').style.opacity = win(t, 26.6, 26.8, 26.85, 27.3);
-  $('buy').style.opacity = win(t, 27.0, 27.5, 99, 100);
+  $('white').style.opacity = win(t, 26.5, 26.75, 26.9, 27.4);
+  $('buy').style.opacity = t >= 26.85 ? 1 : 0;
   const ck = seg(t, 27.5, 28.2); $('ck').style.strokeDasharray = 200; $('ck').style.strokeDashoffset = 200 * (1 - ck);
   $('ck-c').style.strokeDasharray = 742; $('ck-c').style.strokeDashoffset = 742 * (1 - seg(t, 27.1, 28.0));
   subtitle(t, T);
