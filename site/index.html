@@ -103,9 +103,9 @@ model-viewer{width:2px;height:2px}
 .tuto{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column;padding:calc(12px + var(--sat)) var(--gr) calc(12px + var(--sab)) var(--gl)}
 .tuto.open{display:flex}
 .tuto .top{font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;text-align:center;padding:10px 0 14px;border-bottom:1px solid var(--border)}
-.tuto .stage{flex:1;min-height:0;display:grid;place-items:center;padding:10px 0}
-.tuto .player{position:relative;max-height:100%;aspect-ratio:9/16;display:grid;place-items:center}
-.tuto video{height:100%;max-height:100%;max-width:100%;aspect-ratio:9/16;background:var(--bg);display:block}
+.tuto .stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px 0;overflow:hidden}
+.tuto .player{position:relative;height:100%;max-width:100%;aspect-ratio:9/16;flex:0 0 auto}
+.tuto video{width:100%;height:100%;object-fit:contain;background:var(--bg);display:block}
 .tuto .play{position:absolute;left:50%;top:50%;width:88px;height:88px;margin:-44px 0 0 -44px;padding:0;display:grid;place-items:center;transition:opacity .3s}
 .tuto .play svg{width:88px;height:88px;filter:drop-shadow(0 6px 14px rgba(26,26,26,.25))}
 .tuto .player.playing .play{opacity:0;pointer-events:none}

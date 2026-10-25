@@ -9,7 +9,7 @@ const failed = []; page.on('response', r => { if (r.status() >= 400) failed.push
 await page.goto('https://chez-vous.stephane-alsac.com/', { waitUntil: 'networkidle' });
 console.log('titre:', await page.title(), '| cartes:', await page.locator('a.card').count());
 const tutoOpen = await page.evaluate(() => document.querySelector('#tuto').classList.contains('open'));
-const videoOk = await page.evaluate(() => new Promise(res => { const v = document.querySelector('#tuto-video'); if (v.readyState >= 2) return res(true); v.addEventListener('loadeddata', () => res(true), { once: true }); setTimeout(() => res(false), 15000); }));
+const videoOk = await page.evaluate(() => new Promise(res => { const v = document.querySelector('#tuto-video'); if (v.readyState >= 1) return res(true); v.addEventListener('loadedmetadata', () => res(true), { once: true }); setTimeout(() => res(false), 15000); }));
 console.log('tutoriel 1re visite:', tutoOpen, '| vidéo chargée:', videoOk);
 if (tutoOpen) { await page.click('#tuto-close'); await page.waitForTimeout(300); }
 await page.click('a.card:nth-child(8)'); await page.waitForTimeout(800);   // 8 = Corne de Brume (2 formats)
