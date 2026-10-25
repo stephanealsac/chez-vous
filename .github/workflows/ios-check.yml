@@ -1,0 +1,9 @@
+name: ios-check
+on:
+  push:
+    paths: ['.github/workflows/ios-check.yml']
+jobs:
+  probe:
+    runs-on: macos-15
+    steps:
+      - run: sw_vers && xcodebuild -version && xcrun simctl list runtimes | head -5
