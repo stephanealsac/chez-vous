@@ -106,12 +106,12 @@ def shimmer(notes, dur=2.2, g=0.35):
         s += (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * f * 2.76 * t)) * np.exp(-np.maximum(t - d, 0) * 2.0) * (t > d)
     return (s / len(notes) * g).astype(np.float32)
 if VER == 6:   # film 6 : bruitages seuls, pas de musique ni de voix
-    place(sfx, whoosh(), 0.15); place(sfx, whoosh(0.9, 200, 1800, .45), 9.35)
-    for tt in [13.2, 16.8]: place(sfx, pop(), tt)
-    for tt in [4.6, 7.4, 16.5, 17.8, 24.15]: place(sfx, tick(), tt)
-    place(sfx, thump(), 8.15)
-    place(sfx, shimmer([86, 90, 93, 98, 102]), 12.6)
-    place(sfx, shimmer([74, 81], 1.6, .4), 27.5)
+    place(sfx, whoosh(), 0.15); place(sfx, whoosh(0.9, 200, 1800, .45), 11.35)
+    place(sfx, pop(.35), 17.8)
+    for tt in [4.6, 6.0, 7.0, 9.4, 17.5, 18.8, 25.15]: place(sfx, tick(), tt)
+    place(sfx, thump(), 10.15)
+    place(sfx, shimmer([86, 90, 93, 98, 102]), 13.93)
+    place(sfx, shimmer([74, 81], 1.6, .4), 28.5)
 elif VER >= 5:
     place(sfx, whoosh(), 3.65); place(sfx, whoosh(0.9, 200, 1800, .45), 12.35)
     for tt in [4.9, 8.2, 11.1, 17.2, 18.6, 20.2, 21.8]: place(sfx, pop(), tt)

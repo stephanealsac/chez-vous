@@ -29,11 +29,12 @@ body{background:var(--bg)}
 .wdim{position:absolute;left:0;top:0;width:1080px;height:1920px;opacity:0}
 .wdim line{stroke:#1a1a1a;stroke-width:4}
 .wdim text{font-family:var(--serif);font-size:54px;font-weight:400;fill:#1a1a1a}
+.wdim text.lbl{font-style:italic;font-weight:300;font-size:64px}
 /* pastilles */
 .pill{position:absolute;padding:22px 38px;border-radius:999px;background:var(--ink);color:var(--bg);font:500 26px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;opacity:0;transform-origin:50% 50%;box-shadow:0 18px 30px rgba(20,14,8,.25)}
 .pill b{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:.04em;text-transform:none;margin-left:14px}
 /* sous-titres */
-#sub{position:absolute;left:60px;right:60px;top:130px;text-align:center;pointer-events:none}
+#sub{position:absolute;left:60px;right:60px;top:230px;text-align:center;pointer-events:none}
 #sub span{display:inline-block;padding:10px 20px;color:var(--ink);font-family:var(--serif);font-style:italic;font-weight:300;font-size:74px;line-height:1.1;letter-spacing:.01em;opacity:0;text-shadow:0 0 22px rgba(238,234,225,.95),0 0 44px rgba(238,234,225,.8);text-wrap:balance}
 /* bannière Quick Look */
 .banner{position:absolute;left:34px;right:34px;bottom:54px;padding:40px 44px;border-radius:44px;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:space-between;gap:30px;transform:translateY(140px);opacity:0}
@@ -54,6 +55,7 @@ body{background:var(--bg)}
     <div class="scr">
       <div class="lay" id="l-cat"><img class="page" src="full-catalogue.png" alt=""></div>
       <div class="lay" id="l-fiche"><img class="page" src="full-zebra.png" alt=""></div>
+      <div class="lay" id="l-fiche2"><img class="page" src="full-zebra-grand.png" alt=""></div>
       <div class="lay" id="dark"></div>
       <div class="lay" id="l-cam"><div class="world" id="w1"></div></div>
     </div>
@@ -62,12 +64,12 @@ body{background:var(--bg)}
   <div class="pill" id="p1">Éditions sur Toile</div>
   <div class="pill" id="p2">Format <b>Classique · 85 × 40 cm</b></div>
   <div class="pill" id="p3">Réalité augmentée</div>
-  <div class="ripple" id="rip1" style="border-color:rgba(26,26,26,.9)"></div>
+  <div class="ripple" id="rip1" style="border-color:#fff;box-shadow:0 0 0 2px rgba(0,0,0,.28),0 0 26px rgba(0,0,0,.35),inset 0 0 18px rgba(0,0,0,.15)"></div>
 
   <div id="fullwrap"><div class="world" id="w2"></div>
     <div class="pill" id="p4"></div>
     <div class="banner" id="banner"><div><div class="t">Razzle Dazzle</div><div class="s">Grand · 140 × 65 cm, 1 820 €</div></div><div class="b">Acquérir ce tirage</div></div>
-    <div class="ripple" id="rip2" style="border-color:rgba(255,255,255,.95)"></div>
+    <div class="ripple" id="rip2" style="border-color:#fff;box-shadow:0 0 0 2px rgba(0,0,0,.28),0 0 26px rgba(0,0,0,.35),inset 0 0 18px rgba(0,0,0,.15)"></div>
     <div id="fingerhost"></div>
   </div>
   <div id="white"></div>
@@ -93,7 +95,7 @@ function worldHTML() {
     <div class="hang"><img src="zebra-classique.png" alt=""></div>
     <div class="pulse"></div>
     <div class="coach"><svg viewBox="0 0 300 360" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"><g class="glyph" style="transform-origin:150px 230px"><rect x="90" y="30" width="120" height="210" rx="26"/><circle cx="150" cy="206" r="6" fill="#fff" stroke="none"/></g><path d="M34 290 q116 84 232 0" stroke-dasharray="4 18" stroke-width="7" opacity=".9"/></svg></div>
-    <svg class="wdim" viewBox="0 0 1080 1920"><line class="dh"/><line class="t1"/><line class="t2"/><text class="th" text-anchor="middle"></text><line class="dv"/><line class="t3"/><line class="t4"/><text class="tv" text-anchor="start"></text></svg>`;
+    <svg class="wdim" viewBox="0 0 1080 1920"><line class="dh"/><line class="t1"/><line class="t2"/><text class="th" text-anchor="middle"></text><line class="dv"/><line class="t3"/><line class="t4"/><text class="tv" text-anchor="start"></text><text class="lbl" text-anchor="middle"></text></svg>`;
 }
 const worlds = ['w1', 'w2'].map(id => { const w = $(id); w.innerHTML = worldHTML(); makeDots(w.querySelector('.dots'), 80, 100, 150, 880, 1100, 9); return w; });
 function setDims(w, cx, cy, wcm, hcm, label) {
@@ -102,6 +104,7 @@ function setDims(w, cx, cy, wcm, hcm, label) {
   L('.dh', { x1: x0, y1: y0 - 56, x2: x1, y2: y0 - 56 }); L('.t1', { x1: x0, y1: y0 - 76, x2: x0, y2: y0 - 36 }); L('.t2', { x1: x1, y1: y0 - 76, x2: x1, y2: y0 - 36 });
   L('.dv', { x1: x1 + 56, y1: y0, x2: x1 + 56, y2: y1 }); L('.t3', { x1: x1 + 36, y1: y0, x2: x1 + 76, y2: y0 }); L('.t4', { x1: x1 + 36, y1: y1, x2: x1 + 76, y2: y1 });
   const th = d.querySelector('.th'); th.setAttribute('x', cx); th.setAttribute('y', y0 - 92); th.textContent = label[0] + ' cm';
+  const lb = d.querySelector('.lbl'); lb.setAttribute('x', cx); lb.setAttribute('y', y1 + 86); lb.textContent = 'Format ' + label[2];
   const tv = d.querySelector('.tv'); const fits = x1 + 92 + 150 < 1080;
   tv.setAttribute('text-anchor', fits ? 'start' : 'end'); tv.setAttribute('x', fits ? x1 + 92 : Math.min(x1 + 56 + 70, 1068)); tv.setAttribute('y', fits ? cy + 18 : y0 - 26); tv.textContent = label[1] + ' cm';
 }
@@ -118,33 +121,36 @@ function worldState(w, t) {
   const pu = win(t, 12.6, 12.8, 13.1, 14.1), g = 1 + 0.3 * seg(t, 12.6, 14.1), pw = S[0] * PK * g, phh = S[1] * PK * g;
   Object.assign(w.querySelector('.pulse').style, { left: cx - pw / 2 + 'px', top: cy - phh / 2 + 'px', width: pw + 'px', height: phh + 'px', opacity: pu * .9 });
   // cotes : Classique (13.2 → 15.2), puis Grand une fois centré (19.6 → 21.4)
-  const d = w.querySelector('.wdim'); const dv = Math.max(win(t, 13.4, 13.8, 15.0, 15.4), win(t, 20.6, 21.0, 22.0, 22.4));
-  d.style.opacity = dv; setDims(w, cx, cy, S[0], S[1], grand ? ['140', '65'] : ['85', '40']);
+  const d = w.querySelector('.wdim'); const dv = Math.max(win(t, 13.4, 13.8, 15.3, 15.6), win(t, 16.9, 17.2, 17.5, 17.8), win(t, 20.4, 20.8, 22.0, 22.4));
+  d.style.opacity = dv; setDims(w, cx, cy, S[0], S[1], grand ? ['140', '65', 'Grand'] : ['85', '40', 'Classique']);
 }
 $('fingerhost').innerHTML = fingerHTML('fg');
 const ph = $('ph'), SW = 528, SH = 1108, ZS = SH / 1920;
 const K2 = 528 / 780;
-const CARD = [97.75 * 2 * K2, 3152.7 * 2 * K2], BTN = [195 * 2 * K2, 683.4 * 2 * K2];
+const CARD = [97.75 * 2 * K2, 3152.7 * 2 * K2], BTN = [195 * 2 * K2, 683.4 * 2 * K2], ROWS = [454.25 * 2 * K2, 524.25 * 2 * K2];
 const easeBack = x => { const c = 1.70158; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
 function pop(el, t, a, hold, x, y) { const u = clamp((t - a) / .55); const out = hold ? 1 - seg(t, hold, hold + .4) : 1; el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.opacity = (u > 0 ? 1 : 0) * out; el.style.transform = `scale(${u > 0 ? easeBack(u) : 0})`; }
 // sous-titres : [début, fin, texte]
 const SUBS = [
   [2.0, 4.4, 'Choisissez une Édition sur Toile'],
-  [5.2, 7.8, 'Cliquez sur « Voir sur mon mur »'],
+  [5.2, 7.4, 'Choisissez un format', 'real'],
+  [5.6, 7.8, 'Cliquez sur « Voir sur mon mur »'],
   [8.6, 12.2, 'Balayez lentement votre mur'],
   [12.8, 15.2, 'L\'œuvre s\'accroche, à sa taille réelle'],
   [15.5, 17.4, 'Cliquez sur le tableau pour changer de format'],
   [17.7, 20.6, 'Ajustez sa position du doigt'],
   [21.6, 26.4, 'Commandez-la directement'],
 ];
-function subtitle(t) {
+function subtitle(t, T) {
   const s = $('subtxt'); let v = 0, txt = '';
-  for (const [a, b, x] of SUBS) if (t >= a - .3 && t <= b + .3) { v = win(t, a - .3, a, b, b + .3); txt = x; }
+  for (const [a, b, x, mode] of SUBS) { const u = mode === 'real' ? T : t; if (mode !== 'real' && T >= 5.2 && T < 7.6) continue; if (u >= a - .3 && u <= b + .3) { v = win(u, a - .3, a, b, b + .3); txt = x; } }
   s.textContent = txt; s.style.opacity = v; s.style.transform = `translateY(${8 - 8 * v}px)`;
 }
 
-window.DURATION = 29.8;
-window.render = function (t) {
+window.DURATION = 30.8;
+window.render = function (T) {
+  let t = T < 5.2 ? T : T < 7.2 ? 5.2 : T - 2.0;                        // étape « choisir un format » insérée
+  t = t < 10.6 ? t : t < 12.6 ? 10.6 + (t - 10.6) * 1.5 : t + 1.0;      // balayage raccourci
   // ---------- iPhone ----------
   const enter = seg(t, 0.2, 1.2);
   const sway = Math.sin(t * 0.9) * 5, swayX = Math.sin(t * 0.7 + 1) * 4;
@@ -162,6 +168,7 @@ window.render = function (t) {
   const catScroll = lerp(0, CARD[1] - 560, seg(t, 2.0, 3.9));
   $('l-cat').style.opacity = win(t, 0, 0.1, 4.9, 5.2); $('l-cat').querySelector('img').style.transform = `translateY(${-catScroll}px)`;
   $('l-fiche').style.opacity = win(t, 4.9, 5.2, 7.6, 8.1);
+  $('l-fiche2').style.opacity = win(T, 6.0, 6.15, 7.0, 7.15);   // Grand sélectionné, puis retour à Classique
   $('dark').style.opacity = win(t, 7.6, 8.1, 8.2, 8.7);
   $('l-cam').style.opacity = win(t, 8.2, 8.4);
   const drift = hand * (Math.sin((t - 8.2) * 1.4) * 40 * (1 - zoom));
@@ -171,6 +178,7 @@ window.render = function (t) {
   const taps1 = [[4.6, CARD[0], CARD[1] - catScroll], [7.4, BTN[0], BTN[1]]];
   $('rip1').style.opacity = 0;
   for (const [t0, x, y] of taps1) if (t >= t0 && t < t0 + .7) rippleAt($('rip1'), scrLeft + x, scrTop + y, t, t0);
+  for (const [t0, y] of [[6.0, ROWS[1]], [7.0, ROWS[0]]]) if (T >= t0 && T < t0 + .7) rippleAt($('rip1'), scrLeft + 195 * 2 * K2, scrTop + y, T, t0);
   // ---------- plein cadre ----------
   const fw = $('fullwrap'); fw.style.opacity = win(t, 10.45, 10.75, 26.6, 27.3);
   const settle = seg(t, 10.7, 11.9);
@@ -179,9 +187,7 @@ window.render = function (t) {
   const ox = 540 - 540 * ws + drift2, oy = 960 - 960 * ws + Math.sin(t * 1.7) * 3;
   $('w2').style.transform = `translate(${ox}px,${oy}px) scale(${ws})`;
   worldState($('w2'), t);
-  // pastilles de format sur le mur
-  if (t >= 13.2 && t < 16.8) pop($('p4'), t, 13.2, 15.3, 70, 340); else if (t >= 16.8 && t < 21.2) pop($('p4'), t, 16.8, 20.7, 70, 340); else $('p4').style.opacity = 0;
-  $('p4').innerHTML = t < 16.8 ? 'Classique <b>85 × 40 cm</b>' : 'Grand <b>140 × 65 cm</b>';
+  $('p4').style.opacity = 0;
   const b = seg(t, 21.4, 22.2); show($('banner'), b, `translateY(${140 - 140 * b}px)`);
   // doigt : recentrage du Grand (17.0 → 19.8), puis « Acquérir ce tirage » (22.2 → 24.0)
   const [hx0, hy0] = hangPos(t); const hx = hx0, hy = hy0 + 40;
@@ -202,7 +208,7 @@ window.render = function (t) {
   $('buy').style.opacity = win(t, 27.0, 27.5, 99, 100);
   const ck = seg(t, 27.5, 28.2); $('ck').style.strokeDasharray = 200; $('ck').style.strokeDashoffset = 200 * (1 - ck);
   $('ck-c').style.strokeDasharray = 742; $('ck-c').style.strokeDashoffset = 742 * (1 - seg(t, 27.1, 28.0));
-  subtitle(t);
+  subtitle(t, T);
   $('fade').style.opacity = seg(t, 29.2, 29.8);
 };
 render(0);
