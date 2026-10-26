@@ -97,6 +97,9 @@ model-viewer{width:2px;height:2px}
 .link{display:flex;align-items:center;justify-content:center;min-height:44px;font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none}
 .link span{border-bottom:1px solid var(--border);padding-bottom:3px}
 .ar-msg{text-align:center;display:none;padding-bottom:4px}
+.ar-tip{text-align:center;font-size:14px;line-height:1.35;padding:0 4px 4px;display:none}
+body.ar-ok .ar-tip{display:block}
+body.ar-ok .ar-msg.on~.btn{margin-top:0}
 .ar-msg.on{display:block}
 
 /* ----- tutoriel (vidéo) ----- */
@@ -157,6 +160,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     </div>
 
     <div class="actions">
+      <div class="ar-tip serif-note" id="ar-tip">Visez un mur bien éclairé, avec un repère (plinthe, prise, cadre), à environ un mètre, et balayez-le lentement.</div>
       <div class="ar-msg serif-note" id="ar-msg" aria-live="polite"></div>
       <button class="btn primary" id="ar-btn" type="button">Voir sur mon mur</button>
       <a class="link" id="buy" href="#" target="_blank" rel="noopener"><span>Acquérir ce tirage</span></a>
@@ -190,7 +194,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const safariLink = () => 'x-safari-' + location.href;  // ouvre l'adresse dans Safari depuis un navigateur intégré
   const fmtEur = n => n == null ? '' : String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ' ') + ' €';
   const fmtCm = n => String(n).replace('.', ',');
-  const MSG_IOS = 'Balayez lentement le mur : l\'œuvre s\'y accroche d\'elle-même. Glissez pour la déplacer. Pour changer de format, revenez ici.';
+  const MSG_IOS = 'L\'œuvre s\'accroche dès que le mur est reconnu. Glissez pour la déplacer. Pour changer de format, revenez ici.';
   const MSG_ANDROID = 'Visez le mur et balayez-le lentement : l\'œuvre s\'y accroche. Si rien ne s\'ouvre, mettez à jour l\'appli Google et « Services Google Play pour la RA ».';
 
   let cat = null, work = null, size = null;
@@ -262,6 +266,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   }
   const prefetched = new Set();
   function prefetch(u){ if (prefetched.has(u)) return; prefetched.add(u); try { fetch(u, { mode: 'same-origin', credentials: 'omit' }).then(r => r.arrayBuffer()).catch(() => {}); } catch (_) {} }
+  if (quickLook || isAndroid) document.body.classList.add('ar-ok');
   function setMsg(t){ const m = $('#ar-msg'); m.textContent = t; m.classList.toggle('on', !!t); }
 
   // ---------- AR ----------

@@ -35,6 +35,12 @@ struct ARScreen: View {
                     .animation(.easeInOut(duration: 0.3), value: hint)
                 Spacer()
                 VStack(spacing: 12) {
+                    if ctl.state == .searching && ctl.offerManual {
+                        Button { ctl.placeInFront() } label: {
+                            Caps(text: "Mur non trouvé ? Poser devant moi", size: 10, tracking: 2.0, color: Theme.bg)
+                                .padding(.horizontal, 18).frame(height: 46).background(Theme.ink)
+                        }.buttonStyle(.plain).transition(.opacity)
+                    }
                     if work.sizes.count > 1 {
                         HStack(spacing: 8) {
                             ForEach(work.sizes) { s in
@@ -75,7 +81,7 @@ struct ARScreen: View {
 
     private var hint: String {
         switch ctl.state {
-        case .searching: return "Balayez lentement votre mur"
+        case .searching: return ctl.offerManual ? "Visez un mur éclairé, avec un repère" : "Balayez lentement votre mur"
         case .placed where work.sizes.count > 1: return "Touchez le tableau pour changer de format"
         case .placed: return "Glissez pour déplacer l'œuvre"
         }
@@ -96,7 +102,10 @@ struct ARViewContainer: UIViewRepresentable {
 final class ARController: NSObject, ObservableObject {
     enum State { case searching, placed }
     @Published var state: State = .searching
+    @Published var offerManual = false          // après quelques secondes sans mur : proposer la pose manuelle
     var onTapPainting: (() -> Void)?
+    private var manualPlane: (point: SIMD3<Float>, normal: SIMD3<Float>)?   // mur « virtuel » quand aucun mur n'est détecté
+    private var searchStart = Date()
 
     private var arView: ARView?
     private var anchor: AnchorEntity?
@@ -120,11 +129,24 @@ final class ARController: NSObject, ObservableObject {
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         v.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan(_:))))
         arView = v
+        searchStart = Date()
         // tant que l'œuvre n'est pas posée : on vise le centre de l'écran et on accroche au premier mur trouvé
         searchTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
             Task { @MainActor in self?.tryAutoPlace() }
         }
         return v
+    }
+
+    /// Pose le tableau droit, face à soi, à 1,5 m, à hauteur des yeux — sans attendre la détection du mur.
+    func placeInFront() {
+        guard let v = arView, let cam = v.session.currentFrame?.camera.transform else { return }
+        let pos = SIMD3<Float>(cam.columns.3.x, cam.columns.3.y, cam.columns.3.z)
+        var fwd = -SIMD3<Float>(cam.columns.2.x, 0, cam.columns.2.z)
+        if simd_length(fwd) < 1e-3 { fwd = SIMD3<Float>(0, 0, -1) }
+        fwd = simd_normalize(fwd)
+        let point = pos + fwd * 1.5 - SIMD3<Float>(0, 0.05, 0), normal = -fwd
+        manualPlane = (point, normal)
+        place(normal: normal, position: point)
     }
 
     func stop() { searchTimer?.invalidate(); searchTimer = nil; arView?.session.pause() }
@@ -155,28 +177,38 @@ final class ARController: NSObject, ObservableObject {
     /// Repère du tableau : Y = normale du mur (vers soi), −Z = haut du tableau (vers le plafond), X = droite.
     private func wallTransform(_ r: ARRaycastResult) -> Transform {
         let m = r.worldTransform
-        let n = simd_normalize(SIMD3<Float>(m.columns.1.x, m.columns.1.y, m.columns.1.z))
+        return wallTransform(normal: SIMD3<Float>(m.columns.1.x, m.columns.1.y, m.columns.1.z), position: SIMD3<Float>(m.columns.3.x, m.columns.3.y, m.columns.3.z))
+    }
+    private func wallTransform(normal: SIMD3<Float>, position: SIMD3<Float>) -> Transform {
+        var n = normal; n.y = 0                      // un mur est vertical : on ignore l'inclinaison estimée
+        n = simd_length(n) < 1e-3 ? SIMD3<Float>(0, 0, 1) : simd_normalize(n)
         let up = SIMD3<Float>(0, 1, 0)
         var down = -(up - simd_dot(up, n) * n)
         if simd_length(down) < 1e-3 { down = SIMD3<Float>(0, 0, 1) }
         let z = simd_normalize(down), x = simd_normalize(simd_cross(n, z))
         let rot = simd_quatf(simd_float3x3(columns: (x, n, z)))
-        return Transform(scale: .one, rotation: rot, translation: SIMD3<Float>(m.columns.3.x, m.columns.3.y, m.columns.3.z))
+        return Transform(scale: .one, rotation: rot, translation: position)
     }
 
     private func place(at r: ARRaycastResult) {
+        manualPlane = nil
+        setAnchor(wallTransform(r))
+    }
+    private func place(normal: SIMD3<Float>, position: SIMD3<Float>) { setAnchor(wallTransform(normal: normal, position: position)) }
+    private func setAnchor(_ tf: Transform) {
         guard let v = arView else { return }
         if anchor == nil {
             let a = AnchorEntity(world: .zero)
             v.scene.addAnchor(a); anchor = a
             if let s = wanted { show(s) }
         }
-        anchor?.transform = wallTransform(r)
+        anchor?.transform = tf
         if state != .placed { state = .placed; searchTimer?.invalidate(); UIImpactFeedbackGenerator(style: .light).impactOccurred() }
     }
 
     private func tryAutoPlace() {
         guard state == .searching, let v = arView else { return }
+        if !offerManual && Date().timeIntervalSince(searchStart) > 6 { offerManual = true }
         let c = CGPoint(x: v.bounds.midX, y: v.bounds.midY)
         if let r = wallHit(c, existing: true) { place(at: r) }
     }
@@ -187,12 +219,24 @@ final class ARController: NSObject, ObservableObject {
         if state == .placed, let hit = v.entity(at: p), let painting, isDescendant(hit, of: painting) {
             onTapPainting?(); UISelectionFeedbackGenerator().selectionChanged(); return
         }
+        moveTo(p)
+    }
+
+    /// Déplace le tableau vers le point touché : vrai mur si connu, sinon le mur virtuel de la pose manuelle.
+    private func moveTo(_ p: CGPoint) {
+        if let m = manualPlane, let v = arView, let ray = v.ray(through: p) {
+            let d = simd_dot(ray.direction, m.normal)
+            guard abs(d) > 1e-4 else { return }
+            let t = simd_dot(m.point - ray.origin, m.normal) / d
+            if t > 0 { place(normal: m.normal, position: ray.origin + ray.direction * t) }
+            return
+        }
         if let r = wallHit(p, existing: true) { place(at: r) }
     }
 
     @objc private func pan(_ g: UIPanGestureRecognizer) {
         guard state == .placed, let v = arView else { return }
-        if let r = wallHit(g.location(in: v), existing: true) { place(at: r) }
+        moveTo(g.location(in: v))
     }
 
     private func isDescendant(_ e: Entity, of root: Entity) -> Bool {
