@@ -195,7 +195,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const fmtEur = n => n == null ? '' : String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ' ') + ' €';
   const fmtCm = n => String(n).replace('.', ',');
   const MSG_IOS = 'L\'œuvre s\'accroche dès que le mur est reconnu. Glissez pour la déplacer. Pour changer de format, revenez ici.';
-  const MSG_ANDROID = 'Visez le mur et balayez-le lentement : l\'œuvre s\'y accroche. Si rien ne s\'ouvre, mettez à jour l\'appli Google et « Services Google Play pour la RA ».';
+  const MSG_ANDROID = 'Visez le mur et balayez-le lentement : l\'œuvre s\'y accroche. Si rien ne s\'ouvre, mettez à jour « Services Google Play pour la RA » dans le Play Store.';
 
   let cat = null, work = null, size = null;
 
@@ -297,12 +297,12 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     } else if (isAndroid){
       // Scene Viewer (Google) en direct : plus fiable que WebXR, accroche murale, lien vers la boutique
       const enc = encodeURIComponent, glb = new URL(size.glb, location.href).toString();
-      const params = 'file=' + enc(glb) + '&mode=ar_preferred&enable_vertical_placement=true&resizable=false'
+      const params = 'file=' + enc(glb) + '&mode=ar_only&enable_vertical_placement=true&resizable=false'
         + '&title=' + enc(work.title + ' · ' + size.label + ' ' + size.w + ' × ' + size.h + ' cm') + '&link=' + enc(work.url);
       const fallback = location.href.split('#')[0] + '#' + work.slug + '/' + size.slug;
       setMsg(MSG_ANDROID);
       const intent = 'intent://arvr.google.com/scene-viewer/1.0?' + params
-        + '#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=' + enc(fallback) + ';end;';
+        + '#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=' + enc(fallback) + ';end;';
       window.__lastAR = intent;   // contrôle automatique
       location.href = intent;
     } else if (iosNoAR){

@@ -342,8 +342,6 @@ function buildGLB(p, jpg, aoPng, cloth, tape, shadowPng) {
     { name: 'Floor', pbrMetallicRoughness: { baseColorFactor: [...MAT.floor.color, 1], metallicFactor: 0, roughnessFactor: MAT.floor.roughness }, occlusionTexture: { index: 1, strength: 1 } },
     { name: 'CanvasSide', pbrMetallicRoughness: { baseColorTexture: { index: 2, texCoord: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvasSide.roughness }, normalTexture: { index: 3, texCoord: 0, scale: 1 } },
     { name: 'Canvas', pbrMetallicRoughness: { baseColorTexture: { index: 0 }, metallicFactor: 0, roughnessFactor: MAT.canvas.roughness } },
-    { name: 'Shadow', pbrMetallicRoughness: { baseColorTexture: { index: 4 }, baseColorFactor: [0, 0, 0, 1], metallicFactor: 0, roughnessFactor: 1 }, alphaMode: 'BLEND', doubleSided: false,
-      extensions: { KHR_materials_specular: { specularFactor: 0, specularColorFactor: [0, 0, 0] }, KHR_materials_ior: { ior: 1.0 } } },
   ];
   // GLB (Android / Scene Viewer) : pas d'ombre dessinée — la visionneuse de Google l'affiche en aplat sombre et ajoute déjà la sienne
   [[p.frame, 0, false], [p.floor, 1, true], [p.sides, 2, false], [p.front, 3, true]].forEach(([m, mat, uv]) => {
@@ -358,14 +356,13 @@ function buildGLB(p, jpg, aoPng, cloth, tape, shadowPng) {
     const idx = addAccessor(new Uint16Array(m.I), 'SCALAR', 5123, 34963);
     prims.push({ attributes: attr, indices: idx, material: mat });
   });
-  const imgView = addView(jpg), aoView = addView(aoPng), clothView = addView(cloth), tapeView = addView(tape), shadowView = addView(shadowPng);
+  const imgView = addView(jpg), aoView = addView(aoPng), clothView = addView(cloth), tapeView = addView(tape);
   const json = {
     asset: { version: '2.0', generator: 'AR Tableaux - Stephane Alsac' },
-    extensionsUsed: ['KHR_materials_specular', 'KHR_materials_ior'],
     scene: 0, scenes: [{ nodes: [0] }], nodes: [{ mesh: 0, name: 'Painting' }],
     meshes: [{ primitives: prims }], materials: mats,
-    textures: [{ source: 0, sampler: 0 }, { source: 1, sampler: 0 }, { source: 2, sampler: 1 }, { source: 3, sampler: 1 }, { source: 4, sampler: 0 }],
-    images: [{ bufferView: imgView, mimeType: 'image/jpeg' }, { bufferView: aoView, mimeType: 'image/png' }, { bufferView: clothView, mimeType: 'image/png' }, { bufferView: tapeView, mimeType: 'image/png' }, { bufferView: shadowView, mimeType: 'image/png' }],
+    textures: [{ source: 0, sampler: 0 }, { source: 1, sampler: 0 }, { source: 2, sampler: 1 }, { source: 3, sampler: 1 }],
+    images: [{ bufferView: imgView, mimeType: 'image/jpeg' }, { bufferView: aoView, mimeType: 'image/png' }, { bufferView: clothView, mimeType: 'image/png' }, { bufferView: tapeView, mimeType: 'image/png' }],
     samplers: [{ magFilter: 9729, minFilter: 9987, wrapS: 33071, wrapT: 33071 }, { magFilter: 9729, minFilter: 9987, wrapS: 10497, wrapT: 10497 }],
     accessors, bufferViews: views, buffers: [{ byteLength }],
   };
