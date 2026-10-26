@@ -182,6 +182,11 @@ final class ARController: NSObject, ObservableObject {
     private func wallTransform(normal: SIMD3<Float>, position: SIMD3<Float>) -> Transform {
         var n = normal; n.y = 0                      // un mur est vertical : on ignore l'inclinaison estimée
         n = simd_length(n) < 1e-3 ? SIMD3<Float>(0, 0, 1) : simd_normalize(n)
+        // sécurité : l'œuvre est toujours tournée vers soi (évite de la voir de dos sur une fausse détection)
+        if let cam = arView?.session.currentFrame?.camera.transform {
+            let toCam = SIMD3<Float>(cam.columns.3.x, cam.columns.3.y, cam.columns.3.z) - position
+            if simd_dot(SIMD3<Float>(toCam.x, 0, toCam.z), n) < 0 { n = -n }
+        }
         let up = SIMD3<Float>(0, 1, 0)
         var down = -(up - simd_dot(up, n) * n)
         if simd_length(down) < 1e-3 { down = SIMD3<Float>(0, 0, 1) }
@@ -191,6 +196,10 @@ final class ARController: NSObject, ObservableObject {
     }
 
     private func place(at r: ARRaycastResult) {
+        if let cam = arView?.session.currentFrame?.camera.transform {
+            let p = r.worldTransform.columns.3, c = cam.columns.3
+            if simd_distance(SIMD3<Float>(p.x, p.y, p.z), SIMD3<Float>(c.x, c.y, c.z)) > 4 { return }   // trop loin : sans doute une fausse détection
+        }
         manualPlane = nil
         setAnchor(wallTransform(r))
     }
