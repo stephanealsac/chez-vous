@@ -191,7 +191,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const fmtEur = n => n == null ? '' : String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ' ') + ' €';
   const fmtCm = n => String(n).replace('.', ',');
   const MSG_IOS = 'Balayez lentement le mur : l\'œuvre s\'y accroche d\'elle-même. Glissez pour la déplacer. Pour changer de format, revenez ici.';
-  const MSG_ANDROID = 'Balayez lentement le mur, puis touchez l\'écran pour y accrocher l\'œuvre.';
+  const MSG_ANDROID = 'Visez le mur et balayez-le lentement : l\'œuvre s\'y accroche. Si rien ne s\'ouvre, mettez à jour l\'appli Google et « Services Google Play pour la RA ».';
 
   let cat = null, work = null, size = null;
 
@@ -290,8 +290,16 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
       m.innerHTML = esc(MSG_IOS) + '<br><a id="ql-direct" href="' + esc(href) + '" style="color:inherit">Rien ne s\'ouvre ? Touchez ici.</a>';
       m.classList.add('on');
     } else if (isAndroid){
-      setMsg('Ouverture de la réalité augmentée…');
-      $('#mv').activateAR();
+      // Scene Viewer (Google) en direct : plus fiable que WebXR, accroche murale, lien vers la boutique
+      const enc = encodeURIComponent, glb = new URL(size.glb, location.href).toString();
+      const params = 'file=' + enc(glb) + '&mode=ar_preferred&enable_vertical_placement=true&resizable=false'
+        + '&title=' + enc(work.title + ' · ' + size.label + ' ' + size.w + ' × ' + size.h + ' cm') + '&link=' + enc(work.url);
+      const fallback = location.href.split('#')[0] + '#' + work.slug + '/' + size.slug;
+      setMsg(MSG_ANDROID);
+      const intent = 'intent://arvr.google.com/scene-viewer/1.0?' + params
+        + '#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=' + enc(fallback) + ';end;';
+      window.__lastAR = intent;   // contrôle automatique
+      location.href = intent;
     } else if (iosNoAR){
       location.href = safariLink();
     } else {
