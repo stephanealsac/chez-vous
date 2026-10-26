@@ -345,7 +345,8 @@ function buildGLB(p, jpg, aoPng, cloth, tape, shadowPng) {
     { name: 'Shadow', pbrMetallicRoughness: { baseColorTexture: { index: 4 }, baseColorFactor: [0, 0, 0, 1], metallicFactor: 0, roughnessFactor: 1 }, alphaMode: 'BLEND', doubleSided: false,
       extensions: { KHR_materials_specular: { specularFactor: 0, specularColorFactor: [0, 0, 0] }, KHR_materials_ior: { ior: 1.0 } } },
   ];
-  [[p.frame, 0, false], [p.floor, 1, true], [p.sides, 2, false], [p.front, 3, true], [p.shadow, 4, true]].forEach(([m, mat, uv]) => {
+  // GLB (Android / Scene Viewer) : pas d'ombre dessinée — la visionneuse de Google l'affiche en aplat sombre et ajoute déjà la sienne
+  [[p.frame, 0, false], [p.floor, 1, true], [p.sides, 2, false], [p.front, 3, true]].forEach(([m, mat, uv]) => {
     if (!m.I.length) return;
     const attr = {
       POSITION: addAccessor(new Float32Array(m.P), 'VEC3', 5126, 34962, true),
