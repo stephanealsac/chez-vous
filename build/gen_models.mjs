@@ -288,7 +288,7 @@ function buildUSDA(p, title, orient) {
 def Xform "Root"
 {
     def Scope "Materials"
-    {${usdPlainMaterial('FrameMat', MAT.frame)}${usdTapeMaterial()}${usdTexturedMaterial('FloorMat', 'textures/floor_ao.png', { roughness: MAT.floor.roughness, color: MAT.floor.color, occlusion: true, specular: MAT.floor.specular })}${usdCanvasMaterial()}${usdShadowMaterial()}
+    {${usdPlainMaterial('FrameMat', MAT.frame)}${usdTapeMaterial()}${usdTexturedMaterial('FloorMat', 'textures/floor_ao.png', { roughness: MAT.floor.roughness, color: MAT.floor.color, occlusion: true, specular: MAT.floor.specular })}${usdCanvasMaterial()}
     }
     def Scope "Scenes" (
         kind = "sceneLibrary"
@@ -320,7 +320,7 @@ ${p.shadow.I.length ? usdMesh('Shadow', [{ m: p.shadow, mat: '</Root/Materials/S
 }
 
 // ---------- GLB ----------
-function buildGLB(p, jpg, aoPng, cloth, tape, shadowPng) {
+function buildGLB(p, jpg, aoPng, cloth, tape) {
   const bufs = []; const views = []; const accessors = [];
   let byteLength = 0;
   function addView(buf, target) {
@@ -382,12 +382,11 @@ let n = 0;
 for (const w of cat.works) {
   const jpg = fs.readFileSync(path.join(SITE, w.image));
   for (const s of w.sizes) {
-    const p = buildPainting(s.w, s.h, F, s.shadow_cm);
+    const p = buildPainting(s.w, s.h, F, null);   // plus d'ombre dessinée (iPhone et Android) : les visionneuses ont la leur
     const ao = fs.readFileSync(path.join(SITE, s.ao_img));
-    const shadowPng = fs.readFileSync(path.join(SITE, s.shadow_img));
     const usda = Buffer.from(buildUSDA(p, w.title, USDZ_ORIENTATION), 'utf8');
-    const usdz = usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/tape_color.png', data: cloth }, { name: 'textures/tape_normal.png', data: tape }, { name: 'textures/shadow.png', data: shadowPng }]);
-    const glb = buildGLB(p, jpg, ao, cloth, tape, shadowPng);
+    const usdz = usdzZip([{ name: 'model.usda', data: usda }, { name: 'textures/canvas.jpg', data: jpg }, { name: 'textures/floor_ao.png', data: ao }, { name: 'textures/tape_color.png', data: cloth }, { name: 'textures/tape_normal.png', data: tape }]);
+    const glb = buildGLB(p, jpg, ao, cloth, tape);
     // nom unique par contenu : les navigateurs gardent les anciens fichiers en cache un an, un nouveau nom force la nouvelle version
     const h = crypto.createHash('sha1').update(usdz).update(glb).digest('hex').slice(0, 8);
     const base = `${w.slug}-${s.slug}-${h}`;
