@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Test Android</title>
+<style>
+body{font:16px/1.4 system-ui,sans-serif;margin:0;padding:18px;background:#eeeae1;color:#1a1a1a}
+h1{font-size:20px;margin:0 0 6px}p{margin:0 0 16px;color:#4a4a4a}
+a.b,button{display:block;width:100%;box-sizing:border-box;text-align:left;margin:0 0 12px;padding:14px 16px;border:1px solid #1a1a1a;background:#fff;color:#1a1a1a;font:inherit;text-decoration:none;border-radius:0}
+b{display:block;font-size:18px}small{color:#6a665e}
+model-viewer{width:100%;height:260px;background:#fff;margin:0 0 12px}
+</style>
+<script type="module" src="vendor/model-viewer.min.js"></script>
+</head><body>
+<h1>Test réalité augmentée — Android</h1>
+<p>Touchez chaque bouton l'un après l'autre et notez pour chacun : <b style="display:inline;font-size:16px">OK</b> (la caméra s'ouvre) ou <b style="display:inline;font-size:16px">plante</b>.</p>
+<a class="b" id="t1" href="#"><b>1 · Modèle d'exemple Google</b><small>Un astronaute fourni par Google. S'il plante aussi, le problème vient de l'appli Google sur ce téléphone.</small></a>
+<a class="b" id="t2" href="#"><b>2 · Notre tigre, réglages minimum</b><small>Notre modèle, sans accroche murale ni options.</small></a>
+<a class="b" id="t3" href="#"><b>3 · Notre tigre, réglages complets</b><small>Exactement comme « Voir sur mon mur ».</small></a>
+<a class="b" id="t4" href="#"><b>4 · Notre tigre via ARCore</b><small>Même chose en passant par « Services Google Play pour la RA ».</small></a>
+<model-viewer id="mv" src="models/tableau-peinture-tigre-classique-1dca7110.glb" ar ar-modes="webxr" ar-placement="wall" ar-scale="fixed" camera-controls></model-viewer>
+<button id="t5"><b>5 · Notre tigre dans Chrome (WebXR)</b><small>Sans l'appli Google : la RA s'ouvre dans Chrome. Le tigre doit d'abord s'afficher dans le cadre blanc au-dessus.</small></button>
+<script>
+const abs = u => new URL(u, location.href).toString(), enc = encodeURIComponent;
+const tiger = abs('models/tableau-peinture-tigre-classique-1dca7110.glb'), astro = 'https://modelviewer.dev/shared-assets/models/Astronaut.glb';
+const back = enc(location.href.split('#')[0] + '#echec');
+const intent = (file, extra, pkg) => 'intent://arvr.google.com/scene-viewer/1.0?file=' + enc(file) + extra
+  + '#Intent;scheme=https;package=' + pkg + ';action=android.intent.action.VIEW;S.browser_fallback_url=' + back + ';end;';
+const G = 'com.google.android.googlequicksearchbox', AR = 'com.google.ar.core';
+document.getElementById('t1').href = intent(astro, '&mode=ar_preferred', G);
+document.getElementById('t2').href = intent(tiger, '&mode=ar_preferred', G);
+document.getElementById('t3').href = intent(tiger, '&mode=ar_preferred&enable_vertical_placement=true&resizable=false&title=' + enc('Coeur de Chêne') + '&link=' + enc('https://www.stephane-alsac.com/'), G);
+document.getElementById('t4').href = intent(tiger, '&mode=ar_only&enable_vertical_placement=true&resizable=false', AR);
+document.getElementById('t5').onclick = () => document.getElementById('mv').activateAR();
+if (location.hash === '#echec') document.querySelector('p').insertAdjacentHTML('afterend', '<p style="color:#a33">↩︎ Retour automatique : la visionneuse n\'a pas pu s\'ouvrir pour le dernier test.</p>');
+</script>
+</body></html>
