@@ -172,7 +172,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 </main>
 
 <!-- lien AR Quick Look (iOS) : un seul, gardé dans le DOM pour recevoir le tap sur la bannière -->
-<a id="ql" rel="ar" href="#" style="display:none"><img alt=""></a>
+<a id="ql" rel="ar" href="#" aria-hidden="true" tabindex="-1" style="position:fixed;left:0;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none"><img alt="" style="width:1px;height:1px"></a>
 
 <!-- ===== TUTORIEL (vidéo) ===== -->
 <div class="tuto" id="tuto" role="dialog" aria-modal="true" aria-label="Comment ça marche">
@@ -197,7 +197,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const safariLink = () => 'x-safari-' + location.href;  // ouvre l'adresse dans Safari depuis un navigateur intégré
   const fmtEur = n => n == null ? '' : String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ' ') + ' €';
   const fmtCm = n => String(n).replace('.', ',');
-  const MSG_IOS = 'L\'œuvre s\'accroche dès que le mur est reconnu. Glissez pour la déplacer. Pour changer de format, revenez ici.';
+  const MSG_IOS = 'L\'œuvre s\'accroche dès que le mur est reconnu. Glissez-la d\'un seul doigt, sans quitter le mur. Elle se décroche ? Touchez « Objet » puis « AR ». Pour changer de format, revenez ici.';
   const MSG_ANDROID = 'Visez le mur et balayez-le lentement : l\'œuvre s\'y accroche. Si rien ne s\'ouvre, mettez à jour l\'appli Google et « Services Google Play pour la RA » dans le Play Store.';
 
   let cat = null, work = null, size = null;
@@ -291,11 +291,14 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     if (!work || !size) return;
     if (quickLook){
       const href = usdzHref();
+      // Safari n'applique allowsContentScaling=0 (pas de zoom à deux doigts) que si le lien contient une vraie image
+      const thumb = new URL(work.thumb_url || work.thumb, location.href).toString();
+      ql.querySelector('img').src = thumb;
       ql.setAttribute('href', href);
       ql.click();
       // secours : si Quick Look ne s'ouvre pas, un lien direct vers le fichier (Safari l'ouvre lui-même en 3D / RA)
       const m = $('#ar-msg');
-      m.innerHTML = esc(MSG_IOS) + '<br><a id="ql-direct" href="' + esc(href) + '" style="color:inherit">Rien ne s\'ouvre ? Touchez ici.</a>';
+      m.innerHTML = esc(MSG_IOS) + '<br><a id="ql-direct" rel="ar" href="' + esc(href) + '" style="color:inherit"><img src="' + esc(thumb) + '" alt="" style="display:inline-block;width:22px;height:22px;object-fit:cover;vertical-align:-5px;margin:0 8px 0 0">Rien ne s\'ouvre ? Touchez ici.</a>';
       m.classList.add('on');
     } else if (isAndroid){
       // WebXR dans Chrome (testé sur Samsung S26) : la visionneuse de l'appli Google plante sur certains téléphones

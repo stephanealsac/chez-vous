@@ -243,9 +243,27 @@ final class ARController: NSObject, ObservableObject {
         if let r = wallHit(p, existing: true) { place(at: r) }
     }
 
+    /// Glisser d'un doigt : le tableau reste sur le plan du mur où il est accroché (jamais de saut vers une fenêtre,
+    /// une porte ou un autre mur, jamais dans le vide). Orientation inchangée pendant le geste.
+    private var panPlane: (point: SIMD3<Float>, normal: SIMD3<Float>, rotation: simd_quatf)?
     @objc private func pan(_ g: UIPanGestureRecognizer) {
-        guard state == .placed, let v = arView else { return }
-        moveTo(g.location(in: v))
+        guard state == .placed, let v = arView, let a = anchor else { return }
+        switch g.state {
+        case .began:
+            let m = a.transformMatrix(relativeTo: nil)
+            let n = simd_normalize(SIMD3<Float>(m.columns.1.x, m.columns.1.y, m.columns.1.z))
+            panPlane = (SIMD3<Float>(m.columns.3.x, m.columns.3.y, m.columns.3.z), n, a.orientation(relativeTo: nil))
+            fallthrough
+        case .changed:
+            guard let pl = panPlane, let ray = v.ray(through: g.location(in: v)) else { return }
+            let d = simd_dot(ray.direction, pl.normal)
+            guard abs(d) > 0.05 else { return }                      // rayon presque parallèle au mur : on ne bouge pas
+            let t = simd_dot(pl.point - ray.origin, pl.normal) / d
+            guard t > 0.2, t < 6 else { return }                     // derrière soi ou trop loin : on ne bouge pas
+            a.transform = Transform(scale: .one, rotation: pl.rotation, translation: ray.origin + ray.direction * t)
+        default:
+            panPlane = nil
+        }
     }
 
     private func isDescendant(_ e: Entity, of root: Entity) -> Bool {
