@@ -168,10 +168,16 @@ final class ARController: NSObject, ObservableObject {
         return root
     }
 
-    private func wallHit(_ p: CGPoint, existing: Bool) -> ARRaycastResult? {
+    /// Mur réellement détecté sous ce point de l'écran (pas son prolongement imaginaire au milieu de la pièce),
+    /// et assez grand pour être un mur (pas un abat-jour, un écran ou un pied de meuble).
+    private func wallHit(_ p: CGPoint) -> ARRaycastResult? {
         guard let v = arView else { return nil }
-        if existing, let r = v.raycast(from: p, allowing: .existingPlaneInfinite, alignment: .vertical).first { return r }
-        return v.raycast(from: p, allowing: .estimatedPlane, alignment: .vertical).first
+        for r in v.raycast(from: p, allowing: .existingPlaneGeometry, alignment: .vertical) {
+            if let plane = r.anchor as? ARPlaneAnchor, plane.classification == .window || plane.classification == .door { continue }
+            if let plane = r.anchor as? ARPlaneAnchor, plane.planeExtent.width < 0.35 || plane.planeExtent.height < 0.35 { continue }
+            return r
+        }
+        return nil
     }
 
     /// Repère du tableau : Y = normale du mur (vers soi), −Z = haut du tableau (vers le plafond), X = droite.
@@ -219,7 +225,7 @@ final class ARController: NSObject, ObservableObject {
         guard state == .searching, let v = arView else { return }
         if !offerManual && Date().timeIntervalSince(searchStart) > 6 { offerManual = true }
         let c = CGPoint(x: v.bounds.midX, y: v.bounds.midY)
-        if let r = wallHit(c, existing: true) { place(at: r) }
+        if let r = wallHit(c) { place(at: r) }
     }
 
     /// Glisser d'un doigt : le tableau reste sur le plan du mur où il est accroché (jamais de saut vers une fenêtre,

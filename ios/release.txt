@@ -2,3 +2,4 @@
 1.0 — essai 2 : signature à l'export (2026-10-31)
 1.0 — essai 3 : Xcode 26 (2026-10-31)
 1.0 — build : plus de toucher sur le tableau, mention taille réelle (2026-10-31)
+1.0 — build : accroche seulement sur un vrai mur détecté (2026-10-31)
