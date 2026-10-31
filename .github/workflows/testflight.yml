@@ -25,6 +25,12 @@ jobs:
         run: |
           mkdir -p ~/private_keys
           printf '%s\n' "$K3" > ~/private_keys/AuthKey.p8
+      - name: Xcode 26 (exigé par Apple pour l'envoi)
+        run: |
+          ls -d /Applications/Xcode*.app
+          X=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | grep -v -i beta | sort -V | tail -1)
+          [ -n "$X" ] || { echo "Xcode 26 absent de cette machine"; exit 1; }
+          sudo xcode-select -s "$X/Contents/Developer"; xcodebuild -version
       - name: Outils, catalogue, projet
         run: |
           brew install xcodegen
