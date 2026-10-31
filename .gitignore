@@ -13,3 +13,4 @@ build/tuto/audio/*.onnx*
 ios/ChezVous/Catalogue/
 ios/ChezVous.xcodeproj/
 ios/build/
+build/tuto/frames-*/
