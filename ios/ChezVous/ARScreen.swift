@@ -3,7 +3,7 @@ import RealityKit
 import ARKit
 
 // Réalité augmentée native : l'œuvre s'accroche au premier mur détecté, à taille réelle.
-// Toucher le tableau → format suivant ; glisser → déplacer sur le mur ; toucher ailleurs sur le mur → l'y placer.
+// Glisser d'un doigt → déplacer sur le mur (sans jamais le quitter). Formats : boutons en bas. Pas de toucher sur le tableau.
 struct ARScreen: View {
     let work: Work
     @Binding var size: WorkSize
@@ -33,6 +33,13 @@ struct ARScreen: View {
                     .multilineTextAlignment(.center).padding(.horizontal, 28).padding(.top, 10)
                     .shadow(color: Theme.bg.opacity(0.95), radius: 10).shadow(color: Theme.bg.opacity(0.8), radius: 20)
                     .animation(.easeInOut(duration: 0.3), value: hint)
+                if ctl.state == .placed {
+                    Text("L'œuvre apparaît aux dimensions exactes du tableau.\nGlissez-la d'un doigt pour la déplacer.")
+                        .font(Theme.serif(18)).foregroundStyle(Theme.ink).multilineTextAlignment(.center)
+                        .padding(.horizontal, 28).padding(.top, 4)
+                        .shadow(color: Theme.bg.opacity(0.95), radius: 8).shadow(color: Theme.bg.opacity(0.8), radius: 16)
+                        .transition(.opacity)
+                }
                 Spacer()
                 VStack(spacing: 12) {
                     if ctl.state == .searching && ctl.offerManual {
@@ -74,7 +81,7 @@ struct ARScreen: View {
             }
         }
         .statusBarHidden()
-        .onAppear { ctl.onTapPainting = { nextSize() }; ctl.show(size) }
+        .onAppear { ctl.show(size) }
         .onChange(of: size) { _, s in ctl.show(s) }
         .onDisappear { ctl.stop() }
     }
@@ -82,13 +89,8 @@ struct ARScreen: View {
     private var hint: String {
         switch ctl.state {
         case .searching: return ctl.offerManual ? "Reculez à 1 ou 2 m d’un mur éclairé" : "À 1 ou 2 m du mur, balayez-le lentement"
-        case .placed where work.sizes.count > 1: return "Touchez le tableau pour changer de format"
-        case .placed: return "Glissez pour déplacer l'œuvre"
+        case .placed: return "Taille réelle"
         }
-    }
-    private func nextSize() {
-        guard let i = work.sizes.firstIndex(of: size), work.sizes.count > 1 else { return }
-        size = work.sizes[(i + 1) % work.sizes.count]
     }
 }
 
@@ -103,7 +105,6 @@ final class ARController: NSObject, ObservableObject {
     enum State { case searching, placed }
     @Published var state: State = .searching
     @Published var offerManual = false          // après quelques secondes sans mur : proposer la pose manuelle
-    var onTapPainting: (() -> Void)?
     private var manualPlane: (point: SIMD3<Float>, normal: SIMD3<Float>)?   // mur « virtuel » quand aucun mur n'est détecté
     private var searchStart = Date()
 
@@ -126,7 +127,6 @@ final class ARController: NSObject, ObservableObject {
         v.addSubview(coach)
         NSLayoutConstraint.activate([coach.topAnchor.constraint(equalTo: v.topAnchor), coach.bottomAnchor.constraint(equalTo: v.bottomAnchor),
                                      coach.leadingAnchor.constraint(equalTo: v.leadingAnchor), coach.trailingAnchor.constraint(equalTo: v.trailingAnchor)])
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         v.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan(_:))))
         arView = v
         searchStart = Date()
@@ -222,53 +222,34 @@ final class ARController: NSObject, ObservableObject {
         if let r = wallHit(c, existing: true) { place(at: r) }
     }
 
-    @objc private func tap(_ g: UITapGestureRecognizer) {
-        guard let v = arView else { return }
-        let p = g.location(in: v)
-        if state == .placed, let hit = v.entity(at: p), let painting, isDescendant(hit, of: painting) {
-            onTapPainting?(); UISelectionFeedbackGenerator().selectionChanged(); return
-        }
-        moveTo(p)
-    }
-
-    /// Déplace le tableau vers le point touché : vrai mur si connu, sinon le mur virtuel de la pose manuelle.
-    private func moveTo(_ p: CGPoint) {
-        if let m = manualPlane, let v = arView, let ray = v.ray(through: p) {
-            let d = simd_dot(ray.direction, m.normal)
-            guard abs(d) > 1e-4 else { return }
-            let t = simd_dot(m.point - ray.origin, m.normal) / d
-            if t > 0 { place(normal: m.normal, position: ray.origin + ray.direction * t) }
-            return
-        }
-        if let r = wallHit(p, existing: true) { place(at: r) }
-    }
-
     /// Glisser d'un doigt : le tableau reste sur le plan du mur où il est accroché (jamais de saut vers une fenêtre,
     /// une porte ou un autre mur, jamais dans le vide). Orientation inchangée pendant le geste.
-    private var panPlane: (point: SIMD3<Float>, normal: SIMD3<Float>, rotation: simd_quatf)?
+    private var panPlane: (point: SIMD3<Float>, normal: SIMD3<Float>, rotation: simd_quatf, offset: SIMD3<Float>)?
     @objc private func pan(_ g: UIPanGestureRecognizer) {
         guard state == .placed, let v = arView, let a = anchor else { return }
         switch g.state {
         case .began:
             let m = a.transformMatrix(relativeTo: nil)
             let n = simd_normalize(SIMD3<Float>(m.columns.1.x, m.columns.1.y, m.columns.1.z))
-            panPlane = (SIMD3<Float>(m.columns.3.x, m.columns.3.y, m.columns.3.z), n, a.orientation(relativeTo: nil))
-            fallthrough
+            let c = SIMD3<Float>(m.columns.3.x, m.columns.3.y, m.columns.3.z)
+            // décalage doigt → centre : le tableau suit le doigt sans sauter sous lui au début du geste
+            let start = wallPoint(v, g.location(in: v), point: c, normal: n) ?? c
+            panPlane = (c, n, a.orientation(relativeTo: nil), c - start)
         case .changed:
-            guard let pl = panPlane, let ray = v.ray(through: g.location(in: v)) else { return }
-            let d = simd_dot(ray.direction, pl.normal)
-            guard abs(d) > 0.05 else { return }                      // rayon presque parallèle au mur : on ne bouge pas
-            let t = simd_dot(pl.point - ray.origin, pl.normal) / d
-            guard t > 0.2, t < 6 else { return }                     // derrière soi ou trop loin : on ne bouge pas
-            a.transform = Transform(scale: .one, rotation: pl.rotation, translation: ray.origin + ray.direction * t)
+            guard let pl = panPlane, let p = wallPoint(v, g.location(in: v), point: pl.point, normal: pl.normal) else { return }
+            a.transform = Transform(scale: .one, rotation: pl.rotation, translation: p + pl.offset)
         default:
             panPlane = nil
         }
     }
-
-    private func isDescendant(_ e: Entity, of root: Entity) -> Bool {
-        var cur: Entity? = e
-        while let c = cur { if c === root { return true }; cur = c.parent }
-        return false
+    /// Point du plan du mur sous le doigt ; nil si le rayon est presque parallèle au mur, derrière soi ou trop loin.
+    private func wallPoint(_ v: ARView, _ s: CGPoint, point: SIMD3<Float>, normal: SIMD3<Float>) -> SIMD3<Float>? {
+        guard let ray = v.ray(through: s) else { return nil }
+        let d = simd_dot(ray.direction, normal)
+        guard abs(d) > 0.05 else { return nil }
+        let t = simd_dot(point - ray.origin, normal) / d
+        guard t > 0.2, t < 6 else { return nil }
+        return ray.origin + ray.direction * t
     }
+
 }
