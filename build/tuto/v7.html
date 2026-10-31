@@ -47,11 +47,11 @@ body{background:var(--bg)}
 #buy .lab{font:500 28px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;margin-top:40px}
 #buy .big{font-size:84px;margin-top:26px}
 /* barre des formats (comme dans l'appli) */
-#fmts{position:absolute;left:0;right:0;bottom:262px;display:flex;justify-content:center;gap:22px;opacity:0;z-index:4}
-#fmts .f{padding:20px 38px 18px;text-align:center;background:rgba(238,234,225,.94);color:var(--ink)}
+#fmts{position:absolute;left:0;right:0;bottom:262px;display:flex;justify-content:center;gap:26px;opacity:0;z-index:4}
+#fmts .f{padding:26px 50px 22px;transform-origin:50% 50%;transition:none;text-align:center;background:rgba(238,234,225,.94);color:var(--ink)}
 #fmts .f.on{background:var(--ink);color:var(--bg)}
-#fmts .f b{display:block;font-family:var(--serif);font-weight:400;font-size:52px;line-height:1.05}
-#fmts .f i{display:block;font-style:normal;font-family:var(--sans);font-size:28px;letter-spacing:.02em;margin-top:6px}
+#fmts .f b{display:block;font-family:var(--serif);font-weight:400;font-size:64px;line-height:1.05}
+#fmts .f i{display:block;font-style:normal;font-family:var(--sans);font-size:32px;letter-spacing:.02em;margin-top:8px}
 #white{position:absolute;inset:0;background:#fff;opacity:0;z-index:30}
 #fade{position:absolute;inset:0;background:var(--bg);opacity:0;z-index:60}
 </style></head>
@@ -77,7 +77,7 @@ body{background:var(--bg)}
     <div class="pill" id="p4"></div>
     <div id="fmts"><div class="f on" id="f-cl"><b>Classique</b><i>85 × 40 cm</i></div><div class="f" id="f-gr"><b>Grand</b><i>140 × 65 cm</i></div></div>
     <div class="banner" id="banner"><div><div class="t">Razzle Dazzle</div><div class="s">Grand · 140 × 65 cm, 1 820 €</div></div><div class="b">Acquérir ce tirage</div></div>
-    <div class="ripple" id="rip2" style="border-color:#fff;box-shadow:0 0 0 2px rgba(0,0,0,.28),0 0 26px rgba(0,0,0,.35),inset 0 0 18px rgba(0,0,0,.15)"></div>
+    <div class="ripple" id="rip2" style="z-index:5;width:240px;height:240px;margin:-120px 0 0 -120px;border-width:7px;border-color:#fff;box-shadow:0 0 0 2px rgba(0,0,0,.28),0 0 26px rgba(0,0,0,.35),inset 0 0 18px rgba(0,0,0,.15)"></div>
     <div id="fingerhost"></div>
   </div>
   <div id="white"></div>
@@ -143,7 +143,7 @@ const SUBS = [
   [2.0, 4.4, 'Choisissez une Édition sur Toile'],
   [5.2, 7.4, 'Choisissez un format', 'real'],
   [5.6, 7.8, 'Cliquez sur « Voir sur mon mur »'],
-  [8.6, 12.2, 'Balayez lentement votre mur'],
+  [8.6, 12.2, 'À moins de 3 m du mur, balayez-le lentement'],
   [12.8, 15.2, 'L\'œuvre s\'accroche, à sa taille réelle'],
   [15.5, 17.4, 'Changez de format en bas de l\'écran'],
   [17.7, 20.6, 'Ajustez sa position du doigt'],
@@ -200,21 +200,22 @@ window.render = function (T) {
   worldState($('w2'), t);
   $('p4').style.opacity = 0;
   $('fmts').style.opacity = seg(t, 13.4, 14.0);
-  $('f-cl').classList.toggle('on', t < 16.55); $('f-gr').classList.toggle('on', t >= 16.55);
+  $('f-cl').classList.toggle('on', t < 16.35); $('f-gr').classList.toggle('on', t >= 16.35);
+  { const k = win(t, 16.15, 16.3, 16.55, 16.75); $('f-gr').style.transform = `scale(${1 - 0.1 * k})`; }
   const b = seg(t, 21.4, 22.2); show($('banner'), b, `translateY(${140 - 140 * b}px)`);
   // doigt : recentrage du Grand (17.0 → 19.8), puis « Acquérir ce tirage » (22.2 → 24.0)
   const [hx0, hy0] = hangPos(t); const hx = hx0, hy = hy0 + 40;
   let fx = 1250, fy = 2200, vis = 0, press = 0;
   if (t > 15.8 && t < 21.0) {
-    const u = seg(t, 15.8, 16.4); fx = lerp(1250, GB[0], u); fy = lerp(2200, GB[1], u);        // vers le bouton « Grand »
-    if (t > 16.6) { const m = seg(t, 16.6, 17.2); fx = lerp(GB[0], hx, m); fy = lerp(GB[1], hy, m); }   // puis vers le Grand décalé
+    const u = seg(t, 15.6, 16.1); fx = lerp(1250, GB[0], u); fy = lerp(2200, GB[1], u);        // vers le bouton « Grand »
+    if (t > 16.85) { const m = seg(t, 16.85, 17.4); fx = lerp(GB[0], hx, m); fy = lerp(GB[1], hy, m); }   // puis vers le Grand décalé
     const o = seg(t, 20.3, 20.9); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1;
-    press = win(t, 16.4, 16.5, 16.6, 16.75) || (t > 17.75 && t < 20.25 ? 1 : 0);
+    press = win(t, 16.15, 16.3, 16.6, 16.8) || (t > 17.75 && t < 20.25 ? 1 : 0);
   }
   if (t > 23.2 && t < 25.2) { const u = seg(t, 23.2, 23.9); fx = lerp(1250, 870, u); fy = lerp(2200, 1800, u); const o = seg(t, 24.5, 25.1); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1; press = win(t, 24.05, 24.2, 24.35, 24.5); }
   fingerAt($('fg'), fx, fy, press, vis);
   $('rip2').style.opacity = 0;
-  if (t >= 16.5 && t < 17.2) rippleAt($('rip2'), GB[0], GB[1], t, 16.5);
+  if (t >= 16.3 && t < 17.3) rippleAt($('rip2'), GB[0], GB[1], t, 16.3, 1.0);
   if (t >= 24.15 && t < 24.8) rippleAt($('rip2'), 870, 1800, t, 24.15);
   // ---------- commande ----------
   $('white').style.opacity = win(t, 26.5, 26.75, 26.9, 27.4);

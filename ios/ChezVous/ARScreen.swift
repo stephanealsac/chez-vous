@@ -88,7 +88,7 @@ struct ARScreen: View {
 
     private var hint: String {
         switch ctl.state {
-        case .searching: return ctl.offerManual ? "Reculez à 1 ou 2 m d’un mur éclairé" : "À 1 ou 2 m du mur, balayez-le lentement"
+        case .searching: return ctl.offerManual ? "Approchez-vous à moins de 3 m d’un mur éclairé" : "À moins de 3 m du mur, balayez-le lentement"
         case .placed: return "Taille réelle"
         }
     }
