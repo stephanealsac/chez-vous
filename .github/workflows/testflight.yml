@@ -1,4 +1,5 @@
 name: testflight
+# Archive non signée (pas d'appareil enregistré → pas de profil de développement) ; signature « distribution » au moment de l'export.
 # Envoi sur TestFlight : se déclenche quand ios/release.txt change (une ligne = une version envoyée).
 on:
   push:
@@ -39,7 +40,7 @@ jobs:
             -destination 'generic/platform=iOS' -archivePath build/ChezVous.xcarchive \
             -allowProvisioningUpdates -authenticationKeyPath ~/private_keys/AuthKey.p8 \
             -authenticationKeyID "$KID" -authenticationKeyIssuerID "$ISS" \
-            DEVELOPMENT_TEAM="$TEAM_ID" CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM="$TEAM_ID" CODE_SIGN_STYLE=Automatic CODE_SIGNING_ALLOWED=NO \
             CURRENT_PROJECT_VERSION=${{ github.run_number }} archive 2>&1 | tee archive.log | xcpretty
           test -d build/ChezVous.xcarchive || { grep -E "error:" archive.log | head -40; exit 1; }
       - name: Envoi sur App Store Connect (TestFlight)

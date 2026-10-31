@@ -1,1 +1,2 @@
 1.0 — premier envoi TestFlight (2026-10-31)
+1.0 — essai 2 : signature à l'export (2026-10-31)
