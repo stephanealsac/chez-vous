@@ -35,7 +35,7 @@ body{background:var(--bg)}
 .pill{position:absolute;padding:22px 38px;border-radius:999px;background:var(--ink);color:var(--bg);font:500 26px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;opacity:0;transform-origin:50% 50%;box-shadow:0 18px 30px rgba(20,14,8,.25)}
 .pill b{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:.04em;text-transform:none;margin-left:14px}
 /* sous-titres */
-#sub{position:absolute;left:60px;right:60px;top:230px;z-index:40;text-align:center;pointer-events:none}
+#sub{position:absolute;left:60px;right:60px;top:96px;z-index:40;text-align:center;pointer-events:none}
 #sub span{display:inline-block;padding:10px 20px;color:var(--ink);font-family:var(--serif);font-style:italic;font-weight:300;font-size:74px;line-height:1.1;letter-spacing:.01em;opacity:0;text-shadow:0 0 22px rgba(238,234,225,.95),0 0 44px rgba(238,234,225,.8);text-wrap:balance}
 /* bannière Quick Look */
 .banner{position:absolute;left:34px;right:34px;bottom:54px;padding:40px 44px;border-radius:44px;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:space-between;gap:30px;transform:translateY(140px);opacity:0}
@@ -78,7 +78,7 @@ body{background:var(--bg)}
     <div id="fmts"><div class="f on" id="f-cl"><b>Classique</b><i>85 × 40 cm</i></div><div class="f" id="f-gr"><b>Grand</b><i>140 × 65 cm</i></div></div>
     <div class="banner" id="banner"><div><div class="t">Razzle Dazzle</div><div class="s">Grand · 140 × 65 cm, 1 820 €</div></div><div class="b">Acquérir ce tirage</div></div>
     <div class="ripple" id="rip2" style="z-index:5;width:240px;height:240px;margin:-120px 0 0 -120px;border-width:7px;border-color:#fff;box-shadow:0 0 0 2px rgba(0,0,0,.28),0 0 26px rgba(0,0,0,.35),inset 0 0 18px rgba(0,0,0,.15)"></div>
-    <div id="fingerhost"></div>
+    <div id="fingerhost" style="position:absolute;inset:0;z-index:6;pointer-events:none"></div>
   </div>
   <div id="white"></div>
   <div id="buy"><svg viewBox="0 0 260 260"><circle cx="130" cy="130" r="118" fill="none" stroke="#1a1a1a" stroke-width="4" id="ck-c"/><path d="M78 134 L116 172 L186 94" fill="none" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" id="ck"/></svg></div>
@@ -156,6 +156,7 @@ function subtitle(t, T) {
 }
 
 window.DURATION = 30.8;
+const PS = 1.3, PY = 80;   // échelle et décalage vertical du téléphone (première partie)
 let GB = [690, 1600];   // centre du bouton « Grand » (mesuré au premier rendu)
 function measureGB(){ const r = $('f-gr').getBoundingClientRect(), w = $('fullwrap').getBoundingClientRect(); GB = [r.left - w.left + r.width / 2, r.top - w.top + r.height / 2]; }
 window.render = function (T) {
@@ -170,8 +171,8 @@ window.render = function (T) {
   const hs = hand * (1 - zoom);
   const rotY = lerp(-14, 7 + swayX, enter) * (1 - zoom) + hs * Math.sin((t - 8.2) * 1.8) * 6;
   const rotX = lerp(6, 3 + sway * .4, enter) * (1 - zoom) + hs * Math.sin((t - 8.2) * 1.3) * 4;
-  const sc = lerp(1, 1.74, easeOut(zoom));
-  const ty = lerp(1500, 0, easeOut(enter)) + Math.sin(t * 1.1) * 8 * (1 - zoom);
+  const sc = lerp(PS, 1.74, easeOut(zoom));   // téléphone agrandi (lisible sur iPhone)
+  const ty = lerp(1500, 0, easeOut(enter)) + Math.sin(t * 1.1) * 8 * (1 - zoom) + PY * (1 - zoom);
   const tx = hs * Math.sin((t - 8.2) * 1.5) * 18;
   const cx0 = 540, cy0 = 960; const dx = (540 - cx0) * zoom, dy = (960 - cy0) * zoom;
   ph.style.opacity = enter > 0 && t < 11.0 ? 1 : 0;
@@ -185,11 +186,11 @@ window.render = function (T) {
   const drift = hand * (Math.sin((t - 8.2) * 1.4) * 40 * (1 - zoom));
   $('w1').style.transform = `translate(${(SW - 1080 * ZS) / 2 + drift * ZS}px,0) scale(${ZS})`;
   worldState($('w1'), t);
-  const scrLeft = 260 + 16 + tx, scrTop = 390 + 16 + ty;
+  const scrLeft = 540 + tx + sc * (16 - 280), scrTop = 960 + ty + sc * (16 - 570);   // coin de l'écran (téléphone mis à l'échelle sc)
   const taps1 = [[4.6, CARD[0], CARD[1] - catScroll], [7.4, BTN[0], BTN[1]]];
   $('rip1').style.opacity = 0;
-  for (const [t0, x, y] of taps1) if (t >= t0 && t < t0 + .7) rippleAt($('rip1'), scrLeft + x, scrTop + y, t, t0);
-  for (const [t0, y] of [[6.0, ROWS[1]], [7.0, ROWS[0]]]) if (T >= t0 && T < t0 + .7) rippleAt($('rip1'), scrLeft + 195 * 2 * K2, scrTop + y, T, t0);
+  for (const [t0, x, y] of taps1) if (t >= t0 && t < t0 + .7) rippleAt($('rip1'), scrLeft + sc * x, scrTop + sc * y, t, t0);
+  for (const [t0, y] of [[6.0, ROWS[1]], [7.0, ROWS[0]]]) if (T >= t0 && T < t0 + .7) rippleAt($('rip1'), scrLeft + sc * 195 * 2 * K2, scrTop + sc * y, T, t0);
   // ---------- plein cadre ----------
   const fw = $('fullwrap'); fw.style.opacity = win(t, 10.45, 10.75, 26.75, 26.85);
   const settle = seg(t, 10.7, 11.9);
@@ -207,8 +208,8 @@ window.render = function (T) {
   const [hx0, hy0] = hangPos(t); const hx = hx0, hy = hy0 + 40;
   let fx = 1250, fy = 2200, vis = 0, press = 0;
   if (t > 15.8 && t < 21.0) {
-    const u = seg(t, 15.6, 16.1); fx = lerp(1250, GB[0], u); fy = lerp(2200, GB[1], u);        // vers le bouton « Grand »
-    if (t > 16.85) { const m = seg(t, 16.85, 17.4); fx = lerp(GB[0], hx, m); fy = lerp(GB[1], hy, m); }   // puis vers le Grand décalé
+    const u = seg(t, 15.6, 16.1); fx = lerp(1250, GB[0], u); fy = lerp(2200, GB[1] - 45, u);        // vers le bouton « Grand »
+    if (t > 16.85) { const m = seg(t, 16.85, 17.4); fx = lerp(GB[0], hx, m); fy = lerp(GB[1] - 45, hy, m); }   // puis vers le Grand décalé
     const o = seg(t, 20.3, 20.9); fx = lerp(fx, 1250, o); fy = lerp(fy, 2200, o); vis = 1;
     press = win(t, 16.15, 16.3, 16.6, 16.8) || (t > 17.75 && t < 20.25 ? 1 : 0);
   }
