@@ -17,7 +17,7 @@ struct ARScreen: View {
                 ARViewContainer(ctl: ctl).ignoresSafeArea()
             } else {
                 Theme.bg.ignoresSafeArea()
-                Text("La réalité augmentée n'est pas disponible sur cet appareil.")
+                Text(L("La réalité augmentée n'est pas disponible sur cet appareil.", "Augmented reality isn't available on this device."))
                     .font(Theme.serif(22)).multilineTextAlignment(.center).padding(40)
             }
             VStack(spacing: 0) {
@@ -26,7 +26,7 @@ struct ARScreen: View {
                         Image(systemName: "xmark").font(.system(size: 17, weight: .medium))
                             .foregroundStyle(Theme.ink).frame(width: 44, height: 44)
                             .background(Circle().fill(Theme.bg.opacity(0.92)))
-                    }.accessibilityLabel("Fermer")
+                    }.accessibilityLabel(L("Fermer", "Close"))
                     Spacer()
                 }.padding(.horizontal, 16).padding(.top, 8)
                 Text(hint).font(Theme.serif(30)).foregroundStyle(Theme.ink)
@@ -34,7 +34,7 @@ struct ARScreen: View {
                     .shadow(color: Theme.bg.opacity(0.95), radius: 10).shadow(color: Theme.bg.opacity(0.8), radius: 20)
                     .animation(.easeInOut(duration: 0.3), value: hint)
                 if ctl.state == .placed {
-                    Text("L'œuvre apparaît aux dimensions exactes du tableau.\nGlissez-la d'un doigt pour la déplacer.")
+                    Text(L("L'œuvre apparaît aux dimensions exactes du tableau.\nGlissez-la d'un doigt pour la déplacer.", "The piece appears at the exact size of the real artwork.\nSlide it with one finger to move it."))
                         .font(Theme.serif(18)).foregroundStyle(Theme.ink).multilineTextAlignment(.center)
                         .padding(.horizontal, 28).padding(.top, 4)
                         .shadow(color: Theme.bg.opacity(0.95), radius: 8).shadow(color: Theme.bg.opacity(0.8), radius: 16)
@@ -44,7 +44,7 @@ struct ARScreen: View {
                 VStack(spacing: 12) {
                     if ctl.state == .searching && ctl.offerManual {
                         Button { ctl.placeInFront() } label: {
-                            Caps(text: "Mur non trouvé ? Poser devant moi", size: 10, tracking: 2.0, color: Theme.bg)
+                            Caps(text: L("Mur non trouvé ? Poser devant moi", "No wall found? Place it in front of me"), size: 10, tracking: 2.0, color: Theme.bg)
                                 .padding(.horizontal, 18).frame(height: 46).background(Theme.ink)
                         }.buttonStyle(.plain).transition(.opacity)
                     }
@@ -53,7 +53,7 @@ struct ARScreen: View {
                             ForEach(work.sizes) { s in
                                 Button { size = s } label: {
                                     VStack(spacing: 2) {
-                                        Text(s.label).font(Theme.serif(19))
+                                        Text(s.displayLabel).font(Theme.serif(19))
                                         Text(s.canvasText).font(Theme.sans(11))
                                     }
                                     .foregroundStyle(s == size ? Theme.bg : Theme.ink)
@@ -66,12 +66,12 @@ struct ARScreen: View {
                     Button { if let u = work.shopURL { openURL(u) } } label: {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(work.title).font(Theme.serif(21)).foregroundStyle(Theme.ink)
-                                Text("\(size.label) · \(size.canvasText)\(size.price_framed.map { " · " + Fmt.eur($0) } ?? "")")
+                                Text(work.displayTitle).font(Theme.serif(21)).foregroundStyle(Theme.ink)
+                                Text("\(size.displayLabel) · \(size.canvasText)\(size.framedPrice.map { " · " + Fmt.price($0) } ?? "")")
                                     .font(Theme.sans(12)).foregroundStyle(Theme.inkSoft)
                             }
                             Spacer()
-                            Caps(text: "Acquérir", size: 10, tracking: 2.2, color: Theme.bg)
+                            Caps(text: L("Acquérir", "Buy"), size: 10, tracking: 2.2, color: Theme.bg)
                                 .padding(.horizontal, 16).frame(height: 40).background(Theme.ink)
                         }
                         .padding(.leading, 18).padding(.trailing, 10).padding(.vertical, 10)
@@ -88,8 +88,8 @@ struct ARScreen: View {
 
     private var hint: String {
         switch ctl.state {
-        case .searching: return ctl.offerManual ? "Approchez-vous à moins de 3 m d’un mur éclairé" : "À moins de 3 m du mur, balayez-le lentement"
-        case .placed: return "Taille réelle"
+        case .searching: return ctl.offerManual ? L("Approchez-vous à moins de 3 m d’un mur éclairé", "Get within 10 feet of a well-lit wall") : L("À moins de 3 m du mur, balayez-le lentement", "Within 10 feet of the wall, sweep it slowly")
+        case .placed: return L("Taille réelle", "Actual size")
         }
     }
 }

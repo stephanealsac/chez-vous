@@ -18,3 +18,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /tuto-poster.jpg
   Cache-Control: public, max-age=31536000, immutable
+/tuto-en.mp4
+  Content-Type: video/mp4
+  Cache-Control: public, max-age=31536000, immutable
+/tuto-en-poster.jpg
+  Cache-Control: public, max-age=31536000, immutable

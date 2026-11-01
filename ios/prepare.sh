@@ -6,5 +6,5 @@ rm -rf "$OUT"; mkdir -p "$OUT/img" "$OUT/models"
 cp "$SITE/catalogue.json" "$OUT/"
 cp "$SITE"/img/*.jpg "$OUT/img/"
 cp "$SITE"/models/*.usdz "$OUT/models/"
-cp "$SITE/tuto.mp4" "$OUT/"; cp "$HERE/tuto-poster.jpg" "$OUT/"   # affiche propre (œuvre posée, sans transition)
+cp "$SITE/tuto.mp4" "$SITE/tuto-en.mp4" "$OUT/"; cp "$HERE/tuto-poster.jpg" "$OUT/"; cp "$SITE/tuto-en-poster.jpg" "$OUT/"   # vidéo FR + EN
 echo "Catalogue embarqué : $(ls "$OUT/models" | wc -l) modèles, $(du -sh "$OUT" | cut -f1)"
