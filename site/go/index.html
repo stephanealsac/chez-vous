@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eeeae1">
+<title>Chez vous — Stéphane Alsac</title>
+<meta name="description" content="Voyez les Éditions sur Toile de Stéphane Alsac sur votre mur, à taille réelle.">
+<link rel="icon" href="../icon-180.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+/* Page d'accueil des QR codes du catalogue papier (app.stephane-alsac.com).
+   Elle peut être modifiée à tout moment sans réimprimer : les QR codes pointent ici, pas vers l'appli. */
+:root{--bg:#eeeae1;--ink:#1a1a1a;--soft:#4a4a4a;--muted:#6a665e;--border:#d4cfc4;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Raleway',system-ui,-apple-system,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:max(32px,env(safe-area-inset-top)) 24px max(32px,env(safe-area-inset-bottom));text-align:center;font-family:var(--sans)}
+.logo{width:120px;height:120px;border:1px solid var(--border)}
+.brand{margin-top:26px;font:400 15px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;padding-left:.22em}
+h1{margin-top:10px;font:italic 300 44px/1.05 var(--serif)}
+p.lead{margin-top:18px;max-width:330px;font:italic 300 21px/1.35 var(--serif);color:var(--soft);text-wrap:balance}
+.btns{margin-top:34px;width:100%;max-width:340px;display:flex;flex-direction:column;gap:12px}
+.btn{display:flex;align-items:center;justify-content:center;min-height:54px;padding:0 18px;font:400 11px/1.2 var(--sans);letter-spacing:.25em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.second{color:var(--ink)}
+.btn[hidden]{display:none}
+.note{margin-top:22px;max-width:320px;font:italic 300 16px/1.35 var(--serif);color:var(--muted)}
+.foot{margin-top:40px;display:flex;gap:22px;align-items:center;font:400 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+.foot a{color:var(--soft);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:3px}
+.foot button{background:none;border:0;font:inherit;letter-spacing:inherit;color:var(--soft);cursor:pointer;padding:10px}
+</style>
+</head>
+<body>
+  <img class="logo" src="icon-sa.svg" alt="">
+  <div class="brand">Stéphane Alsac</div>
+  <h1>Chez vous</h1>
+  <p class="lead" id="lead"></p>
+  <div class="btns">
+    <a class="btn primary" id="store" hidden></a>
+    <a class="btn" id="web"></a>
+  </div>
+  <p class="note" id="note"></p>
+  <div class="foot"><a id="site" href="https://www.stephane-alsac.com">stephane-alsac.com</a><button id="lang" type="button"></button></div>
+<script>
+(function(){
+  // ---- RÉGLAGES (à changer ici, sans réimprimer les QR codes) ----
+  const APP_STORE_URL = '';   // lien App Store de l'appli quand elle sera publiée ; vide = bouton caché
+  const WEB_URL = 'https://chez-vous.stephane-alsac.com/';
+  // -----------------------------------------------------------------
+  const T = {
+    fr: { lead: 'Voyez les Éditions sur Toile de Stéphane Alsac sur votre mur, à taille réelle, avant de choisir.',
+          store: 'Télécharger l\'application', web: 'Voir sur mon mur', webAlt: 'Ouvrir dans le navigateur',
+          note: 'Gratuit, sans compte. iPhone, iPad et la plupart des téléphones Android récents.', other: 'English', site: 'https://www.stephane-alsac.com' },
+    en: { lead: 'See Stéphane Alsac\'s Canvas Editions on your own wall, at actual size, before you choose.',
+          store: 'Download the app', web: 'View on my wall', webAlt: 'Open in your browser',
+          note: 'Free, no account needed. iPhone, iPad and most recent Android phones.', other: 'Français', site: 'https://www.stephane-alsac.com/en/' }
+  };
+  const q = new URLSearchParams(location.search);
+  let L = q.get('lang');
+  if (L !== 'fr' && L !== 'en') L = /^fr/i.test((navigator.languages && navigator.languages[0]) || navigator.language || 'fr') ? 'fr' : 'en';
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  function render(){
+    const t = T[L];
+    document.documentElement.lang = L === 'en' ? 'en-US' : 'fr';
+    document.getElementById('lead').textContent = t.lead;
+    document.getElementById('note').textContent = t.note;
+    const store = document.getElementById('store'), web = document.getElementById('web');
+    const showStore = !!APP_STORE_URL && isIOS;
+    store.hidden = !showStore; store.href = APP_STORE_URL || '#'; store.textContent = t.store;
+    web.href = WEB_URL + '?lang=' + L + '&src=qr';
+    web.textContent = showStore ? t.webAlt : t.web;
+    web.className = 'btn ' + (showStore ? 'second' : 'primary');
+    document.getElementById('lang').textContent = t.other;
+    document.getElementById('site').href = t.site;
+  }
+  document.getElementById('lang').addEventListener('click', () => { L = L === 'fr' ? 'en' : 'fr'; render(); });
+  render();
+})();
+</script>
+</body>
+</html>
