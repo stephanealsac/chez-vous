@@ -1,0 +1,5 @@
+# Liens imprimés (QR codes du catalogue papier 2027) : ne jamais les supprimer.
+# app.stephane-alsac.com/fr et /en → page d'accueil des QR codes (site/go/), modifiable sans réimprimer.
+/fr   /go/?lang=fr  302
+/en   /go/?lang=en  302
+/app  /go/          302
