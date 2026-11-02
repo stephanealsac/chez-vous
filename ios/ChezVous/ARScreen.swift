@@ -28,13 +28,25 @@ struct ARScreen: View {
                             .background(Circle().fill(Theme.bg.opacity(0.92)))
                     }.accessibilityLabel(L("Fermer", "Close"))
                     Spacer()
+                    if ctl.state == .placed {
+                        Button { ctl.restart() } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: "arrow.counterclockwise").font(.system(size: 14, weight: .medium))
+                                Caps(text: L("Replacer", "Re-place"), size: 10, tracking: 2.0)
+                            }
+                            .foregroundStyle(Theme.ink).padding(.horizontal, 14).frame(height: 44)
+                            .background(Capsule().fill(Theme.bg.opacity(0.92)))
+                        }.buttonStyle(.plain).transition(.opacity)
+                    }
                 }.padding(.horizontal, 16).padding(.top, 8)
                 Text(hint).font(Theme.serif(30)).foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.center).padding(.horizontal, 28).padding(.top, 10)
                     .shadow(color: Theme.bg.opacity(0.95), radius: 10).shadow(color: Theme.bg.opacity(0.8), radius: 20)
                     .animation(.easeInOut(duration: 0.3), value: hint)
                 if ctl.state == .placed {
-                    Text(L("L'œuvre apparaît aux dimensions exactes du tableau.\nGlissez-la d'un doigt pour la déplacer.", "The piece appears at the exact size of the real artwork.\nSlide it with one finger to move it."))
+                    Text(ctl.isManual
+                         ? L("Visez votre mur : le tableau s'y accrochera dès qu'il sera reconnu.", "Aim at your wall: the piece will hang on it as soon as it is recognized.")
+                         : L("L'œuvre apparaît aux dimensions exactes du tableau.\nGlissez-la d'un doigt pour la déplacer.", "The piece appears at the exact size of the real artwork.\nSlide it with one finger to move it."))
                         .font(Theme.serif(18)).foregroundStyle(Theme.ink).multilineTextAlignment(.center)
                         .padding(.horizontal, 28).padding(.top, 4)
                         .shadow(color: Theme.bg.opacity(0.95), radius: 8).shadow(color: Theme.bg.opacity(0.8), radius: 16)
@@ -104,8 +116,10 @@ struct ARViewContainer: UIViewRepresentable {
 final class ARController: NSObject, ObservableObject {
     enum State { case searching, placed }
     @Published var state: State = .searching
-    @Published var offerManual = false          // après quelques secondes sans mur : proposer la pose manuelle
-    private var manualPlane: (point: SIMD3<Float>, normal: SIMD3<Float>)?   // mur « virtuel » quand aucun mur n'est détecté
+    @Published var offerManual = false          // après un long moment sans mur : proposer la pose manuelle
+    @Published var isManual = false             // œuvre posée « devant moi » en attendant le vrai mur
+    private var manualPlane: (point: SIMD3<Float>, normal: SIMD3<Float>)? { didSet { isManual = manualPlane != nil } }   // mur « virtuel » provisoire
+    static let manualDelay: TimeInterval = 15   // les iPhone sans LiDAR mettent du temps à reconnaître un mur uni
     private var searchStart = Date()
 
     private var arView: ARView?
@@ -150,6 +164,14 @@ final class ARController: NSObject, ObservableObject {
     }
 
     func stop() { searchTimer?.invalidate(); searchTimer = nil; arView?.session.pause() }
+
+    /// « Replacer » : on retire l'œuvre et on recherche le mur, comme à l'ouverture.
+    func restart() {
+        anchor?.removeFromParent(); anchor = nil; painting = nil
+        manualPlane = nil; offerManual = false; searchStart = Date()
+        state = .searching
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
 
     func show(_ s: WorkSize) {
         wanted = s
@@ -218,14 +240,20 @@ final class ARController: NSObject, ObservableObject {
             if let s = wanted { show(s) }
         }
         anchor?.transform = tf
-        if state != .placed { state = .placed; searchTimer?.invalidate(); UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+        if state != .placed { state = .placed; UIImpactFeedbackGenerator(style: .light).impactOccurred() }
     }
 
     private func tryAutoPlace() {
-        guard state == .searching, let v = arView else { return }
-        if !offerManual && Date().timeIntervalSince(searchStart) > 6 { offerManual = true }
+        guard let v = arView, panPlane == nil else { return }
         let c = CGPoint(x: v.bounds.midX, y: v.bounds.midY)
-        if let r = wallHit(c) { place(at: r) }
+        switch state {
+        case .searching:
+            if !offerManual && Date().timeIntervalSince(searchStart) > Self.manualDelay { offerManual = true }
+            if let r = wallHit(c) { place(at: r) }
+        case .placed:
+            // posée « devant moi » : dès qu'un vrai mur est reconnu au centre de l'écran, l'œuvre s'y accroche
+            if manualPlane != nil, let r = wallHit(c) { place(at: r); UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+        }
     }
 
     /// Glisser d'un doigt : le tableau reste sur le plan du mur où il est accroché (jamais de saut vers une fenêtre,

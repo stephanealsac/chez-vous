@@ -5,3 +5,4 @@
 1.0 — build : accroche seulement sur un vrai mur détecté (2026-10-31)
 1.0 — build : tutoriel v7 (formats en bas), conseil < 3 m (2026-11-01)
 1.0 — build : bilingue FR / EN (2026-11-01)
+1.0 — build : attente du mur 15 s, pose provisoire qui s'accroche au vrai mur, bouton Replacer (2026-11-02)
