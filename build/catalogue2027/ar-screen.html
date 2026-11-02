@@ -5,11 +5,11 @@
 /* Écran RA de l'appli « Chez vous », reproduit à l'identique (unités = points iOS, 390 × 844) */
 :root{--bg:#eeeae1;--ink:#1a1a1a;--soft:#4a4a4a;--border:#d4cfc4}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:390px;height:844px;overflow:hidden;background:#000}
+html,body{width:100%;height:100%;overflow:hidden;background:#000}
 .cam{position:absolute;inset:0;overflow:hidden}
-.cam img.plate{position:absolute;height:844px;width:auto;left:50%;transform:translateX(-50%)}
+.cam img.plate{position:absolute;height:100%;width:auto;left:50%;transform:translateX(-50%)}
 .hang{position:absolute;filter:drop-shadow(3px 6px 8px rgba(20,14,8,.35))}
-.top{position:absolute;left:16px;right:16px;top:54px;display:flex;justify-content:space-between;align-items:center}
+.top{position:absolute;left:16px;right:16px;top:calc(54px + (100vh - 844px) * .1);display:flex;justify-content:space-between;align-items:center}
 .close{width:44px;height:44px;border-radius:50%;background:rgba(238,234,225,.92);display:grid;place-items:center}
 .close svg{width:15px;height:15px}
 .replace{height:44px;padding:0 14px;border-radius:22px;background:rgba(238,234,225,.92);display:flex;align-items:center;gap:6px;font:400 10px/1 'Raleway';letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
@@ -44,7 +44,7 @@ const T = en ? { rep:'Re-place', h:'Actual size', s:'The piece appears at the ex
              : { rep:'Replacer', h:'Taille réelle', s:'L\'œuvre apparaît aux dimensions exactes du tableau.<br>Glissez-la d\'un doigt pour la déplacer.', f1:'Classique', d1:'85 × 40 cm', f2:'Grand', d2:'140 × 65 cm', cd:'Classique · 85 × 40 cm · 1 150 €', buy:'Acquérir' };
 for (const k in T) document.getElementById(k).innerHTML = T[k];
 // même géométrie que le tutoriel : photo 1080 × 1920, 5,81 px/cm, œuvre Classique (93,6 × 48,6 cm cadre compris) centrée en (536, 810)
-const k = 844 / 1920, plateW = 1080 * k, left = (390 - plateW) / 2;
+const H = innerHeight, Wd = innerWidth, k = H / 1920, plateW = 1080 * k, left = (Wd - plateW) / 2;
 const w = 93.6 * 5.81 * k, h = 48.6 * 5.81 * k, cx = left + 536 * k, cy = 810 * k;
 Object.assign(document.getElementById('hang').style, { left: cx - w / 2 + 'px', top: cy - h / 2 + 'px', width: w + 'px', height: h + 'px' });
 </script></body></html>
