@@ -1,0 +1,5 @@
+# Liens courts imprimés (QR codes du catalogue papier) : ne jamais les supprimer.
+# Quand l'appli sera sur l'App Store, on pourra les faire pointer ailleurs sans réimprimer.
+/app  /?src=catalogue  302
+/en   /?lang=en&src=catalogue  302
+/fr   /?lang=fr&src=catalogue  302
