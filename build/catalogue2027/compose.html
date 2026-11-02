@@ -1,0 +1,40 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../site/fonts/fonts.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#eeeae1}
+/* iPhone (proportions 1179 × 2556 pour l'écran) */
+.phone{position:absolute;border-radius:9.5%/4.4%;background:linear-gradient(135deg,#4a4a4c,#141416 38%,#2a2a2d 68%,#0c0c0d);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.22),inset 0 0 0 5px #19191b,0 50px 70px rgba(20,14,8,.32),0 14px 22px rgba(20,14,8,.22)}
+.phone .scr{position:absolute;left:3.2%;right:3.2%;top:1.5%;bottom:1.5%;border-radius:7.6%/3.5%;overflow:hidden;background:#000}
+.phone .scr img{width:100%;height:100%;display:block;object-fit:cover}
+.phone .island{position:absolute;left:50%;top:2.9%;width:27%;height:3.2%;transform:translateX(-50%);border-radius:999px;background:#000}
+.phone .glare{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(112deg,rgba(255,255,255,.13),rgba(255,255,255,0) 30%,rgba(255,255,255,0) 68%,rgba(255,255,255,.06));pointer-events:none}
+.bgwall{position:absolute;inset:-40px;background:url(zebra-plate.jpg) center 38%/cover;filter:blur(7px) saturate(.95) brightness(1.02)}
+.icon{position:absolute;inset:0;background:#eeeae1}
+.icon .sa{position:absolute;left:0;right:0;top:21.4%;text-align:center;font:italic 400 609px/1 'Cormorant Garamond';color:#1a1a1a;letter-spacing:-.045em;padding-left:9px}
+.icon .rule{position:absolute;left:39.3%;width:21.5%;top:78.1%;height:3px;background:#9f998d}
+</style></head><body>
+<script>
+const q = new URLSearchParams(location.search), mode = q.get('mode'), L = q.get('lang') || 'fr';
+const W = innerWidth, H = innerHeight;
+function phone(x, y, h, src, rot = 0){
+  const w = h * 1179 / 2556 / 0.936 * 0.97;   // largeur du boîtier (écran + bords)
+  const d = document.createElement('div'); d.className = 'phone';
+  Object.assign(d.style, { left: x - w / 2 + 'px', top: y - h / 2 + 'px', width: w + 'px', height: h + 'px', transform: `rotate(${rot}deg)` });
+  d.innerHTML = `<div class="scr"><img src="${src}"></div><div class="island"></div><div class="glare"></div>`;
+  document.body.appendChild(d); return d;
+}
+if (mode === 'trio') {
+  const h = H * 0.84, y = H / 2;
+  phone(W * 0.24, y + 14, h, `cat-${L}.png`);
+  phone(W * 0.50, y - 14, h, `fiche-${L}.png`);
+  phone(W * 0.76, y + 14, h, `out/ar-${L}.png`);
+} else if (mode === 'wall') {
+  const bg = document.createElement('div'); bg.className = 'bgwall'; document.body.appendChild(bg);
+  phone(W * 0.5, H * 0.53, H * 0.98, `out/ar-${L}.png`, -3);
+} else if (mode === 'icon') {
+  document.body.innerHTML = '<div class="icon"><div class="sa">SA</div><div class="rule"></div></div>';
+}
+</script></body></html>

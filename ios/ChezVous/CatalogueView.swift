@@ -17,7 +17,7 @@ struct CatalogueView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                Text("ÉDITIONS SUR TOILE").font(Theme.serifUpright(22)).tracking(5.5)
+                Text(L("ÉDITIONS SUR TOILE", "CANVAS EDITIONS")).font(Theme.serifUpright(22)).tracking(5.5)
                     .foregroundStyle(Theme.ink).padding(.vertical, 34)
                 Rule()
                 LazyVGrid(columns: cols, spacing: 0) {
@@ -25,7 +25,7 @@ struct CatalogueView: View {
                         NavigationLink(value: w) { WorkCard(work: w) }.buttonStyle(.plain)
                     }
                 }
-                Text("Éditions limitées, signées et numérotées.")
+                Text(L("Éditions limitées, signées et numérotées.", "Limited editions, signed and numbered."))
                     .font(Theme.serif(16)).foregroundStyle(Theme.muted).padding(.vertical, 30)
             }
         }
@@ -36,7 +36,7 @@ struct CatalogueView: View {
                 Button(action: onHelp) {
                     Text("?").font(Theme.serif(20)).frame(width: 32, height: 32)
                         .overlay(Rectangle().stroke(Theme.border, lineWidth: 1))
-                }.accessibilityLabel("Revoir le tutoriel")
+                }.accessibilityLabel(L("Revoir le tutoriel", "Watch the tutorial again"))
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -56,7 +56,7 @@ struct WorkCard: View {
                     } else { Theme.bg2 }
                 }
                 .clipped()
-            Text(work.title).font(Theme.serif(21)).foregroundStyle(Theme.ink)
+            Text(work.displayTitle).font(Theme.serif(21)).foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center).lineLimit(2).padding(.top, 12)
             Text(meta).font(Theme.serif(15)).foregroundStyle(Theme.muted).padding(.top, 2)
         }
@@ -66,8 +66,8 @@ struct WorkCard: View {
         .contentShape(Rectangle())
     }
     private var meta: String {
-        let f = work.sizes.count > 1 ? "\(work.sizes.count) formats" : work.sizes.first?.canvasText ?? ""
-        if let p = work.minPrice { return "\(f) · dès \(Fmt.eur(p))" }
+        let f = work.sizes.count > 1 ? L("\(work.sizes.count) formats", "\(work.sizes.count) sizes") : work.sizes.first?.canvasText ?? ""
+        if let p = work.minPrice { return "\(f) · \(L("dès", "from")) \(Fmt.price(p))" }
         return f
     }
 }

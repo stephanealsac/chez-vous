@@ -45,7 +45,9 @@ img{display:block;max-width:100%}
 header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:calc(8px + var(--sat)) var(--gr) 8px var(--gl);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:calc(56px + var(--sat))}
 .brand{grid-column:2;font:400 14px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;color:var(--ink);text-decoration:none;text-align:center;padding:6px 0}
 .brand small{display:block;font:300 9px/1 var(--sans);letter-spacing:.25em;color:var(--muted);margin-top:6px}
-.icon-btn{grid-column:3;justify-self:end;width:44px;height:44px;display:grid;place-items:center;font:300 20px/1 var(--serif);font-style:italic}
+.hdr-r{grid-column:3;justify-self:end;display:flex;align-items:center;gap:2px}
+.lang-btn{min-width:44px;height:44px;font:500 10px/1 var(--sans);letter-spacing:.2em;color:var(--ink-soft);padding-left:.2em}
+.icon-btn{width:44px;height:44px;display:grid;place-items:center;font:300 20px/1 var(--serif);font-style:italic}
 .icon-btn span{width:32px;height:32px;border:1px solid var(--border);display:grid;place-items:center;transition:border-color .3s}
 .icon-btn:active span{border-color:var(--ink)}
 .back{grid-column:1;justify-self:start;display:none;align-items:center;gap:8px;font:400 9px/1 var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft);min-height:44px;padding:0 8px 0 0}
@@ -131,17 +133,17 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 <body>
 
 <header>
-  <button class="back" id="back" type="button" aria-label="Retour aux éditions">← Éditions</button>
+  <button class="back" id="back" type="button" data-i18n="back" data-i18n-aria="backAria">← Éditions</button>
   <a class="brand" href="#">Stéphane Alsac<small>Chez vous</small></a>
-  <button class="icon-btn" id="help" type="button" aria-label="Revoir le tutoriel"><span>?</span></button>
+  <div class="hdr-r"><button class="lang-btn" id="lang" type="button" lang="en" aria-label="English">EN</button><button class="icon-btn" id="help" type="button" data-i18n-aria="helpAria"><span>?</span></button></div>
 </header>
 
 <main>
   <!-- ===== CATALOGUE ===== -->
   <section class="catalogue">
-    <div class="intro"><h1>Éditions sur Toile</h1></div>
+    <div class="intro"><h1 data-i18n="catTitle">Éditions sur Toile</h1></div>
     <div class="grid" id="grid"></div>
-    <footer class="serif-note">Éditions limitées, signées et numérotées. <a href="https://www.stephane-alsac.com" target="_blank" rel="noopener">stephane-alsac.com</a></footer>
+    <footer class="serif-note"><span data-i18n="footer">Éditions limitées, signées et numérotées.</span> <a id="site-link" href="https://www.stephane-alsac.com" target="_blank" rel="noopener">stephane-alsac.com</a></footer>
   </section>
 
   <!-- ===== FICHE ŒUVRE ===== -->
@@ -153,7 +155,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     </div>
 
     <div class="section">
-      <div class="label" id="sizes-label">Choisir la taille</div>
+      <div class="label" id="sizes-label" data-i18n="chooseSize">Choisir la taille</div>
       <div class="sizes" id="sizes" role="radiogroup" aria-labelledby="sizes-label"></div>
       <div class="dims serif-note" id="dims"></div>
     </div>
@@ -164,23 +166,23 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     </div>
 
     <div class="actions">
-      <div class="ar-tip serif-note" id="ar-tip">Visez un mur bien éclairé, avec un repère (plinthe, prise, cadre), à environ un mètre, et balayez-le lentement.</div>
+      <div class="ar-tip serif-note" id="ar-tip" data-i18n="tip">Approchez-vous à moins de 3 mètres du mur. Visez-le bien éclairé, avec un repère (plinthe, prise, cadre), et balayez-le lentement.</div>
       <div class="ar-msg serif-note" id="ar-msg" aria-live="polite"></div>
-      <button class="btn primary" id="ar-btn" type="button">Voir sur mon mur</button>
-      <a class="link" id="buy" href="#" target="_blank" rel="noopener"><span>Acquérir ce tirage</span></a>
+      <button class="btn primary" id="ar-btn" type="button" data-i18n="arBtn">Voir sur mon mur</button>
+      <a class="link" id="buy" href="#" target="_blank" rel="noopener"><span data-i18n="buy">Acquérir ce tirage</span></a>
     </div>
   </section>
 </main>
 
 <!-- lien AR Quick Look (iOS) : un seul, gardé dans le DOM pour recevoir le tap sur la bannière -->
-<a id="ql" rel="ar" href="#" style="display:none"><img alt=""></a>
+<a id="ql" rel="ar" href="#" aria-hidden="true" tabindex="-1" style="position:fixed;left:0;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none"><img alt="" style="width:1px;height:1px"></a>
 
 <!-- ===== TUTORIEL (vidéo) ===== -->
-<div class="tuto" id="tuto" role="dialog" aria-modal="true" aria-label="Comment ça marche">
+<div class="tuto" id="tuto" role="dialog" aria-modal="true" data-i18n-aria="tutoAria">
   <div class="top">Stéphane Alsac</div>
-  <div class="stage"><div class="player"><video id="tuto-video" preload="metadata" poster="tuto-poster.jpg?v=701c0f8c" playsinline aria-label="Tutoriel : choisissez une œuvre, un format, puis visez votre mur"><source src="tuto.mp4?v=23d0dfc1b" type="video/mp4"></video>
-    <button class="play" id="tuto-play" type="button" aria-label="Lire le tutoriel"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="rgba(238,234,225,.92)" stroke="#1a1a1a" stroke-width="1"/><path d="M19 15 L33 24 L19 33 Z" fill="#1a1a1a"/></svg></button></div></div>
-  <div class="foot"><button class="skip" id="tuto-close" type="button">Passer</button></div>
+  <div class="stage"><div class="player"><video id="tuto-video" preload="metadata" playsinline data-i18n-aria="videoAria"></video>
+    <button class="play" id="tuto-play" type="button" data-i18n-aria="playAria"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="rgba(238,234,225,.92)" stroke="#1a1a1a" stroke-width="1"/><path d="M19 15 L33 24 L19 33 Z" fill="#1a1a1a"/></svg></button></div></div>
+  <div class="foot"><button class="skip" id="tuto-close" type="button" data-i18n="skip">Passer</button></div>
 </div>
 
 <script src="vendor/model-viewer.min.js" type="module"></script>
@@ -198,25 +200,96 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const safariLink = () => 'x-safari-' + location.href;  // ouvre l'adresse dans Safari depuis un navigateur intégré
   const fmtEur = n => n == null ? '' : String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ' ') + ' €';
   const fmtCm = n => String(n).replace('.', ',');
-  const MSG_IOS = 'L\'œuvre s\'accroche dès que le mur est reconnu. Glissez pour la déplacer. Pour changer de format, revenez ici.';
-  const MSG_ANDROID = 'Visez le mur et balayez-le lentement : l\'œuvre s\'y accroche. Si rien ne s\'ouvre, mettez à jour l\'appli Google et « Services Google Play pour la RA » dans le Play Store.';
 
   let cat = null, work = null, size = null;
 
+  // ---------- langues : français / anglais américain ----------
+  // ?lang=en|fr, sinon le dernier choix, sinon la langue du téléphone (français → fr, tout le reste → en)
+  const I18N = {
+    fr: {
+      back: '← Éditions', backAria: 'Retour aux éditions', helpAria: 'Revoir le tutoriel', catTitle: 'Éditions sur Toile',
+      footer: 'Éditions limitées, signées et numérotées.', chooseSize: 'Choisir la taille',
+      tip: 'Approchez-vous à moins de 3 mètres du mur. Visez-le bien éclairé, avec un repère (plinthe, prise, cadre), et balayez-le lentement.',
+      arBtn: 'Voir sur mon mur', buy: 'Acquérir ce tirage', tutoAria: 'Comment ça marche',
+      videoAria: 'Tutoriel : choisissez une œuvre, un format, puis visez votre mur', playAria: 'Lire le tutoriel', skip: 'Passer', start: 'Commencer',
+      formats: n => n + ' formats', from: 'dès', tech: 'Édition sur Toile', copies: n => n + ' exemplaires signés et numérotés',
+      dims: (c, f, pf, pu) => `Toile <b>${c}</b> · encadrée caisse américaine <b>${f}</b>${pf ? ' · <b>' + pf + '</b> encadrée' : ''}${pu ? ', <b>' + pu + '</b> toile seule' : ''}`,
+      title: 'Chez vous — Stéphane Alsac', workTitle: t => t + ' chez vous — Stéphane Alsac',
+      loadErr: 'Le catalogue n\'a pas pu être chargé. Vérifiez votre connexion, puis rouvrez la page.',
+      ios: 'L\'œuvre s\'accroche dès que le mur est reconnu. Glissez-la d\'un seul doigt, sans quitter le mur. Elle se décroche ? Touchez « Objet » puis « AR ». Pour changer de format, revenez ici.',
+      iosDirect: 'Rien ne s\'ouvre ? Touchez ici.', opening: 'Ouverture de la réalité augmentée…',
+      safari: 'Pour la réalité augmentée, ouvrez cette page dans Safari.', openSafari: 'Ouvrir dans Safari',
+      noArMobile: 'La réalité augmentée n\'est pas disponible dans ce navigateur. Ouvrez la page dans Safari ou Chrome.',
+      noArDesktop: 'La réalité augmentée fonctionne sur iPhone, iPad et Android : ouvrez cette page sur votre téléphone.',
+      arKo: 'La réalité augmentée ne s\'ouvre pas dans ce navigateur. Ouvrez la page dans Chrome, et mettez à jour « Services Google Play pour la RA » dans le Play Store.',
+      langBtn: 'EN', langAria: 'English'
+    },
+    en: {
+      back: '← Editions', backAria: 'Back to the editions', helpAria: 'Watch the tutorial again', catTitle: 'Canvas Editions',
+      footer: 'Limited editions, signed and numbered.', chooseSize: 'Choose a size',
+      tip: 'Stand less than 10 feet from the wall. Aim at a well-lit wall with a landmark (baseboard, outlet, frame) and sweep it slowly.',
+      arBtn: 'View on my wall', buy: 'Buy this print', tutoAria: 'How it works',
+      videoAria: 'Tutorial: choose a piece, a size, then aim at your wall', playAria: 'Play the tutorial', skip: 'Skip', start: 'Get started',
+      formats: n => n + ' sizes', from: 'from', tech: 'Canvas Edition', copies: n => n + ' signed and numbered prints',
+      dims: (c, f, pf, pu) => `Canvas <b>${c}</b> · black floater frame <b>${f}</b>${pf ? ' · <b>' + pf + '</b> framed' : ''}${pu ? ', <b>' + pu + '</b> canvas only' : ''}`,
+      title: 'Chez vous — Stéphane Alsac', workTitle: t => t + ' on your wall — Stéphane Alsac',
+      loadErr: 'The catalog could not be loaded. Check your connection, then reopen the page.',
+      ios: 'The piece hangs itself as soon as the wall is recognized. Slide it with one finger, without leaving the wall. If it comes off, tap “Object”, then “AR”. To change the size, come back here.',
+      iosDirect: 'Nothing opens? Tap here.', opening: 'Opening augmented reality…',
+      safari: 'For augmented reality, open this page in Safari.', openSafari: 'Open in Safari',
+      noArMobile: 'Augmented reality isn\'t available in this browser. Open the page in Safari or Chrome.',
+      noArDesktop: 'Augmented reality works on iPhone, iPad and Android: open this page on your phone.',
+      arKo: 'Augmented reality won\'t open in this browser. Open the page in Chrome, and update “Google Play Services for AR” in the Play Store.',
+      langBtn: 'FR', langAria: 'Français'
+    }
+  };
+  const VIDEO = { fr: ['tuto.mp4?v=1271526a', 'tuto-poster.jpg?v=e49f0f40'], en: ['tuto-en.mp4?v=6ddc85ea', 'tuto-en-poster.jpg?v=4c00c0dd'] };
+  let LANG = (() => {
+    const q = new URLSearchParams(location.search).get('lang'); if (q === 'fr' || q === 'en') return q;
+    try { const l = localStorage.getItem('lang'); if (l === 'fr' || l === 'en') return l; } catch (_) {}
+    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
+    return /^fr/i.test(nav) ? 'fr' : 'en';
+  })();
+  const T = k => I18N[LANG][k];
+  const EN = () => LANG === 'en';
+  const fmtUsd = n => n == null ? '' : '$' + String(Math.round(n)).replace(/\B(?=(\d{3})+$)/g, ',');
+  const fmtIn = cm => String(Math.round(cm / 2.54 * 10) / 10);
+  const sizeTxt = (w, h) => EN() ? `${fmtIn(w)} × ${fmtIn(h)} in` : `${fmtCm(w)} × ${fmtCm(h)} cm`;   // pouces pour l'anglais américain
+  // champs du catalogue selon la langue (repli sur le français si la boutique anglaise n'a pas l'info)
+  const wTitle = w => (EN() && w.title_en) || w.title;
+  const wUrl = w => (EN() && w.url_en) || w.url;
+  const sLabel = s => (EN() && s.label_en) || s.label;
+  const pFramed = s => EN() ? (s.price_framed_usd ? fmtUsd(s.price_framed_usd) : '') : (s.price_framed ? fmtEur(s.price_framed) : '');
+  const pUnframed = s => EN() ? (s.price_unframed_usd ? fmtUsd(s.price_unframed_usd) : '') : (s.price_unframed ? fmtEur(s.price_unframed) : '');
+  function applyLang(){
+    document.documentElement.lang = EN() ? 'en-US' : 'fr';
+    document.querySelectorAll('[data-i18n]').forEach(e => { e.textContent = T(e.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(e => { e.setAttribute('aria-label', T(e.dataset.i18nAria)); });
+    const lb = $('#lang'); lb.textContent = T('langBtn'); lb.setAttribute('aria-label', T('langAria')); lb.setAttribute('lang', EN() ? 'fr' : 'en');
+    $('#site-link').href = EN() ? 'https://www.stephane-alsac.com/en/' : 'https://www.stephane-alsac.com';
+    const v = $('#tuto-video'), [src, poster] = VIDEO[LANG];
+    if (v.getAttribute('data-src') !== src){ v.pause(); v.setAttribute('poster', poster); v.innerHTML = `<source src="${src}" type="video/mp4">`; v.setAttribute('data-src', src); v.load(); }
+  }
+  applyLang();
+  $('#lang').addEventListener('click', () => {
+    LANG = EN() ? 'fr' : 'en'; try { localStorage.setItem('lang', LANG); } catch (_) {}
+    applyLang(); if (cat){ buildGrid(); const w = work, s = size; work = null; if (w) openWork(w, s); else route(); }
+  });
+
   fetch('catalogue.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(c => { cat = c; buildGrid(); route(); })
-    .catch(() => { $('#grid').innerHTML = '<div class="empty">Le catalogue n\'a pas pu être chargé. Vérifiez votre connexion, puis rouvrez la page.</div>'; });
+    .catch(() => { $('#grid').innerHTML = '<div class="empty">' + esc(T('loadErr')) + '</div>'; });
 
   // ---------- catalogue ----------
   function buildGrid(){
     const g = $('#grid'); g.innerHTML = '';
     for (const w of cat.works){
-      const min = Math.min(...w.sizes.map(s => s.price_framed || Infinity));
+      const min = Math.min(...w.sizes.map(s => (EN() ? s.price_framed_usd : s.price_framed) || Infinity));
       const a = document.createElement('a');
       a.className = 'card'; a.href = '#' + w.slug;
-      a.innerHTML = `<div class="ph"><img src="${w.thumb_url || w.thumb}" alt="${esc(w.title)}" loading="lazy"></div>
-        <h2>${esc(w.title)}</h2>
-        <div class="meta">${w.sizes.length > 1 ? w.sizes.length + ' formats' : (w.sizes[0].w + ' × ' + w.sizes[0].h + ' cm')}${isFinite(min) ? ' · dès ' + fmtEur(min) : ''}</div>`;
+      a.innerHTML = `<div class="ph"><img src="${w.thumb_url || w.thumb}" alt="${esc(wTitle(w))}" loading="lazy"></div>
+        <h2>${esc(wTitle(w))}</h2>
+        <div class="meta">${w.sizes.length > 1 ? T('formats')(w.sizes.length) : sizeTxt(w.sizes[0].w, w.sizes[0].h)}${isFinite(min) ? ' · ' + T('from') + ' ' + (EN() ? fmtUsd(min) : fmtEur(min)) : ''}</div>`;
       g.appendChild(a);
     }
   }
@@ -227,7 +300,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     const h = location.hash.replace(/^#/, '');
     const [slug, sz] = h.split('/');
     const w = cat.works.find(x => x.slug === slug);
-    if (!w){ document.body.classList.remove('view-work'); work = null; document.title = 'Chez vous — Stéphane Alsac'; return; }
+    if (!w){ document.body.classList.remove('view-work'); work = null; document.title = T('title'); return; }
     openWork(w, w.sizes.find(s => s.slug === sz) || w.sizes[0]);
   }
   window.addEventListener('hashchange', route);
@@ -239,16 +312,16 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     document.body.classList.add('view-work');
     if (changed){
       window.scrollTo(0, 0);
-      $('#w-img').src = w.image_url || w.image; $('#w-img').alt = w.title;
-      $('#w-title').textContent = w.title;
-      $('#w-tech').textContent = 'Édition sur Toile' + (w.edition ? ' · ' + w.edition + ' exemplaires signés et numérotés' : '');
-      $('#buy').href = w.url;
-      document.title = w.title + ' chez vous — Stéphane Alsac';
+      $('#w-img').src = w.image_url || w.image; $('#w-img').alt = wTitle(w);
+      $('#w-title').textContent = wTitle(w);
+      $('#w-tech').textContent = T('tech') + (w.edition ? ' · ' + T('copies')(w.edition) : '');
+      $('#buy').href = wUrl(w);
+      document.title = T('workTitle')(wTitle(w));
       const sz = $('#sizes'); sz.innerHTML = '';
       for (const x of w.sizes){
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'size'; b.dataset.slug = x.slug; b.setAttribute('role', 'radio');
-        b.innerHTML = `<div class="l">${esc(x.label)}</div><div class="d">${x.w} × ${x.h} cm</div><div class="p">${x.price_framed ? fmtEur(x.price_framed) : ''}</div>`;
+        b.innerHTML = `<div class="l">${esc(sLabel(x))}</div><div class="d">${sizeTxt(x.w, x.h)}</div><div class="p">${pFramed(x)}</div>`;
         b.addEventListener('click', () => { history.replaceState(null, '', '#' + w.slug + '/' + x.slug); selectSize(x); });
         sz.appendChild(b);
       }
@@ -260,13 +333,13 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     size = s;
     document.querySelectorAll('.size').forEach(b => b.setAttribute('aria-checked', b.dataset.slug === s.slug ? 'true' : 'false'));
     const o = s.framed_cm || s.outer_cm;   // taille encadrée telle que le site l’affiche (sinon calculée)
-    $('#dims').innerHTML = `Toile <b>${s.w} × ${s.h} cm</b> · encadrée caisse américaine <b>${fmtCm(o.w)} × ${fmtCm(o.h)} cm</b>${s.price_framed ? ' · <b>' + fmtEur(s.price_framed) + '</b> encadrée' : ''}${s.price_unframed ? ', <b>' + fmtEur(s.price_unframed) + '</b> toile seule' : ''}`;
+    $('#dims').innerHTML = T('dims')(sizeTxt(s.w, s.h), sizeTxt(o.w, o.h), pFramed(s), pUnframed(s));
     const mv = $('#mv');
-    mv.setAttribute('alt', work.title + ', ' + s.label);
+    mv.setAttribute('alt', wTitle(work) + ', ' + sLabel(s));
     if (isAndroid) mv.setAttribute('src', s.glb);
     if (isIOS) prefetch(s.usdz);   // le fichier est en cache avant le premier appui sur « Voir sur mon mur »
     setMsg('');
-    if (iosNoAR) { const m = $('#ar-msg'); m.innerHTML = 'Pour la réalité augmentée, ouvrez cette page dans Safari.<br><a href="' + esc(safariLink()) + '" style="color:inherit">Ouvrir dans Safari</a>'; m.classList.add('on'); }
+    if (iosNoAR) { const m = $('#ar-msg'); m.innerHTML = esc(T('safari')) + '<br><a href="' + esc(safariLink()) + '" style="color:inherit">' + esc(T('openSafari')) + '</a>'; m.classList.add('on'); }
   }
   const prefetched = new Set();
   function prefetch(u){ if (prefetched.has(u)) return; prefetched.add(u); try { fetch(u, { mode: 'same-origin', credentials: 'omit' }).then(r => r.arrayBuffer()).catch(() => {}); } catch (_) {} }
@@ -275,46 +348,48 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 
   // ---------- AR ----------
   const ql = $('#ql');
-  ql.addEventListener('message', e => { if (e.data === '_apple_ar_quicklook_button_tapped' && work) location.href = work.url; }, false);
+  ql.addEventListener('message', e => { if (e.data === '_apple_ar_quicklook_button_tapped' && work) location.href = wUrl(work); }, false);
   function usdzHref(){
     const enc = encodeURIComponent;
     const frag = [
       'allowsContentScaling=0',
-      'canonicalWebPageURL=' + enc(work.url),
-      'callToAction=' + enc('Acquérir ce tirage'),
-      'checkoutTitle=' + enc(work.title),
-      'checkoutSubtitle=' + enc(`${size.label} · ${size.w} × ${size.h} cm`)
+      'canonicalWebPageURL=' + enc(wUrl(work)),
+      'callToAction=' + enc(T('buy')),
+      'checkoutTitle=' + enc(wTitle(work)),
+      'checkoutSubtitle=' + enc(`${sLabel(size)} · ${sizeTxt(size.w, size.h)}`)
     ];
-    if (size.price_framed) frag.push('price=' + enc(fmtEur(size.price_framed)));
+    if (pFramed(size)) frag.push('price=' + enc(pFramed(size)));
     return new URL(size.usdz, location.href).toString() + '#' + frag.join('&');
   }
   $('#ar-btn').addEventListener('click', () => {
     if (!work || !size) return;
     if (quickLook){
       const href = usdzHref();
+      // Safari n'applique allowsContentScaling=0 (pas de zoom à deux doigts) que si le lien contient une vraie image
+      const thumb = new URL(work.thumb_url || work.thumb, location.href).toString();
+      ql.querySelector('img').src = thumb;
       ql.setAttribute('href', href);
       ql.click();
       // secours : si Quick Look ne s'ouvre pas, un lien direct vers le fichier (Safari l'ouvre lui-même en 3D / RA)
       const m = $('#ar-msg');
-      m.innerHTML = esc(MSG_IOS) + '<br><a id="ql-direct" href="' + esc(href) + '" style="color:inherit">Rien ne s\'ouvre ? Touchez ici.</a>';
+      m.innerHTML = esc(T('ios')) + '<br><a id="ql-direct" rel="ar" href="' + esc(href) + '" style="color:inherit"><img src="' + esc(thumb) + '" alt="" style="display:inline-block;width:22px;height:22px;object-fit:cover;vertical-align:-5px;margin:0 8px 0 0">' + esc(T('iosDirect')) + '</a>';
       m.classList.add('on');
     } else if (isAndroid){
       // WebXR dans Chrome (testé sur Samsung S26) : la visionneuse de l'appli Google plante sur certains téléphones
       const mv = $('#mv'), eng = document.querySelector('.ar-engine');
       eng.classList.add('live');
-      setMsg('Ouverture de la réalité augmentée…');
-      const go = () => { try { mv.activateAR(); } catch (_) { eng.classList.remove('live'); setMsg(MSG_AR_KO); } };
+      setMsg(T('opening'));
+      const go = () => { try { mv.activateAR(); } catch (_) { eng.classList.remove('live'); setMsg(T('arKo')); } };
       if (mv.loaded) go(); else mv.addEventListener('load', go, { once: true });
     } else if (iosNoAR){
       location.href = safariLink();
     } else {
-      setMsg(isMobile ? 'La réalité augmentée n\'est pas disponible dans ce navigateur. Ouvrez la page dans Safari ou Chrome.' : 'La réalité augmentée fonctionne sur iPhone, iPad et Android : ouvrez cette page sur votre téléphone.');
+      setMsg(isMobile ? T('noArMobile') : T('noArDesktop'));
     }
   });
-  const MSG_AR_KO = 'La réalité augmentée ne s\'ouvre pas dans ce navigateur. Ouvrez la page dans Chrome, et mettez à jour « Services Google Play pour la RA » dans le Play Store.';
   $('#mv').addEventListener('ar-status', e => {
     const eng = document.querySelector('.ar-engine');
-    if (e.detail.status === 'failed') { eng.classList.remove('live'); setMsg(MSG_AR_KO); }
+    if (e.detail.status === 'failed') { eng.classList.remove('live'); setMsg(T('arKo')); }
     if (e.detail.status === 'session-started') setMsg('');
     if (e.detail.status === 'not-presenting') { eng.classList.remove('live'); setMsg(''); }
   });
@@ -323,7 +398,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const tuto = $('#tuto'), video = $('#tuto-video'), player = tuto.querySelector('.player'); let lastFocus = null;
   function openTuto(){
     lastFocus = document.activeElement; tuto.classList.add('open'); document.body.classList.add('tuto-open');
-    video.pause(); video.currentTime = 0; player.classList.remove('playing'); $('#tuto-close').textContent = 'Passer';
+    video.pause(); video.currentTime = 0; player.classList.remove('playing'); $('#tuto-close').textContent = T('skip');
   }
   function closeTuto(){
     tuto.classList.remove('open'); document.body.classList.remove('tuto-open'); video.pause();
@@ -333,7 +408,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   $('#tuto-play').addEventListener('click', () => { video.muted = false; const p = video.play(); if (p && p.catch) p.catch(() => {}); });
   video.addEventListener('play', () => player.classList.add('playing'));
   video.addEventListener('pause', () => { if (!video.ended) player.classList.remove('playing'); });
-  video.addEventListener('ended', () => { player.classList.remove('playing'); $('#tuto-close').textContent = 'Commencer'; });
+  video.addEventListener('ended', () => { player.classList.remove('playing'); $('#tuto-close').textContent = T('start'); });
   video.addEventListener('click', () => { if (!video.paused) video.pause(); });
   $('#tuto-close').addEventListener('click', closeTuto);
   $('#help').addEventListener('click', openTuto);
