@@ -20,6 +20,14 @@ struct ARScreen: View {
                 Text(L("La réalité augmentée n'est pas disponible sur cet appareil.", "Augmented reality isn't available on this device."))
                     .font(Theme.serif(22)).multilineTextAlignment(.center).padding(40)
             }
+            if ctl.state == .searching && ctl.floorMode && ctl.floorFound {
+                // croix de visée : à poser sur le pied du mur
+                ZStack {
+                    Circle().stroke(Theme.bg, lineWidth: 4).frame(width: 34, height: 34)
+                    Circle().stroke(Theme.ink, lineWidth: 1.5).frame(width: 34, height: 34)
+                    Rectangle().fill(Theme.ink).frame(width: 70, height: 1.5)
+                }.shadow(color: Theme.bg, radius: 2).allowsHitTesting(false).ignoresSafeArea()
+            }
             VStack(spacing: 0) {
                 HStack {
                     Button { dismiss() } label: {
@@ -54,6 +62,12 @@ struct ARScreen: View {
                 }
                 Spacer()
                 VStack(spacing: 12) {
+                    if ctl.state == .searching && ctl.floorMode && ctl.floorFound {
+                        Button { ctl.placeAtWallFoot() } label: {
+                            Caps(text: L("Accrocher ici", "Hang it here"), size: 11, tracking: 2.2, color: Theme.bg)
+                                .padding(.horizontal, 26).frame(height: 50).background(Theme.ink)
+                        }.buttonStyle(.plain).transition(.opacity)
+                    }
                     if ctl.state == .searching && ctl.offerManual {
                         Button { ctl.placeInFront() } label: {
                             Caps(text: L("Mur non trouvé ? Poser devant moi", "No wall found? Place it in front of me"), size: 10, tracking: 2.0, color: Theme.bg)
@@ -100,7 +114,13 @@ struct ARScreen: View {
 
     private var hint: String {
         switch ctl.state {
-        case .searching: return ctl.offerManual ? L("Approchez-vous à moins de 3 m d’un mur éclairé", "Get within 10 feet of a well-lit wall") : L("À moins de 3 m du mur, balayez-le lentement", "Within 10 feet of the wall, sweep it slowly")
+        case .searching:
+            if ctl.floorMode {
+                return ctl.floorFound
+                    ? L("Posez la ligne sur le pied du mur, là où il touche le sol", "Line up the mark with the foot of the wall, where it meets the floor")
+                    : L("Mur trop uni ? Visez le sol devant le mur", "Wall too plain? Aim at the floor in front of it")
+            }
+            return L("À moins de 3 m du mur, balayez-le lentement", "Within 10 feet of the wall, sweep it slowly")
         case .placed: return L("Taille réelle", "Actual size")
         }
     }
@@ -118,8 +138,16 @@ final class ARController: NSObject, ObservableObject {
     @Published var state: State = .searching
     @Published var offerManual = false          // après un long moment sans mur : proposer la pose manuelle
     @Published var isManual = false             // œuvre posée « devant moi » en attendant le vrai mur
-    private var manualPlane: (point: SIMD3<Float>, normal: SIMD3<Float>)? { didSet { isManual = manualPlane != nil } }   // mur « virtuel » provisoire
-    static let manualDelay: TimeInterval = 15   // les iPhone sans LiDAR mettent du temps à reconnaître un mur uni
+    @Published var floorMode = false            // mur uni pas reconnu : on passe par le sol (pied du mur)
+    @Published var floorFound = false
+    /// mur « virtuel » : provisoire (« devant moi », distance devinée) ou exact (posé au pied du mur grâce au sol)
+    private var manualPlane: (point: SIMD3<Float>, normal: SIMD3<Float>, exact: Bool)? { didSet { isManual = manualPlane.map { !$0.exact } ?? false } }
+    /// Sans LiDAR, un mur uni et blanc est souvent impossible à reconnaître : on propose vite la visée du pied du mur,
+    /// le sol (parquet, carrelage, tapis) étant presque toujours reconnu, lui.
+    private static let hasLiDAR = ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh)
+    static let floorDelay: TimeInterval = hasLiDAR ? 10 : 5
+    static let manualDelay: TimeInterval = hasLiDAR ? 20 : 25   // dernier recours si même le sol n'est pas trouvé
+    private var floorY: Float?
     private var searchStart = Date()
 
     private var arView: ARView?
@@ -132,11 +160,11 @@ final class ARController: NSObject, ObservableObject {
     func makeView() -> ARView {
         let v = ARView(frame: .zero)
         let cfg = ARWorldTrackingConfiguration()
-        cfg.planeDetection = [.vertical]
+        cfg.planeDetection = [.vertical, .horizontal]   // le sol sert de repère quand le mur est trop uni
         cfg.environmentTexturing = .automatic
         v.session.run(cfg)
         let coach = ARCoachingOverlayView()
-        coach.session = v.session; coach.goal = .verticalPlane; coach.activatesAutomatically = true
+        coach.session = v.session; coach.goal = .tracking; coach.activatesAutomatically = true
         coach.translatesAutoresizingMaskIntoConstraints = false
         v.addSubview(coach)
         NSLayoutConstraint.activate([coach.topAnchor.constraint(equalTo: v.topAnchor), coach.bottomAnchor.constraint(equalTo: v.bottomAnchor),
@@ -159,8 +187,27 @@ final class ARController: NSObject, ObservableObject {
         if simd_length(fwd) < 1e-3 { fwd = SIMD3<Float>(0, 0, -1) }
         fwd = simd_normalize(fwd)
         let point = pos + fwd * 1.5 - SIMD3<Float>(0, 0.05, 0), normal = -fwd
-        manualPlane = (point, normal)
+        manualPlane = (point, normal, false)
         place(normal: normal, position: point)
+    }
+
+    /// Pied du mur visé avec la croix : le point du sol sous la croix donne la vraie distance du mur,
+    /// donc la vraie taille ; le tableau est accroché à hauteur habituelle, face à soi.
+    func placeAtWallFoot() {
+        guard let v = arView, let fy = floorY, let cam = v.session.currentFrame?.camera.transform,
+              let ray = v.ray(through: CGPoint(x: v.bounds.midX, y: v.bounds.midY)), ray.direction.y < -0.03 else { return }
+        let t = (fy - ray.origin.y) / ray.direction.y
+        guard t > 0.3, t < 6 else { return }
+        let foot = ray.origin + ray.direction * t
+        let camPos = SIMD3<Float>(cam.columns.3.x, cam.columns.3.y, cam.columns.3.z)
+        var n = camPos - foot; n.y = 0
+        guard simd_length(n) > 0.3 else { return }
+        n = simd_normalize(n)
+        let h = Float((wanted?.framed_cm ?? wanted?.outer_cm)?.h ?? 80) / 100
+        let centre = max(1.5, h / 2 + 0.6)          // centre du tableau à 1,50 m du sol, plus haut pour les très grands formats
+        let point = SIMD3<Float>(foot.x, fy + centre, foot.z) + n * 0.01
+        manualPlane = (point, n, true)
+        place(normal: n, position: point)
     }
 
     func stop() { searchTimer?.invalidate(); searchTimer = nil; arView?.session.pause() }
@@ -168,7 +215,7 @@ final class ARController: NSObject, ObservableObject {
     /// « Replacer » : on retire l'œuvre et on recherche le mur, comme à l'ouverture.
     func restart() {
         anchor?.removeFromParent(); anchor = nil; painting = nil
-        manualPlane = nil; offerManual = false; searchStart = Date()
+        manualPlane = nil; offerManual = false; floorMode = false; searchStart = Date()
         state = .searching
         UISelectionFeedbackGenerator().selectionChanged()
     }
@@ -197,6 +244,17 @@ final class ARController: NSObject, ObservableObject {
         for r in v.raycast(from: p, allowing: .existingPlaneGeometry, alignment: .vertical) {
             if let plane = r.anchor as? ARPlaneAnchor, plane.classification == .window || plane.classification == .door { continue }
             if let plane = r.anchor as? ARPlaneAnchor, plane.planeExtent.width < 0.35 || plane.planeExtent.height < 0.35 { continue }
+            if let plane = r.anchor as? ARPlaneAnchor, [.table, .seat, .floor, .ceiling].contains(plane.classification) { continue }
+            // surface vue très en biais (côté d'un meuble, montant de porte) : ce n'est pas le mur qu'on vise
+            if let cam = v.session.currentFrame?.camera.transform {
+                let m = r.worldTransform
+                var n = SIMD3<Float>(m.columns.1.x, 0, m.columns.1.z)
+                var toCam = SIMD3<Float>(cam.columns.3.x - m.columns.3.x, 0, cam.columns.3.z - m.columns.3.z)
+                if simd_length(n) > 1e-3, simd_length(toCam) > 1e-3 {
+                    n = simd_normalize(n); toCam = simd_normalize(toCam)
+                    if abs(simd_dot(n, toCam)) < 0.5 { continue }      // plus de 60° de biais
+                }
+            }
             return r
         }
         return nil
@@ -248,12 +306,45 @@ final class ARController: NSObject, ObservableObject {
         let c = CGPoint(x: v.bounds.midX, y: v.bounds.midY)
         switch state {
         case .searching:
-            if !offerManual && Date().timeIntervalSince(searchStart) > Self.manualDelay { offerManual = true }
+            updateFloor()
+            let t = Date().timeIntervalSince(searchStart)
+            if !floorMode && t > Self.floorDelay { floorMode = true }
+            if !offerManual && t > Self.manualDelay && !floorFound { offerManual = true }
             if let r = wallHit(c) { place(at: r) }
         case .placed:
-            // posée « devant moi » : dès qu'un vrai mur est reconnu au centre de l'écran, l'œuvre s'y accroche
-            if manualPlane != nil, let r = wallHit(c) { place(at: r); UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+            guard let mp = manualPlane, let r = wallHit(c) else { return }
+            if mp.exact {
+                // posé au pied du mur : on ne bascule que sur ce même mur, reconnu entre-temps (jamais vers un autre)
+                let m = r.worldTransform
+                let p = SIMD3<Float>(m.columns.3.x, m.columns.3.y, m.columns.3.z)
+                var n = SIMD3<Float>(m.columns.1.x, 0, m.columns.1.z)
+                guard simd_length(n) > 1e-3 else { return }
+                n = simd_normalize(n)
+                guard abs(simd_dot(p - mp.point, mp.normal)) < 0.25, abs(simd_dot(n, mp.normal)) > 0.94 else { return }
+                // même mur : on garde la hauteur et l'emplacement choisis, on corrige seulement la profondeur et l'angle
+                let a = anchor?.transformMatrix(relativeTo: nil)
+                let cur = a.map { SIMD3<Float>($0.columns.3.x, $0.columns.3.y, $0.columns.3.z) } ?? mp.point
+                let onWall = cur - simd_dot(cur - p, n) * n
+                manualPlane = nil
+                place(normal: n, position: onWall)
+            } else {
+                // posée « devant moi » : dès qu'un vrai mur est reconnu au centre de l'écran, l'œuvre s'y accroche
+                place(at: r); UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            }
         }
+    }
+
+    /// Sol : le plan horizontal le plus bas, nettement sous le téléphone (pas une table ni un lit).
+    private func updateFloor() {
+        guard let f = arView?.session.currentFrame else { return }
+        let camY = f.camera.transform.columns.3.y
+        var best: Float?
+        for case let p as ARPlaneAnchor in f.anchors where p.alignment == .horizontal {
+            if [.table, .seat, .ceiling].contains(p.classification) { continue }
+            let y = p.transform.columns.3.y
+            if y < camY - 0.7, best == nil || y < best! { best = y }
+        }
+        if let b = best { floorY = b; if !floorFound { floorFound = true } }
     }
 
     /// Glisser d'un doigt : le tableau reste sur le plan du mur où il est accroché (jamais de saut vers une fenêtre,
