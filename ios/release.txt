@@ -7,3 +7,4 @@
 1.0 — build : bilingue FR / EN (2026-11-01)
 1.0 — build : attente du mur 15 s, pose provisoire qui s'accroche au vrai mur, bouton Replacer (2026-11-02)
 1.1 — build : mur uni sans LiDAR (visée du pied du mur via le sol), rejet des surfaces vues de biais, suivi anonyme + utm (2026-11-03)
+1.1 — build : deux expériences selon l'iPhone (LiDAR : automatique ; sans LiDAR : visée du pied du mur dès l'ouverture) (2026-11-03)

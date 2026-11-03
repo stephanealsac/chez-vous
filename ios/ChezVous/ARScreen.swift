@@ -118,7 +118,8 @@ struct ARScreen: View {
             if ctl.floorMode {
                 return ctl.floorFound
                     ? L("Posez la ligne sur le pied du mur, là où il touche le sol", "Line up the mark with the foot of the wall, where it meets the floor")
-                    : L("Mur trop uni ? Visez le sol devant le mur", "Wall too plain? Aim at the floor in front of it")
+                    : (ARController.hasLiDAR ? L("Mur trop uni ? Visez le sol devant le mur", "Wall too plain? Aim at the floor in front of it")
+                                             : L("Visez le sol, au pied du mur", "Aim at the floor, at the foot of the wall"))
             }
             return L("À moins de 3 m du mur, balayez-le lentement", "Within 10 feet of the wall, sweep it slowly")
         case .placed: return L("Taille réelle", "Actual size")
@@ -144,8 +145,10 @@ final class ARController: NSObject, ObservableObject {
     private var manualPlane: (point: SIMD3<Float>, normal: SIMD3<Float>, exact: Bool)? { didSet { isManual = manualPlane.map { !$0.exact } ?? false } }
     /// Sans LiDAR, un mur uni et blanc est souvent impossible à reconnaître : on propose vite la visée du pied du mur,
     /// le sol (parquet, carrelage, tapis) étant presque toujours reconnu, lui.
-    private static let hasLiDAR = ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh)
-    static let floorDelay: TimeInterval = hasLiDAR ? 10 : 5
+    /// Deux expériences : avec LiDAR (iPhone Pro), le mur est reconnu tout de suite, même uni : tout est automatique.
+    /// Sans LiDAR, on guide d'emblée par le pied du mur (le mur reste reconnu automatiquement s'il a assez de relief).
+    static let hasLiDAR = ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh)
+    static let floorDelay: TimeInterval = hasLiDAR ? 10 : 0
     static let manualDelay: TimeInterval = hasLiDAR ? 20 : 25   // dernier recours si même le sol n'est pas trouvé
     private var floorY: Float?
     private var searchStart = Date()
