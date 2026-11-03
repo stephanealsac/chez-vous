@@ -60,7 +60,14 @@ struct Work: Decodable, Hashable, Identifiable {
 
     var displayTitle: String { Lang.en ? (title_en ?? title) : title }
     var minPrice: Int? { sizes.compactMap(\.framedPrice).min() }
-    var shopURL: URL? { URL(string: Lang.en ? (url_en ?? url) : url) }
+    /// Lien boutique marqué « venu de l'appli iOS » (même convention que les QR du catalogue, lu par le CRM)
+    var shopURL: URL? {
+        guard var c = URLComponents(string: Lang.en ? (url_en ?? url) : url) else { return nil }
+        c.queryItems = (c.queryItems ?? []) + [URLQueryItem(name: "utm_source", value: "chez-vous"),
+                                               URLQueryItem(name: "utm_medium", value: "app-ios"),
+                                               URLQueryItem(name: "utm_campaign", value: slug)]
+        return c.url
+    }
     func uiImage(thumb: Bool = false) -> UIImage? {
         guard let path = Bundle.main.path(forResource: thumb ? self.thumb : image, ofType: nil, inDirectory: "Catalogue") else { return nil }
         return UIImage(contentsOfFile: path)

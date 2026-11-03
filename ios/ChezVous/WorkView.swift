@@ -4,6 +4,7 @@ struct WorkView: View {
     let work: Work
     @State private var size: WorkSize
     @State private var showAR = false
+    @State private var vu = false
     @Environment(\.openURL) private var openURL
 
     init(work: Work) {
@@ -29,7 +30,7 @@ struct WorkView: View {
                     VStack(alignment: .leading, spacing: 14) {
                         Caps(text: L("Choisir la taille", "Choose a size"), size: 10, tracking: 2.5, color: Theme.inkSoft)
                         ForEach(work.sizes) { s in
-                            Button { size = s } label: { SizeRow(size: s, selected: s == size) }.buttonStyle(.plain)
+                            Button { if s != size { Suivi.envoyer(.format, work, s) }; size = s } label: { SizeRow(size: s, selected: s == size) }.buttonStyle(.plain)
                         }
                         Text(dims).font(Theme.serif(16)).foregroundStyle(Theme.muted)
                             .frame(maxWidth: .infinity).multilineTextAlignment(.center).padding(.top, 4)
@@ -38,8 +39,8 @@ struct WorkView: View {
                 }
             }
             VStack(spacing: 6) {
-                PrimaryButton(title: L("Voir sur mon mur", "View on my wall")) { showAR = true }
-                Button { if let u = work.shopURL { openURL(u) } } label: {
+                PrimaryButton(title: L("Voir sur mon mur", "View on my wall")) { Suivi.envoyer(.essai_ar, work, size); showAR = true }
+                Button { Suivi.envoyer(.achat, work, size); if let u = work.shopURL { openURL(u) } } label: {
                     Caps(text: L("Acquérir ce tirage", "Buy this print"), size: 9, tracking: 2.25, color: Theme.inkSoft)
                         .padding(.bottom, 3).overlay(alignment: .bottom) { Rule() }
                         .frame(minHeight: 44)
@@ -49,6 +50,7 @@ struct WorkView: View {
             .background(Theme.bg.overlay(alignment: .top) { Rule() })
         }
         .background(Theme.bg)
+        .onAppear { if !vu { vu = true; Suivi.envoyer(.vue, work, size) } }
         .toolbar { ToolbarItem(placement: .principal) { BrandHeader() } }
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Theme.bg, for: .navigationBar)

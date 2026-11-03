@@ -63,7 +63,7 @@ struct ARScreen: View {
                     if work.sizes.count > 1 {
                         HStack(spacing: 8) {
                             ForEach(work.sizes) { s in
-                                Button { size = s } label: {
+                                Button { if s != size { Suivi.envoyer(.format, work, s) }; size = s } label: {
                                     VStack(spacing: 2) {
                                         Text(s.displayLabel).font(Theme.serif(19))
                                         Text(s.canvasText).font(Theme.sans(11))
@@ -75,7 +75,7 @@ struct ARScreen: View {
                             }
                         }
                     }
-                    Button { if let u = work.shopURL { openURL(u) } } label: {
+                    Button { Suivi.envoyer(.achat, work, size); if let u = work.shopURL { openURL(u) } } label: {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(work.displayTitle).font(Theme.serif(21)).foregroundStyle(Theme.ink)
