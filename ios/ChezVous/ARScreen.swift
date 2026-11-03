@@ -206,9 +206,7 @@ final class ARController: NSObject, ObservableObject {
         var n = camPos - foot; n.y = 0
         guard simd_length(n) > 0.3 else { return }
         n = simd_normalize(n)
-        let h = Float((wanted?.framed_cm ?? wanted?.outer_cm)?.h ?? 80) / 100
-        let centre = max(1.5, h / 2 + 0.6)          // centre du tableau à 1,50 m du sol, plus haut pour les très grands formats
-        let point = SIMD3<Float>(foot.x, fy + centre, foot.z) + n * 0.01
+        let point = SIMD3<Float>(foot.x, fy + hangHeight, foot.z) + n * 0.01
         manualPlane = (point, n, true)
         place(normal: n, position: point)
     }
@@ -290,7 +288,23 @@ final class ARController: NSObject, ObservableObject {
             if simd_distance(SIMD3<Float>(p.x, p.y, p.z), SIMD3<Float>(c.x, c.y, c.z)) > 4 { return }   // trop loin : sans doute une fausse détection
         }
         manualPlane = nil
-        setAnchor(wallTransform(r))
+        // à hauteur d'accrochage (yeux), quel que soit l'endroit du mur visé : on vise souvent trop bas
+        var tf = wallTransform(r)
+        tf.translation.y = hangY()
+        setAnchor(tf)
+    }
+    /// Centre du tableau à 1,50 m du sol (un peu plus haut pour les très grands formats, bas à 60 cm minimum).
+    private var hangHeight: Float {
+        let h = Float((wanted?.framed_cm ?? wanted?.outer_cm)?.h ?? 80) / 100
+        return max(1.5, h / 2 + 0.6)
+    }
+    /// Hauteur du centre en coordonnées du monde : depuis le sol s'il est connu, sinon hauteur du téléphone (≈ yeux).
+    private func hangY() -> Float {
+        updateFloor()
+        let camY = (arView?.session.currentFrame?.camera.transform.columns.3.y ?? 0) - 0.05
+        // garde-fou : une table basse prise pour le sol donnerait un tableau trop haut
+        if let fy = floorY, abs(fy + hangHeight - camY) < 0.7 { return fy + hangHeight }
+        return camY
     }
     private func place(normal: SIMD3<Float>, position: SIMD3<Float>) { setAnchor(wallTransform(normal: normal, position: position)) }
     private func setAnchor(_ tf: Transform) {
