@@ -267,7 +267,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const SUIVI = { url: 'https://gmghhnfvjjazagilzctz.supabase.co/rest/v1/rpc/app_relais_evenement', cle: 'sb_publishable_6x0JuqEp2lSa4ufaC-fw6A_-jciiYCO' };
   let vuSlug = null;
   function suivi(evenement, w, s){
-    if (!w || /^(localhost|127\.)/.test(location.hostname)) return;
+    if (!w || !/(^|\.)stephane-alsac\.com$/.test(location.hostname)) return;   // seulement le vrai site (pas les essais)
     try {
       fetch(SUIVI.url, { method: 'POST', keepalive: true, credentials: 'omit', referrerPolicy: 'no-referrer',
         headers: { 'Content-Type': 'application/json', apikey: SUIVI.cle, Authorization: 'Bearer ' + SUIVI.cle },

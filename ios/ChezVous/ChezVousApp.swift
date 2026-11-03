@@ -2,8 +2,10 @@ import SwiftUI
 
 @main
 struct ChezVousApp: App {
+    @Environment(\.scenePhase) private var phase
     var body: some Scene {
         WindowGroup { RootView() }
+            .onChange(of: phase) { _, p in if p == .active { Suivi.demarrer() } }
     }
 }
 
