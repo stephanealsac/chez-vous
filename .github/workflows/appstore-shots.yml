@@ -1,0 +1,43 @@
+name: appstore-shots
+# Captures pour la fiche App Store (iPhone 6,9" = iPhone 16 Pro Max, 1320 × 2868), en français et en anglais.
+# Se déclenche quand ios/shots.txt change.
+on:
+  push:
+    paths: ['ios/shots.txt']
+jobs:
+  shots:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Xcode 26
+        run: |
+          X=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | grep -v -i beta | sort -V | tail -1)
+          sudo xcode-select -s "$X/Contents/Developer"; xcodebuild -version
+      - name: Projet
+        run: brew install xcodegen && bash ios/prepare.sh && cd ios && xcodegen generate
+      - name: Compilation (simulateur)
+        run: |
+          cd ios
+          xcodebuild -project ChezVous.xcodeproj -scheme ChezVous -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' -derivedDataPath build CODE_SIGNING_ALLOWED=NO build 2>&1 | tail -5
+      - name: Captures
+        run: |
+          xcrun simctl list devices available | grep -i "pro max" | head
+          UDID=$(xcrun simctl list devices available -j | python3 -c "import json,sys;d=json.load(sys.stdin)['devices'];c=[x['udid'] for k,v in sorted(d.items(),reverse=True) if 'iOS' in k for x in v if 'Pro Max' in x['name']];print(c[0])")
+          xcrun simctl boot $UDID; xcrun simctl bootstatus $UDID -b
+          xcrun simctl status_bar $UDID override --time "9:41" --dataNetwork wifi --wifiBars 3 --cellularBars 4 --batteryState charged --batteryLevel 100
+          xcrun simctl install $UDID ios/build/Build/Products/Debug-iphonesimulator/ChezVous.app
+          mkdir -p shots
+          B=com.stephanealsac.chezvous
+          for L in fr en; do
+            if [ $L = fr ]; then A='(fr-FR)'; LO=fr_FR; else A='(en-US)'; LO=en_US; fi
+            xcrun simctl launch $UDID $B -AppleLanguages "$A" -AppleLocale $LO -tutoSeen YES; sleep 6; xcrun simctl io $UDID screenshot shots/$L-1-catalogue.png; xcrun simctl terminate $UDID $B
+            for W in tableau-peinture-zebres tableau-gorille-jungle tableau-peinture-tigre; do
+              xcrun simctl launch $UDID $B -AppleLanguages "$A" -AppleLocale $LO -tutoSeen YES -openWork $W; sleep 6; xcrun simctl io $UDID screenshot shots/$L-2-$W.png; xcrun simctl terminate $UDID $B
+            done
+          done
+          sips -g pixelWidth -g pixelHeight shots/*.png | head -12
+      - uses: actions/upload-artifact@v4
+        with:
+          name: appstore-shots
+          path: shots/

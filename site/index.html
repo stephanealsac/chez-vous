@@ -257,7 +257,24 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   const sizeTxt = (w, h) => EN() ? `${fmtIn(w)} × ${fmtIn(h)} in` : `${fmtCm(w)} × ${fmtCm(h)} cm`;   // pouces pour l'anglais américain
   // champs du catalogue selon la langue (repli sur le français si la boutique anglaise n'a pas l'info)
   const wTitle = w => (EN() && w.title_en) || w.title;
-  const wUrl = w => (EN() && w.url_en) || w.url;
+  // lien boutique avec marquage de provenance (même convention que les QR du catalogue, lu par le CRM)
+  const wUrl = w => {
+    const u = new URL((EN() && w.url_en) || w.url);
+    u.searchParams.set('utm_source', 'chez-vous'); u.searchParams.set('utm_medium', 'app-web'); u.searchParams.set('utm_campaign', w.slug);
+    return u.toString();
+  };
+  // ---------- suivi anonyme (vers le CRM) : aucune donnée personnelle, aucun identifiant, rien sur l'appareil ----------
+  const SUIVI = { url: 'https://gmghhnfvjjazagilzctz.supabase.co/rest/v1/rpc/app_relais_evenement', cle: 'sb_publishable_6x0JuqEp2lSa4ufaC-fw6A_-jciiYCO' };
+  let vuSlug = null;
+  function suivi(evenement, w, s){
+    if (!w || !/(^|\.)stephane-alsac\.com$/.test(location.hostname)) return;   // seulement le vrai site (pas les essais)
+    try {
+      fetch(SUIVI.url, { method: 'POST', keepalive: true, credentials: 'omit', referrerPolicy: 'no-referrer',
+        headers: { 'Content-Type': 'application/json', apikey: SUIVI.cle, Authorization: 'Bearer ' + SUIVI.cle },
+        body: JSON.stringify({ p_origine: 'app-web', p_evenement: evenement, p_tableau: w.slug, p_format: s ? s.slug : null, p_langue: EN() ? 'en' : 'fr' })
+      }).catch(() => {});
+    } catch (_) {}
+  }
   const sLabel = s => (EN() && s.label_en) || s.label;
   const pFramed = s => EN() ? (s.price_framed_usd ? fmtUsd(s.price_framed_usd) : '') : (s.price_framed ? fmtEur(s.price_framed) : '');
   const pUnframed = s => EN() ? (s.price_unframed_usd ? fmtUsd(s.price_unframed_usd) : '') : (s.price_unframed ? fmtEur(s.price_unframed) : '');
@@ -300,17 +317,19 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
     const h = location.hash.replace(/^#/, '');
     const [slug, sz] = h.split('/');
     const w = cat.works.find(x => x.slug === slug);
-    if (!w){ document.body.classList.remove('view-work'); work = null; document.title = T('title'); return; }
+    if (!w){ document.body.classList.remove('view-work'); work = null; vuSlug = null; document.title = T('title'); return; }
     openWork(w, w.sizes.find(s => s.slug === sz) || w.sizes[0]);
   }
   window.addEventListener('hashchange', route);
   $('#back').addEventListener('click', () => { location.hash = ''; });
+  $('#buy').addEventListener('click', () => suivi('achat', work, size));
 
   function openWork(w, s){
     const changed = work !== w;
     work = w;
     document.body.classList.add('view-work');
     if (changed){
+      if (vuSlug !== w.slug){ vuSlug = w.slug; suivi('vue', w, s); }   // pas de doublon quand on change de langue
       window.scrollTo(0, 0);
       $('#w-img').src = w.image_url || w.image; $('#w-img').alt = wTitle(w);
       $('#w-title').textContent = wTitle(w);
@@ -322,7 +341,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'size'; b.dataset.slug = x.slug; b.setAttribute('role', 'radio');
         b.innerHTML = `<div class="l">${esc(sLabel(x))}</div><div class="d">${sizeTxt(x.w, x.h)}</div><div class="p">${pFramed(x)}</div>`;
-        b.addEventListener('click', () => { history.replaceState(null, '', '#' + w.slug + '/' + x.slug); selectSize(x); });
+        b.addEventListener('click', () => { history.replaceState(null, '', '#' + w.slug + '/' + x.slug); if (size !== x) suivi('format', w, x); selectSize(x); });
         sz.appendChild(b);
       }
     }
@@ -348,7 +367,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
 
   // ---------- AR ----------
   const ql = $('#ql');
-  ql.addEventListener('message', e => { if (e.data === '_apple_ar_quicklook_button_tapped' && work) location.href = wUrl(work); }, false);
+  ql.addEventListener('message', e => { if (e.data === '_apple_ar_quicklook_button_tapped' && work){ suivi('achat', work, size); location.href = wUrl(work); } }, false);
   function usdzHref(){
     const enc = encodeURIComponent;
     const frag = [
@@ -363,6 +382,7 @@ footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(
   }
   $('#ar-btn').addEventListener('click', () => {
     if (!work || !size) return;
+    if (quickLook || isAndroid) suivi('essai_ar', work, size);
     if (quickLook){
       const href = usdzHref();
       // Safari n'applique allowsContentScaling=0 (pas de zoom à deux doigts) que si le lien contient une vraie image
