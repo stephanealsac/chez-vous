@@ -9,3 +9,4 @@
 1.1 — build : mur uni sans LiDAR (visée du pied du mur via le sol), rejet des surfaces vues de biais, suivi anonyme + utm (2026-11-03)
 1.1 — build : deux expériences selon l'iPhone (LiDAR : automatique ; sans LiDAR : visée du pied du mur dès l'ouverture) (2026-11-03)
 1.1 — build : tableau accroché à hauteur des yeux (centre à 1,50 m du sol) (2026-11-03)
+1.1 — build : nouvelle icône œil de léopard dessinée par Stéphane (validée DA) (2026-11-08)
